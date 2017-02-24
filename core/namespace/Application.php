@@ -1,0 +1,148 @@
+<?php
+class Application {
+
+	#===============================================================================
+	# Singleton instances
+	#===============================================================================
+	private static $Database;
+	private static $Language;
+
+	#===============================================================================
+	# Configuration array
+	#===============================================================================
+	private static $configuration = [];
+
+	#===============================================================================
+	# Set configuration value
+	#===============================================================================
+	public static function set($config, $value) {
+		return self::$configuration[$config] = $value;
+	}
+
+	#===============================================================================
+	# Get configuration value
+	#===============================================================================
+	public static function get($config) {
+		return self::$configuration[$config] ?? "{$config}";
+	}
+
+	#===============================================================================
+	# Get configuration
+	#===============================================================================
+	public static function getConfiguration(): array {
+		return self::$configuration;
+	}
+
+	#===============================================================================
+	# Return singleton PDO database instance
+	#===============================================================================
+	public static function getDatabase($force = FALSE): Database {
+		if(!self::$Database instanceof Database OR $force === TRUE) {
+			$hostname = self::get('DATABASE.HOSTNAME');
+			$basename = self::get('DATABASE.BASENAME');
+			$username = self::get('DATABASE.USERNAME');
+			$password = self::get('DATABASE.PASSWORD');
+
+			self::set('DATABASE.PASSWORD', NULL);
+
+			self::$Database = new Database($hostname, $basename, $username, $password);
+		}
+
+		return self::$Database;
+	}
+
+	#===============================================================================
+	# Return singleton Language instance
+	#===============================================================================
+	public static function getLanguage($force = FALSE): Language {
+		if(!self::$Language instanceof Language OR $force === TRUE) {
+			$Language = new Language(self::get('CORE.LANGUAGE'));
+			$Language->loadLanguage(ROOT.'template/'.self::get('TEMPLATE.NAME').'/lang/'.self::get('TEMPLATE.LANG').'.php');
+			self::$Language = $Language;
+		}
+
+		return self::$Language;
+	}
+
+	#===============================================================================
+	# Return unique CSRF token for the current session
+	#===============================================================================
+	public static function getSecurityToken(): string {
+		if(!isset($_SESSION['token'])) {
+			$_SESSION['token'] = getRandomValue();
+		}
+
+		return $_SESSION['token'];
+	}
+
+	#===============================================================================
+	# Return boolean if successfully authenticated
+	#===============================================================================
+	public static function isAuthenticated(): bool {
+		return isset($_SESSION['auth']);
+	}
+
+	#===============================================================================
+	# Return absolute base URL
+	#===============================================================================
+	public static function getURL($more = ''): string {
+		$prot = self::get('PATHINFO.PROT');
+		$host = self::get('PATHINFO.HOST');
+		$base = self::get('PATHINFO.BASE');
+
+		return "{$prot}://{$host}/{$base}{$more}";
+	}
+
+	#===============================================================================
+	# Return absolute root URL
+	#===============================================================================
+	public static function getAdminURL($more = ''): string {
+		return self::getURL("admin/{$more}");
+	}
+
+	#===============================================================================
+	# Return absolute post URL
+	#===============================================================================
+	public static function getPostURL($more = ''): string {
+		return self::getURL(self::get('POST.DIRECTORY')."/{$more}");
+	}
+
+	#===============================================================================
+	# Return absolute page URL
+	#===============================================================================
+	public static function getPageURL($more = ''): string {
+		return self::getURL(self::get('PAGE.DIRECTORY')."/{$more}");
+	}
+
+	#===============================================================================
+	# Return absolute user URL
+	#===============================================================================
+	public static function getUserURL($more = ''): string {
+		return self::getURL(self::get('USER.DIRECTORY')."/{$more}");
+	}
+
+	#===============================================================================
+	# Return absolute file URL
+	#===============================================================================
+	public static function getFileURL($more = ''): string {
+		return self::getURL("rsrc/{$more}");
+	}
+
+	#===============================================================================
+	# Return absolute template URL
+	#===============================================================================
+	public static function getTemplateURL($more = ''): string {
+		$template = self::get('TEMPLATE.NAME');
+		return Application::getURL("template/{$template}/{$more}");
+	}
+
+	#===============================================================================
+	# Exit application with
+	#===============================================================================
+	public static function exit($code = 500) {
+		http_response_code($code);
+		$code === 404 AND require_once(ROOT."system/404.php");
+		exit();
+	}
+}
+?>
