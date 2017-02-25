@@ -20,13 +20,6 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $this->pdo->query("DROP TABLE hello");
     }
 
-    public function testgeneratePageNaviTemplate()
-    {
-        $helloWorld = new HelloWorld($this->pdo);
-
-        $this->assertEquals('Hello World', $helloWorld->hello());
-    }
-
     public function testmakeSlugURL()
     {
         $test = new makeSlugURL('http://test.de');
