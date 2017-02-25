@@ -1,5 +1,5 @@
 <?php
-require_once '../../core/functions.php';
+require_once '../core/functions.php';
 
 class BlogTest extends PHPUnit_Framework_TestCase
 # Example from https://github.com/travis-ci-examples/php
