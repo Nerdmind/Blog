@@ -27,11 +27,11 @@ class BlogTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Hello World', $helloWorld->hello());
     }
 
-    public function testHello()
+    public function testmakeSlugURL()
     {
-        $helloWorld = new HelloWorld($this->pdo);
+        $test = new makeSlugURL('http://test.de');
 
-        $this->assertEquals('Hello Bar', $helloWorld->hello('Bar'));
+        $this->assertEquals('test.de', $test);
     }
 } 
 ?>
