@@ -8,7 +8,7 @@
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 ?>
 <h1><i class="fa fa-user"></i><?=$Language->text('user_overview')?></h1>
-<p><?=$Language->template('user_base_heading_desc', $PAGINATION['THIS'])?></p>
+<p><?=$Language->template('user_overview_heading_desc', $PAGINATION['THIS'])?></p>
 
 <ul class="item-list user">
 	<?php foreach($LIST['USERS'] as $user): ?>

@@ -10,7 +10,7 @@
 $user = "<a href=\"{$USER['URL']}\" title=\"alias »{$USER['ATTR']['USERNAME']}«\">{$USER['ATTR']['FULLNAME']}</a>";
 $time = "<time datetime=\"{$PAGE['ATTR']['TIME_INSERT']}\" title=\"".parseDatetime($PAGE['ATTR']['TIME_INSERT'], '[W]')."\">".parseDatetime($PAGE['ATTR']['TIME_INSERT'], $Language->template('date_format'))."</time>";
 ?>
-<h1><i class="fa fa-file-text-o"></i><?=escapeHTML($Language->template('page_main_heading_text', $PAGE['ATTR']['NAME']))?></h1>
+<h1><i class="fa fa-file-text-o"></i><?=escapeHTML($PAGE['ATTR']['NAME'])?></h1>
 <p><?=$Language->template('page_main_heading_desc', [$user, $time])?></p>
 
 <section id="content" class="page">
