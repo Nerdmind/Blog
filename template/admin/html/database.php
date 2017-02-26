@@ -14,7 +14,7 @@
 		<textarea id="content-editor" placeholder="<?=$Language->template('database_warning')?>" name="command"><?=escapeHTML($FORM['COMMAND'])?></textarea>
 	</section>
 
-<?php if(isset($FORM['RESULT'])): ?>
+<?php if($FORM['RESULT']): ?>
 	<section class="flex flex-padding background flex-direction-column">
 		<pre id="database-result"><?=escapeHTML($FORM['RESULT'])?></pre>
 	</section>
