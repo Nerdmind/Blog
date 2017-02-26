@@ -16,7 +16,10 @@ require_once '../core/application.php';
 if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'command')) {
 	try {
 		$Statement = $Database->query(HTTP::POST('command'));
-		$result = print_r($Statement->fetchAll(), TRUE);
+
+		do {
+			$result[] = print_r($Statement->fetchAll(), TRUE);
+		} while($Statement->nextRowset());
 	} catch(PDOException $Exception) {
 		$messages[] = $Exception->getMessage();
 	}
@@ -30,7 +33,7 @@ try {
 	$DatabaseTemplate->set('FORM', [
 		'INFO' => $messages ?? [],
 		'TOKEN' => Application::getSecurityToken(),
-		'RESULT' => $result ?? NULL,
+		'RESULT' => implode(NULL, $result ?? []),
 		'COMMAND' => HTTP::POST('command'),
 	]);
 
