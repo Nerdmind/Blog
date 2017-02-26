@@ -94,13 +94,6 @@ class Application {
 	}
 
 	#===============================================================================
-	# Return absolute root URL
-	#===============================================================================
-	public static function getAdminURL($more = ''): string {
-		return self::getURL("admin/{$more}");
-	}
-
-	#===============================================================================
 	# Return absolute post URL
 	#===============================================================================
 	public static function getPostURL($more = ''): string {
@@ -126,6 +119,13 @@ class Application {
 	#===============================================================================
 	public static function getFileURL($more = ''): string {
 		return self::getURL("rsrc/{$more}");
+	}
+
+	#===============================================================================
+	# Return absolute admin URL
+	#===============================================================================
+	public static function getAdminURL($more = ''): string {
+		return self::getURL("admin/{$more}");
 	}
 
 	#===============================================================================
