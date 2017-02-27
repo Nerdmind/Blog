@@ -60,9 +60,7 @@ class Template {
 	# Return parsed template content
 	#===============================================================================
 	public function __toString() {
-		foreach($this->parameters as $name => $value) {
-			${$name} = $value;
-		}
+		extract($this->parameters);
 
 		ob_start();
 		require $this->filename;
