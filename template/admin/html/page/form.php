@@ -53,7 +53,7 @@
 	<section class="flex flex-padding">
 		<textarea id="content-editor" name="body" placeholder="[…]"><?=escapeHTML($FORM['DATA']['BODY'])?></textarea>
 	</section>
-	<section class="flex flex-padding background">
+	<section class="flex flex-padding background flex-emoticons">
 		<ul class="button-list emoticons">
 			<?php foreach(getEmoticons() as $emoticon => $data):?>
 				<li onmousedown="emoticonReplace('<?=$emoticon?>')" title="<?=$data[1]?>"><?=$data[0]?></li>
