@@ -6,58 +6,32 @@ class Template {
 	private $parameters = [];
 
 	#===============================================================================
-	# Create template instance
+	# Create instance
 	#===============================================================================
 	public function __construct($filename) {
 		$this->filename = $filename;
 
 		if(!file_exists($filename)) {
-			throw new Exception("Template {$filename} does not exists.");
+			throw new Exception("Template file \"{$filename}\" does not exists.");
 		}
 	}
 
 	#===============================================================================
-	# Set value to array path
+	# Set parameter
 	#===============================================================================
 	public function set($name, $value) {
-		if(!is_array($name)) {
-			return $this->parameters[$name] = $value;
-		}
-
-		$current = &$this->parameters;
-
-		foreach($name as $path) {
-			if(!isset($current[$path])) {
-				$current[$path] = [];
-			}
-			$current = &$current[$path];
-		}
-
-		return $current = $value;
+		return $this->parameters[$name] = $value;
 	}
 
 	#===============================================================================
-	# Add value as item to array path
+	# Get parameter
 	#===============================================================================
-	public function add($paths, $value) {
-		if(!is_array($paths)) {
-			return $this->parameters[$paths][] = $value;
-		}
-
-		$current = &$this->parameters;
-
-		foreach($paths as $path) {
-			if(!isset($current[$path])) {
-				$current[$path] = [];
-			}
-			$current = &$current[$path];
-		}
-
-		return $current[] = $value;
+	public function get($name) {
+		return $this->parameters[$name] ?? NULL;
 	}
 
 	#===============================================================================
-	# Return parsed template content
+	# Return HTML
 	#===============================================================================
 	public function __toString() {
 		extract($this->parameters);
