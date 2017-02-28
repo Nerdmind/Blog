@@ -28,7 +28,7 @@ abstract class Item implements ItemInterface {
 		# Checking if retrieving data failed
 		#===============================================================================
 		if(!$this->Attribute = $Statement->fetchObject($attribute)) {
-			throw new $exception(sprintf('%s\\Item with ID %s does not exists', $this->Reflection->getNamespaceName(), (int) $itemID));
+			throw new $exception(sprintf('%s\\Item with ID %s does not exist', $this->Reflection->getNamespaceName(), (int) $itemID));
 		}
 	}
 

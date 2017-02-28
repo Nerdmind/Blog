@@ -22,7 +22,7 @@ try {
 	$user_data = generateUserItemData($User);
 
 	#===============================================================================
-	# Add post data for previous and next post if exists
+	# Add post data for previous and next post
 	#===============================================================================
 	try {
 		$PrevPost = Post\Factory::build($Post->getPrevID());

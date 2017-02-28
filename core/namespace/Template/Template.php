@@ -12,7 +12,7 @@ class Template {
 		$this->filename = $filename;
 
 		if(!file_exists($filename)) {
-			throw new Exception("Template file \"{$filename}\" does not exists.");
+			throw new Exception("Template file \"{$filename}\" does not exist.");
 		}
 	}
 

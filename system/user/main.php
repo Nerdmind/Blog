@@ -19,7 +19,7 @@ try {
 	$user_data = generateUserItemData($User);
 
 	#===============================================================================
-	# Add user data for previous and next user if exists
+	# Add user data for previous and next user
 	#===============================================================================
 	try {
 		$PrevUser = User\Factory::build($User->getPrevID());
