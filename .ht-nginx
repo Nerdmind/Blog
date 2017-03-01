@@ -1,0 +1,37 @@
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+# nginx configuration rules                  [Thomas Lange <code@nerdmind.de>] #
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+#                                                                              #
+# This file contains the configuration from the Apaches .htaccess file written #
+# for the nginx high performance web server. Put the content of this file into #
+# the "server {}" block of your nginx virtual host configuration file.         #
+#                                                                              #
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+
+#===============================================================================
+# Error documents
+#===============================================================================
+error_page 403 /system/403.php;
+error_page 404 /system/404.php;
+
+#===============================================================================
+# Forbidden directories
+#===============================================================================
+location ~ ^/core|template/(.*)/(html|lang)/ {
+    return 403;
+}
+
+#===========================================================================
+# Main rules
+#===========================================================================
+rewrite ^/(page|post|user)/([^/]+)/$ /system/$1/main.php?param=$2 break;
+rewrite ^/(page|post|user)/$ /system/$1/list.php break;
+rewrite ^/feed/(page|post)/$ /system/feed/main.php?item=$1 break;
+rewrite ^/(feed|search)/$ /system/$1/main.php break;
+
+#===========================================================================
+# Trailing slashes
+#===========================================================================
+rewrite ^/(page|post|user)/([^/]+)$ /$1/$2/ redirect;
+rewrite ^/(page|post|user|feed|search)$ /$1/ redirect;
+rewrite ^/feed/(post|page)$ /feed/$1/ redirect;
