@@ -5,7 +5,7 @@
 require_once '../../core/application.php';
 
 #===============================================================================
-# TRY: Page\Exception
+# TRY: Page\Exception, User\Exception
 #===============================================================================
 try {
 	if(Application::get('PAGE.SLUG_URLS')) {
@@ -22,7 +22,7 @@ try {
 	$user_data = generateUserItemData($User);
 
 	#===============================================================================
-	# Add post data for previous and next page
+	# Add page data for previous and next page
 	#===============================================================================
 	try {
 		$PrevPage = Page\Factory::build($Page->getPrevID());
