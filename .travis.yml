@@ -17,7 +17,7 @@ php:
 # optionally specify a list of environments, for example to test different RDBMS
 env:
   - DB=mysql
-  - DB=pgsql
+  # - DB=pgsql
 
 # optionally set up exclutions and allowed failures in the matrix
 matrix:

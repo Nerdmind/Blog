@@ -27,5 +27,24 @@ class BlogTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('http-test-de', $test);
     }
+
+    public function testexcerpt()
+    {
+        $test = excerpt('http://Test.de');
+
+        $this->assertEquals('http-test-de', $test);
+    }
+    public function testremoveHTML()
+    {
+        $test = removeHTML('http://Test.de');
+
+        $this->assertEquals('http-test-de', $test);
+    }
+    public function testescapeHTML()
+    {
+        $test = escapeHTML('http://Test.de');
+
+        $this->assertEquals('http-test-de', $test);
+    }
 } 
 ?>
