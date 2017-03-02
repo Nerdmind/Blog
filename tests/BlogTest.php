@@ -1,4 +1,5 @@
 <?php
+require_once 'core/functions.php';
 
 class BlogTest extends PHPUnit_Framework_TestCase
 # Example from https://github.com/travis-ci-examples/php
@@ -22,7 +23,7 @@ class BlogTest extends PHPUnit_Framework_TestCase
 
     public function testmakeSlugURL()
     {
-        $test = makeSlugURL('http://test.de');
+        $test = makeSlugURL('http://Test.de');
 
         $this->assertEquals('test.de', $test);
     }
