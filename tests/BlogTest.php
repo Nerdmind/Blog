@@ -25,7 +25,7 @@ class BlogTest extends PHPUnit_Framework_TestCase
     {
         $test = makeSlugURL('http://Test.de');
 
-        $this->assertEquals('test.de', $test);
+        $this->assertEquals('http-test-de', $test);
     }
 } 
 ?>
