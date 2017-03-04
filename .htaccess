@@ -15,11 +15,6 @@
 RewriteEngine On
 
 #===============================================================================
-# Define RewriteBase
-#===============================================================================
-RewriteBase /
-
-#===============================================================================
 # ErrorDocument handler
 #===============================================================================
 ErrorDocument 403 /system/403.php
@@ -41,6 +36,6 @@ RewriteRule ^(feed|search)/$ system/$1/main.php [L]
 #===============================================================================
 # Trailing slashes
 #===============================================================================
-RewriteRule ^(page|post|user)/([^/]+)$ $1/$2/ [R,L]
-RewriteRule ^(page|post|user|feed|search)$ $1/ [R,L]
-RewriteRule ^feed/(post|page)$ feed/$1/ [R,L]
+RewriteRule ^(page|post|user)/([^/]+)$ %{REQUEST_URI}/ [R,L]
+RewriteRule ^(page|post|user|feed|search)$ %{REQUEST_URI}/ [R,L]
+RewriteRule ^feed/(post|page)$ %{REQUEST_URI}/ [R,L]
