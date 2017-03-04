@@ -45,7 +45,7 @@ Application::set('TEMPLATE.LANG', Application::get('CORE.LANGUAGE'));
 #===============================================================================
 # Protocol, hostname and path for this installation
 #===============================================================================
-Application::set('PATHINFO.PROT', isset($_SERVER['HTTPS']) ? 'https' : 'http');
+Application::set('PATHINFO.PROT', $_SERVER['REQUEST_SCHEME']);
 Application::set('PATHINFO.HOST', $_SERVER['HTTP_HOST']);
 Application::set('PATHINFO.BASE', '');
 
