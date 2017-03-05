@@ -72,7 +72,6 @@ try {
 		$MainTemplate->set('HTML', $SearchTemplate);
 		$MainTemplate->set('HEAD', [
 			'NAME' => $Language->text('title_search_request'),
-			'DESC' => 'Wenn du einen bestimmten Beitrag suchst, aber ihn nicht finden kannst, dann kann dir die Suchfunktion bestimmt weiterhelfen.',
 			'PERM' => Application::getURL('search/')
 		]);
 	}
