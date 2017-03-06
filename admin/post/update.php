@@ -44,7 +44,7 @@ try {
 	try {
 		$userIDs = $Database->query(sprintf('SELECT id FROM %s ORDER BY fullname ASC', User\Attribute::TABLE));
 
-		foreach($userIDs->fetchAll(PDO::FETCH_COLUMN) as $userID) {
+		foreach($userIDs->fetchAll($Database::FETCH_COLUMN) as $userID) {
 			$User = User\Factory::build($userID);
 			$userAttributes[] = [
 				'ID' => $User->attr('id'),

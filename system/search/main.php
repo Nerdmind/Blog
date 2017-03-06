@@ -21,9 +21,9 @@ $form_data = [
 		'Y' => HTTP::GET('y'),
 	],
 	'OPTIONS' => [
-		'D' => $D_LIST->fetchAll(PDO::FETCH_COLUMN),
-		'M' => $M_LIST->fetchAll(PDO::FETCH_COLUMN),
-		'Y' => $Y_LIST->fetchAll(PDO::FETCH_COLUMN),
+		'D' => $D_LIST->fetchAll($Database::FETCH_COLUMN),
+		'M' => $M_LIST->fetchAll($Database::FETCH_COLUMN),
+		'Y' => $Y_LIST->fetchAll($Database::FETCH_COLUMN),
 	]
 ];
 
