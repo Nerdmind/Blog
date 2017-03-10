@@ -1,8 +1,9 @@
 <?php
 #===============================================================================
-# INCLUDE: Main configuration
+# Get instances
 #===============================================================================
-require_once '../../core/application.php';
+$Database = Application::getDatabase();
+$Language = Application::getLanguage();
 
 #===============================================================================
 # HEADER: Content-Type for XML document
@@ -13,7 +14,7 @@ HTTP::responseHeader(HTTP::HEADER_CONTENT_TYPE, HTTP::CONTENT_TYPE_XML);
 # TRY: Template\Exception
 #===============================================================================
 try {
-	if(HTTP::GET('item') !== 'page') {
+	if(!isset($param) OR $param !== 'page') {
 		$execSQL = 'SELECT id FROM %s ORDER BY '.Application::get('POST.FEED_SORT').' LIMIT '.Application::get('POST.FEED_SIZE');
 		$postIDs = $Database->query(sprintf($execSQL, Post\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
 
@@ -34,7 +35,7 @@ try {
 		}
 	}
 
-	if(HTTP::GET('item') !== 'post') {
+	if(!isset($param) OR $param !== 'post') {
 		$execSQL = 'SELECT id FROM %s ORDER BY '.Application::get('PAGE.FEED_SORT').' LIMIT '.Application::get('PAGE.FEED_SIZE');
 		$pageIDs = $Database->query(sprintf($execSQL, Page\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
 
@@ -57,7 +58,7 @@ try {
 
 	$FeedTemplate = Template\Factory::build('feed/main');
 	$FeedTemplate->set('FEED', [
-		'TYPE' => HTTP::GET('item'),
+		'TYPE' => $param ?? NULL,
 		'LIST' => [
 			'POSTS' => $posts ?? [],
 			'PAGES' => $pages ?? [],

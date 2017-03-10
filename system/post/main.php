@@ -1,19 +1,20 @@
 <?php
 #===============================================================================
-# INCLUDE: Main configuration
+# Get instances
 #===============================================================================
-require_once '../../core/application.php';
+$Database = Application::getDatabase();
+$Language = Application::getLanguage();
 
 #===============================================================================
 # TRY: Post\Exception, User\Exception
 #===============================================================================
 try {
 	if(Application::get('POST.SLUG_URLS')) {
-		$Post = Post\Factory::buildBySlug(HTTP::GET('param'));
+		$Post = Post\Factory::buildBySlug($param);
 	}
 
 	else {
-		$Post = Post\Factory::build(HTTP::GET('param'));
+		$Post = Post\Factory::build($param);
 	}
 
 	$User = User\Factory::build($Post->attr('user'));
@@ -68,9 +69,9 @@ try {
 catch(Post\Exception $Exception) {
 	try {
 		if(Application::get('POST.SLUG_URLS') === FALSE) {
-			$Post = Post\Factory::buildBySlug(HTTP::GET('param'));
+			$Post = Post\Factory::buildBySlug($param);
 		} else {
-			$Post = Post\Factory::build(HTTP::GET('param'));
+			$Post = Post\Factory::build($param);
 		}
 
 		HTTP::redirect($Post->getURL());

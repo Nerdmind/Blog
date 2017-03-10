@@ -23,19 +23,12 @@ ErrorDocument 404 /system/404.php
 #===============================================================================
 # Forbidden directories
 #===============================================================================
-RewriteRule ^core|template/(.*)/(html|lang)/ - [F]
+RewriteRule ^(core|template/([^/]+)/(html|lang)/) - [F]
 
 #===============================================================================
 # Main rules
 #===============================================================================
-RewriteRule ^(page|post|user)/([^/]+)/$ system/$1/main.php?param=$2 [L]
-RewriteRule ^(page|post|user)/$ system/$1/list.php [L]
-RewriteRule ^feed/(page|post)/$ system/feed/main.php?item=$1 [L]
-RewriteRule ^(feed|search)/$ system/$1/main.php [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 
-#===============================================================================
-# Trailing slashes
-#===============================================================================
-RewriteRule ^(page|post|user)/([^/]+)$ %{REQUEST_URI}/ [R,L]
-RewriteRule ^(page|post|user|feed|search)$ %{REQUEST_URI}/ [R,L]
-RewriteRule ^feed/(post|page)$ %{REQUEST_URI}/ [R,L]
+RewriteRule ^(.*)$ index.php [L]

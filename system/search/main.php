@@ -1,8 +1,10 @@
 <?php
 #===============================================================================
-# INCLUDE: Main configuration
+# Get instances
 #===============================================================================
-require_once '../../core/application.php';
+$Database = Application::getDatabase();
+$Language = Application::getLanguage();
+
 $SEARCH_SUCCESS = FALSE;
 $D_LIST = $Database->query(sprintf('SELECT DISTINCT DAY(time_insert) AS temp FROM %s ORDER BY temp', Post\Attribute::TABLE));
 $M_LIST = $Database->query(sprintf('SELECT DISTINCT MONTH(time_insert) AS temp FROM %s ORDER BY temp', Post\Attribute::TABLE));

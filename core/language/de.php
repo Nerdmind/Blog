@@ -191,4 +191,11 @@ $LANGUAGE['title_user_overview'] = "{$LANGUAGE['user_overview']} [%d]";
 #===============================================================================
 $LANGUAGE['title_search_request'] = 'Volltextsuche';
 $LANGUAGE['title_search_results'] = 'Ergebnisse für "%s"';
+
+#===============================================================================
+# Feed names
+#===============================================================================
+$LANGUAGE['feed_name_items'] = '%s [alle Inhalte]';
+$LANGUAGE['feed_name_pages'] = '%s [nur Seiten]';
+$LANGUAGE['feed_name_posts'] = '%s [nur Beiträge]';
 ?>

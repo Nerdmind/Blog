@@ -7,17 +7,19 @@
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
+$BLOGMETA_NAME = escapeHTML($BLOGMETA['NAME']);
+
 switch($FEED['TYPE']) {
 	case 'post':
-		$title = escapeHTML($BLOGMETA['NAME']).' ['.$Language->template('feed_only_posts').']';
+		$title = $Language->text('feed_name_posts', $BLOGMETA_NAME);
 		$self = Application::getURL('feed/post/');
 		break;
 	case 'page':
-		$title = escapeHTML($BLOGMETA['NAME']).' ['.$Language->template('feed_only_pages').']';
+		$title = $Language->text('feed_name_pages', $BLOGMETA_NAME);
 		$self = Application::getURL('feed/page/');
 		break;
 	default:
-		$title = escapeHTML($BLOGMETA['NAME']);
+		$title = $Language->text('feed_name_items', $BLOGMETA_NAME);
 		$self = Application::getURL('feed/');
 }
 ?>
@@ -32,7 +34,7 @@ switch($FEED['TYPE']) {
 		<atom:link href="<?=$self?>" rel="self" type="application/rss+xml" />
 
 		<image>
-			<title><?=escapeHTML($BLOGMETA['NAME'])?></title>
+			<title><?=$BLOGMETA_NAME?></title>
 			<url><?=Application::getTemplateURL('rsrc/logo.png')?></url>
 			<link><?=$self?></link>
 		</image>

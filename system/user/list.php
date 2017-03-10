@@ -1,8 +1,9 @@
 <?php
 #===============================================================================
-# INCLUDE: Main configuration
+# Get instances
 #===============================================================================
-require_once '../../core/application.php';
+$Database = Application::getDatabase();
+$Language = Application::getLanguage();
 
 $site_size = Application::get('USER.LIST_SIZE');
 $site_sort = Application::get('USER.LIST_SORT');

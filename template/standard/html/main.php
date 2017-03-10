@@ -6,6 +6,14 @@
 # [see documentation]                                                          #
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+
+#===============================================================================
+# Escape parameters which are used several times here to reduce escapeHTML calls
+#===============================================================================
+$HEAD_NAME = isset($HEAD['NAME']) ? escapeHTML($HEAD['NAME']) : NULL;
+$HEAD_DESC = isset($HEAD['DESC']) ? escapeHTML($HEAD['DESC']) : NULL;
+$BLOGMETA_NAME = escapeHTML($BLOGMETA['NAME']);
+$BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 ?>
 <!DOCTYPE html>
 <html lang="<?=$BLOGMETA['LANG']?>">
@@ -14,16 +22,16 @@
 	<meta name="referrer" content="origin-when-crossorigin" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<?php if(isset($HEAD['DESC'])): ?>
-	<meta name="description" content="<?=escapeHTML($HEAD['DESC'])?>" />
+<?php if(isset($HEAD_DESC)): ?>
+	<meta name="description" content="<?=$HEAD_DESC?>" />
 <?php endif; ?>
 
 <?php if(isset($HEAD['PERM'])): ?>
 	<link rel="canonical" href="<?=$HEAD['PERM']?>" />
 <?php endif; ?>
 
-	<meta property="og:site_name" content="<?=escapeHTML($BLOGMETA['NAME'])?>" />
-	<meta property="og:title" content="<?=escapeHTML($HEAD['NAME'])?>" />
+	<meta property="og:site_name" content="<?=$BLOGMETA_NAME?>" />
+	<meta property="og:title" content="<?=$HEAD_NAME?>" />
 	<meta property="og:image" content="<?=Application::getTemplateURL('rsrc/logo.png')?>" />
 
 <?php if(isset($HEAD['OG_IMAGES'])): ?>
@@ -35,18 +43,18 @@
 	<link rel="icon" href="<?=Application::getURL('favicon.ico')?>" />
 	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/main.css')?>" />
 
-	<link rel="alternate" type="application/rss+xml" href="<?=Application::getURL('feed/')?>" title="<?=escapeHTML($BLOGMETA['NAME'])?>" />
-	<link rel="alternate" type="application/rss+xml" href="<?=Application::getURL('feed/post/')?>" title="<?=escapeHTML($BLOGMETA['NAME'])?> [<?=$Language->template('feed_only_posts')?>]" />
-	<link rel="alternate" type="application/rss+xml" href="<?=Application::getURL('feed/page/')?>" title="<?=escapeHTML($BLOGMETA['NAME'])?> [<?=$Language->template('feed_only_pages')?>]" />
+	<link rel="alternate" type="application/rss+xml" title="<?=$Language->text('feed_name_items', $BLOGMETA_NAME)?>" href="<?=Application::getURL('feed/')?>" />
+	<link rel="alternate" type="application/rss+xml" title="<?=$Language->text('feed_name_posts', $BLOGMETA_NAME)?>" href="<?=Application::getURL('feed/post/')?>" />
+	<link rel="alternate" type="application/rss+xml" title="<?=$Language->text('feed_name_pages', $BLOGMETA_NAME)?>" href="<?=Application::getURL('feed/page/')?>" />
 
-	<title><?=escapeHTML("{$HEAD['NAME']} | {$BLOGMETA['NAME']} {$BLOGMETA['DESC']}")?></title>
+	<title><?="{$HEAD_NAME} | {$BLOGMETA_NAME} {$BLOGMETA_DESC}"?></title>
 </head>
 <body>
 	<section id="container">
 		<header id="main-header">
 			<section>
-				<a href="<?=Application::getURL()?>" title="<?=escapeHTML("{$BLOGMETA['NAME']} {$BLOGMETA['DESC']}")?>">
-					<img id="main-logo" src="<?=Application::getTemplateURL('rsrc/logo.png')?>" alt="<?=escapeHTML($BLOGMETA['NAME'])?>" />
+				<a href="<?=Application::getURL()?>" title="<?="{$BLOGMETA_NAME} {$BLOGMETA_DESC}"?>">
+					<img id="main-logo" src="<?=Application::getTemplateURL('rsrc/logo.png')?>" alt="<?=$BLOGMETA_NAME?>" />
 				</a>
 			</section>
 			<nav id="main-navi">
@@ -54,7 +62,7 @@
 				<input type="checkbox" id="toogle-nav" />
 				<ul>
 					<li>
-						<a href="<?=Application::getURL()?>" title="<?=$Language->template('navigation_home_desc', escapeHTML($BLOGMETA['NAME']))?>">
+						<a href="<?=Application::getURL()?>" title="<?=$Language->template('navigation_home_desc', $BLOGMETA_NAME)?>">
 							<i class="fa fa-home"></i><?=$Language->template('navigation_home_text')?>
 						</a>
 					</li>
@@ -85,7 +93,7 @@
 			<?=$HTML?>
 		</main>
 		<footer id="main-footer">
-			&copy; <?=escapeHTML($BLOGMETA['NAME'])?>
+			&copy; <?=$BLOGMETA_NAME?>
 		</footer>
 	</section>
 </body>

@@ -1,19 +1,20 @@
 <?php
 #===============================================================================
-# INCLUDE: Main configuration
+# Get instances
 #===============================================================================
-require_once '../../core/application.php';
+$Database = Application::getDatabase();
+$Language = Application::getLanguage();
 
 #===============================================================================
 # TRY: Page\Exception, User\Exception
 #===============================================================================
 try {
 	if(Application::get('PAGE.SLUG_URLS')) {
-		$Page = Page\Factory::buildBySlug(HTTP::GET('param'));
+		$Page = Page\Factory::buildBySlug($param);
 	}
 
 	else {
-		$Page = Page\Factory::build(HTTP::GET('param'));
+		$Page = Page\Factory::build($param);
 	}
 
 	$User = User\Factory::build($Page->attr('user'));
@@ -68,9 +69,9 @@ try {
 catch(Page\Exception $Exception) {
 	try {
 		if(Application::get('PAGE.SLUG_URLS') === FALSE) {
-			$Page = Page\Factory::buildBySlug(HTTP::GET('param'));
+			$Page = Page\Factory::buildBySlug($param);
 		} else {
-			$Page = Page\Factory::build(HTTP::GET('param'));
+			$Page = Page\Factory::build($param);
 		}
 
 		HTTP::redirect($Page->getURL());
