@@ -9,7 +9,7 @@
 ?>
 <section id="site-navi">
 	<?php if($THIS > 1): ?>
-		<div><a href="<?=sprintf($HREF, $THIS-1)?>"><i class="fa fa-arrow-left"></i></a></div>
+		<div><a id="prev-site" href="<?=sprintf($HREF, $THIS-1)?>"><i class="fa fa-arrow-left"></i></a></div>
 	<?php else: ?>
 		<div><a class="disabled"><i class="fa fa-arrow-left"></i></a></div>
 	<?php endif; ?>
@@ -35,20 +35,8 @@
 	</section>
 
 	<?php if($THIS < $LAST): ?>
-		<div><a href="<?=sprintf($HREF, $THIS+1)?>"><i class="fa fa-arrow-right"></i></a></div>
+		<div><a id="next-site" href="<?=sprintf($HREF, $THIS+1)?>"><i class="fa fa-arrow-right"></i></a></div>
 	<?php else: ?>
 		<div><a class="disabled"><i class="fa fa-arrow-right"></i></a></div>
 	<?php endif; ?>
 </section>
-
-<script>
-	var prevPageURL = <?php echo json_encode($THIS > 1 ? sprintf($HREF, $THIS-1) : FALSE); ?>;
-	var nextPageURL = <?php echo json_encode($THIS < $LAST ? sprintf($HREF, $THIS+1) : FALSE); ?>;
-
-	document.addEventListener('keyup', function(event) {
-		if(!event.ctrlKey && !event.shiftKey) {
-			(event.keyCode === 37 && prevPageURL) && (window.location.href = prevPageURL);
-			(event.keyCode === 39 && nextPageURL) && (window.location.href = nextPageURL);
-		}
-	}, false)
-</script>

@@ -47,6 +47,8 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 	<link rel="alternate" type="application/rss+xml" title="<?=$Language->text('feed_name_posts', $BLOGMETA_NAME)?>" href="<?=Application::getURL('feed/post/')?>" />
 	<link rel="alternate" type="application/rss+xml" title="<?=$Language->text('feed_name_pages', $BLOGMETA_NAME)?>" href="<?=Application::getURL('feed/page/')?>" />
 
+	<script defer src="<?=Application::getTemplateURL('rsrc/main.js')?>"></script>
+
 	<title><?="{$HEAD_NAME} | {$BLOGMETA_NAME} {$BLOGMETA_DESC}"?></title>
 </head>
 <body>
