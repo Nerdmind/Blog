@@ -1,5 +1,5 @@
 <?php
 namespace Page;
 
-class Exception extends \Exception {}
+class Exception extends \ExceptionHandler {}
 ?>

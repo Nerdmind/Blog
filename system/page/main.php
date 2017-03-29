@@ -86,5 +86,5 @@ catch(Page\Exception $Exception) {
 # CATCH: User\Exception
 #===============================================================================
 catch(User\Exception $Exception) {
-	exit($Exception->getMessage());
+	$Exception->defaultHandler();
 }
