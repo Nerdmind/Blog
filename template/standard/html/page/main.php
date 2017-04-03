@@ -20,27 +20,15 @@ $time = "<time datetime=\"{$PAGE['ATTR']['TIME_INSERT']}\" title=\"".parseDateti
 <section id="site-navi">
 
 	<?php if($PAGE['PREV']): ?>
-		<div><a href="<?=$PAGE['PREV']['URL']?>" title="<?=$Language->text('prev_page')?> »<?=escapeHTML($PAGE['PREV']['ATTR']['NAME'])?>«"><i class="fa fa-arrow-left"></i></a></div>
+		<div><a id="prev-site" href="<?=$PAGE['PREV']['URL']?>" title="<?=$Language->text('prev_page')?> »<?=escapeHTML($PAGE['PREV']['ATTR']['NAME'])?>«"><i class="fa fa-arrow-left"></i></a></div>
 	<?php else: ?>
 		<div><a class="disabled"><i class="fa fa-arrow-left"></i></a></div>
 	<?php endif; ?>
 
 	<?php if($PAGE['NEXT']): ?>
-		<div><a href="<?=$PAGE['NEXT']['URL']?>" title="<?=$Language->text('next_page')?> »<?=escapeHTML($PAGE['NEXT']['ATTR']['NAME'])?>«"><i class="fa fa-arrow-right"></i></a></div>
+		<div><a id="next-site" href="<?=$PAGE['NEXT']['URL']?>" title="<?=$Language->text('next_page')?> »<?=escapeHTML($PAGE['NEXT']['ATTR']['NAME'])?>«"><i class="fa fa-arrow-right"></i></a></div>
 	<?php else: ?>
 		<div><a class="disabled"><i class="fa fa-arrow-right"></i></a></div>
 	<?php endif; ?>
 
 </section>
-
-<script>
-	var prevPageURL = <?php echo json_encode($PAGE['PREV'] ? $PAGE['PREV']['URL'] : FALSE); ?>;
-	var nextPageURL = <?php echo json_encode($PAGE['NEXT'] ? $PAGE['NEXT']['URL'] : FALSE); ?>;
-
-	document.addEventListener('keyup', function(event) {
-		if(!event.ctrlKey && !event.shiftKey) {
-			(event.keyCode === 37 && prevPageURL) && (window.location.href = prevPageURL);
-			(event.keyCode === 39 && nextPageURL) && (window.location.href = nextPageURL);
-		}
-	}, false)
-</script>

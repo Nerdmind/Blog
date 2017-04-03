@@ -308,9 +308,9 @@ function excerpt($string, $length = 500, $replace = ' […]') {
 	return $string;
 }
 
-#====================================================================================================
+#===============================================================================
 # Generate a valid slug URL part from a string
-#====================================================================================================
+#===============================================================================
 function makeSlugURL($string) {
 	$string = strtolower($string);
 	$string = str_replace(['ä', 'ö', 'ü', 'ß'], ['ae', 'oe', 'ue', 'ss'], $string);
@@ -318,5 +318,41 @@ function makeSlugURL($string) {
 	$string = preg_replace('/-+/', '-', $string);
 
 	return trim($string, '-');
+}
+
+#===============================================================================
+# Function to get data from specific page in templates
+#===============================================================================
+function PAGE($id) {
+	try {
+		$Page = Page\Factory::build($id);
+		return generatePageItemData($Page);
+	} catch(Page\Exception $Exception) {
+		return NULL;
+	}
+}
+
+#===============================================================================
+# Function to get data from specific post in templates
+#===============================================================================
+function POST($id) {
+	try {
+		$Post = Post\Factory::build($id);
+		return generatePostItemData($Post);
+	} catch(Post\Exception $Exception) {
+		return NULL;
+	}
+}
+
+#===============================================================================
+# Function to get data from specific user in templates
+#===============================================================================
+function USER($id) {
+	try {
+		$User = User\Factory::build($id);
+		return generateUserItemData($User);
+	} catch(User\Exception $Exception) {
+		return NULL;
+	}
 }
 ?>

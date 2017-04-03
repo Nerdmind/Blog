@@ -1,8 +1,10 @@
 <?php
 #===============================================================================
-# INCLUDE: Main configuration
+# Get instances
 #===============================================================================
-require_once '../../core/application.php';
+$Database = Application::getDatabase();
+$Language = Application::getLanguage();
+
 $SEARCH_SUCCESS = FALSE;
 $D_LIST = $Database->query(sprintf('SELECT DISTINCT DAY(time_insert) AS temp FROM %s ORDER BY temp', Post\Attribute::TABLE));
 $M_LIST = $Database->query(sprintf('SELECT DISTINCT MONTH(time_insert) AS temp FROM %s ORDER BY temp', Post\Attribute::TABLE));
@@ -21,9 +23,9 @@ $form_data = [
 		'Y' => HTTP::GET('y'),
 	],
 	'OPTIONS' => [
-		'D' => $D_LIST->fetchAll(PDO::FETCH_COLUMN),
-		'M' => $M_LIST->fetchAll(PDO::FETCH_COLUMN),
-		'Y' => $Y_LIST->fetchAll(PDO::FETCH_COLUMN),
+		'D' => $D_LIST->fetchAll($Database::FETCH_COLUMN),
+		'M' => $M_LIST->fetchAll($Database::FETCH_COLUMN),
+		'Y' => $Y_LIST->fetchAll($Database::FETCH_COLUMN),
 	]
 ];
 
@@ -72,7 +74,6 @@ try {
 		$MainTemplate->set('HTML', $SearchTemplate);
 		$MainTemplate->set('HEAD', [
 			'NAME' => $Language->text('title_search_request'),
-			'DESC' => 'Wenn du einen bestimmten Beitrag suchst, aber ihn nicht finden kannst, dann kann dir die Suchfunktion bestimmt weiterhelfen.',
 			'PERM' => Application::getURL('search/')
 		]);
 	}

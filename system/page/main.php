@@ -1,19 +1,20 @@
 <?php
 #===============================================================================
-# INCLUDE: Main configuration
+# Get instances
 #===============================================================================
-require_once '../../core/application.php';
+$Database = Application::getDatabase();
+$Language = Application::getLanguage();
 
 #===============================================================================
-# TRY: Page\Exception
+# TRY: Page\Exception, User\Exception
 #===============================================================================
 try {
 	if(Application::get('PAGE.SLUG_URLS')) {
-		$Page = Page\Factory::buildBySlug(HTTP::GET('param'));
+		$Page = Page\Factory::buildBySlug($param);
 	}
 
 	else {
-		$Page = Page\Factory::build(HTTP::GET('param'));
+		$Page = Page\Factory::build($param);
 	}
 
 	$User = User\Factory::build($Page->attr('user'));
@@ -22,7 +23,7 @@ try {
 	$user_data = generateUserItemData($User);
 
 	#===============================================================================
-	# Add post data for previous and next page
+	# Add page data for previous and next page
 	#===============================================================================
 	try {
 		$PrevPage = Page\Factory::build($Page->getPrevID());
@@ -46,7 +47,7 @@ try {
 		$MainTemplate->set('HTML', $PageTemplate);
 		$MainTemplate->set('HEAD', [
 			'NAME' => $page_data['ATTR']['NAME'],
-			'DESC' => cut(removeLineBreaksAndTabs(removeHTML($Page->getHTML()), ' '), Application::get('PAGE.DESCRIPTION_SIZE')),
+			'DESC' => cut(removeLineBreaksAndTabs(removeHTML($page_data['BODY']['HTML']), ' '), Application::get('PAGE.DESCRIPTION_SIZE')),
 			'PERM' => $page_data['URL'],
 			'OG_IMAGES' => $page_data['FILE']['LIST']
 		]);
@@ -68,9 +69,9 @@ try {
 catch(Page\Exception $Exception) {
 	try {
 		if(Application::get('PAGE.SLUG_URLS') === FALSE) {
-			$Page = Page\Factory::buildBySlug(HTTP::GET('param'));
+			$Page = Page\Factory::buildBySlug($param);
 		} else {
-			$Page = Page\Factory::build(HTTP::GET('param'));
+			$Page = Page\Factory::build($param);
 		}
 
 		HTTP::redirect($Page->getURL());
@@ -85,5 +86,5 @@ catch(Page\Exception $Exception) {
 # CATCH: User\Exception
 #===============================================================================
 catch(User\Exception $Exception) {
-	exit($Exception->getMessage());
+	$Exception->defaultHandler();
 }

@@ -1,5 +1,5 @@
 <?php
 namespace Post;
 
-class Exception extends \Exception {}
+class Exception extends \ExceptionHandler {}
 ?>

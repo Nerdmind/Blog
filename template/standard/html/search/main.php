@@ -6,7 +6,7 @@
 <?php endif; ?>
 
 <form action="" method="GET">
-	<input type="search" name="q" placeholder="<?=$Language->template('search_form_placeholder')?>" value="<?=escapeHTML($SEARCH['TEXT'])?>" />
+	<input autofocus type="search" name="q" placeholder="<?=$Language->template('search_form_placeholder')?>" value="<?=escapeHTML($SEARCH['TEXT'])?>" />
 
 	<select name="d">
 		<option value=""><?=$Language->text('date_d')?></option>

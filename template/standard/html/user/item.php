@@ -10,8 +10,8 @@
 <li class="item-list-li user">
 	<header>
 		<h2>
-			<?=escapeHTML($USER['ATTR']['FULLNAME'])."\n"?>
-			<a class="brackets info" href="<?=$USER['URL']?>"><?=escapeHTML($USER['ATTR']['USERNAME'])?></a>
+			<a href="<?=$USER['URL']?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
+			<span class="info brackets"><?=escapeHTML($USER['ATTR']['USERNAME'])?></span>
 		</h2>
 	</header>
 	<article>

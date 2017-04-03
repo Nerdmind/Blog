@@ -1,34 +1,30 @@
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-# Apache configuration rules                 [Thomas Lange <code@nerdmind.de>] #
+# nginx configuration rules                  [Thomas Lange <code@nerdmind.de>] #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #                                                                              #
-# This file contains rewrite rules for Apache. It's recommended to include the #
-# rules directly into your Apache configuration for a better performance. Also #
-# disable the AllowOverride directive within your Apache virtualhost (if it is #
-# not already globally disabled for performance and security reasons both).    #
+# This file contains the configuration from the Apaches .htaccess file written #
+# for the nginx high performance web server. Put the content of this file into #
+# the "server {}" block of your nginx virtual host configuration file. If your #
+# blog installation is within a sub directory, you need to adjust this values! #
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
 #===============================================================================
-# Enable RewriteEngine
+# Error documents
 #===============================================================================
-RewriteEngine On
-
-#===============================================================================
-# ErrorDocument handler
-#===============================================================================
-ErrorDocument 403 /system/403.php
-ErrorDocument 404 /system/404.php
+error_page 403 /system/403.php;
+error_page 404 /system/404.php;
 
 #===============================================================================
 # Forbidden directories
 #===============================================================================
-RewriteRule ^(core|template/([^/]+)/(html|lang)/) - [F]
+location ~ ^/(core|template/([^/]+)/(html|lang)/) {
+	return 403;
+}
 
 #===============================================================================
 # Main rules
 #===============================================================================
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule ^(.*)$ index.php [L]
+if (!-e $request_filename) {
+	rewrite ^(.*)$ /index.php break;
+}

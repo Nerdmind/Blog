@@ -5,50 +5,85 @@
 require_once 'core/application.php';
 
 #===============================================================================
-# TRY: Template\Exception
+# Item base directory paths
 #===============================================================================
-try {
-	$execSQL = 'SELECT id FROM %s ORDER BY '.Application::get('POST.LIST_SORT').' LIMIT '.Application::get('POST.LIST_SIZE');
-	$Statement = $Database->query(sprintf($execSQL, Post\Attribute::TABLE));
-
-	$postIDs = $Statement->fetchAll($Database::FETCH_COLUMN);
-
-	foreach($postIDs as $postID) {
-		try {
-			$Post = Post\Factory::build($postID);
-			$User = User\Factory::build($Post->attr('user'));
-
-			$ItemTemplate = generatePostItemTemplate($Post, $User);
-
-			$posts[] = $ItemTemplate;
-		}
-		catch(Post\Exception $Exception){}
-		catch(User\Exception $Exception){}
-	}
-
-	$HomeTemplate = Template\Factory::build('home');
-	$HomeTemplate->set('PAGINATION', [
-		'HTML' => generatePostNaviTemplate(1)
-	]);
-	$HomeTemplate->set('LIST', [
-		'POSTS' => $posts ?? []
-	]);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('HTML', $HomeTemplate);
-	$MainTemplate->set('HEAD', [
-		'NAME' => Application::get('BLOGMETA.HOME'),
-		'DESC' => Application::get('BLOGMETA.NAME').' – '.Application::get('BLOGMETA.DESC'),
-		'PERM' => Application::getURL()
-	]);
-
-	echo $MainTemplate;
-}
+$PAGEPATH = Application::get('PAGE.DIRECTORY');
+$POSTPATH = Application::get('POST.DIRECTORY');
+$USERPATH = Application::get('USER.DIRECTORY');
 
 #===============================================================================
-# CATCH: Template\Exception
+# ROUTE: Item
 #===============================================================================
-catch(Template\Exception $Exception) {
-	$Exception->defaultHandler();
-}
+Router::add("{$PAGEPATH}/([^/]+)/", function($param) { require 'system/page/main.php'; });
+Router::add("{$POSTPATH}/([^/]+)/", function($param) { require 'system/post/main.php'; });
+Router::add("{$USERPATH}/([^/]+)/", function($param) { require 'system/user/main.php'; });
+
+#===============================================================================
+# ROUTE: Item overview
+#===============================================================================
+Router::add("{$PAGEPATH}/", function() { require 'system/page/list.php'; });
+Router::add("{$POSTPATH}/", function() { require 'system/post/list.php'; });
+Router::add("{$USERPATH}/", function() { require 'system/user/list.php'; });
+
+#===============================================================================
+# REDIRECT: Item (trailing slash)
+#===============================================================================
+Router::addRedirect("{$PAGEPATH}/([^/]+)", Application::getPageURL('$1/'));
+Router::addRedirect("{$POSTPATH}/([^/]+)", Application::getPostURL('$1/'));
+Router::addRedirect("{$USERPATH}/([^/]+)", Application::getUserURL('$1/'));
+
+#===============================================================================
+# REDIRECT: Item overview (trailing slash)
+#===============================================================================
+Router::addRedirect("{$PAGEPATH}", Application::getPageURL());
+Router::addRedirect("{$POSTPATH}", Application::getPostURL());
+Router::addRedirect("{$USERPATH}", Application::getUserURL());
+
+#===============================================================================
+# ROUTE: Home
+#===============================================================================
+Router::add('', function() {
+	require 'system/home.php';
+});
+
+#===============================================================================
+# ROUTE: Feed
+#===============================================================================
+Router::add('feed/', function() {
+	require 'system/feed/main.php';
+});
+
+#===============================================================================
+# ROUTE: Feed [item type only]
+#===============================================================================
+Router::add('feed/(page|post)/', function($param) {
+	require 'system/feed/main.php';
+});
+
+#===============================================================================
+# ROUTE: Search
+#===============================================================================
+Router::add('search/', function() {
+	require 'system/search/main.php';
+});
+
+#===============================================================================
+# REDIRECT: Feed (trailing slash)
+#===============================================================================
+Router::addRedirect('feed', Application::getURL('feed/'));
+
+#===============================================================================
+# REDIRECT: Feed [posts or pages] (trailing slash)
+#===============================================================================
+Router::addRedirect('feed/(page|post)', Application::getURL('feed/$1/'));
+
+#===============================================================================
+# REDIRECT: Search (trailing slash)
+#===============================================================================
+Router::addRedirect('search', Application::getURL('search/'));
+
+#===============================================================================
+# Execute router and route requests
+#===============================================================================
+Router::execute(parse_url(HTTP::requestURI(), PHP_URL_PATH));
 ?>
