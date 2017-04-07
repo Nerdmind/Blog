@@ -156,6 +156,8 @@ form{border:0.05rem solid #AAA;}
 .flex{display:flex;width:100%;justify-content:center;overflow:hidden;box-sizing:border-box;}
 .flex + section{border-top:0.05rem solid #AAA;}
 .flex > section {display:flex;box-sizing:padding-box;width:100%;}
+.flex > section{border-right:0.05rem solid #AAA;}
+.flex > section:last-child{border-right:none;}
 .flex > section > div{display:flex;align-items:center;padding:0.5rem;box-sizing:border-box;}
 .flex > section > div + div{border-left:0.05rem solid #AAA;}
 .flex.flex-responsive > section{width:50%;}
