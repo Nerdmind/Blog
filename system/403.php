@@ -12,12 +12,9 @@ if(!defined('ROOT')) {
 try {
 	$MainTemplate = Template\Factory::build('main');
 	$MainTemplate->set('NAME', '403 Forbidden');
-	$MainTemplate->set('HEAD', [
-		'NAME' => '403 Forbidden',
-		'DESC' => "You don't have permission to access {$_SERVER['REQUEST_URI']} on this server."
-	]);
-
+	$MainTemplate->set('HEAD', ['NAME' => '403 Forbidden']);
 	$MainTemplate->set('HTML', Template\Factory::build('403'));
+
 	echo $MainTemplate;
 }
 
