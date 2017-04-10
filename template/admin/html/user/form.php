@@ -91,7 +91,7 @@
 		<?php elseif($FORM['TYPE'] === 'UPDATE'): ?>
 			<input type="submit" name="update" value="<?=$Language->text('update')?>" />
 		<?php elseif($FORM['TYPE'] === 'DELETE'): ?>
-			<input type="submit" name="delete" value="<?=$Language->text('delete')?>" onclick="return confirm('<?=$Language->template('sure')?>')" />
+			<input type="submit" name="delete" value="<?=$Language->text('delete')?>" id="delete-button" data-text="<?=$Language->template('sure')?>" />
 		<?php endif; ?>
 	</section>
 </form>

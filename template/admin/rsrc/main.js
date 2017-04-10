@@ -92,3 +92,14 @@ addEventListener("DOMContentLoaded", function() {
 		}, false);
 	}
 }, false);
+
+//==============================================================================
+// Confirmation message for delete buttons
+//==============================================================================
+addEventListener("DOMContentLoaded", function() {
+	if(document.getElementById("delete-button")) {
+		document.getElementById("delete-button").onclick = function(e) {
+			return confirm(e.target.getAttribute('data-text'));
+		};
+	}
+}, false);
