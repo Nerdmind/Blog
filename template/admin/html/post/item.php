@@ -1,11 +1,11 @@
-<li class="content">
+<li class="item-list-li post">
 	<header>
 		<h2><i class="fa fa-newspaper-o"></i><?=escapeHTML($POST['ATTR']['NAME'])?><span>#<?=$POST['ID']?></span></h2>
 		<div><a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ID']}")?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a></div>
 	</header>
-	<article>
+	<blockquote cite="<?=$POST['URL']?>">
 		<p><?=excerpt($POST['BODY']['HTML'])?></p>
-	</article>
+	</blockquote>
 	<footer>
 		<ul>
 			<li><a href="<?=$POST['URL']?>" target="_blank" title="<?=$Language->text('select_post')?>"><i class="fa fa-external-link"></i></a></li>

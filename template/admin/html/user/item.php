@@ -1,10 +1,10 @@
-<li class="content">
+<li class="item-list-li user">
 	<header>
 		<h2><i class="fa fa-user"></i><?=escapeHTML($USER['ATTR']['FULLNAME'])?><span>#<?=$USER['ID']?></span></h2>
 	</header>
-	<article>
+	<blockquote cite="<?=$USER['URL']?>">
 		<p><?=excerpt($USER['BODY']['HTML'])?></p>
-	</article>
+	</blockquote>
 	<footer>
 		<ul>
 			<li><a href="<?=$USER['URL']?>" target="_blank" title="<?=$Language->text('select_user')?>"><i class="fa fa-external-link"></i></a></li>

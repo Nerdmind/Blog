@@ -1,11 +1,11 @@
-<li class="content">
+<li class="item-list-li page">
 	<header>
 		<h2><i class="fa fa-file-text-o"></i><?=escapeHTML($PAGE['ATTR']['NAME'])?><span>#<?=$PAGE['ID']?></span></h2>
 		<div><a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ID']}")?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a></div>
 	</header>
-	<article>
+	<blockquote cite="<?=$PAGE['URL']?>">
 		<p><?=excerpt($PAGE['BODY']['HTML'])?></p>
-	</article>
+	</blockquote>
 	<footer>
 		<ul>
 			<li><a href="<?=$PAGE['URL']?>" target="_blank" title="<?=$Language->text('select_page')?>"><i class="fa fa-external-link"></i></a></li>
