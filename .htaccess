@@ -17,8 +17,8 @@ RewriteEngine On
 #===============================================================================
 # ErrorDocument handler
 #===============================================================================
-ErrorDocument 403 /system/403.php
-ErrorDocument 404 /system/404.php
+ErrorDocument 403 /403.php
+ErrorDocument 404 /404.php
 
 #===============================================================================
 # Forbidden directories

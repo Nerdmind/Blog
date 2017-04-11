@@ -141,7 +141,7 @@ class Application {
 	#===============================================================================
 	public static function exit($code = 500) {
 		http_response_code($code);
-		$code === 404 AND require_once(ROOT."system/404.php");
+		$code === 404 AND require_once ROOT.'404.php';
 		exit();
 	}
 }

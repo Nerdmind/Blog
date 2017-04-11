@@ -57,8 +57,7 @@ class Router {
 		}
 
 		if($route_found === FALSE) {
-			http_response_code(404);
-			require_once 'system/404.php';
+			require_once ROOT.'404.php';
 		}
 	}
 }
