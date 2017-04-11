@@ -83,6 +83,11 @@ Router::addRedirect('feed/(page|post)', Application::getURL('feed/$1/'));
 Router::addRedirect('search', Application::getURL('search/'));
 
 #===============================================================================
+# REDIRECT: Favicon
+#===============================================================================
+Router::addRedirect('favicon.ico', Application::getTemplateURL('rsrc/favicon.ico'));
+
+#===============================================================================
 # Execute router and route requests
 #===============================================================================
 Router::execute(parse_url(HTTP::requestURI(), PHP_URL_PATH));

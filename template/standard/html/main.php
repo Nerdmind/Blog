@@ -40,7 +40,7 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 	<?php endforeach; ?>
 <?php endif; ?>
 
-	<link rel="icon" href="<?=Application::getURL('favicon.ico')?>" />
+	<link rel="icon" href="<?=Application::getTemplateURL('rsrc/favicon.ico')?>" />
 	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/main.css')?>" />
 
 	<link rel="alternate" type="application/rss+xml" title="<?=$Language->text('feed_name_items', $BLOGMETA_NAME)?>" href="<?=Application::getURL('feed/')?>" />
