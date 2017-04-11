@@ -133,7 +133,7 @@ class Application {
 	#===============================================================================
 	public static function getTemplateURL($more = ''): string {
 		$template = self::get('TEMPLATE.NAME');
-		return Application::getURL("template/{$template}/{$more}");
+		return self::getURL("template/{$template}/{$more}");
 	}
 
 	#===============================================================================
