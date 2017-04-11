@@ -1,5 +1,5 @@
 <?php
 namespace User;
 
-class Exception extends \ExceptionHandler {}
+class Exception extends \Exception {}
 ?>

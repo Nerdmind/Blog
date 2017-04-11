@@ -137,11 +137,11 @@ class Application {
 	}
 
 	#===============================================================================
-	# Exit application with a custom HTTP status code
+	# Exit application with a custom message and status code
 	#===============================================================================
-	public static function exit($code = 500) {
+	public static function exit($message = '', $code = 503) {
 		http_response_code($code);
-		exit();
+		exit($message);
 	}
 
 	#===============================================================================

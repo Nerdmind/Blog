@@ -1,5 +1,5 @@
 <?php
 namespace Template;
 
-class Exception extends \ExceptionHandler {}
+class Exception extends \Exception {}
 ?>

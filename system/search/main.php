@@ -85,6 +85,6 @@ try {
 # CATCH: Template\Exception
 #===============================================================================
 catch(Template\Exception $Exception) {
-	$Exception->defaultHandler();
+	Application::exit($Exception->getMessage());
 }
 ?>

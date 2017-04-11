@@ -59,7 +59,7 @@ try {
 	# CATCH: Template\Exception
 	#===============================================================================
 	catch(Template\Exception $Exception) {
-		$Exception->defaultHandler();
+		Application::exit($Exception->getMessage());
 	}
 }
 
@@ -86,5 +86,5 @@ catch(Page\Exception $Exception) {
 # CATCH: User\Exception
 #===============================================================================
 catch(User\Exception $Exception) {
-	$Exception->defaultHandler();
+	Application::exit($Exception->getMessage());
 }
