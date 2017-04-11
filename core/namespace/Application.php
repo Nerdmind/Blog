@@ -139,7 +139,7 @@ class Application {
 	#===============================================================================
 	# Exit application with a custom message and status code
 	#===============================================================================
-	public static function exit($message = '', $code = 503) {
+	public static function exit($message = '', $code = 503): void {
 		http_response_code($code);
 		exit($message);
 	}
@@ -147,7 +147,7 @@ class Application {
 	#===============================================================================
 	# Exit application with the 403 error page
 	#===============================================================================
-	public static function error403() {
+	public static function error403(): void {
 		require_once ROOT.'403.php';
 		exit();
 	}
@@ -155,7 +155,7 @@ class Application {
 	#===============================================================================
 	# Exit application with the 404 error page
 	#===============================================================================
-	public static function error404() {
+	public static function error404(): void {
 		require_once ROOT.'404.php';
 		exit();
 	}
