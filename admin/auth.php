@@ -7,7 +7,7 @@ define('ADMINISTRATION', TRUE);
 #===============================================================================
 # INCLUDE: Main configuration
 #===============================================================================
-require_once '../core/application.php';
+require '../core/application.php';
 
 #===============================================================================
 # IF: Already authenticated

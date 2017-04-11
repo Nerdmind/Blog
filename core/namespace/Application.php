@@ -148,7 +148,7 @@ class Application {
 	# Exit application with the 403 error page
 	#===============================================================================
 	public static function error403(): void {
-		require_once ROOT.'403.php';
+		require ROOT.'403.php';
 		exit();
 	}
 
@@ -156,7 +156,7 @@ class Application {
 	# Exit application with the 404 error page
 	#===============================================================================
 	public static function error404(): void {
-		require_once ROOT.'404.php';
+		require ROOT.'404.php';
 		exit();
 	}
 }

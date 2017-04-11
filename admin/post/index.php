@@ -8,7 +8,7 @@ define('AUTHENTICATION', TRUE);
 #===============================================================================
 # INCLUDE: Main configuration
 #===============================================================================
-require_once '../../core/application.php';
+require '../../core/application.php';
 
 $site_size = Application::get('POST.LIST_SIZE');
 $site_sort = Application::get('POST.LIST_SORT');

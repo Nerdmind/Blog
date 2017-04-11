@@ -17,7 +17,7 @@ define('ROOT', dirname(__DIR__).'/');
 #===============================================================================
 spl_autoload_register(function($classname) {
 	$classname = str_replace('\\', '/', $classname);
-	require_once "namespace/{$classname}.php";
+	require "namespace/{$classname}.php";
 });
 
 #===============================================================================
@@ -36,7 +36,7 @@ HTTP::init($_GET, $_POST, $_FILES, TRUE);
 #===============================================================================
 # Include configuration
 #===============================================================================
-require_once 'configuration.php';
+require 'configuration.php';
 
 #===============================================================================
 # Overwrite configuration if admin
@@ -66,7 +66,7 @@ if(defined('ADMINISTRATION') AND ADMINISTRATION === TRUE) {
 #===============================================================================
 # Include functions
 #===============================================================================
-require_once 'functions.php';
+require 'functions.php';
 
 #===============================================================================
 # TRY: PDOException
