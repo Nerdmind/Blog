@@ -91,6 +91,6 @@ try {
 # CATCH: Page\Exception
 #===============================================================================
 catch(Page\Exception $Exception) {
-	Application::exit(404);
+	Application::error404();
 }
 ?>

@@ -137,11 +137,26 @@ class Application {
 	}
 
 	#===============================================================================
-	# Exit application with
+	# Exit application with a custom HTTP status code
 	#===============================================================================
 	public static function exit($code = 500) {
 		http_response_code($code);
-		$code === 404 AND require_once ROOT.'404.php';
+		exit();
+	}
+
+	#===============================================================================
+	# Exit application with the 403 error page
+	#===============================================================================
+	public static function error403() {
+		require_once ROOT.'403.php';
+		exit();
+	}
+
+	#===============================================================================
+	# Exit application with the 404 error page
+	#===============================================================================
+	public static function error404() {
+		require_once ROOT.'404.php';
 		exit();
 	}
 }

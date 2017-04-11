@@ -84,6 +84,6 @@ try {
 # CATCH: User\Exception
 #===============================================================================
 catch(User\Exception $Exception) {
-	Application::exit(404);
+	Application::error404();
 }
 ?>

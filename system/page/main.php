@@ -78,7 +78,7 @@ catch(Page\Exception $Exception) {
 	}
 
 	catch(Page\Exception $Exception) {
-		Application::exit(404);
+		Application::error404();
 	}
 }
 

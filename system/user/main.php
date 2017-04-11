@@ -93,6 +93,6 @@ catch(User\Exception $Exception) {
 	}
 
 	catch(User\Exception $Exception) {
-		Application::exit(404);
+		Application::error404();
 	}
 }

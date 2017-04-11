@@ -66,7 +66,7 @@ try {
 # CATCH: Post\Exception
 #===============================================================================
 catch(Post\Exception $Exception) {
-	Application::exit(404);
+	Application::error404();
 }
 ?>
 

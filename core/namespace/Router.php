@@ -57,7 +57,7 @@ class Router {
 		}
 
 		if($route_found === FALSE) {
-			require_once ROOT.'404.php';
+			Application::error404();
 		}
 	}
 }

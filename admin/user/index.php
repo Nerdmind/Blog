@@ -19,7 +19,7 @@ $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = abs(intval($currentSite));
 
 if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
-	Application::exit(404);
+	Application::error404();
 }
 
 #===============================================================================
