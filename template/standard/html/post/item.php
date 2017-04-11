@@ -14,7 +14,7 @@
 			<time class="brackets info" datetime="<?=$POST['ATTR']['TIME_INSERT']?>"><?=parseDatetime($POST['ATTR']['TIME_INSERT'], $Language->template('date_format'))?></time>
 		</h2>
 	</header>
-	<article>
+	<blockquote cite="<?=$POST['URL']?>">
 		<?=$POST['BODY']['HTML']?>
-	</article>
+	</blockquote>
 </li>

@@ -14,7 +14,7 @@
 			<time class="brackets info" datetime="<?=$PAGE['ATTR']['TIME_INSERT']?>"><?=parseDatetime($PAGE['ATTR']['TIME_INSERT'], $Language->template('date_format'))?></time>
 		</h2>
 	</header>
-	<article>
+	<blockquote cite="<?=$PAGE['URL']?>">
 		<p><?=excerpt($PAGE['BODY']['HTML'], 600)?></p>
-	</article>
+	</blockquote>
 </li>

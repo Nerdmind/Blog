@@ -14,7 +14,7 @@
 			<span class="info brackets"><?=escapeHTML($USER['ATTR']['USERNAME'])?></span>
 		</h2>
 	</header>
-	<article>
+	<blockquote cite="<?=$USER['URL']?>">
 		<?=$USER['BODY']['HTML']?>
-	</article>
+	</blockquote>
 </li>

@@ -104,8 +104,8 @@ a.brackets:before,a.brackets:after{color:#222;}
 .item-list-li > header h2{border:none !important;font-size:inherit;text-transform:uppercase;}
 .item-list-li > header h2 .info{float:right;font-size:0.7rem;font-weight:400;}
 .item-list-li > header a{color:inherit;}
-.item-list-li > article{padding:0 1rem;}
-.item-list-li > article img{display:block;}
+.item-list-li > blockquote{margin:0;padding:0 1rem;font-family:inherit;}
+.item-list-li > blockquote img{display:block;}
 .item-list-li.page{}
 .item-list-li.post{}
 .item-list-li.user{}
