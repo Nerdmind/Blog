@@ -23,9 +23,8 @@ spl_autoload_register(function($classname) {
 #===============================================================================
 # Exception handler for non-caught exceptions
 #===============================================================================
-set_exception_handler(function($Exception) {
-	http_response_code(503);
-	exit($Exception->getMessage());
+set_exception_handler(function(Exception $Exception) {
+	Application::exit($Exception->getMessage());
 });
 
 #===============================================================================
