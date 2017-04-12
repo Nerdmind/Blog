@@ -82,8 +82,7 @@ try {
 # CATCH: PDOException
 #===============================================================================
 catch(PDOException $Exception) {
-	http_response_code(503);
-	exit("PDO database connection error: {$Exception->getMessage()}");
+	Application::exit($Exception->getMessage());
 }
 
 #===============================================================================
