@@ -106,13 +106,13 @@ $LANGUAGE['sure'] = 'Bist du sicher?';
 #===============================================================================
 # Labels
 #===============================================================================
-$LANGUAGE['LABEL_SLUG'] = 'Slug';
-$LANGUAGE['LABEL_USER'] = 'Benutzer';
-$LANGUAGE['LABEL_NAME'] = 'Titel';
-$LANGUAGE['LABEL_INSERT'] = 'Erstellt';
-$LANGUAGE['LABEL_UPDATE'] = 'Bearbeitet';
-$LANGUAGE['LABEL_FULLNAME'] = 'Name';
-$LANGUAGE['LABEL_MAILADDR'] = 'E-Mail';
-$LANGUAGE['LABEL_USERNAME'] = 'Username';
-$LANGUAGE['LABEL_PASSWORD'] = 'Passwort';
+$LANGUAGE['label_slug'] = 'Slug';
+$LANGUAGE['label_user'] = 'Benutzer';
+$LANGUAGE['label_name'] = 'Titel';
+$LANGUAGE['label_insert'] = 'Erstellt';
+$LANGUAGE['label_update'] = 'Bearbeitet';
+$LANGUAGE['label_fullname'] = 'Name';
+$LANGUAGE['label_mailaddr'] = 'E-Mail';
+$LANGUAGE['label_username'] = 'Username';
+$LANGUAGE['label_password'] = 'Passwort';
 ?>

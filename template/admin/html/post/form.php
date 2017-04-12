@@ -16,7 +16,7 @@
 		</section>
 		<section>
 			<div class="form-icon-flex"><i class="fa fa-user"></i></div>
-			<div class="form-label-flex"><label for="L_USER"><?=$Language->template('LABEL_USER')?></label></div>
+			<div class="form-label-flex"><label for="L_USER"><?=$Language->template('label_user')?></label></div>
 			<div class="form-field-flex">
 				<select id="L_USER" name="user">
 					<?php foreach($FORM['USER_LIST'] as $user): ?>
@@ -29,24 +29,24 @@
 	<section class="flex flex-responsive">
 		<section>
 			<div class="form-icon-flex"><i class="fa fa-newspaper-o"></i></div>
-			<div class="form-label-flex"><label for="L_NAME"><?=$Language->template('LABEL_NAME')?></label></div>
+			<div class="form-label-flex"><label for="L_NAME"><?=$Language->template('label_name')?></label></div>
 			<div class="form-field-flex"><input id="L_NAME" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" /></div>
 		</section>
 		<section>
 			<div class="form-icon-flex"><i class="fa fa-link"></i></div>
-			<div class="form-label-flex"><label for="L_SLUG"><?=$Language->template('LABEL_SLUG')?></label></div>
+			<div class="form-label-flex"><label for="L_SLUG"><?=$Language->template('label_slug')?></label></div>
 			<div class="form-field-flex"><input id="L_SLUG" name="slug" value="<?=escapeHTML($FORM['DATA']['SLUG'])?>" /></div>
 		</section>
 	</section>
 	<section class="flex flex-responsive">
 		<section>
 			<div class="form-icon-flex"><i class="fa fa-clock-o"></i></div>
-			<div class="form-label-flex"><label for="L_TIME_INSERT"><?=$Language->template('LABEL_INSERT')?></label></div>
+			<div class="form-label-flex"><label for="L_TIME_INSERT"><?=$Language->template('label_insert')?></label></div>
 			<div class="form-field-flex"><input id="L_TIME_INSERT" name="time_insert" placeholder="[YYYY-MM-DD HH:II:SS]" value="<?=escapeHTML($FORM['DATA']['TIME_INSERT'])?>" /></div>
 		</section>
 		<section>
 			<div class="form-icon-flex"><i class="fa fa-clock-o"></i></div>
-			<div class="form-label-flex"><label for="L_TIME_UPDATE"><?=$Language->template('LABEL_UPDATE')?></label></div>
+			<div class="form-label-flex"><label for="L_TIME_UPDATE"><?=$Language->template('label_update')?></label></div>
 			<div class="form-field-flex"><input id="L_TIME_UPDATE" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ? $FORM['DATA']['TIME_UPDATE'] : '[CURRENT_TIMESTAMP]')?>" value="" /></div>
 		</section>
 	</section>

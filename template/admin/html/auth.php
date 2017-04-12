@@ -13,14 +13,14 @@
 	<section class="flex">
 		<section>
 			<div class="form-icon-flex"><i class="fa fa-user-secret"></i></div>
-			<div class="form-label-flex"><label for="L_USERNAME"><?=$Language->template('LABEL_USERNAME')?></label></div>
+			<div class="form-label-flex"><label for="L_USERNAME"><?=$Language->template('label_username')?></label></div>
 			<div class="form-field-flex"><input id="L_USERNAME" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" /></div>
 		</section>
 	</section>
 	<section class="flex">
 		<section>
 			<div class="form-icon-flex"><i class="fa fa-key"></i></div>
-			<div class="form-label-flex"><label for="L_PASSWORD"><?=$Language->template('LABEL_PASSWORD')?></label></div>
+			<div class="form-label-flex"><label for="L_PASSWORD"><?=$Language->template('label_password')?></label></div>
 			<div class="form-field-flex"><input type="password" id="L_PASSWORD" name="password" /></div>
 		</section>
 	</section>
