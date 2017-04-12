@@ -1,8 +1,8 @@
 <h1><?=$Language->template('authentication_text')?></h1>
 <p><?=$Language->template('authentication_desc')?></p>
 
-<?php if(isset($FORM['INFO']['LIST'])): ?>
-	<?php foreach($FORM['INFO']['LIST'] as $message): ?>
+<?php if(isset($FORM['INFO'])): ?>
+	<?php foreach($FORM['INFO'] as $message): ?>
 		<div class="red"><?=$message?></div>
 	<?php endforeach; ?>
 <?php endif; ?>

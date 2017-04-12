@@ -60,9 +60,7 @@ else {
 try {
 	$AuthTemplate = Template\Factory::build('auth');
 	$AuthTemplate->set('FORM', [
-		'INFO' => [
-			'LIST' => $messages ?? [],
-		],
+		'INFO' => $messages ?? [],
 		'DATA' => [
 			'USERNAME' => HTTP::POST('username'),
 			'PASSWORD' => HTTP::POST('password'),
