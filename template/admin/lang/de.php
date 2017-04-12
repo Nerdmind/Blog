@@ -115,4 +115,17 @@ $LANGUAGE['label_fullname'] = 'Name';
 $LANGUAGE['label_mailaddr'] = 'E-Mail';
 $LANGUAGE['label_username'] = 'Username';
 $LANGUAGE['label_password'] = 'Passwort';
+
+#===============================================================================
+# Markdown
+#===============================================================================
+$LANGUAGE['markdown_bold'] = 'Fett';
+$LANGUAGE['markdown_italic'] = 'Kursiv';
+$LANGUAGE['markdown_heading'] = 'Überschrift';
+$LANGUAGE['markdown_link'] = 'Link';
+$LANGUAGE['markdown_image'] = 'Bild';
+$LANGUAGE['markdown_code'] = 'Codeblock';
+$LANGUAGE['markdown_quote'] = 'Zitat';
+$LANGUAGE['markdown_list_ul'] = 'Liste [ungeordnet]';
+$LANGUAGE['markdown_list_ol'] = 'Liste [geordnet]';
 ?>

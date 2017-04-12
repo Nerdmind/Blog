@@ -68,15 +68,15 @@
 	</section>
 	<section class="flex flex-padding background">
 		<ul class="button-list markdown">
-			<li onmousedown="markdownReplace('bold');" class="fa fa-bold" title="Bold"></li>
-			<li onmousedown="markdownReplace('italic');" class="fa fa-italic" title="Italic"></li>
-			<li onmousedown="markdownReplace('header');" class="fa fa-header" title="Heading"></li>
-			<li onmousedown="markdownReplace('link');" class="fa fa-link" title="Link"></li>
-			<li onmousedown="markdownReplace('image');" class="fa fa-picture-o" title="Image"></li>
-			<li onmousedown="markdownReplace('code');" class="fa fa-code" title="Code"></li>
-			<li onmousedown="markdownReplace('quote');" class="fa fa-quote-right" title="Quote"></li>
-			<li onmousedown="markdownReplace('list_ul');" class="fa fa-list-ul" title="List [unordered]"></li>
-			<li onmousedown="markdownReplace('list_ol');" class="fa fa-list-ol" title="List [ordered]"></li>
+			<li onmousedown="markdownReplace('bold');" class="fa fa-bold" title="<?=$Language->template('markdown_bold')?>"></li>
+			<li onmousedown="markdownReplace('italic');" class="fa fa-italic" title="<?=$Language->template('markdown_italic')?>"></li>
+			<li onmousedown="markdownReplace('heading');" class="fa fa-header" title="<?=$Language->template('markdown_heading')?>"></li>
+			<li onmousedown="markdownReplace('link');" class="fa fa-link" title="<?=$Language->template('markdown_link')?>"></li>
+			<li onmousedown="markdownReplace('image');" class="fa fa-picture-o" title="<?=$Language->template('markdown_image')?>"></li>
+			<li onmousedown="markdownReplace('code');" class="fa fa-code" title="<?=$Language->template('markdown_code')?>"></li>
+			<li onmousedown="markdownReplace('quote');" class="fa fa-quote-right" title="<?=$Language->template('markdown_quote')?>"></li>
+			<li onmousedown="markdownReplace('list_ul');" class="fa fa-list-ul" title="<?=$Language->template('markdown_list_ul')?>"></li>
+			<li onmousedown="markdownReplace('list_ol');" class="fa fa-list-ol" title="<?=$Language->template('markdown_list_ol')?>"></li>
 		</ul>
 	</section>
 <?php else: ?>

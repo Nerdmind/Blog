@@ -4,7 +4,7 @@
 var markdownTags = {
 	"bold":    ["**", "**"],
 	"italic":  ["*", "*"],
-	"header":  ["## ", "\n"],
+	"heading": ["## ", "\n"],
 	"link":    ["[", "](href)"],
 	"image":   ["![", "](href)"],
 	"code":    ["\n~~~\n", "\n~~~\n"],
