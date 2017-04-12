@@ -126,8 +126,7 @@ if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {
 		$HTTP_IF_NONE_MATCH = rtrim($HTTP_IF_NONE_MATCH, '-gzip');
 
 		if($HTTP_IF_NONE_MATCH === $HTTP_ETAG_IDENTIFIER) {
-			http_response_code(304);
-			exit();
+			Application::exit(NULL, 304);
 		}
 	}
 }
