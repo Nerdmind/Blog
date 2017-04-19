@@ -10,13 +10,16 @@ define('AUTHENTICATION', TRUE);
 #===============================================================================
 require '../../core/application.php';
 
+#===============================================================================
+# Pagination
+#===============================================================================
 $site_size = Application::get('PAGE.LIST_SIZE');
 $site_sort = Application::get('PAGE.LIST_SORT');
 
 $lastSite = ceil($Database->query(sprintf('SELECT COUNT(id) FROM %s', Page\Attribute::TABLE))->fetchColumn() / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
-$currentSite = abs(intval($currentSite));
+$currentSite = intval($currentSite);
 
 if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 	Application::error404();

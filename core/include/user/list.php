@@ -5,13 +5,16 @@
 $Database = Application::getDatabase();
 $Language = Application::getLanguage();
 
+#===============================================================================
+# Pagination
+#===============================================================================
 $site_size = Application::get('USER.LIST_SIZE');
 $site_sort = Application::get('USER.LIST_SORT');
 
 $lastSite = ceil($Database->query(sprintf('SELECT COUNT(id) FROM %s', User\Attribute::TABLE))->fetchColumn() / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
-$currentSite = abs(intval($currentSite));
+$currentSite = intval($currentSite);
 
 if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 	Application::error404();

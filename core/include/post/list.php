@@ -5,13 +5,16 @@
 $Database = Application::getDatabase();
 $Language = Application::getLanguage();
 
+#===============================================================================
+# Pagination
+#===============================================================================
 $site_size = Application::get('POST.LIST_SIZE');
 $site_sort = Application::get('POST.LIST_SORT');
 
 $lastSite = ceil($Database->query(sprintf('SELECT COUNT(id) FROM %s', Post\Attribute::TABLE))->fetchColumn() / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
-$currentSite = abs(intval($currentSite));
+$currentSite = intval($currentSite);
 
 if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 	Application::error404();
