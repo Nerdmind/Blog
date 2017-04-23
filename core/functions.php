@@ -272,10 +272,10 @@ function removeDoubleLineBreaks($string): string {
 }
 
 #===============================================================================
-# Remove line breaks and tabs from a string
+# Remove all multiple whitespace characters
 #===============================================================================
-function removeLineBreaksAndTabs($string, $replace = ''): string {
-	return str_replace(["\r\n", "\r", "\n", "\t"], $replace, $string);
+function removeWhitespace($string): string {
+	return preg_replace('/\s+/S', ' ', trim($string));
 }
 
 #===============================================================================
@@ -304,6 +304,17 @@ function excerpt($string, $length = 500, $replace = ' […]') {
 	$string = removeDoubleLineBreaks($string);
 	$string = cut($string, $length, $replace);
 	$string = nl2br($string);
+
+	return $string;
+}
+
+#===============================================================================
+# Return content for meta description
+#===============================================================================
+function description($string, $length = 200, $replace = ' […]') {
+	$string = removeHTML($string);
+	$string = removeWhitespace($string);
+	$string = cut($string, $length, $replace);
 
 	return $string;
 }

@@ -13,7 +13,7 @@
 	<guid isPermaLink="false"><?=$PAGE['GUID']?></guid>
 	<pubDate><?=parseDatetime($PAGE['ATTR']['TIME_INSERT'], '[RFC2822]')?></pubDate>
 	<dc:creator><?=escapeHTML($USER['ATTR']['FULLNAME'])?></dc:creator>
-	<description><?=escapeHTML(cut(removeLineBreaksAndTabs(removeHTML($PAGE['BODY']['HTML'])), 400))?></description>
+	<description><?=description($PAGE['BODY']['HTML'], 400)?></description>
 	<content:encoded>
 		<![CDATA[
 			<?=$PAGE['BODY']['HTML']?>

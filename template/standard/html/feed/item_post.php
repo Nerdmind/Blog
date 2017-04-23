@@ -13,7 +13,7 @@
 	<guid isPermaLink="false"><?=$POST['GUID']?></guid>
 	<pubDate><?=parseDatetime($POST['ATTR']['TIME_INSERT'], '[RFC2822]')?></pubDate>
 	<dc:creator><?=escapeHTML($USER['ATTR']['FULLNAME'])?></dc:creator>
-	<description><?=escapeHTML(cut(removeLineBreaksAndTabs(removeHTML($POST['BODY']['HTML'])), 400))?></description>
+	<description><?=description($POST['BODY']['HTML'], 400)?></description>
 	<content:encoded>
 		<![CDATA[
 			<?=$POST['BODY']['HTML']?>
