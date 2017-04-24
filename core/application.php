@@ -23,7 +23,7 @@ spl_autoload_register(function($classname) {
 #===============================================================================
 # Exception handler for non-caught exceptions
 #===============================================================================
-set_exception_handler(function(Exception $Exception) {
+set_exception_handler(function(Throwable $Exception) {
 	Application::exit($Exception->getMessage());
 });
 
