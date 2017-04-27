@@ -49,14 +49,7 @@ Router::add('', function() {
 #===============================================================================
 # ROUTE: Feed
 #===============================================================================
-Router::add('feed/', function() {
-	require 'core/include/feed/main.php';
-});
-
-#===============================================================================
-# ROUTE: Feed [item type only]
-#===============================================================================
-Router::add('feed/(page|post)/', function($param) {
+Router::add('feed/(?:(page|post)/)?', function($param = NULL) {
 	require 'core/include/feed/main.php';
 });
 
@@ -70,12 +63,7 @@ Router::add('search/', function() {
 #===============================================================================
 # REDIRECT: Feed (trailing slash)
 #===============================================================================
-Router::addRedirect('feed', Application::getURL('feed/'));
-
-#===============================================================================
-# REDIRECT: Feed [posts or pages] (trailing slash)
-#===============================================================================
-Router::addRedirect('feed/(page|post)', Application::getURL('feed/$1/'));
+Router::addRedirect('feed(/(?:page|post))?', Application::getURL('feed$1/'));
 
 #===============================================================================
 # REDIRECT: Search (trailing slash)
