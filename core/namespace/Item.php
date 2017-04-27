@@ -102,6 +102,23 @@ abstract class Item implements ItemInterface {
 	}
 
 	#===============================================================================
+	# Return parsed arguments
+	#===============================================================================
+	public function getArguments(): array {
+		if($argv = $this->Attribute->get('argv')) {
+			foreach(explode('|', rtrim($argv, '|')) as $delimeter) {
+				$part = explode('=', $delimeter);
+
+				if(!empty($part[0])) {
+					$arguments[strtoupper($part[0])] = $part[1] ?? TRUE;
+				}
+			}
+		}
+
+		return $arguments ?? [];
+	}
+
+	#===============================================================================
 	# Return previous item ID
 	#===============================================================================
 	public function getPrevID(): int {

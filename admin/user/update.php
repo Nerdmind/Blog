@@ -17,13 +17,14 @@ try {
 	$User = User\Factory::build(HTTP::GET('id'));
 	$Attribute = $User->getAttribute();
 
-	if(HTTP::issetPOST('slug', 'username', 'password', 'fullname', 'mailaddr', 'body', 'time_insert', 'time_update', 'update')) {
+	if(HTTP::issetPOST('slug', 'username', 'password', 'fullname', 'mailaddr', 'body', 'argv', 'time_insert', 'time_update', 'update')) {
 		$Attribute->set('slug',     HTTP::POST('slug') ? HTTP::POST('slug') : makeSlugURL(HTTP::POST('username')));
 		$Attribute->set('username', HTTP::POST('username') ? HTTP::POST('username') : NULL);
 		$Attribute->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : FALSE);
 		$Attribute->set('fullname', HTTP::POST('fullname') ? HTTP::POST('fullname') : NULL);
 		$Attribute->set('mailaddr', HTTP::POST('mailaddr') ? HTTP::POST('mailaddr') : NULL);
 		$Attribute->set('body',     HTTP::POST('body') ? HTTP::POST('body') : NULL);
+		$Attribute->set('argv',     HTTP::POST('argv') ? HTTP::POST('argv') : NULL);
 		$Attribute->set('time_insert', HTTP::POST('time_insert') ? HTTP::POST('time_insert') : date('Y-m-d H:i:s'));
 		$Attribute->set('time_update', HTTP::POST('time_update') ? HTTP::POST('time_update') : date('Y-m-d H:i:s'));
 
@@ -57,6 +58,7 @@ try {
 				'FULLNAME' => $Attribute->get('fullname'),
 				'MAILADDR' => $Attribute->get('mailaddr'),
 				'BODY'     => $Attribute->get('body'),
+				'ARGV'     => $Attribute->get('argv'),
 				'TIME_INSERT' => $Attribute->get('time_insert'),
 				'TIME_UPDATE' => $Attribute->get('time_update'),
 			],

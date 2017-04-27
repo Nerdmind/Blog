@@ -13,6 +13,7 @@ class Attribute extends \Attribute {
 	protected $fullname = FALSE;
 	protected $mailaddr = FALSE;
 	protected $body     = FALSE;
+	protected $argv     = FALSE;
 	protected $time_insert = FALSE;
 	protected $time_update = FALSE;
 

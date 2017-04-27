@@ -62,11 +62,11 @@ $LANGUAGE['search_form_placeholder'] = 'Suchbegriff eingeben …';
 # Error 403
 #===============================================================================
 $LANGUAGE['403_heading_text'] = 'Zugriff verweigert';
-$LANGUAGE['403_heading_desc'] = 'Der Zugriff auf diese Ressource des Servers wurde dir verweigert, da du die dafür notwendigen Berechtigungen nicht besitzt.';
+$LANGUAGE['403_heading_desc'] = 'Der Zugriff auf diese Ressource wurde dir verweigert, da du die dafür notwendigen Berechtigungen nicht besitzt.';
 
 #===============================================================================
 # Error 404
 #===============================================================================
 $LANGUAGE['404_heading_text'] = 'Nicht gefunden';
-$LANGUAGE['404_heading_desc'] = 'Die angeforderte Ressource konnte auf diesem Server nicht gefunden werden.';
+$LANGUAGE['404_heading_desc'] = 'Die angeforderte Ressource konnte nicht gefunden werden.';
 ?>

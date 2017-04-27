@@ -53,6 +53,9 @@
 	<section class="flex flex-padding">
 		<textarea id="content-editor" name="body" placeholder="[…]"><?=escapeHTML($FORM['DATA']['BODY'])?></textarea>
 	</section>
+	<section class="flex flex-padding background flex-arguments">
+		<input id="L_ARGV" name="argv" maxlength="100" placeholder="[ARGUMENT_FOO=one|ARGUMENT_BAR=two …]" value="<?=escapeHTML($FORM['DATA']['ARGV'])?>" />
+	</section>
 	<section class="flex flex-padding background flex-emoticons">
 		<ul class="button-list emoticons">
 			<?php foreach(getEmoticons() as $emoticon => $data):?>

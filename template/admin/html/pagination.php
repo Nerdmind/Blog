@@ -1,45 +1,30 @@
-<section id="site-navi">
+<div id="site-navi">
 	<?php if($THIS > 1): ?>
-		<div><a href="<?=sprintf($HREF, $THIS-1)?>"><i class="fa fa-arrow-left"></i></a></div>
+		<div><a id="prev-site" href="<?=sprintf($HREF, $THIS-1)?>"><i class="fa fa-arrow-left"></i></a></div>
 	<?php else: ?>
 		<div><a class="disabled"><i class="fa fa-arrow-left"></i></a></div>
 	<?php endif; ?>
 
-	<section>
-		<div>
-			<ol>
-				<?php for($currentItem = 1; $currentItem <= $LAST; ++$currentItem): ?>
-					<?php
-					$href = sprintf($HREF, $currentItem);
-					$class = NULL;
-					$currentItemHTML = $currentItem;
-					if($currentItem === $THIS) {
-						$class = ' class="active"';
-					}
+	<div>
+		<ol>
+			<?php
+			for($current = 1; $current <= $LAST; ++$current) {
+				$class = '';
+				$href = sprintf($HREF, $current);
 
-					echo '<li'.$class.'><a href="'.$href.'">'.$currentItemHTML.'</a></li>';
-					?>
+				if($current === $THIS) {
+					$class = ' class="active"';
+				}
 
-				<?php endfor; ?>
-			</ol>
-		</div>
-	</section>
+				echo "<li{$class}><a href=\"{$href}\">{$current}</a></li>";
+			}
+			?>
+		</ol>
+	</div>
 
 	<?php if($THIS < $LAST): ?>
-		<div><a href="<?=sprintf($HREF, $THIS+1)?>"><i class="fa fa-arrow-right"></i></a></div>
+		<div><a id="next-site" href="<?=sprintf($HREF, $THIS+1)?>"><i class="fa fa-arrow-right"></i></a></div>
 	<?php else: ?>
 		<div><a class="disabled"><i class="fa fa-arrow-right"></i></a></div>
 	<?php endif; ?>
-</section>
-
-<script>
-	var prevPageURL = <?php echo json_encode($THIS > 1 ? sprintf($HREF, $THIS-1) : FALSE); ?>;
-	var nextPageURL = <?php echo json_encode($THIS < $LAST ? sprintf($HREF, $THIS+1) : FALSE); ?>;
-
-	document.addEventListener('keyup', function(event) {
-		if(!event.ctrlKey && !event.shiftKey) {
-			(event.keyCode === 37 && prevPageURL) && (window.location.href = prevPageURL);
-			(event.keyCode === 39 && nextPageURL) && (window.location.href = nextPageURL);
-		}
-	}, false)
-</script>
+</div>

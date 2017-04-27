@@ -11,6 +11,7 @@ class Attribute extends \Attribute {
 	protected $slug = FALSE;
 	protected $name = FALSE;
 	protected $body = FALSE;
+	protected $argv = FALSE;
 	protected $time_insert = FALSE;
 	protected $time_update = FALSE;
 
