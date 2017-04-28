@@ -6,6 +6,15 @@
 	<blockquote cite="<?=$PAGE['URL']?>">
 		<p><?=excerpt($PAGE['BODY']['HTML'])?></p>
 	</blockquote>
+
+	<?php if($PAGE['ARGV']): ?>
+		<ul class="arguments">
+			<?php foreach($PAGE['ARGV'] as $argument => $value): ?>
+				<li><strong><?=$argument?></strong>: <span class="blue"><?=escapeHTML($value)?></span></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+
 	<footer>
 		<ul>
 			<li><a href="<?=$PAGE['URL']?>" target="_blank" title="<?=$Language->text('select_page')?>"><i class="fa fa-external-link"></i></a></li>

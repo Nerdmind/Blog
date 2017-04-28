@@ -146,6 +146,14 @@ a.brackets:before,a.brackets:after{color:#222;}
 .item-list-li h2 > span{float:right;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* Argument list
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.arguments{list-style:none;margin:0;padding:0.25rem 1rem;background:#EEE;font-size:0.6rem;text-align:center;border-top:0.05rem solid #AAA;}
+.arguments > li{display:inline;}
+.arguments > li:before{content:"[";font-weight:700;margin-right:0.1rem;}
+.arguments > li:after{content:"]";font-weight:700;margin-left:0.1rem;}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Form flex-box
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 form{border:0.05rem solid #AAA;}

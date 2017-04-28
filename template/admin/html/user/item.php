@@ -5,6 +5,15 @@
 	<blockquote cite="<?=$USER['URL']?>">
 		<p><?=excerpt($USER['BODY']['HTML'])?></p>
 	</blockquote>
+
+	<?php if($USER['ARGV']): ?>
+		<ul class="arguments">
+			<?php foreach($USER['ARGV'] as $argument => $value): ?>
+				<li><strong><?=$argument?></strong>: <span class="blue"><?=escapeHTML($value)?></span></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+
 	<footer>
 		<ul>
 			<li><a href="<?=$USER['URL']?>" target="_blank" title="<?=$Language->text('select_user')?>"><i class="fa fa-external-link"></i></a></li>

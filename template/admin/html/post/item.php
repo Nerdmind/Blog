@@ -6,6 +6,15 @@
 	<blockquote cite="<?=$POST['URL']?>">
 		<p><?=excerpt($POST['BODY']['HTML'])?></p>
 	</blockquote>
+
+	<?php if($POST['ARGV']): ?>
+		<ul class="arguments">
+			<?php foreach($POST['ARGV'] as $argument => $value): ?>
+				<li><strong><?=$argument?></strong>: <span class="blue"><?=escapeHTML($value)?></span></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+
 	<footer>
 		<ul>
 			<li><a href="<?=$POST['URL']?>" target="_blank" title="<?=$Language->text('select_post')?>"><i class="fa fa-external-link"></i></a></li>

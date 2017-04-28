@@ -106,11 +106,14 @@ abstract class Item implements ItemInterface {
 	#===============================================================================
 	public function getArguments(): array {
 		if($argv = $this->Attribute->get('argv')) {
-			foreach(explode('|', rtrim($argv, '|')) as $delimeter) {
+			foreach(explode('|', $argv) as $delimeter) {
 				$part = explode('=', $delimeter);
 
-				if(!empty($part[0])) {
-					$arguments[strtoupper($part[0])] = $part[1] ?? TRUE;
+				$argumentK = $part[0] ?? NULL;
+				$argumentV = $part[1] ?? TRUE;
+
+				if(preg_match('#^[[:word:]]+$#', $argumentK)) {
+					$arguments[strtoupper($argumentK)] = $argumentV;
 				}
 			}
 		}
