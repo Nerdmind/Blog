@@ -326,13 +326,17 @@ function description($string, $length = 200, $replace = ' […]') {
 #===============================================================================
 # Generate a valid slug URL part from a string
 #===============================================================================
-function makeSlugURL($string) {
-	$string = mb_strtolower($string);
-	$string = str_replace(['ä', 'ö', 'ü', 'ß'], ['ae', 'oe', 'ue', 'ss'], $string);
-	$string = preg_replace('/[^a-z0-9\-]/', '-', $string);
-	$string = preg_replace('/-+/', '-', $string);
+function makeSlugURL($string, $separator = '-') {
+	$string = strtr(mb_strtolower($string), [
+		'ä' => 'ae',
+		'ö' => 'oe',
+		'ü' => 'ue',
+		'ß' => 'ss'
+	]);
 
-	return trim($string, '-');
+	$string = preg_replace('#[^[:lower:][:digit:]]+#', $separator, $string);
+
+	return trim($string, $separator);
 }
 
 #===============================================================================
