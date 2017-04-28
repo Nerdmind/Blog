@@ -119,3 +119,35 @@ addEventListener("DOMContentLoaded", function() {
 		};
 	}
 }, false);
+
+//==============================================================================
+// Emoticon listener
+//==============================================================================
+addEventListener("DOMContentLoaded", function() {
+	if(document.getElementById("emoticon-list")) {
+		var list = document.getElementById("emoticon-list");
+		var items = list.getElementsByTagName("li");
+
+		for(var i = 0; i < items.length; ++i) {
+			items[i].onmousedown = function(e) {
+				emoticonReplace(e.target.getAttribute('data-emoticon'));
+			};
+		}
+	}
+}, false);
+
+//==============================================================================
+// Markdown listener
+//==============================================================================
+addEventListener("DOMContentLoaded", function() {
+	if(document.getElementById("markdown-list")) {
+		var list = document.getElementById("markdown-list");
+		var items = list.getElementsByTagName("li");
+
+		for(var i = 0; i < items.length; ++i) {
+			items[i].onmousedown = function(e) {
+				markdownReplace(e.target.getAttribute('data-markdown'));
+			};
+		}
+	}
+}, false);

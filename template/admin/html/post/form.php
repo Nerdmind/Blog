@@ -57,23 +57,23 @@
 		<input id="L_ARGV" name="argv" maxlength="100" placeholder="[ARGUMENT_FOO=one|ARGUMENT_BAR=two …]" value="<?=escapeHTML($FORM['DATA']['ARGV'])?>" />
 	</section>
 	<section class="flex flex-padding background flex-emoticons">
-		<ul class="button-list emoticons">
+		<ul id="emoticon-list" class="button-list emoticons">
 			<?php foreach(getEmoticons() as $emoticon => $data):?>
-				<li onmousedown="emoticonReplace('<?=$emoticon?>')" title="<?=$data[1]?>"><?=$data[0]?></li>
+				<li data-emoticon="<?=$emoticon?>" title="<?=$data[1]?>"><?=$data[0]?></li>
 			<?php endforeach; ?>
 		</ul>
 	</section>
 	<section class="flex flex-padding background">
-		<ul class="button-list markdown">
-			<li onmousedown="markdownReplace('bold');" class="fa fa-bold" title="<?=$Language->template('markdown_bold')?>"></li>
-			<li onmousedown="markdownReplace('italic');" class="fa fa-italic" title="<?=$Language->template('markdown_italic')?>"></li>
-			<li onmousedown="markdownReplace('heading');" class="fa fa-header" title="<?=$Language->template('markdown_heading')?>"></li>
-			<li onmousedown="markdownReplace('link');" class="fa fa-link" title="<?=$Language->template('markdown_link')?>"></li>
-			<li onmousedown="markdownReplace('image');" class="fa fa-picture-o" title="<?=$Language->template('markdown_image')?>"></li>
-			<li onmousedown="markdownReplace('code');" class="fa fa-code" title="<?=$Language->template('markdown_code')?>"></li>
-			<li onmousedown="markdownReplace('quote');" class="fa fa-quote-right" title="<?=$Language->template('markdown_quote')?>"></li>
-			<li onmousedown="markdownReplace('list_ul');" class="fa fa-list-ul" title="<?=$Language->template('markdown_list_ul')?>"></li>
-			<li onmousedown="markdownReplace('list_ol');" class="fa fa-list-ol" title="<?=$Language->template('markdown_list_ol')?>"></li>
+		<ul id="markdown-list" class="button-list markdown">
+			<li data-markdown="bold" class="fa fa-bold" title="<?=$Language->template('markdown_bold')?>"></li>
+			<li data-markdown="italic" class="fa fa-italic" title="<?=$Language->template('markdown_italic')?>"></li>
+			<li data-markdown="heading" class="fa fa-header" title="<?=$Language->template('markdown_heading')?>"></li>
+			<li data-markdown="link" class="fa fa-link" title="<?=$Language->template('markdown_link')?>"></li>
+			<li data-markdown="image" class="fa fa-picture-o" title="<?=$Language->template('markdown_image')?>"></li>
+			<li data-markdown="code" class="fa fa-code" title="<?=$Language->template('markdown_code')?>"></li>
+			<li data-markdown="quote" class="fa fa-quote-right" title="<?=$Language->template('markdown_quote')?>"></li>
+			<li data-markdown="list_ul" class="fa fa-list-ul" title="<?=$Language->template('markdown_list_ul')?>"></li>
+			<li data-markdown="list_ol" class="fa fa-list-ol" title="<?=$Language->template('markdown_list_ol')?>"></li>
 		</ul>
 	</section>
 <?php else: ?>
