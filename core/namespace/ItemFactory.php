@@ -1,5 +1,5 @@
 <?php
-abstract class ItemFactory extends Factory implements FactoryInterface {
+abstract class ItemFactory extends Factory {
 
 	#===========================================================================
 	# Build instance by ID
