@@ -15,7 +15,7 @@ http_response_code(404);
 try {
 	$MainTemplate = Template\Factory::build('main');
 	$MainTemplate->set('NAME', '404 Not Found');
-	$MainTemplate->set('HEAD', ['NAME' => '404 Not Found']);
+	$MainTemplate->set('HEAD', ['NAME' => $MainTemplate->get('NAME')]);
 	$MainTemplate->set('HTML', Template\Factory::build('404'));
 
 	echo $MainTemplate;

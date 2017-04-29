@@ -15,7 +15,7 @@ http_response_code(403);
 try {
 	$MainTemplate = Template\Factory::build('main');
 	$MainTemplate->set('NAME', '403 Forbidden');
-	$MainTemplate->set('HEAD', ['NAME' => '403 Forbidden']);
+	$MainTemplate->set('HEAD', ['NAME' => $MainTemplate->get('NAME')]);
 	$MainTemplate->set('HTML', Template\Factory::build('403'));
 
 	echo $MainTemplate;
