@@ -1,6 +1,9 @@
 <li class="item-list-li user">
 	<header>
 		<h2><i class="fa fa-user"></i><?=escapeHTML($USER['ATTR']['FULLNAME'])?><span>#<?=$USER['ID']?></span></h2>
+		<div>
+			<time class="brackets" datetime="<?=$USER['ATTR']['TIME_INSERT']?>"><?=parseDatetime($USER['ATTR']['TIME_INSERT'], $Language->template('date_format'))?></time>
+		</div>
 	</header>
 	<blockquote cite="<?=$USER['URL']?>">
 		<p><?=excerpt($USER['BODY']['HTML'])?></p>

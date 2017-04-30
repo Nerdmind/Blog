@@ -1,7 +1,10 @@
 <li class="item-list-li page">
 	<header>
 		<h2><i class="fa fa-file-text-o"></i><?=escapeHTML($PAGE['ATTR']['NAME'])?><span>#<?=$PAGE['ID']?></span></h2>
-		<div><a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ID']}")?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a></div>
+		<div>
+			<a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ID']}")?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
+			<time class="brackets" datetime="<?=$PAGE['ATTR']['TIME_INSERT']?>"><?=parseDatetime($PAGE['ATTR']['TIME_INSERT'], $Language->template('date_format'))?></time>
+		</div>
 	</header>
 	<blockquote cite="<?=$PAGE['URL']?>">
 		<p><?=excerpt($PAGE['BODY']['HTML'])?></p>
