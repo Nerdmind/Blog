@@ -64,7 +64,7 @@ body{font-family:Ruda,sans-serif;font-size:0.7rem;line-height:1.2rem;}
 #main-footer{font-size:0.6rem;background:#EEE;border-top:0.05rem solid #AAA;padding:0.5rem 0.75rem;text-align:center;}
 #main-footer > ul{margin:0;padding:0;list-style:none;}
 #main-footer > ul > li{display:inline;}
-#main-footer > ul > li + li{}
+#main-footer > ul > li .fa{margin-right:0.125rem;}
 #main-footer > ul > li:before{content:"[";font-weight:700;margin-right:0.1rem;}
 #main-footer > ul > li:after{content:"]";font-weight:700;margin-left:0.1rem;}
 
