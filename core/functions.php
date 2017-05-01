@@ -307,6 +307,7 @@ function excerpt($string, $length = 500, $replace = ' […]') {
 	$string = removeHTML($string);
 	$string = removeDoubleLineBreaks($string);
 	$string = cut($string, $length, $replace);
+	$string = trim($string);
 	$string = nl2br($string);
 
 	return $string;
