@@ -12,7 +12,7 @@
 		<section>
 			<div class="form-icon-flex"><i class="fa fa-database"></i></div>
 			<div class="form-label-flex"><label for="form_id">ID</label></div>
-			<div class="form-field-flex"><input<?=($FORM['TYPE'] === 'UPDATE') ? ' disabled="disabled"' : '';?> id="form_id" name="id" placeholder="[AUTO_INCREMENT]" value="<?=escapeHTML($FORM['DATA']['ID'])?>" /></div>
+			<div class="form-field-flex"><input<?=($FORM['TYPE'] === 'UPDATE') ? ' disabled="disabled"' : '';?> id="form_id" name="id" type="number" placeholder="[AUTO_INCREMENT]" value="<?=escapeHTML($FORM['DATA']['ID'])?>" /></div>
 		</section>
 		<section>
 			<div class="form-icon-flex"><i class="fa fa-key"></i></div>
