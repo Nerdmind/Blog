@@ -55,7 +55,7 @@ body{font-family:Ruda,sans-serif;font-size:0.7rem;line-height:1.2rem;}
 #header-desc span{color:#CCC;}
 #header-logo{display:block;max-height:5rem;float:left;margin-right:0.5rem;}
 .header-line{padding:0.5rem 1rem;overflow:hidden;}
-.header-line:first-child{background:#5E819F;}
+.header-line:first-child{background:#5E819F;position:sticky;top:0;}
 .header-line:last-child{background:#EEE;border:0.05rem solid #AAA;border-left:none;border-right:none;padding:0.25rem 1rem;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -136,11 +136,10 @@ a.brackets:before,a.brackets:after{color:#222;}
 /* Item List <li>
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .item-list-li{display:block;border:0.05rem solid #AAA;margin-bottom:1rem;clear:both;}
-.item-list-li > header{padding:0.5rem 1rem;}
 .item-list-li > header,
 .item-list-li > footer{background:#EEE;overflow:hidden;}
 .item-list-li > blockquote{margin:0;padding:1rem;font-family:inherit;}
-.item-list-li > header{border-bottom:0.05rem solid #AAA;}
+.item-list-li > header{padding:0.5rem 1rem;border-bottom:0.05rem solid #AAA;position:sticky;top:0;}
 .item-list-li > footer{border-top:0.05rem solid #AAA;}
 .item-list-li > footer > ul{margin:0;padding:0;list-style:none;}
 .item-list-li > footer > ul > li{display:inline-block;float:left;}
