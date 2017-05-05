@@ -7,7 +7,7 @@
 		</div>
 	</header>
 	<blockquote cite="<?=$POST['URL']?>">
-		<p><?=excerpt($POST['BODY']['HTML'])?></p>
+		<p><?=excerpt($POST['BODY']['HTML']())?></p>
 	</blockquote>
 
 	<?php if($POST['ARGV']): ?>

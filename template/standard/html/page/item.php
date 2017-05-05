@@ -15,6 +15,6 @@
 		</h2>
 	</header>
 	<blockquote cite="<?=$PAGE['URL']?>">
-		<p><?=excerpt($PAGE['BODY']['HTML'], 600)?></p>
+		<p><?=excerpt($PAGE['BODY']['HTML'](), 600)?></p>
 	</blockquote>
 </li>

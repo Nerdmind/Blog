@@ -15,6 +15,6 @@
 		</h2>
 	</header>
 	<blockquote cite="<?=$USER['URL']?>">
-		<?=$USER['BODY']['HTML']?>
+		<?=$USER['BODY']['HTML']()?>
 	</blockquote>
 </li>

@@ -6,7 +6,7 @@
 		</div>
 	</header>
 	<blockquote cite="<?=$USER['URL']?>">
-		<p><?=excerpt($USER['BODY']['HTML'])?></p>
+		<p><?=excerpt($USER['BODY']['HTML']())?></p>
 	</blockquote>
 
 	<?php if($USER['ARGV']): ?>

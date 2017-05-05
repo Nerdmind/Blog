@@ -14,7 +14,7 @@ $time = "<time datetime=\"{$PAGE['ATTR']['TIME_INSERT']}\" title=\"".parseDateti
 <p><?=$Language->template('page_main_heading_desc', [$user, $time])?></p>
 
 <section id="content" class="page">
-	<?=$PAGE['BODY']['HTML']?>
+	<?=$PAGE['BODY']['HTML']()?>
 </section>
 
 <section id="site-navi">

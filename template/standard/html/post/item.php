@@ -15,6 +15,6 @@
 		</h2>
 	</header>
 	<blockquote cite="<?=$POST['URL']?>">
-		<?=$POST['BODY']['HTML']?>
+		<?=$POST['BODY']['HTML']()?>
 	</blockquote>
 </li>

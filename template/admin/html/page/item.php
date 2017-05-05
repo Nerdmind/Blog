@@ -7,7 +7,7 @@
 		</div>
 	</header>
 	<blockquote cite="<?=$PAGE['URL']?>">
-		<p><?=excerpt($PAGE['BODY']['HTML'])?></p>
+		<p><?=excerpt($PAGE['BODY']['HTML']())?></p>
 	</blockquote>
 
 	<?php if($PAGE['ARGV']): ?>

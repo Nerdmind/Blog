@@ -47,7 +47,7 @@ try {
 		$MainTemplate->set('HTML', $PostTemplate);
 		$MainTemplate->set('HEAD', [
 			'NAME' => $post_data['ATTR']['NAME'],
-			'DESC' => description($post_data['BODY']['HTML'], Application::get('POST.DESCRIPTION_SIZE')),
+			'DESC' => description($post_data['BODY']['HTML'](), Application::get('POST.DESCRIPTION_SIZE')),
 			'PERM' => $post_data['URL'],
 			'OG_IMAGES' => $post_data['FILE']['LIST']
 		]);

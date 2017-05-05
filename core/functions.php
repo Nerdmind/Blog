@@ -100,8 +100,12 @@ function generateItemData(Item $Item): array {
 		],
 
 		'BODY' => [
-			'TEXT' => $Item->getBody(),
-			'HTML' => $Item->getHTML()
+			'TEXT' => function() use($Item) {
+				return $Item->getBody();
+			},
+			'HTML' => function() use($Item) {
+				return $Item->getHTML();
+			}
 		],
 
 		'ATTR' => [
@@ -148,8 +152,12 @@ function generateUserItemData(User\Item $User): array {
 		],
 
 		'BODY' => [
-			'TEXT' => $User->getBody(),
-			'HTML' => $User->getHTML()
+			'TEXT' => function() use($User) {
+				return $User->getBody();
+			},
+			'HTML' => function() use($User) {
+				return $User->getHTML();
+			}
 		],
 
 		'ATTR' => [

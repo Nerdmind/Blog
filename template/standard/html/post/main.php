@@ -14,7 +14,7 @@ $time = "<time datetime=\"{$POST['ATTR']['TIME_INSERT']}\" title=\"".parseDateti
 <p><?=$Language->template('post_main_heading_desc', [$user, $time])?></p>
 
 <section id="content" class="post">
-	<?=$POST['BODY']['HTML']?>
+	<?=$POST['BODY']['HTML']()?>
 </section>
 
 <section id="site-navi">
