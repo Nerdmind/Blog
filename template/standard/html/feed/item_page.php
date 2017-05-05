@@ -6,6 +6,8 @@
 # [see documentation]                                                          #
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+
+$HTML = $PAGE['BODY']['HTML']();
 ?>
 <item>
 	<title><?=escapeHTML($PAGE['ATTR']['NAME'])?></title>
@@ -13,10 +15,10 @@
 	<guid isPermaLink="false"><?=$PAGE['GUID']?></guid>
 	<pubDate><?=parseDatetime($PAGE['ATTR']['TIME_INSERT'], '[RFC2822]')?></pubDate>
 	<dc:creator><?=escapeHTML($USER['ATTR']['FULLNAME'])?></dc:creator>
-	<description><?=escapeHTML(description($PAGE['BODY']['HTML'](), 400))?></description>
+	<description><?=escapeHTML(description($HTML, 400))?></description>
 	<content:encoded>
 		<![CDATA[
-			<?=$PAGE['BODY']['HTML']()?>
+			<?=$HTML?>
 		]]>
 	</content:encoded>
 	<?php foreach($PAGE['FILE']['LIST'] as $fileURL): ?>
