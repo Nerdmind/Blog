@@ -43,8 +43,6 @@ class Application {
 			$username = self::get('DATABASE.USERNAME');
 			$password = self::get('DATABASE.PASSWORD');
 
-			self::set('DATABASE.PASSWORD', NULL);
-
 			self::$Database = new Database($hostname, $basename, $username, $password);
 		}
 
