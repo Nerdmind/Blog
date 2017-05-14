@@ -81,6 +81,7 @@ abstract class Item implements ItemInterface {
 		$item = "{$this->Reflection->getNamespaceName()}\\Item";
 
 		$Parsedown = new Parsedown();
+		$Parsedown->setUrlsLinked(FALSE);
 		$content = $this->getBody();
 
 		if(\Application::get($item::CONFIGURATION.'.EMOTICONS') === TRUE) {
