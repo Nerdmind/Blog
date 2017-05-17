@@ -351,36 +351,36 @@ function makeSlugURL($string, $separator = '-') {
 #===============================================================================
 # Function to get data from specific page in templates
 #===============================================================================
-function PAGE($id) {
+function PAGE(int $id): array {
 	try {
 		$Page = Page\Factory::build($id);
 		return generatePageItemData($Page);
 	} catch(Page\Exception $Exception) {
-		return NULL;
+		return [];
 	}
 }
 
 #===============================================================================
 # Function to get data from specific post in templates
 #===============================================================================
-function POST($id) {
+function POST(int $id): array {
 	try {
 		$Post = Post\Factory::build($id);
 		return generatePostItemData($Post);
 	} catch(Post\Exception $Exception) {
-		return NULL;
+		return [];
 	}
 }
 
 #===============================================================================
 # Function to get data from specific user in templates
 #===============================================================================
-function USER($id) {
+function USER(int $id): array {
 	try {
 		$User = User\Factory::build($id);
 		return generateUserItemData($User);
 	} catch(User\Exception $Exception) {
-		return NULL;
+		return [];
 	}
 }
 ?>
