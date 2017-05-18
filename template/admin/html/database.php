@@ -10,17 +10,17 @@
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
 
-	<section class="flex flex-padding">
+	<div class="flex flex-padding">
 		<textarea id="content-editor" placeholder="<?=$Language->template('database_warning')?>" name="command"><?=escapeHTML($FORM['COMMAND'])?></textarea>
-	</section>
+	</div>
 
 <?php if($FORM['RESULT']): ?>
-	<section class="flex flex-padding background flex-direction-column">
+	<div class="flex flex-padding background flex-direction-column">
 		<pre id="database-result"><?=escapeHTML($FORM['RESULT'])?></pre>
-	</section>
+	</div>
 <?php endif; ?>
 
-	<section class="flex flex-padding background">
+	<div class="flex flex-padding background">
 		<input type="submit" name="execute" value="Execute" />
-	</section>
+	</div>
 </form>

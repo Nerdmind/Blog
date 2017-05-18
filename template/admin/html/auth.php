@@ -10,21 +10,21 @@
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=Application::getSecurityToken()?>" />
 
-	<section class="flex">
-		<section>
+	<div class="flex">
+		<div class="flex-item">
 			<div class="form-icon-flex"><i class="fa fa-user-secret"></i></div>
 			<div class="form-label-flex"><label for="form_username"><?=$Language->template('label_username')?></label></div>
 			<div class="form-field-flex"><input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" /></div>
-		</section>
-	</section>
-	<section class="flex">
-		<section>
+		</div>
+	</div>
+	<div class="flex">
+		<div class="flex-item">
 			<div class="form-icon-flex"><i class="fa fa-key"></i></div>
 			<div class="form-label-flex"><label for="form_password"><?=$Language->template('label_password')?></label></div>
 			<div class="form-field-flex"><input type="password" id="form_password" name="password" /></div>
-		</section>
-	</section>
-	<section class="flex flex-padding background">
+		</div>
+	</div>
+	<div class="flex flex-padding background">
 		<input type="submit" name="auth" value="Auth" />
-	</section>
+	</div>
 </form>
