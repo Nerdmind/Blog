@@ -55,10 +55,10 @@ INSERT INTO `user` (`id`, `time_insert`, `time_update`, `slug`, `username`, `pas
 -- =============================================================================
 -- Add keys for tables
 -- =============================================================================
-ALTER TABLE `page` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `slug` (`slug`), ADD KEY `page_user` (`user`);
-ALTER TABLE `post` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `slug` (`slug`), ADD KEY `post_user` (`user`);
+ALTER TABLE `page` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `time_insert` (`time_insert`), ADD UNIQUE KEY `slug` (`slug`), ADD KEY `page_user` (`user`);
+ALTER TABLE `post` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `time_insert` (`time_insert`), ADD UNIQUE KEY `slug` (`slug`), ADD KEY `post_user` (`user`);
 ALTER TABLE `post` ADD FULLTEXT KEY `body` (`body`);
-ALTER TABLE `user` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `slug` (`slug`);
+ALTER TABLE `user` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `time_insert` (`time_insert`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `slug` (`slug`);
 
 -- =============================================================================
 -- Add AUTO_INCREMENT for tables

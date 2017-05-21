@@ -126,12 +126,12 @@ abstract class Item implements ItemInterface {
 	# Return previous item ID
 	#===============================================================================
 	public function getPrevID(): int {
-		$execute = 'SELECT id FROM %s WHERE DATE(time_insert) <= DATE(?) AND id < ? ORDER BY time_insert DESC, id DESC LIMIT 1';
+		$execute = 'SELECT id FROM %s WHERE time_insert < ? ORDER BY time_insert DESC LIMIT 1';
 
 		$attribute = "{$this->Reflection->getNamespaceName()}\\Attribute";
 		$Statement = $this->Database->prepare(sprintf($execute, $attribute::TABLE));
 
-		if($Statement->execute([$this->Attribute->get('time_insert'), $this->Attribute->get('id')])) {
+		if($Statement->execute([$this->Attribute->get('time_insert')])) {
 			return $Statement->fetchColumn();
 		}
 
@@ -142,12 +142,12 @@ abstract class Item implements ItemInterface {
 	# Return next item ID
 	#===============================================================================
 	public function getNextID(): int {
-		$execute = 'SELECT id FROM %s WHERE DATE(time_insert) >= DATE(?) AND id > ? ORDER BY time_insert ASC, id DESC LIMIT 1';
+		$execute = 'SELECT id FROM %s WHERE time_insert > ? ORDER BY time_insert ASC LIMIT 1';
 
 		$attribute = "{$this->Reflection->getNamespaceName()}\\Attribute";
 		$Statement = $this->Database->prepare(sprintf($execute, $attribute::TABLE));
 
-		if($Statement->execute([$this->Attribute->get('time_insert'), $this->Attribute->get('id')])) {
+		if($Statement->execute([$this->Attribute->get('time_insert')])) {
 			return $Statement->fetchColumn();
 		}
 
