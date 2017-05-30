@@ -36,12 +36,7 @@ try {
 		$FormTemplate->set('FORM', [
 			'TYPE' => 'DELETE',
 			'INFO' => $messages ?? [],
-			'DATA' => [
-				'ID'   => $Attribute->get('id'),
-				'BODY' => $Attribute->get('body'),
-				'TIME_INSERT' => $Attribute->get('time_insert'),
-				'TIME_UPDATE' => $Attribute->get('time_update'),
-			],
+			'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
 			'TOKEN' => Application::getSecurityToken()
 		]);
 

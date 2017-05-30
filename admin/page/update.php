@@ -58,16 +58,7 @@ try {
 		$FormTemplate->set('FORM', [
 			'TYPE' => 'UPDATE',
 			'INFO' => $messages ?? [],
-			'DATA' => [
-				'ID'   => $Attribute->get('id'),
-				'USER' => $Attribute->get('user'),
-				'SLUG' => $Attribute->get('slug'),
-				'NAME' => $Attribute->get('name'),
-				'BODY' => $Attribute->get('body'),
-				'ARGV' => $Attribute->get('argv'),
-				'TIME_INSERT' => $Attribute->get('time_insert'),
-				'TIME_UPDATE' => $Attribute->get('time_update'),
-			],
+			'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
 			'USER_LIST' => $userAttributes ??  [],
 			'TOKEN' => Application::getSecurityToken()
 		]);

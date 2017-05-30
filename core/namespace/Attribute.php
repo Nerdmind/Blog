@@ -16,6 +16,17 @@ abstract class Attribute implements AttributeInterface {
 	}
 
 	#===============================================================================
+	# Get all attributes
+	#===============================================================================
+	public function getAll($exclude = []): array {
+		$attributes = get_object_vars($this);
+
+		return array_filter($attributes, function($attribute) use($exclude) {
+			return !in_array($attribute, $exclude);
+		}, ARRAY_FILTER_USE_KEY);
+	}
+
+	#===============================================================================
 	# Get array with not FALSE attributes
 	#===============================================================================
 	protected function getFilteredAttributes(): array {

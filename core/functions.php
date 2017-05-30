@@ -2,16 +2,18 @@
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generatePageNaviTemplate($currentSite): Template\Template {
+function generateNaviTemplate(int $current, $location, $namespace): Template\Template {
 	$Database = Application::getDatabase();
-	$Statement = $Database->query(sprintf('SELECT COUNT(id) FROM %s', Page\Attribute::TABLE));
+	$Attribute = "{$namespace}\\Attribute";
 
-	$lastSite = ceil($Statement->fetchColumn() / Application::get('PAGE.LIST_SIZE'));
+	$Statement = $Database->query(sprintf('SELECT COUNT(id) FROM %s', $Attribute::TABLE));
+
+	$lastSite = ceil($Statement->fetchColumn() / Application::get(strtoupper($namespace).'.LIST_SIZE'));
 
 	$PaginationTemplate = Template\Factory::build('pagination');
-	$PaginationTemplate->set('THIS', $currentSite);
+	$PaginationTemplate->set('THIS', $current);
 	$PaginationTemplate->set('LAST', $lastSite);
-	$PaginationTemplate->set('HREF', Application::getPageURL('?site=%d'));
+	$PaginationTemplate->set('HREF', "{$location}?site=%d");
 
 	return $PaginationTemplate;
 }
@@ -19,35 +21,22 @@ function generatePageNaviTemplate($currentSite): Template\Template {
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generatePostNaviTemplate($currentSite): Template\Template {
-	$Database = Application::getDatabase();
-	$Statement = $Database->query(sprintf('SELECT COUNT(id) FROM %s', Post\Attribute::TABLE));
-
-	$lastSite = ceil($Statement->fetchColumn() / Application::get('POST.LIST_SIZE'));
-
-	$PaginationTemplate = Template\Factory::build('pagination');
-	$PaginationTemplate->set('THIS', $currentSite);
-	$PaginationTemplate->set('LAST', $lastSite);
-	$PaginationTemplate->set('HREF', Application::getPostURL('?site=%d'));
-
-	return $PaginationTemplate;
+function generatePageNaviTemplate($current): Template\Template {
+	return generateNaviTemplate($current, Application::getPageURL(), 'Page');
 }
 
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generateUserNaviTemplate($currentSite): Template\Template {
-	$Database = Application::getDatabase();
-	$Statement = $Database->query(sprintf('SELECT COUNT(id) FROM %s', User\Attribute::TABLE));
+function generatePostNaviTemplate($current): Template\Template {
+	return generateNaviTemplate($current, Application::getPostURL(), 'Post');
+}
 
-	$lastSite = ceil($Statement->fetchColumn() / Application::get('USER.LIST_SIZE'));
-
-	$PaginationTemplate = Template\Factory::build('pagination');
-	$PaginationTemplate->set('THIS', $currentSite);
-	$PaginationTemplate->set('LAST', $lastSite);
-	$PaginationTemplate->set('HREF', Application::getUserURL('?site=%d'));
-
-	return $PaginationTemplate;
+#===============================================================================
+# Helper function to reduce duplicate code
+#===============================================================================
+function generateUserNaviTemplate($current): Template\Template {
+	return generateNaviTemplate($current, Application::getUserURL(), 'User');
 }
 
 #===============================================================================
@@ -55,8 +44,8 @@ function generateUserNaviTemplate($currentSite): Template\Template {
 #===============================================================================
 function generatePageItemTemplate(Page\Item $Page, User\Item $User): Template\Template {
 	$Template = Template\Factory::build('page/item');
-	$Template->set('PAGE', generatePageItemData($Page));
-	$Template->set('USER', generateUserItemData($User));
+	$Template->set('PAGE', generateItemTemplateData($Page));
+	$Template->set('USER', generateItemTemplateData($User));
 
 	return $Template;
 }
@@ -66,8 +55,8 @@ function generatePageItemTemplate(Page\Item $Page, User\Item $User): Template\Te
 #===============================================================================
 function generatePostItemTemplate(Post\Item $Post, User\Item $User): Template\Template {
 	$Template = Template\Factory::build('post/item');
-	$Template->set('POST', generatePostItemData($Post));
-	$Template->set('USER', generateUserItemData($User));
+	$Template->set('POST', generateItemTemplateData($Post));
+	$Template->set('USER', generateItemTemplateData($User));
 
 	return $Template;
 }
@@ -77,7 +66,7 @@ function generatePostItemTemplate(Post\Item $Post, User\Item $User): Template\Te
 #===============================================================================
 function generateUserItemTemplate(User\Item $User): Template\Template {
 	$Template = Template\Factory::build('user/item');
-	$Template->set('USER', generateUserItemData($User));
+	$Template->set('USER', generateItemTemplateData($User));
 
 	return $Template;
 }
@@ -85,12 +74,16 @@ function generateUserItemTemplate(User\Item $User): Template\Template {
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generateItemData(Item $Item): array {
+function generateItemTemplateData(Item $Item): array {
+	$ATTR = $Item->getAttribute()->getAll(['password']);
+	$ATTR = array_change_key_case($ATTR, CASE_UPPER);
+
 	return [
-		'ID'  => $Item->getID(),
 		'URL' => $Item->getURL(),
 		'GUID' => $Item->getGUID(),
 		'ARGV' => $Item->getArguments(),
+
+		'ATTR' => $ATTR,
 
 		'PREV' => FALSE,
 		'NEXT' => FALSE,
@@ -106,69 +99,6 @@ function generateItemData(Item $Item): array {
 			'HTML' => function() use($Item) {
 				return $Item->getHTML();
 			}
-		],
-
-		'ATTR' => [
-			'USER' => $Item->attr('user'),
-			'SLUG' => $Item->attr('slug'),
-			'NAME' => $Item->attr('name'),
-			'BODY' => $Item->attr('body'),
-			'ARGV' => $Item->attr('argv'),
-			'TIME_INSERT' => $Item->attr('time_insert'),
-			'TIME_UPDATE' => $Item->attr('time_update')
-		]
-	];
-}
-
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generatePageItemData(Page\Item $Page): array {
-	return generateItemData($Page);
-}
-
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generatePostItemData(Post\Item $Post): array {
-	return generateItemData($Post);
-}
-
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generateUserItemData(User\Item $User): array {
-	return [
-		'ID'  => $User->getID(),
-		'URL' => $User->getURL(),
-		'GUID' => $User->getGUID(),
-		'ARGV' => $User->getArguments(),
-
-		'PREV' => FALSE,
-		'NEXT' => FALSE,
-
-		'FILE' => [
-			'LIST' => $User->getFiles()
-		],
-
-		'BODY' => [
-			'TEXT' => function() use($User) {
-				return $User->getBody();
-			},
-			'HTML' => function() use($User) {
-				return $User->getHTML();
-			}
-		],
-
-		'ATTR' => [
-			'SLUG' => $User->attr('slug'),
-			'BODY' => $User->attr('body'),
-			'ARGV' => $User->attr('argv'),
-			'USERNAME' => $User->attr('username'),
-			'FULLNAME' => $User->attr('fullname'),
-			'MAILADDR' => $User->attr('mailaddr'),
-			'TIME_INSERT' => $User->attr('time_insert'),
-			'TIME_UPDATE' => $User->attr('time_update')
 		]
 	];
 }
@@ -354,7 +284,7 @@ function makeSlugURL($string, $separator = '-') {
 function PAGE(int $id): array {
 	try {
 		$Page = Page\Factory::build($id);
-		return generatePageItemData($Page);
+		return generateItemTemplateData($Page);
 	} catch(Page\Exception $Exception) {
 		return [];
 	}
@@ -366,7 +296,7 @@ function PAGE(int $id): array {
 function POST(int $id): array {
 	try {
 		$Post = Post\Factory::build($id);
-		return generatePostItemData($Post);
+		return generateItemTemplateData($Post);
 	} catch(Post\Exception $Exception) {
 		return [];
 	}
@@ -378,7 +308,7 @@ function POST(int $id): array {
 function USER(int $id): array {
 	try {
 		$User = User\Factory::build($id);
-		return generateUserItemData($User);
+		return generateItemTemplateData($User);
 	} catch(User\Exception $Exception) {
 		return [];
 	}

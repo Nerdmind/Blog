@@ -19,20 +19,20 @@ try {
 
 	$User = User\Factory::build($Page->attr('user'));
 
-	$page_data = generatePageItemData($Page);
-	$user_data = generateUserItemData($User);
+	$page_data = generateItemTemplateData($Page);
+	$user_data = generateItemTemplateData($User);
 
 	#===============================================================================
 	# Add page data for previous and next page
 	#===============================================================================
 	try {
 		$PrevPage = Page\Factory::build($Page->getPrevID());
-		$page_data['PREV'] = generatePageItemData($PrevPage);
+		$page_data['PREV'] = generateItemTemplateData($PrevPage);
 	} catch(Page\Exception $Exception){}
 
 	try {
 		$NextPage = Page\Factory::build($Page->getNextID());
-		$page_data['NEXT'] = generatePageItemData($NextPage);
+		$page_data['NEXT'] = generateItemTemplateData($NextPage);
 	} catch(Page\Exception $Exception){}
 
 	#===============================================================================

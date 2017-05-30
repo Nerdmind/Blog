@@ -81,23 +81,22 @@ class HTTP {
 		self::$POST = $POST;
 		self::$FILE = $FILE;
 
-		$removeArrays AND self::removeArrays();
+		if($removeArrays) {
+			self::$GET  = self::removeArrayValues(self::$GET);
+			self::$POST = self::removeArrayValues(self::$POST);
+		}
 
 		self::$GET  = ($trimValues === TRUE ? self::trim(self::$GET)  : self::$GET );
 		self::$POST = ($trimValues === TRUE ? self::trim(self::$POST) : self::$POST);
 	}
 
 	#===============================================================================
-	# Remove all arrays from $_GET and $_POST
+	# Remove all array values inside an array
 	#===============================================================================
-	private static function removeArrays() {
-		foreach(['GET', 'POST'] as $HTTP) {
-			foreach(self::$$HTTP as $name => $value) {
-				if(is_array(self::$$HTTP[$name])) {
-					unset(self::$$HTTP[$name]);
-				}
-			}
-		}
+	private static function removeArrayValues(array $array) {
+		return array_filter($array, function($value) {
+			return !is_array($value);
+		});
 	}
 
 	#===============================================================================
@@ -114,7 +113,7 @@ class HTTP {
 	#===============================================================================
 	# Checks if all elements of $arguments are set as key of $data
 	#===============================================================================
-	private static function issetData($data, $arguments) {
+	private static function issetData($data, $arguments): bool {
 		foreach($arguments as $key) {
 			if(is_array($key)) {
 				if(!isset($data[key($key)]) OR $data[key($key)] !== $key[key($key)]) {
@@ -131,61 +130,45 @@ class HTTP {
 	}
 
 	#===============================================================================
-	# Return null or the value (if set) from one of the three requests attributes
-	#===============================================================================
-	public static function returnKey($data, array $paths) {
-		$current = &$data;
-
-		foreach($paths as $path) {
-			if(!isset($current[$path])) {
-				return NULL;
-			}
-			$current = &$current[$path];
-		}
-
-		return $current;
-	}
-
-	#===============================================================================
 	# Return GET value
 	#===============================================================================
-	public static function GET() {
-		return self::returnKey(self::$GET, func_get_args());
+	public static function GET($parameter) {
+		return self::$GET[$parameter] ?? NULL;
 	}
 
 	#===============================================================================
 	# Return POST value
 	#===============================================================================
-	public static function POST() {
-		return self::returnKey(self::$POST, func_get_args());
+	public static function POST($parameter) {
+		return self::$POST[$parameter] ?? NULL;
 	}
 
 	#===============================================================================
 	# Return FILE value
 	#===============================================================================
-	public static function FILE() {
-		return self::returnKey(self::$FILE, func_get_args());
+	public static function FILE($parameter) {
+		return self::$FILE[$parameter] ?? NULL;
 	}
 
 	#===============================================================================
-	# Checks if all elements of func_get_args() are set key of self::$POST
+	# Checks if all elements of $parameters are set as key in self::$GET
 	#===============================================================================
-	public static function issetPOST() {
-		return self::issetData(self::$POST, func_get_args());
+	public static function issetGET(... $parameters): bool {
+		return self::issetData(self::$GET, $parameters);
 	}
 
 	#===============================================================================
-	# Checks if all elements of func_get_args() are set key of self::$GET
+	# Checks if all elements of $parameters are set as key in self::$POST
 	#===============================================================================
-	public static function issetGET() {
-		return self::issetData(self::$GET, func_get_args());
+	public static function issetPOST(... $parameters): bool {
+		return self::issetData(self::$POST, $parameters);
 	}
 
 	#===============================================================================
-	# Checks if all elements of func_get_args() are set key of self::$FILE
+	# Checks if all elements of $parameters are set as key in self::$FILE
 	#===============================================================================
-	public static function issetFILE() {
-		return self::issetData(self::$FILE, func_get_args());
+	public static function issetFILE(... $parameters): bool {
+		return self::issetData(self::$FILE, $parameters);
 	}
 
 	#===============================================================================

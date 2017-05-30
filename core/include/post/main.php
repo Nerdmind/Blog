@@ -19,20 +19,20 @@ try {
 
 	$User = User\Factory::build($Post->attr('user'));
 
-	$post_data = generatePostItemData($Post);
-	$user_data = generateUserItemData($User);
+	$post_data = generateItemTemplateData($Post);
+	$user_data = generateItemTemplateData($User);
 
 	#===============================================================================
 	# Add post data for previous and next post
 	#===============================================================================
 	try {
 		$PrevPost = Post\Factory::build($Post->getPrevID());
-		$post_data['PREV'] = generatePostItemData($PrevPost);
+		$post_data['PREV'] = generateItemTemplateData($PrevPost);
 	} catch(Post\Exception $Exception){}
 
 	try {
 		$NextPost = Post\Factory::build($Post->getNextID());
-		$post_data['NEXT'] = generatePostItemData($NextPost);
+		$post_data['NEXT'] = generateItemTemplateData($NextPost);
 	} catch(Post\Exception $Exception){}
 
 	#===============================================================================

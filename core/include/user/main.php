@@ -17,19 +17,19 @@ try {
 		$User = User\Factory::build($param);
 	}
 
-	$user_data = generateUserItemData($User);
+	$user_data = generateItemTemplateData($User);
 
 	#===============================================================================
 	# Add user data for previous and next user
 	#===============================================================================
 	try {
 		$PrevUser = User\Factory::build($User->getPrevID());
-		$user_data['PREV'] = generateUserItemData($PrevUser);
+		$user_data['PREV'] = generateItemTemplateData($PrevUser);
 	} catch(User\Exception $Exception){}
 
 	try {
 		$NextUser = User\Factory::build($User->getNextID());
-		$user_data['NEXT'] = generateUserItemData($NextUser);
+		$user_data['NEXT'] = generateItemTemplateData($NextUser);
 	} catch(User\Exception $Exception){}
 
 	#===============================================================================

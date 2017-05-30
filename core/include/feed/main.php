@@ -24,8 +24,8 @@ try {
 				$User = User\Factory::build($Post->attr('user'));
 
 				$ItemTemplate = Template\Factory::build('feed/item_post');
-				$ItemTemplate->set('POST', generatePostItemData($Post));
-				$ItemTemplate->set('USER', generateUserItemData($User));
+				$ItemTemplate->set('POST', generateItemTemplateData($Post));
+				$ItemTemplate->set('USER', generateItemTemplateData($User));
 
 				$posts[] = $ItemTemplate;
 			}
@@ -45,8 +45,8 @@ try {
 				$User = User\Factory::build($Page->attr('user'));
 
 				$ItemTemplate = Template\Factory::build('feed/item_page');
-				$ItemTemplate->set('PAGE', generatePageItemData($Page));
-				$ItemTemplate->set('USER', generateUserItemData($User));
+				$ItemTemplate->set('PAGE', generateItemTemplateData($Page));
+				$ItemTemplate->set('USER', generateItemTemplateData($User));
 
 				$pages[] = $ItemTemplate;
 			}
