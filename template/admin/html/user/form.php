@@ -17,7 +17,7 @@
 		<div class="flex-item">
 			<div class="form-icon-flex"><i class="fa fa-key"></i></div>
 			<div class="form-label-flex"><label for="form_password"><?=$Language->template('label_password')?></label></div>
-			<div class="form-field-flex"><input id="form_password" name="password" placeholder="[NO CHANGE]" value="<?=escapeHTML($FORM['DATA']['PASSWORD'])?>" type="password" /></div>
+			<div class="form-field-flex"><input id="form_password" name="password" placeholder="[NO CHANGE]" type="password" /></div>
 		</div>
 	</div>
 	<div class="flex flex-responsive">
