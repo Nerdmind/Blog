@@ -177,11 +177,19 @@ form{border:0.05rem solid #AAA;}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Form buttons
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.button-list {margin:0;padding:0;list-style:none;}
-.button-list > li{display:inline-block;background:#EEE;padding:0.5rem;border:0.05rem solid #AAA;cursor:pointer;}
+#button-list-wrapper{border-bottom:0.05rem solid #AAA;background:#EEE;}
+
+.button-list{margin:0;padding:0;list-style:none;}
+.button-list.emoticons > li{display:inline-block;background:#EEE;padding:0.5rem;border:0.05rem solid #AAA;cursor:pointer;}
 .button-list.emoticons > li {padding:0.25rem 0.5rem;}
-.button-list > li:hover,
-.button-list > li:active{background:#CCC;}
+.button-list.emoticons > li:hover,
+.button-list.emoticons > li:active{background:#CCC;}
+
+.button-list.markdown > li{float:left;padding:0.5rem;cursor:pointer;width:1.75rem;height:1.75rem;box-sizing:border-box;text-align:center;}
+.button-list.markdown > li:hover,
+.button-list.markdown > li:active{color:#40779A;}
+
+#content-editor{border:none;margin:0;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Form elements

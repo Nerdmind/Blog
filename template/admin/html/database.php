@@ -10,7 +10,7 @@
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
 
-	<div class="flex flex-padding">
+	<div class="flex">
 		<textarea id="content-editor" placeholder="<?=$Language->template('database_warning')?>" name="command"><?=escapeHTML($FORM['COMMAND'])?></textarea>
 	</div>
 
