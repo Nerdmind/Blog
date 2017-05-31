@@ -1,14 +1,18 @@
 <h1><?=$Language->template('authentication_text')?></h1>
 <p><?=$Language->template('authentication_desc')?></p>
 
-<?php if(isset($FORM['INFO'])): ?>
-	<?php foreach($FORM['INFO'] as $message): ?>
-		<div class="red"><?=$message?></div>
-	<?php endforeach; ?>
-<?php endif; ?>
-
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=Application::getSecurityToken()?>" />
+
+	<?php if($FORM['INFO']): ?>
+		<div class="flex flex-direction-column">
+			<ul id="message-list">
+				<?php foreach($FORM['INFO'] as $message): ?>
+					<li><?=$message?></li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	<?php endif; ?>
 
 	<div class="flex">
 		<div class="flex-item">

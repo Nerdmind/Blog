@@ -1,11 +1,15 @@
-<?php if(isset($FORM['INFO'])): ?>
-	<?php foreach($FORM['INFO'] as $message): ?>
-		<div class="red"><?=$message?></div>
-	<?php endforeach; ?>
-<?php endif; ?>
-
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
+
+	<?php if($FORM['INFO']): ?>
+		<div class="flex flex-direction-column">
+			<ul id="message-list">
+				<?php foreach($FORM['INFO'] as $message): ?>
+					<li><?=$message?></li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	<?php endif; ?>
 
 <?php if($FORM['TYPE'] !== 'DELETE'): ?>
 	<div class="flex flex-responsive">
@@ -84,11 +88,11 @@
 
 	<div class="flex flex-padding background">
 		<?php if($FORM['TYPE'] === 'INSERT'): ?>
-			<input type="submit" name="insert" value="<?=$Language->text('insert')?>" />
+			<input id="insert-button" type="submit" name="insert" value="<?=$Language->text('insert')?>" />
 		<?php elseif($FORM['TYPE'] === 'UPDATE'): ?>
-			<input type="submit" name="update" value="<?=$Language->text('update')?>" />
+			<input id="update-button" type="submit" name="update" value="<?=$Language->text('update')?>" />
 		<?php elseif($FORM['TYPE'] === 'DELETE'): ?>
-			<input type="submit" name="delete" value="<?=$Language->text('delete')?>" id="delete-button" data-text="<?=$Language->template('sure')?>" />
+			<input id="delete-button" type="submit" name="delete" value="<?=$Language->text('delete')?>" data-text="<?=$Language->template('sure')?>" />
 		<?php endif; ?>
 	</div>
 </form>

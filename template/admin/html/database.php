@@ -1,14 +1,18 @@
 <h1><i class="fa fa-database"></i><?=$Language->template('overview_database_text')?></h1>
 <p><?=$Language->template('overview_database_desc')?></p>
 
-<?php if(isset($FORM['INFO'])): ?>
-	<?php foreach($FORM['INFO'] as $message): ?>
-		<div class="red"><?=$message?></div>
-	<?php endforeach; ?>
-<?php endif; ?>
-
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
+
+	<?php if($FORM['INFO']): ?>
+		<div class="flex flex-direction-column">
+			<ul id="message-list">
+				<?php foreach($FORM['INFO'] as $message): ?>
+					<li><?=$message?></li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	<?php endif; ?>
 
 	<div class="flex">
 		<textarea id="content-editor" placeholder="<?=$Language->template('database_warning')?>" name="command"><?=escapeHTML($FORM['COMMAND'])?></textarea>
@@ -21,6 +25,6 @@
 <?php endif; ?>
 
 	<div class="flex flex-padding background">
-		<input type="submit" name="execute" value="Execute" />
+		<input id="insert-button" type="submit" name="execute" value="Execute" />
 	</div>
 </form>

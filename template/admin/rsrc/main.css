@@ -191,16 +191,33 @@ form{border:0.05rem solid #AAA;}
 
 #content-editor{border:none;margin:0;}
 
+
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Form elements
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 input,select,textarea{width:100%;box-sizing:padding-box;background:#EEE;color:#404040;font-family:inherit;font-size:0.7rem;padding:0.25rem;border:0.05rem solid #AAA;}
 textarea{font-family:Kadwa,sans-serif;box-sizing:border-box;display:inline-block;resize:vertical;min-height:15rem;line-height:1.3rem;padding:0.5rem;-webkit-hyphens:none;hyphens:none;}
-input[type="submit"]{text-transform:uppercase;}
+input[type="submit"]{text-transform:uppercase;border-radius:0.1rem;}
 input:disabled{background:#DDD;color:#888;}
 input:disabled:hover{cursor:not-allowed;}
 label{text-transform:uppercase;font-weight:normal;}
 label:after{content:":";}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* Form buttons
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#insert-button,
+#update-button,
+#delete-button{color:#EEE;border:0.05rem solid #404040;}
+
+#insert-button{background:#4D8D5D;}
+#update-button{background:#6A8AA5;}
+#delete-button{background:#C45C66;}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* Form message list
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#message-list{margin:0;padding:0.5rem;list-style:none;background:#C45C66;color:#EEE;font-size:0.6rem;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* FontAwesome Main
