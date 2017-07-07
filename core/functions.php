@@ -265,7 +265,7 @@ function description($string, $length = 200, $replace = ' […]') {
 #===============================================================================
 # Generate a valid slug URL part from a string
 #===============================================================================
-function makeSlugURL($string, $separator = '-') {
+function generateSlug($string, $separator = '-') {
 	$string = strtr(mb_strtolower($string), [
 		'ä' => 'ae',
 		'ö' => 'oe',

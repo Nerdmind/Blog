@@ -90,7 +90,7 @@ setInterval(function() {
 //==============================================================================
 if(document.getElementById("delete-button")) {
 	document.getElementById("delete-button").onclick = function(e) {
-		return confirm(e.target.getAttribute('data-text'));
+		return confirm(e.target.getAttribute("data-text"));
 	};
 }
 
@@ -100,7 +100,7 @@ if(document.getElementById("delete-button")) {
 (function() {
 	if(document.getElementById("content-editor")) {
 		var element = document.getElementById("content-editor");
-		element.addEventListener('keydown', function(e) {
+		element.addEventListener("keydown", function(e) {
 			if(e.keyCode === 9 && !e.ctrlKey) {
 				var selectionStart = element.selectionStart;
 				var selectionEnd = element.selectionEnd;
@@ -136,7 +136,7 @@ if(document.getElementById("delete-button")) {
 
 		for(var i = 0; i < items.length; ++i) {
 			items[i].onmousedown = function(e) {
-				insertEmoticon(node, e.target.getAttribute('data-emoticon'));
+				insertEmoticon(node, e.target.getAttribute("data-emoticon"));
 			};
 		}
 	}
@@ -153,7 +153,7 @@ if(document.getElementById("delete-button")) {
 
 		for(var i = 0; i < items.length; ++i) {
 			items[i].onmousedown = function(e) {
-				insertMarkdown(node, e.target.getAttribute('data-markdown'));
+				insertMarkdown(node, e.target.getAttribute("data-markdown"));
 			};
 		}
 	}

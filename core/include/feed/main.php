@@ -15,7 +15,10 @@ HTTP::responseHeader(HTTP::HEADER_CONTENT_TYPE, HTTP::CONTENT_TYPE_XML);
 #===============================================================================
 try {
 	if(!isset($param) OR $param !== 'page') {
-		$execSQL = 'SELECT id FROM %s ORDER BY '.Application::get('POST.FEED_SORT').' LIMIT '.Application::get('POST.FEED_SIZE');
+		$POST['FEED_SORT'] = Application::get('POST.FEED_SORT');
+		$POST['FEED_SIZE'] = Application::get('POST.FEED_SIZE');
+
+		$execSQL = "SELECT id FROM %s ORDER BY {$POST['FEED_SORT']} LIMIT {$POST['FEED_SIZE']}";
 		$postIDs = $Database->query(sprintf($execSQL, Post\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
 
 		foreach($postIDs as $postID) {
@@ -36,7 +39,10 @@ try {
 	}
 
 	if(!isset($param) OR $param !== 'post') {
-		$execSQL = 'SELECT id FROM %s ORDER BY '.Application::get('PAGE.FEED_SORT').' LIMIT '.Application::get('PAGE.FEED_SIZE');
+		$PAGE['FEED_SORT'] = Application::get('PAGE.FEED_SORT');
+		$PAGE['FEED_SIZE'] = Application::get('PAGE.FEED_SIZE');
+
+		$execSQL = "SELECT id FROM %s ORDER BY {$PAGE['FEED_SORT']} LIMIT {$PAGE['FEED_SIZE']}";
 		$pageIDs = $Database->query(sprintf($execSQL, Page\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
 
 		foreach($pageIDs as $pageID) {

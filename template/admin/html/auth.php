@@ -2,7 +2,7 @@
 <p><?=$Language->template('authentication_desc')?></p>
 
 <form action="" method="POST">
-	<input type="hidden" name="token" value="<?=Application::getSecurityToken()?>" />
+	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
 
 	<?php if($FORM['INFO']): ?>
 		<div class="flex flex-direction-column">
