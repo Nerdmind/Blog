@@ -32,7 +32,7 @@ $LANGUAGE['insert_user_desc'] = 'Hier kannst du einen neuen Benutzer erstellen u
 #===============================================================================
 $LANGUAGE['update_page_desc'] = 'Hier kannst du eine vorhandene Seite bearbeiten und die Änderungen abspeichern.';
 $LANGUAGE['update_post_desc'] = 'Hier kannst du einen vorhandenen Beitrag bearbeiten und die Änderungen abspeichern.';
-$LANGUAGE['update_user_desc'] = 'Hier kannst du deinen vorhandenen Benutzer bearbeiten und die Änderungen abspeichern.';
+$LANGUAGE['update_user_desc'] = 'Hier kannst du einen vorhandenen Benutzer bearbeiten und die Änderungen abspeichern.';
 
 #===============================================================================
 # Delete item description
