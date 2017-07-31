@@ -109,6 +109,12 @@ $LANGUAGE['404_heading_desc'] = 'Die angeforderte Ressource konnte auf diesem Se
 $LANGUAGE['sure'] = 'Bist du sicher?';
 
 #===============================================================================
+# Login and logout
+#===============================================================================
+$LANGUAGE['login'] = 'Einloggen';
+$LANGUAGE['logout'] = 'Ausloggen';
+
+#===============================================================================
 # Labels
 #===============================================================================
 $LANGUAGE['label_slug'] = 'Slug';
@@ -120,6 +126,7 @@ $LANGUAGE['label_fullname'] = 'Name';
 $LANGUAGE['label_mailaddr'] = 'E-Mail';
 $LANGUAGE['label_username'] = 'Username';
 $LANGUAGE['label_password'] = 'Passwort';
+$LANGUAGE['label_language'] = 'Sprache';
 
 #===============================================================================
 # Markdown

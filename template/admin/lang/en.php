@@ -109,6 +109,12 @@ $LANGUAGE['404_heading_desc'] = 'The requested resource could not be found on th
 $LANGUAGE['sure'] = 'Are you sure?';
 
 #===============================================================================
+# Login and logout
+#===============================================================================
+$LANGUAGE['login'] = 'Login';
+$LANGUAGE['logout'] = 'Logout';
+
+#===============================================================================
 # Labels
 #===============================================================================
 $LANGUAGE['label_slug'] = 'Slug';
@@ -120,6 +126,7 @@ $LANGUAGE['label_fullname'] = 'Name';
 $LANGUAGE['label_mailaddr'] = 'Email';
 $LANGUAGE['label_username'] = 'Username';
 $LANGUAGE['label_password'] = 'Password';
+$LANGUAGE['label_language'] = 'Language';
 
 #===============================================================================
 # Markdown
