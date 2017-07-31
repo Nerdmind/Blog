@@ -49,23 +49,15 @@ $LANGUAGE['overview_post_desc'] = 'Here you can see all existing posts.';
 $LANGUAGE['overview_user_desc'] = 'Here you can see all existing users.';
 
 #===============================================================================
-# Dashboard overview text
+# Dashboard
 #===============================================================================
 $LANGUAGE['overview_dashboard_text'] = 'Dashboard';
-
-#===============================================================================
-# Dashboard overview text
-#===============================================================================
 $LANGUAGE['overview_dashboard_desc'] = 'Welcome to the administration area. Here you can manage your content.';
 
 #===============================================================================
-# Database overview text
+# Database
 #===============================================================================
 $LANGUAGE['overview_database_text'] = 'Database';
-
-#===============================================================================
-# Database overview text
-#===============================================================================
 $LANGUAGE['overview_database_desc'] = 'Perform database operations with SQL commands.';
 
 #===============================================================================
