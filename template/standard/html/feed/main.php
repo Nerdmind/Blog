@@ -27,7 +27,7 @@ switch($FEED['TYPE']) {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/">
 	<channel>
 		<title><?=$title?></title>
-		<link><?=$self?></link>
+		<link><?=Application::getURL()?></link>
 		<language><?=$BLOGMETA['LANG']?></language>
 		<description><?=escapeHTML($BLOGMETA['DESC'])?></description>
 
@@ -36,7 +36,7 @@ switch($FEED['TYPE']) {
 		<image>
 			<title><?=$BLOGMETA_NAME?></title>
 			<url><?=Application::getTemplateURL('rsrc/logo.png')?></url>
-			<link><?=$self?></link>
+			<link><?=Application::getURL()?></link>
 		</image>
 
 		<!-- Feed items of type "post" -->
