@@ -34,7 +34,7 @@ switch($FEED['TYPE']) {
 		<atom:link href="<?=$self?>" rel="self" type="application/rss+xml" />
 
 		<image>
-			<title><?=$BLOGMETA_NAME?></title>
+			<title><?=$title?></title>
 			<url><?=Application::getTemplateURL('rsrc/logo.png')?></url>
 			<link><?=Application::getURL()?></link>
 		</image>
