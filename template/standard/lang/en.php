@@ -25,7 +25,7 @@ $LANGUAGE['navigation_search_desc'] = 'Fulltext search';
 # Start page title and description
 #===============================================================================
 $LANGUAGE['home_heading_text'] = 'Welcome to %s';
-$LANGUAGE['home_heading_desc'] = 'Here you can see the last 10 published posts. Have fun!';
+$LANGUAGE['home_heading_desc'] = 'Here you can see the last %d published posts. Have fun!';
 
 #===============================================================================
 # Item overview description
