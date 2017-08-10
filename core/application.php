@@ -89,25 +89,22 @@ catch(PDOException $Exception) {
 # Check if "304 Not Modified" and ETag header should be send
 #===============================================================================
 if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {
+
 	#===========================================================================
 	# Select edit time from last edited items (page, post, user)
 	#===========================================================================
-	$execute = 'SELECT time_update FROM %s ORDER BY time_update DESC LIMIT 1';
+	$execute = '(SELECT time_update FROM %s ORDER BY time_update DESC LIMIT 1) AS %s';
 
-	$PageStatement = $Database->query(sprintf($execute, Page\Attribute::TABLE));
-	$PostStatement = $Database->query(sprintf($execute, Post\Attribute::TABLE));
-	$UserStatement = $Database->query(sprintf($execute, User\Attribute::TABLE));
+	$pageSQL = sprintf($execute, Page\Attribute::TABLE, Page\Attribute::TABLE);
+	$postSQL = sprintf($execute, Post\Attribute::TABLE, Post\Attribute::TABLE);
+	$userSQL = sprintf($execute, User\Attribute::TABLE, User\Attribute::TABLE);
+
+	$Statement = $Database->query("SELECT {$pageSQL}, {$postSQL}, {$userSQL}");
 
 	#===========================================================================
 	# Define HTTP ETag header identifier
 	#===========================================================================
-	$HTTP_ETAG_IDENTIFIER = sha1(implode(NULL, [
-		serialize(Application::getConfiguration()),
-		$PageStatement->fetchColumn(),
-		$PostStatement->fetchColumn(),
-		$UserStatement->fetchColumn(),
-		'CUSTOM-STRING-0123456789'
-	]));
+	$HTTP_ETAG_IDENTIFIER = md5(implode($Statement->fetch(PDO::FETCH_ASSOC)));
 
 	#===========================================================================
 	# Send ETag header within the HTTP response
