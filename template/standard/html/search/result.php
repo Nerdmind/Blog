@@ -1,8 +1,8 @@
-<h1><?=$Language->template('search_result_heading_text', escapeHTML($SEARCH['TEXT']))?></h1>
-<p><?=$Language->template('search_result_heading_desc')?></p>
+<h1><?=$Language->text('search_result_heading_text', escapeHTML($SEARCH['TEXT']))?></h1>
+<p><?=$Language->text('search_result_heading_desc')?></p>
 
 <form action="" method="GET">
-	<input autofocus type="search" name="q" placeholder="<?=$Language->template('search_form_placeholder')?>" value="<?=escapeHTML($SEARCH['TEXT'])?>" />
+	<input autofocus type="search" name="q" placeholder="<?=$Language->text('search_form_placeholder')?>" value="<?=escapeHTML($SEARCH['TEXT'])?>" />
 
 	<select name="d">
 		<option value=""><?=$Language->text('date_d')?></option>

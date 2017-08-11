@@ -3,7 +3,7 @@
 		<h2><i class="fa fa-newspaper-o"></i><?=escapeHTML($POST['ATTR']['NAME'])?><span>#<?=$POST['ATTR']['ID']?></span></h2>
 		<div>
 			<a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ATTR']['ID']}")?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
-			<time class="brackets" datetime="<?=$POST['ATTR']['TIME_INSERT']?>"><?=parseDatetime($POST['ATTR']['TIME_INSERT'], $Language->template('date_format'))?></time>
+			<time class="brackets" datetime="<?=$POST['ATTR']['TIME_INSERT']?>"><?=parseDatetime($POST['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
 		</div>
 	</header>
 	<blockquote cite="<?=$POST['URL']?>">

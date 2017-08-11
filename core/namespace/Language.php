@@ -1,48 +1,52 @@
 <?php
 class Language {
-	private $language = [];
-	private $template = [];
+	private $code = '';
+	private $text = [];
 
-	public function __construct($lang) {
-		require ROOT."core/language/{$lang}.php";
-		$this->language = $LANGUAGE;
+	public function __construct($code) {
+		$this->code = $code;
 	}
 
-	public function loadLanguage($filename) {
-		require $filename;
-		$this->template = $LANGUAGE;
+	#===============================================================================
+	# Return the language code
+	#===============================================================================
+	public function getCode() {
+		return $this->code;
 	}
 
-	public function template($name, $params = FALSE) {
-		if(isset($this->template[$name])) {
-			if($params) {
-				return vsprintf($this->template[$name], $params);
-			}
-
-			return $this->template[$name];
+	#===============================================================================
+	# Load another language file
+	#===============================================================================
+	public function load($filename) {
+		if(file_exists($filename) AND is_readable($filename)) {
+			require $filename;
+			$this->text = array_merge($this->text, $LANGUAGE ?? []);
 		}
-
-		return "{{$name}}";
 	}
 
-	private function get($name, $params = FALSE) {
-		if(isset($this->language[$name])) {
-			if($params) {
-				return vsprintf($this->language[$name], $params);
-			}
-
-			return $this->language[$name];
-		}
-
-		return "{{$name}}";
-	}
-
-	public function text($name, $params = FALSE) {
-		return $this->get($name, $params);
-	}
-
+	#===============================================================================
+	# Set language string
+	#===============================================================================
 	public function set($name, $value) {
-		return $this->language[$name] = $value;
+		return $this->text[$name] = $value;
+	}
+
+	#===============================================================================
+	# Return language string with included arguments
+	#===============================================================================
+	public function text($name, $arguments = NULL): string {
+		if(!isset($this->text[$name])) {
+			return "{{$name}}";
+		}
+
+		return vsprintf($this->text[$name], $arguments);
+	}
+
+	#===============================================================================
+	# DEPRECATED: This method will be removed in the future!
+	#===============================================================================
+	public function template($name, $params = FALSE): string {
+		return $this->text($name, $params);
 	}
 }
 ?>

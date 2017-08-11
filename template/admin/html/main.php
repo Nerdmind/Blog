@@ -22,18 +22,18 @@
 				<nav id="main-navi">
 					<?php if(Application::isAuthenticated()): ?>
 						<ul>
-							<li><a href="<?=Application::getAdminURL()?>" title="<?=$Language->template('overview_dashboard_text')?>"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
+							<li><a href="<?=Application::getAdminURL()?>" title="<?=$Language->text('overview_dashboard_text')?>"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
 							<li><a href="<?=Application::getAdminURL('post/')?>" title="<?=$Language->text('post_overview')?>"><i class="fa fa-newspaper-o"></i><span><?=$Language->text('posts')?></span></a></li>
 							<li><a href="<?=Application::getAdminURL('page/')?>" title="<?=$Language->text('page_overview')?>"><i class="fa fa-file-text-o"></i><span><?=$Language->text('pages')?></span></a></li>
 							<li><a href="<?=Application::getAdminURL('user/')?>" title="<?=$Language->text('user_overview')?>"><i class="fa fa-user"></i><span><?=$Language->text('users')?></span></a></li>
-							<li><a href="<?=Application::getAdminURL('database.php')?>" title="<?=$Language->template('overview_database_text')?>"><i class="fa fa-database"></i><span><?=$Language->template('overview_database_text')?></span></a></li>
+							<li><a href="<?=Application::getAdminURL('database.php')?>" title="<?=$Language->text('overview_database_text')?>"><i class="fa fa-database"></i><span><?=$Language->text('overview_database_text')?></span></a></li>
 						</ul>
 						<ul>
-							<li><a href="<?=Application::getAdminURL('auth.php?action=logout&amp;token='.Application::getSecurityToken())?>"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
+							<li><a href="<?=Application::getAdminURL('auth.php?action=logout&amp;token='.Application::getSecurityToken())?>"><i class="fa fa-sign-out"></i><span><?=$Language->text('logout')?></span></a></li>
 						</ul>
 					<?php else: ?>
 						<ul>
-							<li><a href="<?=Application::getAdminURL('auth.php')?>"><i class="fa fa-sign-in"></i><span>Login</span></a></li>
+							<li><a href="<?=Application::getAdminURL('auth.php')?>"><i class="fa fa-sign-in"></i><span><?=$Language->text('login')?></span></a></li>
 						</ul>
 					<?php endif; ?>
 				</nav>

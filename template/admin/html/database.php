@@ -1,5 +1,5 @@
-<h1><i class="fa fa-database"></i><?=$Language->template('overview_database_text')?></h1>
-<p><?=$Language->template('overview_database_desc')?></p>
+<h1><i class="fa fa-database"></i><?=$Language->text('overview_database_text')?></h1>
+<p><?=$Language->text('overview_database_desc')?></p>
 
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
@@ -15,7 +15,7 @@
 	<?php endif; ?>
 
 	<div class="flex">
-		<textarea id="content-editor" placeholder="<?=$Language->template('database_warning')?>" name="command"><?=escapeHTML($FORM['COMMAND'])?></textarea>
+		<textarea id="content-editor" placeholder="<?=$Language->text('database_warning')?>" name="command"><?=escapeHTML($FORM['COMMAND'])?></textarea>
 	</div>
 
 <?php if($FORM['RESULT']): ?>

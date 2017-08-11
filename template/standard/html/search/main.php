@@ -1,12 +1,12 @@
-<h1><i class="fa fa-search"></i><?=$Language->template('search_base_heading_text')?></h1>
-<p><?=$Language->template('search_base_heading_desc')?></p>
+<h1><i class="fa fa-search"></i><?=$Language->text('search_base_heading_text')?></h1>
+<p><?=$Language->text('search_base_heading_desc')?></p>
 
 <?php if($SEARCH['INFO']): ?>
 	<div class="red"><?=$SEARCH['INFO']?></div>
 <?php endif; ?>
 
 <form action="" method="GET">
-	<input autofocus type="search" name="q" placeholder="<?=$Language->template('search_form_placeholder')?>" value="<?=escapeHTML($SEARCH['TEXT'])?>" />
+	<input autofocus type="search" name="q" placeholder="<?=$Language->text('search_form_placeholder')?>" value="<?=escapeHTML($SEARCH['TEXT'])?>" />
 
 	<select name="d">
 		<option value=""><?=$Language->text('date_d')?></option>

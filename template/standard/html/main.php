@@ -64,8 +64,8 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 				<input type="checkbox" id="toogle-nav" />
 				<ul>
 					<li>
-						<a href="<?=Application::getURL()?>" title="<?=$Language->template('navigation_home_desc', $BLOGMETA_NAME)?>">
-							<i class="fa fa-home"></i><?=$Language->template('navigation_home_text')?>
+						<a href="<?=Application::getURL()?>" title="<?=$Language->text('navigation_home_desc', $BLOGMETA_NAME)?>">
+							<i class="fa fa-home"></i><?=$Language->text('navigation_home_text')?>
 						</a>
 					</li>
 					<li>
@@ -84,8 +84,8 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 						</a>
 					</li>
 					<li>
-						<a href="<?=Application::getURL('search/')?>" title="<?=$Language->template('navigation_search_desc')?>">
-							<i class="fa fa-search"></i><?=$Language->template('navigation_search_text')?>
+						<a href="<?=Application::getURL('search/')?>" title="<?=$Language->text('navigation_search_desc')?>">
+							<i class="fa fa-search"></i><?=$Language->text('navigation_search_text')?>
 						</a>
 					</li>
 				</ul>
