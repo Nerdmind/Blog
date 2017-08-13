@@ -1,4 +1,4 @@
-<h1><?=$Language->text('authentication_text')?></h1>
+<h1><i class="fa fa-sign-in"></i><?=$Language->text('authentication_text')?></h1>
 <p><?=$Language->text('authentication_desc')?></p>
 
 <form action="" method="POST">
