@@ -34,7 +34,7 @@ class Application {
 	}
 
 	#===============================================================================
-	# Return singleton PDO database instance
+	# Return singleton Database instance
 	#===============================================================================
 	public static function getDatabase($force = FALSE): Database {
 		if(!self::$Database instanceof Database OR $force === TRUE) {

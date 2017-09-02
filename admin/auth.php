@@ -25,32 +25,27 @@ if(Application::isAuthenticated()) {
 }
 
 #===============================================================================
-# ELSE: Not authenticated
+# IF: Login action
 #===============================================================================
-else {
-	#===============================================================================
-	# IF: Login action
-	#===============================================================================
-	if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'username', 'password')) {
-		try {
-			$User = User\Factory::buildByUsername(HTTP::POST('username'));
+if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'username', 'password')) {
+	try {
+		$User = User\Factory::buildByUsername(HTTP::POST('username'));
 
-			if($User->comparePassword(HTTP::POST('password'))) {
-				$_SESSION['auth'] = $User->getID();
-				HTTP::redirect(Application::getAdminURL());
-			}
+		if($User->comparePassword(HTTP::POST('password'))) {
+			$_SESSION['auth'] = $User->getID();
+			HTTP::redirect(Application::getAdminURL());
+		}
 
-			else {
-				$messages[] = $Language->text('authentication_failure');
-			}
-		} catch(User\Exception $Exception){
-			$fake_hash = '$2y$10$xpnwDU2HumOgGQhVpMOP9uataEF82YXizniFhSUhYjUiXF8aoDk0C';
-			$fake_pass = HTTP::POST('password');
-
-			password_verify($fake_pass, $fake_hash);
-
+		else {
 			$messages[] = $Language->text('authentication_failure');
 		}
+	} catch(User\Exception $Exception){
+		$fake_hash = '$2y$10$xpnwDU2HumOgGQhVpMOP9uataEF82YXizniFhSUhYjUiXF8aoDk0C';
+		$fake_pass = HTTP::POST('password');
+
+		password_verify($fake_pass, $fake_hash);
+
+		$messages[] = $Language->text('authentication_failure');
 	}
 }
 

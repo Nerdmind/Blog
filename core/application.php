@@ -86,7 +86,7 @@ catch(PDOException $Exception) {
 }
 
 #===============================================================================
-# Check if "304 Not Modified" and ETag header should be send
+# Check if "304 Not Modified" and ETag header should be sent
 #===============================================================================
 if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {
 
