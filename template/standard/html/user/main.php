@@ -17,13 +17,13 @@
 <section id="site-navi">
 
 	<?php if($USER['PREV']): ?>
-		<div><a id="prev-site" href="<?=$USER['PREV']['URL']?>" title="<?=$Language->text('prev_user')?> »<?=escapeHTML($USER['PREV']['ATTR']['NAME'])?>«"><i class="fa fa-arrow-left"></i></a></div>
+		<div><a id="prev-site" href="<?=$USER['PREV']['URL']?>" title="<?=$Language->text('prev_user')?> »<?=escapeHTML($USER['PREV']['ATTR']['FULLNAME'])?>«"><i class="fa fa-arrow-left"></i></a></div>
 	<?php else: ?>
 		<div><a class="disabled"><i class="fa fa-arrow-left"></i></a></div>
 	<?php endif; ?>
 
 	<?php if($USER['NEXT']): ?>
-		<div><a id="next-site" href="<?=$USER['NEXT']['URL']?>" title="<?=$Language->text('next_user')?> »<?=escapeHTML($USER['NEXT']['ATTR']['NAME'])?>«"><i class="fa fa-arrow-right"></i></a></div>
+		<div><a id="next-site" href="<?=$USER['NEXT']['URL']?>" title="<?=$Language->text('next_user')?> »<?=escapeHTML($USER['NEXT']['ATTR']['FULLNAME'])?>«"><i class="fa fa-arrow-right"></i></a></div>
 	<?php else: ?>
 		<div><a class="disabled"><i class="fa fa-arrow-right"></i></a></div>
 	<?php endif; ?>
