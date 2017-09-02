@@ -13,9 +13,9 @@ $time = "<time datetime=\"{$POST['ATTR']['TIME_INSERT']}\" title=\"".parseDateti
 <h1><i class="fa fa-newspaper-o"></i><?=escapeHTML($POST['ATTR']['NAME'])?></h1>
 <p><?=$Language->text('post_main_heading_desc', [$user, $time])?></p>
 
-<section id="content" class="post">
+<div id="content" class="post">
 	<?=$POST['BODY']['HTML']()?>
-</section>
+</div>
 
 <section id="site-navi">
 

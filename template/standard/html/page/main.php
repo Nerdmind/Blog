@@ -13,9 +13,9 @@ $time = "<time datetime=\"{$PAGE['ATTR']['TIME_INSERT']}\" title=\"".parseDateti
 <h1><i class="fa fa-file-text-o"></i><?=escapeHTML($PAGE['ATTR']['NAME'])?></h1>
 <p><?=$Language->text('page_main_heading_desc', [$user, $time])?></p>
 
-<section id="content" class="page">
+<div id="content" class="page">
 	<?=$PAGE['BODY']['HTML']()?>
-</section>
+</div>
 
 <section id="site-navi">
 

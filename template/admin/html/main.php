@@ -10,14 +10,14 @@
 </head>
 <body>
 	<header id="main-header">
-		<section class="header-line">
+		<div class="header-line">
 			<div class="header-content">
 				<a href="<?=Application::getAdminURL()?>"><img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration" /></a>
 				<div id="header-text">Administration</div>
 				<div id="header-desc">PHP7 blogging application by <span>Nerdmind</span>!</div>
 			</div>
-		</section>
-		<section class="header-line">
+		</div>
+		<div class="header-line">
 			<div class="header-content">
 				<nav id="main-navi">
 					<?php if(Application::isAuthenticated()): ?>
@@ -38,9 +38,9 @@
 					<?php endif; ?>
 				</nav>
 			</div>
-		</section>
+		</div>
 	</header>
-	<section id="main-content">
+	<div id="main-content">
 		<main>
 			<?=$HTML?>
 		</main>
@@ -51,6 +51,6 @@
 				<li><i class="fa fa-bug"></i><a href="mailto:Thomas Lange <code@nerdmind.de>">Bugreport</a></li>
 			</ul>
 		</footer>
-	</section>
+	</div>
 </body>
 </html>

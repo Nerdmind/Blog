@@ -52,13 +52,13 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 	<title><?="{$HEAD_NAME} | {$BLOGMETA_NAME} {$BLOGMETA_DESC}"?></title>
 </head>
 <body>
-	<section id="container">
+	<div id="container">
 		<header id="main-header">
-			<section>
+			<div>
 				<a href="<?=Application::getURL()?>" title="<?="{$BLOGMETA_NAME} {$BLOGMETA_DESC}"?>">
 					<img id="main-logo" src="<?=Application::getTemplateURL('rsrc/logo.png')?>" alt="<?=$BLOGMETA_NAME?>" />
 				</a>
-			</section>
+			</div>
 			<nav id="main-navi">
 				<label for="toogle-nav" id="toogle-nav-label" class="fa fa-bars"></label>
 				<input type="checkbox" id="toogle-nav" />
@@ -97,6 +97,6 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 		<footer id="main-footer">
 			&copy; <?=$BLOGMETA_NAME?>
 		</footer>
-	</section>
+	</div>
 </body>
 </html>

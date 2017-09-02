@@ -10,9 +10,9 @@
 <h1><i class="fa fa-user"></i><?=escapeHTML($USER['ATTR']['FULLNAME'])?></h1>
 <p><em><?=$Language->text('user_main_heading_desc', [escapeHTML($USER['ATTR']['USERNAME']), $COUNT['POST'], $COUNT['PAGE']])?></em></p>
 
-<section id="content" class="user">
+<div id="content" class="user">
 	<?=$USER['BODY']['HTML']()?>
-</section>
+</div>
 
 <section id="site-navi">
 

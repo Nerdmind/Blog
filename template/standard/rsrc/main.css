@@ -25,12 +25,12 @@ body{font-family:Ruda,sans-serif;font-size:0.7rem;line-height:1.2rem;}
 
 #container{max-width:45rem;margin:1rem auto;border:0.05rem solid #AAA;background:#FFF;}
 
-main,#main-header > section{padding:1rem;box-sizing:border-box;}
+main,#main-header > div{padding:1rem;box-sizing:border-box;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Header
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-#main-header > section{overflow:hidden;}
+#main-header > div{overflow:hidden;}
 #main-logo{height:1.75rem;display:block;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -152,7 +152,7 @@ thead > tr > td, th > td{text-align:center;}
 /* Responsive Level #2
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 @media only screen and (max-width:37.5rem) {
-	main,#main-header > section{padding:1rem;}
+	main,#main-header > div{padding:1rem;}
 	#main-navi{padding:0.25rem 1rem;}
 	#main-navi a{border:0.05rem solid transparent;}
 	#main-navi a:hover, #main-navi a:focus{border:0.05rem solid #BBB;}
