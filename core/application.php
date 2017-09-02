@@ -74,7 +74,7 @@ try {
 	$Language = Application::getLanguage();
 	$Database = Application::getDatabase();
 
-	$Database->setAttribute($Database::ATTR_DEFAULT_FETCH_MODE, $Database::FETCH_OBJ);
+	$Database->setAttribute($Database::ATTR_DEFAULT_FETCH_MODE, $Database::FETCH_ASSOC);
 	$Database->setAttribute($Database::ATTR_ERRMODE, $Database::ERRMODE_EXCEPTION);
 }
 
@@ -104,7 +104,7 @@ if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {
 	#===========================================================================
 	# Define HTTP ETag header identifier
 	#===========================================================================
-	$HTTP_ETAG_IDENTIFIER = md5(implode($Statement->fetch(PDO::FETCH_ASSOC)));
+	$HTTP_ETAG_IDENTIFIER = md5(implode($Statement->fetch()));
 
 	#===========================================================================
 	# Send ETag header within the HTTP response
