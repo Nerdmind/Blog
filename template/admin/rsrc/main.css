@@ -106,6 +106,7 @@ img{border:none;max-width:100%;}
 .blue{color:#40779A;}
 .green{color:#008B45;}
 .right{float:right;}
+.hidden{display:none;}
 #database-result{color:inherit;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -185,7 +186,6 @@ form{border:0.05rem solid #AAA;}
 .button-list.markdown > li:active{color:#40779A;}
 
 #content-editor{border:none;margin:0;}
-
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Form elements

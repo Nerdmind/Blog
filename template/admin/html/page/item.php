@@ -20,9 +20,9 @@
 
 	<footer>
 		<ul>
-			<li><a href="<?=$PAGE['URL']?>" target="_blank" title="<?=$Language->text('select_page')?>"><i class="fa fa-external-link"></i></a></li>
-			<li><a href="<?=Application::getAdminURL("page/update.php?id={$PAGE['ATTR']['ID']}")?>" title="<?=$Language->text('update_page')?>"><i class="fa fa-pencil-square-o"></i></a></li>
-			<li><a href="<?=Application::getAdminURL("page/delete.php?id={$PAGE['ATTR']['ID']}")?>" title="<?=$Language->text('delete_page')?>"><i class="fa fa-trash-o"></i></a></li>
+			<li><a href="<?=$PAGE['URL']?>" target="_blank" title="<?=$Language->text('select_page')?>"><i class="fa fa-external-link"></i><span class="hidden"><?=$Language->text('select_page')?></span></a></li>
+			<li><a href="<?=Application::getAdminURL("page/update.php?id={$PAGE['ATTR']['ID']}")?>" title="<?=$Language->text('update_page')?>"><i class="fa fa-pencil-square-o"></i><span class="hidden"><?=$Language->text('update_page')?></span></a></li>
+			<li><a href="<?=Application::getAdminURL("page/delete.php?id={$PAGE['ATTR']['ID']}")?>" title="<?=$Language->text('delete_page')?>"><i class="fa fa-trash-o"></i><span class="hidden"><?=$Language->text('delete_page')?></span></a></li>
 		</ul>
 	</footer>
 </article>
