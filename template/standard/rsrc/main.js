@@ -1,8 +1,8 @@
 //==============================================================================
 // Elements which contains the location of the previous and next site
 //==============================================================================
-var prev = document.getElementById("prev-site");
-var next = document.getElementById("next-site");
+const prev = document.getElementById("prev-site");
+const next = document.getElementById("next-site");
 
 //==============================================================================
 // Handle arrow keys and change the location to the desired direction

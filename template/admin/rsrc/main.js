@@ -1,8 +1,8 @@
 //==============================================================================
 // Elements which contains the location of the previous and next site
 //==============================================================================
-var prev = document.getElementById("prev-site");
-var next = document.getElementById("next-site");
+const prev = document.getElementById("prev-site");
+const next = document.getElementById("next-site");
 
 //==============================================================================
 // Handle arrow keys and change the location to the desired direction
@@ -17,7 +17,7 @@ document.addEventListener("keyup", function(e) {
 //==============================================================================
 // Markdown tags to replace
 //==============================================================================
-var markdownTags = {
+const markdownTags = {
 	"bold":    ["**", "**"],
 	"italic":  ["*", "*"],
 	"heading": ["## ", "\n"],
@@ -48,10 +48,10 @@ function setCaretPosition(position) {
 // Insert emoticon after cursor in editor
 //==============================================================================
 function insertEmoticon(target, emoticon) {
-	var selectionStart = target.selectionStart;
-	var selectionEnd = target.selectionEnd;
+	const selectionStart = target.selectionStart;
+	const selectionEnd = target.selectionEnd;
 
-	var content = target.value;
+	const content = target.value;
 	target.value = content.slice(0, selectionStart) + emoticon + content.slice(selectionEnd);
 
 	delayed(function() {
@@ -63,12 +63,12 @@ function insertEmoticon(target, emoticon) {
 // Insert markdown around text in editor
 //==============================================================================
 function insertMarkdown(target, markdown) {
-	var selectionStart = target.selectionStart;
-	var selectionEnd = target.selectionEnd;
+	const selectionStart = target.selectionStart;
+	const selectionEnd = target.selectionEnd;
 
-	var selectedText = target.value.substring(selectionStart, selectionEnd);
+	const selectedText = target.value.substring(selectionStart, selectionEnd);
 
-	var content = target.value;
+	const content = target.value;
 	target.value = content.slice(0, selectionStart) + markdownTags[markdown][0] + selectedText + markdownTags[markdown][1] + content.slice(selectionEnd);
 
 	delayed(function() {
@@ -80,7 +80,7 @@ function insertMarkdown(target, markdown) {
 // Keep server-side session active if the user is writing a long text
 //==============================================================================
 setInterval(function() {
-	var Request = new XMLHttpRequest();
+	const Request = new XMLHttpRequest();
 	Request.open("HEAD", "", true);
 	Request.send();
 }, 300000);
@@ -99,13 +99,13 @@ if(document.getElementById("delete-button")) {
 //==============================================================================
 (function() {
 	if(document.getElementById("content-editor")) {
-		var element = document.getElementById("content-editor");
+		const element = document.getElementById("content-editor");
 		element.addEventListener("keydown", function(e) {
 			if(e.keyCode === 9 && !e.ctrlKey) {
-				var selectionStart = element.selectionStart;
-				var selectionEnd = element.selectionEnd;
+				const selectionStart = element.selectionStart;
+				const selectionEnd = element.selectionEnd;
 
-				var content = element.value;
+				const content = element.value;
 
 				if(e.shiftKey) {
 					if(content.substring(selectionStart, selectionStart -1) === "\t") {
@@ -130,11 +130,11 @@ if(document.getElementById("delete-button")) {
 //==============================================================================
 (function() {
 	if(document.getElementById("emoticon-list")) {
-		var list = document.getElementById("emoticon-list");
-		var node = document.getElementById("content-editor");
-		var items = list.getElementsByTagName("li");
+		const list = document.getElementById("emoticon-list");
+		const node = document.getElementById("content-editor");
+		const items = list.getElementsByTagName("li");
 
-		for(var i = 0; i < items.length; ++i) {
+		for(let i = 0; i < items.length; ++i) {
 			items[i].onmousedown = function(e) {
 				insertEmoticon(node, e.target.getAttribute("data-emoticon"));
 			};
@@ -147,11 +147,11 @@ if(document.getElementById("delete-button")) {
 //==============================================================================
 (function() {
 	if(document.getElementById("markdown-list")) {
-		var list = document.getElementById("markdown-list");
-		var node = document.getElementById("content-editor");
-		var items = list.getElementsByTagName("li");
+		const list = document.getElementById("markdown-list");
+		const node = document.getElementById("content-editor");
+		const items = list.getElementsByTagName("li");
 
-		for(var i = 0; i < items.length; ++i) {
+		for(let i = 0; i < items.length; ++i) {
 			items[i].onmousedown = function(e) {
 				insertMarkdown(node, e.target.getAttribute("data-markdown"));
 			};
