@@ -71,10 +71,11 @@ body{font-family:Ruda,sans-serif;font-size:0.7rem;line-height:1.2rem;}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Main Navigation
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-#main-navi ul{list-style:none;margin:0;padding:0;float:left;}
+#main-navi ul{list-style:none;margin:0;padding:0;}
 #main-navi li{display:inline;}
-#main-navi ul+ul{float:right;}
 #main-navi li .fa{margin-right:0.25rem;}
+#main-navi li:last-child{float:right;}
+#main-navi li:first-child{float:none;}
 #main-navi a{padding:0.1rem 0.3rem;background:#DDD;border:0.05rem solid #AAA;color:inherit;text-decoration:none;text-align:center;display:inline-block;}
 #main-navi a:hover, #main-navi a:focus{text-decoration:none;background:#CCC;}
 #main-navi a:focus{background:#CCC;}
