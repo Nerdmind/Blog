@@ -7,7 +7,7 @@
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 ?>
-<li class="item-list-li page">
+<article class="item">
 	<header>
 		<h2>
 			<a title="<?=$Language->text('select_page')?>: »<?=escapeHTML($PAGE['ATTR']['NAME'])?>«" href="<?=$PAGE['URL']?>"><?=escapeHTML($PAGE['ATTR']['NAME'])?></a>
@@ -17,4 +17,4 @@
 	<blockquote cite="<?=$PAGE['URL']?>">
 		<p><?=excerpt($PAGE['BODY']['HTML'](), 600)?></p>
 	</blockquote>
-</li>
+</article>

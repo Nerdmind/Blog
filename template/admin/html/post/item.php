@@ -1,4 +1,4 @@
-<li class="item-list-li post">
+<article class="item">
 	<header>
 		<h2><i class="fa fa-newspaper-o"></i><?=escapeHTML($POST['ATTR']['NAME'])?><span>#<?=$POST['ATTR']['ID']?></span></h2>
 		<div>
@@ -25,4 +25,4 @@
 			<li><a href="<?=Application::getAdminURL("post/delete.php?id={$POST['ATTR']['ID']}")?>" title="<?=$Language->text('delete_post')?>"><i class="fa fa-trash-o"></i></a></li>
 		</ul>
 	</footer>
-</li>
+</article>

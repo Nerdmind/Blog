@@ -123,26 +123,21 @@ table,td{padding:0.5rem;border:0.05rem solid #AAA;}
 a.brackets:before,a.brackets:after{color:#222;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/* Item List <ul>
+/* Item Element
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.item-list{list-style:none;margin:0;padding:0;}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/* Item List <li>
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.item-list-li{display:block;border:0.05rem solid #AAA;margin-bottom:1rem;clear:both;}
-.item-list-li > header,
-.item-list-li > footer{background:#EEE;overflow:hidden;}
-.item-list-li > blockquote{margin:0;padding:0.75rem;font-family:inherit;}
-.item-list-li > header{padding:0.5rem 0.75rem;border-bottom:0.05rem solid #AAA;position:sticky;top:0;}
-.item-list-li > footer{border-top:0.05rem solid #AAA;}
-.item-list-li > footer > ul{margin:0;padding:0;list-style:none;}
-.item-list-li > footer > ul > li{display:inline-block;float:left;}
-.item-list-li > footer > ul > li:last-child{float:right;}
-.item-list-li > footer > ul > li > a{color:inherit;display:inline-block;padding:0.25rem 2rem;}
-.item-list-li > footer > ul > li > a:hover,
-.item-list-li > footer > ul > li > a:active{background:#DDD;}
-.item-list-li h2 > span{float:right;}
+.item{display:block;border:0.05rem solid #AAA;margin-bottom:1rem;clear:both;}
+.item > header,
+.item > footer{background:#EEE;overflow:hidden;}
+.item > blockquote{margin:0;padding:0.75rem;font-family:inherit;}
+.item > header{padding:0.5rem 0.75rem;border-bottom:0.05rem solid #AAA;position:sticky;top:0;}
+.item > footer{border-top:0.05rem solid #AAA;}
+.item > footer > ul{margin:0;padding:0;list-style:none;}
+.item > footer > ul > li{display:inline-block;float:left;}
+.item > footer > ul > li:last-child{float:right;}
+.item > footer > ul > li > a{color:inherit;display:inline-block;padding:0.25rem 2rem;}
+.item > footer > ul > li > a:hover,
+.item > footer > ul > li > a:active{background:#DDD;}
+.item h2 > span{float:right;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Argument list

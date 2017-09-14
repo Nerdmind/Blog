@@ -7,7 +7,7 @@
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 ?>
-<li class="item-list-li user">
+<article class="item">
 	<header>
 		<h2>
 			<a title="<?=$Language->text('select_user')?>: »<?=escapeHTML($USER['ATTR']['FULLNAME'])?>«" href="<?=$USER['URL']?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
@@ -17,4 +17,4 @@
 	<blockquote cite="<?=$USER['URL']?>">
 		<?=$USER['BODY']['HTML']()?>
 	</blockquote>
-</li>
+</article>

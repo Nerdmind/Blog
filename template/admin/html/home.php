@@ -4,9 +4,9 @@
 <h2><i class="fa fa-newspaper-o"></i><?=$Language->text('last_post')?></h2>
 <p><strong><?=$Language->text('posts')?>:</strong> <?=$COUNT['POST']?> | <a href="<?=Application::getAdminURL('post/')?>"><?=$Language->text('post_overview')?></a> | <a href="<?=Application::getAdminURL('post/insert.php')?>"><?=$Language->text('insert')?></a></p>
 <?php if(!empty($LAST['POST'])): ?>
-	<ul class="item-list">
+	<div class="item-container post">
 		<?=$LAST['POST']?>
-	</ul>
+	</div>
 <?php else: ?>
 	<p><em><?=$Language->text('home_no_posts')?></em></p>
 <?php endif; ?>
@@ -15,9 +15,9 @@
 <p><strong><?=$Language->text('pages')?>:</strong> <?=$COUNT['PAGE']?> | <a href="<?=Application::getAdminURL('page/')?>"><?=$Language->text('page_overview')?></a> | <a href="<?=Application::getAdminURL('page/insert.php')?>"><?=$Language->text('insert')?></a></p>
 
 <?php if(!empty($LAST['PAGE'])): ?>
-	<ul class="item-list">
+	<div class="item-container page">
 		<?=$LAST['PAGE']?>
-	</ul>
+	</div>
 <?php else: ?>
 	<p><em><?=$Language->text('home_no_pages')?></em></p>
 <?php endif; ?>
@@ -26,9 +26,9 @@
 <p><strong><?=$Language->text('users')?>:</strong> <?=$COUNT['USER']?> | <a href="<?=Application::getAdminURL('user/')?>"><?=$Language->text('user_overview')?></a> | <a href="<?=Application::getAdminURL('user/insert.php')?>"><?=$Language->text('insert')?></a></p>
 
 <?php if(!empty($LAST['USER'])): ?>
-	<ul class="item-list">
+	<div class="item-container user">
 		<?=$LAST['USER']?>
-	</ul>
+	</div>
 <?php else: ?>
 	<p><em><?=$Language->text('home_no_users')?></em></p>
 <?php endif; ?>

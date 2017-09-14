@@ -1,4 +1,4 @@
-<li class="item-list-li user">
+<article class="item">
 	<header>
 		<h2><i class="fa fa-user"></i><?=escapeHTML($USER['ATTR']['FULLNAME'])?><span>#<?=$USER['ATTR']['ID']?></span></h2>
 		<div>
@@ -24,4 +24,4 @@
 			<li><a href="<?=Application::getAdminURL("user/delete.php?id={$USER['ATTR']['ID']}")?>" title="<?=$Language->text('delete_user')?>"><i class="fa fa-trash-o"></i></a></li>
 		</ul>
 	</footer>
-</li>
+</article>

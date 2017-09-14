@@ -1,4 +1,4 @@
-<li class="item-list-li page">
+<article class="item">
 	<header>
 		<h2><i class="fa fa-file-text-o"></i><?=escapeHTML($PAGE['ATTR']['NAME'])?><span>#<?=$PAGE['ATTR']['ID']?></span></h2>
 		<div>
@@ -25,4 +25,4 @@
 			<li><a href="<?=Application::getAdminURL("page/delete.php?id={$PAGE['ATTR']['ID']}")?>" title="<?=$Language->text('delete_page')?>"><i class="fa fa-trash-o"></i></a></li>
 		</ul>
 	</footer>
-</li>
+</article>

@@ -89,26 +89,15 @@ table img{border:none;border-radius:0;}
 a.brackets:before,a.brackets:after{color:#222;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/* Item List <ul>
+/* Item Element
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.item-list{list-style:none;padding:0;}
-.item-list.page{}
-.item-list.post{}
-.item-list.user{}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/* Item List <li>
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.item-list-li{background:#EEE;border:0.05rem solid #AAA;overflow:hidden;margin:0.5rem 0;}
-.item-list-li > header{padding:0.25rem 1rem;border-bottom:0.05rem solid #AAA;overflow:hidden;text-transform:uppercase;}
-.item-list-li > header h2{font-size:0.65rem;float:left;}
-.item-list-li > header .info{float:right;font-size:0.6rem;font-weight:400;}
-.item-list-li > header a{color:inherit;}
-.item-list-li > blockquote{margin:0;padding:0 1rem;font-family:inherit;}
-.item-list-li > blockquote img{display:block;}
-.item-list-li.page{}
-.item-list-li.post{}
-.item-list-li.user{}
+.item{background:#EEE;border:0.05rem solid #AAA;overflow:hidden;margin:0.5rem 0;}
+.item > header{padding:0.25rem 1rem;border-bottom:0.05rem solid #AAA;overflow:hidden;text-transform:uppercase;}
+.item > header h2{font-size:0.65rem;float:left;}
+.item > header .info{float:right;font-size:0.6rem;font-weight:400;}
+.item > header a{color:inherit;}
+.item > blockquote{margin:0;padding:0 1rem;font-family:inherit;}
+.item > blockquote img{display:block;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Item content on main sites
@@ -163,9 +152,9 @@ thead > tr > td, th > td{text-align:center;}
 	#toogle-nav:checked + ul{display:block;}
 	#main-navi li:last-child{float:none;}
 
-	.item-list-li > header{text-align:center;}
-	.item-list-li > header > h2,
-	.item-list-li > header > .info{float:none;display:block;}
+	.item > header{text-align:center;}
+	.item > header > h2,
+	.item > header > .info{float:none;display:block;}
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/

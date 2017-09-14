@@ -29,8 +29,8 @@
 	<input type="submit" value="<?=$Language->text('search')?>" />
 </form>
 
-<ul class="item-list post">
+<div class="item-container post">
 	<?php foreach($RESULT['LIST'] as $post): ?>
 		<?php echo $post; ?>
 	<?php endforeach; ?>
-</ul>
+</div>

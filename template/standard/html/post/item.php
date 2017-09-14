@@ -7,7 +7,7 @@
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 ?>
-<li class="item-list-li post">
+<article class="item">
 	<header>
 		<h2>
 			<a title="<?=$Language->text('select_post')?>: »<?=escapeHTML($POST['ATTR']['NAME'])?>«" href="<?=$POST['URL']?>"><?=escapeHTML($POST['ATTR']['NAME'])?></a>
@@ -17,4 +17,4 @@
 	<blockquote cite="<?=$POST['URL']?>">
 		<?=$POST['BODY']['HTML']()?>
 	</blockquote>
-</li>
+</article>
