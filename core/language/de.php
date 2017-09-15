@@ -127,7 +127,7 @@ $LANGUAGE['next_user'] = 'Nächster Benutzer';
 # Item overview
 #===============================================================================
 $LANGUAGE['page_overview'] = 'Seitenübersicht';
-$LANGUAGE['post_overview'] = 'Beitragübersicht';
+$LANGUAGE['post_overview'] = 'Beitragsübersicht';
 $LANGUAGE['user_overview'] = 'Benutzerübersicht';
 
 #===============================================================================
