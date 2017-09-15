@@ -1,7 +1,8 @@
 <article class="item">
 	<header>
-		<h2><i class="fa fa-user"></i><?=escapeHTML($USER['ATTR']['FULLNAME'])?><span>#<?=$USER['ATTR']['ID']?></span></h2>
+		<h2><i class="fa fa-user"></i><?=escapeHTML($USER['ATTR']['FULLNAME'])?></h2>
 		<div>
+			<span class="brackets item-id">#<?=$USER['ATTR']['ID']?></span>
 			<time class="brackets" datetime="<?=$USER['ATTR']['TIME_INSERT']?>"><?=parseDatetime($USER['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
 		</div>
 	</header>

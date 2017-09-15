@@ -1,7 +1,8 @@
 <article class="item">
 	<header>
-		<h2><i class="fa fa-file-text-o"></i><?=escapeHTML($PAGE['ATTR']['NAME'])?><span>#<?=$PAGE['ATTR']['ID']?></span></h2>
+		<h2><i class="fa fa-file-text-o"></i><?=escapeHTML($PAGE['ATTR']['NAME'])?></h2>
 		<div>
+			<span class="brackets item-id">#<?=$PAGE['ATTR']['ID']?></span>
 			<a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ATTR']['ID']}")?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
 			<time class="brackets" datetime="<?=$PAGE['ATTR']['TIME_INSERT']?>"><?=parseDatetime($PAGE['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
 		</div>

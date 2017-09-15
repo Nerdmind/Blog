@@ -120,9 +120,9 @@ table,td{padding:0.5rem;border:0.05rem solid #AAA;}
 /* Brackets
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .brackets a,a.brackets{text-decoration:none;}
+.brackets:before,.brackets:after{color:#222;}
 .brackets:after{content:"]";}
 .brackets:before{content:"[";}
-a.brackets:before,a.brackets:after{color:#222;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Item Element
@@ -139,7 +139,8 @@ a.brackets:before,a.brackets:after{color:#222;}
 .item > footer > ul > li > a{color:inherit;display:inline-block;padding:0.25rem 2rem;}
 .item > footer > ul > li > a:hover,
 .item > footer > ul > li > a:active{background:#DDD;}
-.item h2 > span{float:right;}
+
+.item-id{float:right;color:#666;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Argument list
