@@ -219,7 +219,7 @@ label:after{content:":";}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* FontAwesome Main
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.fa{display:inline-block;font:normal normal normal 14px/1 "FontAwesome";font-size:inherit;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.fa{font:normal normal normal 14px/1 FontAwesome;font-size:inherit;speak:none;display:inline-block;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* FontAwesome Icons
@@ -279,9 +279,9 @@ label:after{content:":";}
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/* Font "Font Awesome" [4.7.0]: SIL Open Font License (OFL)
+/* Font "Font Awesome" [4.7.0] (by Fontello): SIL Open Font License (OFL)
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-@font-face{font-family:"FontAwesome";font-weight:400;src:url("font/font-awesome.woff2") format("woff2");}
+@font-face{font-family:FontAwesome;font-weight:400;src:url("font/font-awesome-fontello.woff2") format("woff2");}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Font "Kadwa": SIL Open Font License (OFL)
