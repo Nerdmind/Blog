@@ -42,6 +42,12 @@ $LANGUAGE['delete_post_desc'] = 'Falls du diesen Beitrag nicht mehr benötigst k
 $LANGUAGE['delete_user_desc'] = 'Falls du diesen Benutzer nicht mehr benötigst kannst du ihn über den folgenden Button permanent löschen.';
 
 #===============================================================================
+# Search item description
+#===============================================================================
+$LANGUAGE['search_page_desc'] = 'Hier kannst du mit der <em>booleschen Volltextsuche</em> eine Seite suchen (siehe <a href="https://dev.mysql.com/doc/refman/5.6/en/fulltext-boolean.html">MySQL-Dokumentation</a>).';
+$LANGUAGE['search_post_desc'] = 'Hier kannst du mit der <em>booleschen Volltextsuche</em> einen Beitrag suchen (siehe <a href="https://dev.mysql.com/doc/refman/5.6/en/fulltext-boolean.html">MySQL-Dokumentation</a>).';
+
+#===============================================================================
 # Item overview description
 #===============================================================================
 $LANGUAGE['overview_page_desc'] = 'Hier siehst du alle vorhandenen Seiten.';
@@ -105,6 +111,11 @@ $LANGUAGE['sure'] = 'Bist du sicher?';
 #===============================================================================
 $LANGUAGE['login'] = 'Einloggen';
 $LANGUAGE['logout'] = 'Ausloggen';
+
+#===============================================================================
+# Placeholders
+#===============================================================================
+$LANGUAGE['placeholder_search'] = 'Suchbegriff eingeben …';
 
 #===============================================================================
 # Labels

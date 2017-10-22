@@ -217,6 +217,11 @@ label:after{content:":";}
 #message-list{margin:0;padding:0.5rem;list-style:none;background:#C45C66;color:#EEE;font-size:0.6rem;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* Search form
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#search-form{margin-bottom:1rem;}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* FontAwesome Main
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .fa{font:normal normal normal 14px/1 FontAwesome;font-size:inherit;speak:none;display:inline-block;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}

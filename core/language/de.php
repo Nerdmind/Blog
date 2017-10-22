@@ -159,6 +159,12 @@ $LANGUAGE['delete_post'] = 'Beitrag löschen';
 $LANGUAGE['delete_user'] = 'Benutzer löschen';
 
 #===============================================================================
+# Items search
+#===============================================================================
+$LANGUAGE['search_page'] = 'Seiten durchsuchen';
+$LANGUAGE['search_post'] = 'Beiträge durchsuchen';
+
+#===============================================================================
 # Item insert titles
 #===============================================================================
 $LANGUAGE['title_page_insert'] = $LANGUAGE['insert_page'];
@@ -178,6 +184,12 @@ $LANGUAGE['title_user_update'] = $LANGUAGE['update_user'];
 $LANGUAGE['title_page_delete'] = $LANGUAGE['delete_page'];
 $LANGUAGE['title_post_delete'] = $LANGUAGE['delete_post'];
 $LANGUAGE['title_user_delete'] = $LANGUAGE['delete_user'];
+
+#===============================================================================
+# Item search titles
+#===============================================================================
+$LANGUAGE['title_page_search'] = $LANGUAGE['search_page'];
+$LANGUAGE['title_post_search'] = $LANGUAGE['search_post'];
 
 #===============================================================================
 # Item overview titles
