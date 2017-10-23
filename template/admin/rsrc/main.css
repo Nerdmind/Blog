@@ -183,7 +183,7 @@ form{border:0.05rem solid #AAA;}
 .button-list.emoticons > li:hover,
 .button-list.emoticons > li:active{background:#CCC;}
 
-.button-list.markdown > li{float:left;padding:0.5rem;cursor:pointer;width:1.75rem;height:1.75rem;box-sizing:border-box;text-align:center;}
+.button-list.markdown > li{float:left;padding:0.5rem;cursor:pointer;width:1.75rem;box-sizing:border-box;text-align:center;}
 .button-list.markdown > li:hover,
 .button-list.markdown > li:active{color:#40779A;}
 
