@@ -3,7 +3,8 @@
 # Application initialization                 [Thomas Lange <code@nerdmind.de>] #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #                                                                              #
-# This file brings the application up!                                         #
+# This file brings the application up and defines default configuration values #
+# for the application which can be overwritten in configuration.php.           #
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
@@ -33,7 +34,61 @@ set_exception_handler(function(Throwable $Exception) {
 HTTP::init($_GET, $_POST, $_FILES, TRUE);
 
 #===============================================================================
-# Include configuration
+# Default configuration (can be overwritten in configuration.php)
+#===============================================================================
+$configuration = [
+	'CORE.LANGUAGE' => 'en',
+	'CORE.SEND_304' => FALSE,
+	'BLOGMETA.NAME' => 'Example blog',
+	'BLOGMETA.HOME' => 'This is an example blog.',
+	'BLOGMETA.MAIL' => 'mail@example.org',
+	'BLOGMETA.LANG' => 'en',
+	'DATABASE.HOSTNAME' => 'localhost',
+	'DATABASE.BASENAME' => 'blog',
+	'DATABASE.USERNAME' => 'blog',
+	'DATABASE.PASSWORD' => '',
+	'TEMPLATE.NAME' => 'standard',
+	'TEMPLATE.LANG' => 'en',
+	'ADMIN.TEMPLATE' => 'admin',
+	'ADMIN.LANGUAGE' => 'en',
+	'PATHINFO.PROT' => $_SERVER['REQUEST_SCHEME'],
+	'PATHINFO.HOST' => $_SERVER['HTTP_HOST'],
+	'PATHINFO.BASE' => '',
+	'PAGE.DIRECTORY' => 'page',
+	'POST.DIRECTORY' => 'post',
+	'USER.DIRECTORY' => 'user',
+	'PAGE.SLUG_URLS' => TRUE,
+	'POST.SLUG_URLS' => TRUE,
+	'USER.SLUG_URLS' => TRUE,
+	'PAGE.EMOTICONS' => TRUE,
+	'POST.EMOTICONS' => TRUE,
+	'USER.EMOTICONS' => TRUE,
+	'PAGE.LIST_SIZE' => 10,
+	'POST.LIST_SIZE' => 10,
+	'USER.LIST_SIZE' => 10,
+	'PAGE.FEED_SIZE' => 25,
+	'POST.FEED_SIZE' => 25,
+	'PAGE.DESCRIPTION_SIZE' => 200,
+	'POST.DESCRIPTION_SIZE' => 200,
+	'USER.DESCRIPTION_SIZE' => 200,
+	'PAGE.LIST_SORT' => 'time_insert DESC',
+	'POST.LIST_SORT' => 'time_insert DESC',
+	'USER.LIST_SORT' => 'time_insert DESC',
+	'PAGE.FEED_SORT' => 'time_insert DESC',
+	'POST.FEED_SORT' => 'time_insert DESC',
+	'PAGE.FEED_GUID' => ['id', 'time_insert'],
+	'POST.FEED_GUID' => ['id', 'time_insert']
+];
+
+#===============================================================================
+# Set default configuration
+#===============================================================================
+foreach($configuration as $name => $value) {
+	Application::set($name, $value);
+}
+
+#===============================================================================
+# Include custom configuration
 #===============================================================================
 require 'configuration.php';
 
