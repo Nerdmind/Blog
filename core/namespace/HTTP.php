@@ -172,6 +172,20 @@ class HTTP {
 	}
 
 	#===============================================================================
+	# Set cookie
+	#===============================================================================
+	public static function setCookie($name, $value = '', $expire = 31536000): bool {
+		return setcookie($name, $value, $expire + time(), '/');
+	}
+
+	#===============================================================================
+	# Get cookie
+	#===============================================================================
+	public static function getCookie($name) {
+		return $_COOKIE[$name] ?? NULL;
+	}
+
+	#===============================================================================
 	# Return HTTP request method or check if request method equals with $method
 	#===============================================================================
 	public static function requestMethod($method = NULL) {
