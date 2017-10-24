@@ -9,7 +9,7 @@ CREATE TABLE `page` (
 	`slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
 	`name` varchar(100) NOT NULL,
 	`body` text NOT NULL,
-	`argv` varchar(100) DEFAULT NULL
+	`argv` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- =============================================================================
@@ -23,7 +23,7 @@ CREATE TABLE `post` (
 	`slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
 	`name` varchar(100) NOT NULL,
 	`body` text NOT NULL,
-	`argv` varchar(100) DEFAULT NULL
+	`argv` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- =============================================================================
@@ -39,7 +39,7 @@ CREATE TABLE `user` (
 	`fullname` varchar(40) NOT NULL,
 	`mailaddr` varchar(60) NOT NULL,
 	`body` text NOT NULL,
-	`argv` varchar(100) DEFAULT NULL
+	`argv` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- =============================================================================

@@ -84,7 +84,7 @@
 		</ul>
 	</div>
 	<div class="flex flex-padding background flex-arguments">
-		<input id="form_argv" name="argv" maxlength="100" placeholder="[ARGUMENT_FOO=one|ARGUMENT_BAR=two …]" value="<?=escapeHTML($FORM['DATA']['ARGV'])?>" />
+		<input id="form_argv" name="argv" maxlength="250" placeholder="[ARGUMENT_ONE=foo|ARGUMENT_TWO=bar …]" value="<?=escapeHTML($FORM['DATA']['ARGV'])?>" />
 	</div>
 <?php else: ?>
 	<div class="flex flex-padding background flex-direction-column">
