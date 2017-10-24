@@ -52,6 +52,11 @@ try {
 			'OG_IMAGES' => $post_data['FILE']['LIST']
 		]);
 
+		# Get access to the current item data from main template
+		$MainTemplate->set('TYPE', 'POST');
+		$MainTemplate->set('POST', $post_data);
+		$MainTemplate->set('USER', $user_data);
+
 		echo $MainTemplate;
 	}
 

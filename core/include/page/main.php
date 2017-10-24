@@ -52,6 +52,11 @@ try {
 			'OG_IMAGES' => $page_data['FILE']['LIST']
 		]);
 
+		# Get access to the current item data from main template
+		$MainTemplate->set('TYPE', 'PAGE');
+		$MainTemplate->set('PAGE', $page_data);
+		$MainTemplate->set('USER', $user_data);
+
 		echo $MainTemplate;
 	}
 
