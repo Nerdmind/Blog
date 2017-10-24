@@ -5,7 +5,7 @@
 define('ADMINISTRATION', TRUE);
 
 #===============================================================================
-# INCLUDE: Main configuration
+# INCLUDE: Initialization
 #===============================================================================
 require '../core/application.php';
 
@@ -76,4 +76,3 @@ catch(Template\Exception $Exception) {
 	Application::exit($Exception->getMessage());
 }
 ?>
-

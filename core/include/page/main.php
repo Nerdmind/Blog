@@ -88,3 +88,4 @@ catch(Page\Exception $Exception) {
 catch(User\Exception $Exception) {
 	Application::exit($Exception->getMessage());
 }
+?>

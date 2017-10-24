@@ -6,7 +6,7 @@ define('ADMINISTRATION', TRUE);
 define('AUTHENTICATION', TRUE);
 
 #===============================================================================
-# INCLUDE: Main configuration
+# INCLUDE: Initialization
 #===============================================================================
 require '../../core/application.php';
 
