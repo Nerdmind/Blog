@@ -77,7 +77,7 @@
 			<?php endforeach; ?>
 		</ul>
 	</div>
-	<div class="flex flex-padding background flex-arguments">
+	<div class="flex flex-padding background">
 		<input id="form_argv" name="argv" maxlength="250" placeholder="[ARGUMENT_ONE=foo|ARGUMENT_TWO=bar …]" value="<?=escapeHTML($FORM['DATA']['ARGV'])?>" />
 	</div>
 <?php else: ?>
