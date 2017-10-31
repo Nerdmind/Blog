@@ -44,7 +44,7 @@
 			<ul>
 				<li><i class="fa fa-github-square"></i><a href="https://github.com/Nerdmind/Blog/releases" target="_blank">Releases</a></li>
 				<li><i class="fa fa-book"></i><a href="https://github.com/Nerdmind/Blog/wiki" target="_blank">Documentation</a></li>
-				<li><i class="fa fa-bug"></i><a href="mailto:Thomas Lange <code@nerdmind.de>">Bugreport</a></li>
+				<li><i class="fa fa-bug"></i><a href="https://github.com/Nerdmind/Blog/issues">Bugreport</a></li>
 			</ul>
 		</footer>
 	</div>
