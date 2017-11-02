@@ -1,7 +1,4 @@
-<h1>
-	<i class="fa fa-search"></i><?=$Language->text('title_page_search')?>
-	<a class="brackets" href="<?=Application::getAdminURL("page/insert.php")?>"><?=$Language->text('insert')?></a>
-</h1>
+<h1><i class="fa fa-search"></i><?=$Language->text('title_page_search')?></h1>
 <p><?=$Language->text('search_page_desc')?></p>
 
 <form id="search-form" method="GET">
