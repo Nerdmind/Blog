@@ -4,7 +4,6 @@
 <h2><i class="fa fa-newspaper-o"></i><?=$Language->text('last_post')?></h2>
 <p>
 	<strong><?=$Language->text('posts')?>:</strong> <?=$COUNT['POST']?>
-	| <a href="<?=Application::getAdminURL('post/')?>"><?=$Language->text('post_overview')?></a>
 	| <a href="<?=Application::getAdminURL('post/insert.php')?>"><?=$Language->text('insert')?></a>
 	| <a href="<?=Application::getAdminURL('post/search.php')?>"><?=$Language->text('search')?></a>
 </p>
@@ -19,7 +18,6 @@
 <h2><i class="fa fa-file-text-o"></i><?=$Language->text('last_page')?></h2>
 <p>
 	<strong><?=$Language->text('pages')?>:</strong> <?=$COUNT['PAGE']?>
-	| <a href="<?=Application::getAdminURL('page/')?>"><?=$Language->text('page_overview')?></a>
 	| <a href="<?=Application::getAdminURL('page/insert.php')?>"><?=$Language->text('insert')?></a>
 	| <a href="<?=Application::getAdminURL('page/search.php')?>"><?=$Language->text('search')?></a>
 </p>
@@ -35,7 +33,6 @@
 <h2><i class="fa fa-user"></i><?=$Language->text('last_user')?></h2>
 <p>
 	<strong><?=$Language->text('users')?>:</strong> <?=$COUNT['USER']?>
-	| <a href="<?=Application::getAdminURL('user/')?>"><?=$Language->text('user_overview')?></a>
 	| <a href="<?=Application::getAdminURL('user/insert.php')?>"><?=$Language->text('insert')?></a>
 </p>
 
