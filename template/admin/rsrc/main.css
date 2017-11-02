@@ -21,7 +21,6 @@ h1 .fa, h2 .fa, h3 .fa, h4 .fa, h5 .fa, h6 .fa{margin-right:0.25rem;}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Headings
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-h1 > a{float:right;font-size:0.7rem;font-weight:normal;}
 h1,h2,h3,h4,h5,h6{margin:0;text-transform:uppercase;}
 h1{font-size:0.80rem;}h2{font-size:0.70rem;}
 h3{font-size:0.65rem;}h4{font-size:0.60rem;}
@@ -95,6 +94,15 @@ body{font-family:Ruda,sans-serif;font-size:0.7rem;line-height:1.2rem;}
 #site-navi li+li{border-left:0.05rem solid #AAA;}
 #site-navi a{padding:0 0.5rem;text-decoration:none;color:inherit;display:inline-block;}
 #site-navi a:hover,#site-navi a:focus{background:#CCC;}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* Actions
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.actions{margin:0 0 0.5rem 0;padding:0;list-style:none;font-size:0.6rem;float:right;text-align:center;}
+.actions .fa{margin-right:0.1rem;}
+.actions li{display:inline-block;font-weight:bold;background:#EEE;border:0.05rem solid #AAA;}
+.actions a{color:inherit;display:block;padding:0 0.25rem;}
+.actions-before{float:left;}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Elements
@@ -283,6 +291,11 @@ label:after{content:":";}
 	#main-navi a{padding:0.5rem;}
 
 	.flex-emoticons{display:none;}
+
+	.actions{float:none;display:flex;width:100%;flex-grow:1;justify-content:center;overflow:hidden;box-sizing:border-box;}
+	.actions li{flex-grow:1;}
+	.actions li + li{border-left:none;}
+	.actions-before{float:none;}
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
