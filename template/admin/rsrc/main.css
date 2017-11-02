@@ -147,6 +147,7 @@ table,td{padding:0.5rem;border:0.05rem solid #AAA;}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .arguments{list-style:none;margin:0;padding:0.25rem 0.75rem;background:#EEE;font-size:0.6rem;text-align:center;border-top:0.05rem solid #AAA;}
 .arguments > li{display:inline;}
+.arguments > li > span{color:#40779A;}
 .arguments > li:before{content:"[";font-weight:700;margin-right:0.1rem;}
 .arguments > li:after{content:"]";font-weight:700;margin-left:0.1rem;}
 
