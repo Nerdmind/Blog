@@ -131,23 +131,6 @@ class Parsedown
                 continue;
             }
 
-            if (strpos($line, "\t") !== false)
-            {
-                $parts = explode("\t", $line);
-
-                $line = $parts[0];
-
-                unset($parts[0]);
-
-                foreach ($parts as $part)
-                {
-                    $shortage = 4 - mb_strlen($line, 'utf-8') % 4;
-
-                    $line .= str_repeat(' ', $shortage);
-                    $line .= $part;
-                }
-            }
-
             $indent = 0;
 
             while (isset($line[$indent]) and $line[$indent] === ' ')
@@ -298,9 +281,12 @@ class Parsedown
             return;
         }
 
-        if ($Line['indent'] >= 4)
+        $conditionA = $Line['indent'] >= 4;
+        $conditionB = substr($Line['body'], 0, 1) === "\t";
+
+        if (($conditionA and $remove = 4) or ($conditionB and $remove = 1))
         {
-            $text = substr($Line['body'], 4);
+            $text = substr($Line['body'], $remove);
 
             $Block = array(
                 'element' => array(
@@ -319,7 +305,10 @@ class Parsedown
 
     protected function blockCodeContinue($Line, $Block)
     {
-        if ($Line['indent'] >= 4)
+        $conditionA = $Line['indent'] >= 4;
+        $conditionB = substr($Line['body'], 0, 1) === "\t";
+
+        if (($conditionA and $remove = 4) or ($conditionB and $remove = 1))
         {
             if (isset($Block['interrupted']))
             {
@@ -330,7 +319,7 @@ class Parsedown
 
             $Block['element']['text']['text'] .= "\n";
 
-            $text = substr($Line['body'], 4);
+            $text = substr($Line['body'], $remove);
 
             $Block['element']['text']['text'] .= $text;
 
