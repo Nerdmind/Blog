@@ -273,14 +273,14 @@ label:after{content:":";}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Responsive Level #1
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-@media only screen and (max-width:50rem) {
+@media only screen and (max-width:50em) {
 	html{font-size:1.125rem;/*18px*/background-image:none !important;}
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Responsive Level #2
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-@media only screen and (max-width:37.5rem) {
+@media only screen and (max-width:37.5em) {
 	.flex.flex-responsive{display:block;width:auto;}
 	.flex.flex-responsive > .flex-item {width:100%;}
 	.flex.flex-responsive > .flex-item + .flex-item{border-top:0.05rem solid #AAA;}

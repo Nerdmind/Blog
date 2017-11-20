@@ -131,7 +131,7 @@ thead > tr > td, th > td{text-align:center;}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Responsive Level #1
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-@media only screen and (max-width:50rem) {
+@media only screen and (max-width:50em) {
 	html{font-size:1.125rem;/*18px*/background-image:none !important;}
 	body{line-height:1.2rem;}
 	#container{margin:0;border-right:none;border-left:none;}
@@ -140,7 +140,7 @@ thead > tr > td, th > td{text-align:center;}
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /* Responsive Level #2
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-@media only screen and (max-width:37.5rem) {
+@media only screen and (max-width:37.5em) {
 	main,#main-header > div{padding:1rem;}
 	#main-navi{padding:0.25rem 1rem;}
 	#main-navi a{border:0.05rem solid transparent;}
