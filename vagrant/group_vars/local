@@ -1,0 +1,28 @@
+---
+
+dns_hosts:
+  - blog.dev
+
+apache_vhosts:
+  - port: 80
+    server_admin: techbeasts@swarmingtech.com
+    server_name: blog.dev
+    server_alias: "*.blog.dev"
+    document_root: /var/www/blog
+    app_env: local
+
+mysql:
+  database: blog_local
+  password: swarming
+  user: blog_local
+  root_password: swarming
+
+php:
+  version: 7.0
+
+magento:
+  directory: /html
+  domains:
+    - scope_id: 0
+      cookie_domain_url: blog.dev
+      unsecure_base_url: http://blog.dev/

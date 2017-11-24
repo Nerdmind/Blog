@@ -11,9 +11,11 @@
 <p><?=$Language->text('home_heading_desc', Application::get('POST.LIST_SIZE'))?></p>
 
 <div class="item-container post">
-	<?php foreach($LIST['POSTS'] as $post): ?>
-		<?php echo $post; ?>
-	<?php endforeach; ?>
+        <?php foreach($LIST['POSTS'] as $post): ?>
+            <?php if (!$post->parameters['POST']['ATTR']['ARCHIVE']) : ?>
+                <?php echo $post; ?>
+            <? endif; ?>
+        <?php endforeach; ?>
 </div>
 
 <?=$PAGINATION['HTML']?>

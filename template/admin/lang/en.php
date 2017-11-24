@@ -19,6 +19,7 @@ $LANGUAGE['date_format'] = '[Y]-[M]-[D]';
 $LANGUAGE['last_post'] = 'Last post';
 $LANGUAGE['last_page'] = 'Last page';
 $LANGUAGE['last_user'] = 'Last user';
+$LANGUAGE['last_category'] = 'Last category';
 
 #===============================================================================
 # Insert item description
@@ -26,6 +27,7 @@ $LANGUAGE['last_user'] = 'Last user';
 $LANGUAGE['insert_page_desc'] = 'Here you can create and publish a new page.';
 $LANGUAGE['insert_post_desc'] = 'Here you can create and publish a new post.';
 $LANGUAGE['insert_user_desc'] = 'Here you can create and publish a new user.';
+$LANGUAGE['insert_category_desc'] = 'Here you can create and publish a new category.';
 
 #===============================================================================
 # Update item description
@@ -33,6 +35,7 @@ $LANGUAGE['insert_user_desc'] = 'Here you can create and publish a new user.';
 $LANGUAGE['update_page_desc'] = 'Here you can edit an existing page and save the changes.';
 $LANGUAGE['update_post_desc'] = 'Here you can edit an existing post and save the changes.';
 $LANGUAGE['update_user_desc'] = 'Here you can edit an existing user and save the changes.';
+$LANGUAGE['update_category_desc'] = 'Here you can edit an existing category and save the changes.';
 
 #===============================================================================
 # Delete item description
@@ -40,10 +43,12 @@ $LANGUAGE['update_user_desc'] = 'Here you can edit an existing user and save the
 $LANGUAGE['delete_page_desc'] = 'If you do not need this page anymore, you can permanently delete it by clicking the following button.';
 $LANGUAGE['delete_post_desc'] = 'If you do not need this post anymore, you can permanently delete it by clicking the following button.';
 $LANGUAGE['delete_user_desc'] = 'If you do not need this user anymore, you can permanently delete it by clicking the following button.';
+$LANGUAGE['delete_category_desc'] = 'If you do not need this user anymore, you can permanently delete it by clicking the following button.';
 
 #===============================================================================
 # Search item description
 #===============================================================================
+$LANGUAGE['search_category_desc'] = 'Here you can search a category with the <em>boolean full-text search</em> (see <a href="https://dev.mysql.com/doc/refman/5.6/en/fulltext-boolean.html">MySQL documentation</a>).';
 $LANGUAGE['search_page_desc'] = 'Here you can search a page with the <em>boolean full-text search</em> (see <a href="https://dev.mysql.com/doc/refman/5.6/en/fulltext-boolean.html">MySQL documentation</a>).';
 $LANGUAGE['search_post_desc'] = 'Here you can search a post with the <em>boolean full-text search</em> (see <a href="https://dev.mysql.com/doc/refman/5.6/en/fulltext-boolean.html">MySQL documentation</a>).';
 
@@ -53,6 +58,7 @@ $LANGUAGE['search_post_desc'] = 'Here you can search a post with the <em>boolean
 $LANGUAGE['overview_page_desc'] = 'Here you can see all existing pages.';
 $LANGUAGE['overview_post_desc'] = 'Here you can see all existing posts.';
 $LANGUAGE['overview_user_desc'] = 'Here you can see all existing users.';
+$LANGUAGE['overview_category_desc'] = 'Here you can see all existing categories.';
 
 #===============================================================================
 # Dashboard
@@ -78,6 +84,7 @@ $LANGUAGE['authentication_desc'] = 'To manage your content, you have to authenti
 $LANGUAGE['home_no_pages'] = 'There is no last page to display here. You have to insert a new page first.';
 $LANGUAGE['home_no_posts'] = 'There is no last post to display here. You have to insert a new post first.';
 $LANGUAGE['home_no_users'] = 'There is no last user to display here. You have to insert a new user first.';
+$LANGUAGE['home_no_categories'] = 'There is no last category to display here. You have to insert a new category first.';
 
 #===============================================================================
 # Delete user warning
@@ -130,6 +137,8 @@ $LANGUAGE['label_mailaddr'] = 'Email';
 $LANGUAGE['label_username'] = 'Username';
 $LANGUAGE['label_password'] = 'Password';
 $LANGUAGE['label_language'] = 'Language';
+$LANGUAGE['label_archive'] = 'Archive';
+$LANGUAGE['label_category'] = 'Category';
 
 #===============================================================================
 # Markdown

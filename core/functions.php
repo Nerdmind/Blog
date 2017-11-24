@@ -42,6 +42,13 @@ function generateUserNaviTemplate($current): Template\Template {
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
+function generateCategoryNaviTemplate($current): Template\Template {
+    return generateNaviTemplate($current, Application::getPostURL(), 'Category');
+}
+
+#===============================================================================
+# Helper function to reduce duplicate code
+#===============================================================================
 function generatePageItemTemplate(Page\Item $Page, User\Item $User): Template\Template {
 	$Template = Template\Factory::build('page/item');
 	$Template->set('PAGE', generateItemTemplateData($Page));
@@ -69,6 +76,16 @@ function generateUserItemTemplate(User\Item $User): Template\Template {
 	$Template->set('USER', generateItemTemplateData($User));
 
 	return $Template;
+}
+
+#===============================================================================
+# Helper function to reduce duplicate code
+#===============================================================================
+function generateCategoryItemTemplate(Category\Item $Category): Template\Template {
+    $Template = Template\Factory::build('category/item');
+    $Template->set('CATEGORY', generateItemTemplateData($Category));
+
+    return $Template;
 }
 
 #===============================================================================
