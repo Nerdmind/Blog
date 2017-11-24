@@ -3,9 +3,9 @@
 # Main configuration                         [Thomas Lange <code@nerdmind.de>] #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #                                                                              #
-# This file overwrites the pre-defined configuration values of the application #
+# This file will override the pre-defined configuration settings of the system #
 # and is the primary file where you change the configuration. Do not touch any #
-# other files to change your configuration – just overwrite it here!           #
+# other files to change your configuration – just override it here!            #
 #                                                                              #
 # Documentation:                                                               #
 # 1. https://github.com/Nerdmind/Blog/wiki/Configuration                       #

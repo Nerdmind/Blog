@@ -94,7 +94,7 @@ foreach($configuration as $name => $value) {
 require 'configuration.php';
 
 #===============================================================================
-# Overwrite configuration if admin
+# Override configuration if admin
 #===============================================================================
 if(defined('ADMINISTRATION') AND ADMINISTRATION === TRUE) {
 
@@ -111,7 +111,7 @@ if(defined('ADMINISTRATION') AND ADMINISTRATION === TRUE) {
 	}
 
 	#===========================================================================
-	# Overwrite configuration
+	# Override configuration
 	#===========================================================================
 	Application::set('CORE.LANGUAGE', Application::get('ADMIN.LANGUAGE'));
 	Application::set('TEMPLATE.NAME', Application::get('ADMIN.TEMPLATE'));
