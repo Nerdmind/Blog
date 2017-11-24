@@ -54,6 +54,29 @@
 			<div class="form-field-flex"><input id="form_time_update" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ? $FORM['DATA']['TIME_UPDATE'] : '[CURRENT_TIMESTAMP]')?>" value="" /></div>
 		</div>
 	</div>
+    <div class="flex flex-responsive">
+        <div class="flex-item">
+            <div class="form-icon-flex"><i class="fa fa-book"></i></div>
+            <div class="form-label-flex"><label for="form_archive"><?=$Language->text('label_archive')?></label></div>
+            <div class="form-field-flex">
+                <select id="form_archive" name="archive">
+                    <option value="1"<?=($FORM['DATA']['ARCHIVE'] == 1) ? ' selected' : '' ?>>Yes</option>
+                    <option value="0"<?=($FORM['DATA']['ARCHIVE'] == 0) ? ' selected' : '' ?>>No</option>
+                </select>
+            </div>
+        </div>
+        <div class="flex-item">
+            <div class="form-icon-flex"><i class="fa fa-newspaper-o"></i></div>
+            <div class="form-label-flex"><label for="form_category"><?=$Language->text('label_category')?></label></div>
+            <div class="form-field-flex">
+                <select id="form_category" name="category">
+                    <?php foreach($FORM['CATEGORY_LIST'] as $category): ?>
+                        <option value="<?=$category['ID']?>"<?=($FORM['DATA']['CATEGORY_ID'] === $category['ID']) ? ' selected' : '' ?>><?=escapeHTML($category['NAME'])?> [<?=$category['SLUG']?>]</option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+    </div>
 	<div class="flex flex-direction-column">
 		<div id="button-list-wrapper">
 			<ul id="markdown-list" class="button-list markdown">

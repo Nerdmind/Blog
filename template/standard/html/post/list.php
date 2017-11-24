@@ -12,7 +12,9 @@
 
 <div class="item-container post">
 	<?php foreach($LIST['POSTS'] as $post): ?>
-		<?php echo $post; ?>
+        <?php if (!$post->parameters['POST']['ATTR']['ARCHIVE']) : ?>
+            <?php echo $post; ?>
+        <? endif; ?>
 	<?php endforeach; ?>
 </div>
 

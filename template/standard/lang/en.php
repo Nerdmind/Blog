@@ -37,6 +37,7 @@ $LANGUAGE['user_overview_heading_desc'] = '[Page: <b>%d</b>] Here you can see al
 #===============================================================================
 # Item main description
 #===============================================================================
+$LANGUAGE['category_main_heading_desc'] = '(published on: <em>%s</em>)';
 $LANGUAGE['post_main_heading_desc'] = 'By: %s (published on: <em>%s</em>)';
 $LANGUAGE['page_main_heading_desc'] = 'By: %s (published on: <em>%s</em>)';
 $LANGUAGE['user_main_heading_desc'] = '»%s« has published a total count of <b>%d</b> posts and <b>%d</b> pages.';

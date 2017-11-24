@@ -110,6 +110,13 @@ class Application {
 		return self::getURL(self::get('PAGE.DIRECTORY')."/{$more}");
 	}
 
+    #===============================================================================
+    # Return absolute category URL
+    #===============================================================================
+    public static function getCategoryURL($more = ''): string {
+        return self::getURL(self::get('CATEGORY.DIRECTORY')."/{$more}");
+    }
+
 	#===============================================================================
 	# Return absolute user URL
 	#===============================================================================

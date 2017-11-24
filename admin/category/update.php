@@ -6,25 +6,20 @@ define('ADMINISTRATION', TRUE);
 define('AUTHENTICATION', TRUE);
 
 #===============================================================================
-# INCLUDE: Initialization
+# INCLUDE: Main configuration
 #===============================================================================
 require '../../core/application.php';
 
 #===============================================================================
-# TRY: Post\Exception
+# TRY: Page\Exception
 #===============================================================================
 try {
-	$Post = Post\Factory::build(HTTP::GET('id'));
-	$Attribute = $Post->getAttribute();
+	$Category = Category\Factory::build(HTTP::GET('id'));
+	$Attribute = $Category->getAttribute();
 
-	if(HTTP::issetPOST('user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'update', 'archive', 'category')) {
-		$Attribute->set('user', HTTP::POST('user'));
+	if(HTTP::issetPOST('name', 'slug', 'time_insert', 'time_update', 'update')) {
+        $Attribute->set('name', HTTP::POST('name') ? HTTP::POST('name') : NULL);
 		$Attribute->set('slug', HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('name')));
-		$Attribute->set('name', HTTP::POST('name') ? HTTP::POST('name') : NULL);
-		$Attribute->set('body', HTTP::POST('body') ? HTTP::POST('body') : NULL);
-		$Attribute->set('argv', HTTP::POST('argv') ? HTTP::POST('argv') : NULL);
-        $Attribute->set('archive', HTTP::POST('archive') ? HTTP::POST('archive') : 0);
-        $Attribute->set('category_id', HTTP::POST('category') ? HTTP::POST('category') : 0);
 		$Attribute->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
 		$Attribute->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 
@@ -45,44 +40,20 @@ try {
 	# TRY: Template\Exception
 	#===============================================================================
 	try {
-		$userIDs = $Database->query(sprintf('SELECT id FROM %s ORDER BY fullname ASC', User\Attribute::TABLE));
-
-		foreach($userIDs->fetchAll($Database::FETCH_COLUMN) as $userID) {
-			$User = User\Factory::build($userID);
-			$userAttributes[] = [
-				'ID' => $User->attr('id'),
-				'FULLNAME' => $User->attr('fullname'),
-				'USERNAME' => $User->attr('username'),
-			];
-		}
-
-        $categoryIDs = $Database->query(sprintf('SELECT id FROM %s ORDER BY name ASC', Category\Attribute::TABLE));
-
-        foreach ($categoryIDs->fetchAll($Database::FETCH_COLUMN) as $categoryID) {
-            $Category = Category\Factory::build($categoryID);
-            $categoryAttributes[] = [
-                'ID' => $Category->attr('id'),
-                'NAME' => $Category->attr('name'),
-                'SLUG' => $Category->attr('slug'),
-            ];
-        }
-
-		$FormTemplate = Template\Factory::build('post/form');
+		$FormTemplate = Template\Factory::build('category/form');
 		$FormTemplate->set('FORM', [
 			'TYPE' => 'UPDATE',
 			'INFO' => $messages ?? [],
 			'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
-			'USER_LIST' => $userAttributes ??  [],
-            'CATEGORY_LIST' => $categoryAttributes ?? [],
 			'TOKEN' => Application::getSecurityToken()
 		]);
 
-		$PostUpdateTemplate = Template\Factory::build('post/update');
-		$PostUpdateTemplate->set('HTML', $FormTemplate);
+		$CategoryUpdateTemplate = Template\Factory::build('category/update');
+		$CategoryUpdateTemplate->set('HTML', $FormTemplate);
 
 		$MainTemplate = Template\Factory::build('main');
-		$MainTemplate->set('NAME', $Language->text('title_post_update'));
-		$MainTemplate->set('HTML', $PostUpdateTemplate);
+		$MainTemplate->set('NAME', $Language->text('title_category_update'));
+		$MainTemplate->set('HTML', $CategoryUpdateTemplate);
 		echo $MainTemplate;
 	}
 
@@ -95,9 +66,9 @@ try {
 }
 
 #===============================================================================
-# CATCH: Post\Exception
+# CATCH: Page\Exception
 #===============================================================================
-catch(Post\Exception $Exception) {
+catch(Page\Exception $Exception) {
 	Application::error404();
 }
 ?>
