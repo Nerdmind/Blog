@@ -228,13 +228,14 @@ function getRandomValue($length = 40): string {
 }
 
 #===============================================================================
-# Return cutted string
+# Return truncated string
 #===============================================================================
-function cut($string, $length, $replace = ' […]') {
+function truncate($string, $length, $replace = '') {
 	if(mb_strlen($string) > $length) {
-		return preg_replace_callback("/^(.{1,{$length}}\\b).*/su", function($match) {
-			return trim($match[1]);
-		}, $string).$replace;
+		$truncated = preg_replace("/^(.{1,{$length}}\\b).*/su", '$1', $string);
+		$truncated = trim($truncated);
+
+		return "{$truncated}{$replace}";
 	}
 
 	return $string;
@@ -246,7 +247,7 @@ function cut($string, $length, $replace = ' […]') {
 function excerpt($string, $length = 500, $replace = ' […]') {
 	$string = removeHTML($string);
 	$string = removeDoubleLineBreaks($string);
-	$string = cut($string, $length, $replace);
+	$string = truncate($string, $length, $replace);
 	$string = nl2br($string);
 
 	return $string;
@@ -258,7 +259,7 @@ function excerpt($string, $length = 500, $replace = ' […]') {
 function description($string, $length = 200, $replace = ' […]') {
 	$string = removeHTML($string);
 	$string = removeWhitespace($string);
-	$string = cut($string, $length, $replace);
+	$string = truncate($string, $length, $replace);
 
 	return $string;
 }
