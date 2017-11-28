@@ -232,7 +232,9 @@ function getRandomValue($length = 40): string {
 #===============================================================================
 function cut($string, $length, $replace = ' […]') {
 	if(mb_strlen($string) > $length) {
-		return preg_replace("/^(.{1,{$length}}\\b).*/su", "\\1{$replace}", $string);
+		return preg_replace_callback("/^(.{1,{$length}}\\b).*/su", function($match) {
+			return trim($match[1]);
+		}, $string).$replace;
 	}
 
 	return $string;
@@ -245,7 +247,6 @@ function excerpt($string, $length = 500, $replace = ' […]') {
 	$string = removeHTML($string);
 	$string = removeDoubleLineBreaks($string);
 	$string = cut($string, $length, $replace);
-	$string = trim($string);
 	$string = nl2br($string);
 
 	return $string;
