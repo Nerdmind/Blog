@@ -4,7 +4,7 @@
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #                                                                              #
 # This file brings the application up and defines default configuration values #
-# for the application which can be overwritten in configuration.php.           #
+# for the application which can be overridden in configuration.php.            #
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
@@ -34,7 +34,7 @@ set_exception_handler(function(Throwable $Exception) {
 HTTP::init($_GET, $_POST, $_FILES, TRUE);
 
 #===============================================================================
-# Default configuration (can be overwritten in configuration.php)
+# Default configuration (can be overridden in configuration.php)
 #===============================================================================
 $configuration = [
 	'CORE.LANGUAGE' => 'en',
