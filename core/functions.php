@@ -232,10 +232,13 @@ function getRandomValue($length = 40): string {
 #===============================================================================
 function truncate($string, $length, $replace = '') {
 	if(mb_strlen($string) > $length) {
-		$truncated = preg_replace("/^(.{1,{$length}}\\b).*/su", '$1', $string);
+		$truncated = preg_replace("/^(.{0,{$length}}\\b).*/su", '$1', $string);
 		$truncated = trim($truncated);
 
-		return "{$truncated}{$replace}";
+		# The additional trim call is useful, because if $truncated is empty,
+		# then there will be an unnecessary space between those two variables
+		# if $replace is preceded by a space (for example: " […]").
+		return trim("{$truncated}{$replace}");
 	}
 
 	return $string;
