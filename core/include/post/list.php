@@ -11,13 +11,23 @@ $Language = Application::getLanguage();
 $site_size = Application::get('POST.LIST_SIZE');
 $site_sort = Application::get('POST.LIST_SORT');
 
-$lastSite = ceil($Database->query(sprintf('SELECT COUNT(id) FROM %s', Post\Attribute::TABLE))->fetchColumn() / $site_size);
+$count = $Database->query(sprintf('SELECT COUNT(id) FROM %s', Post\Attribute::TABLE))->fetchColumn();
+$lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
 
 if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 	Application::error404();
+}
+
+#===============================================================================
+# Single redirect
+#===============================================================================
+if(Application::get('POST.SINGLE_REDIRECT') === TRUE AND $count === '1') {
+	$Statement = $Database->query(sprintf('SELECT id FROM %s LIMIT 1', Post\Attribute::TABLE));
+	$Post = Post\Factory::build($Statement->fetchColumn());
+	HTTP::redirect($Post->getURL());
 }
 
 #===============================================================================
