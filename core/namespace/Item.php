@@ -167,5 +167,22 @@ abstract class Item implements ItemInterface {
 
 		return 0;
 	}
+
+	#===============================================================================
+	# Return Attribute instance based on field comparison with value
+	#===============================================================================
+	public static function getByField($field, $value, \Database $Database): Attribute {
+		$exception = (new ReflectionClass(get_called_class()))->getNamespaceName().'\\Exception';
+		$attribute = (new ReflectionClass(get_called_class()))->getNamespaceName().'\\Attribute';
+		$Statement = $Database->prepare('SELECT * FROM '.$attribute::TABLE." WHERE {$field} = ?");
+
+		if($Statement->execute([$value])) {
+			if(!$Attribute = $Statement->fetchObject($attribute)) {
+				throw new $exception(sprintf("Item with value %s on field %s does not exist.", $value, $field));
+			}
+
+			return $Attribute;
+		}
+	}
 }
 ?>
