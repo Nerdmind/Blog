@@ -11,7 +11,7 @@ $M_LIST = $Database->query(sprintf('SELECT DISTINCT MONTH(time_insert) AS temp F
 $Y_LIST = $Database->query(sprintf('SELECT DISTINCT YEAR(time_insert) AS temp FROM %s ORDER BY temp', Post\Attribute::TABLE));
 
 if($search = HTTP::GET('q')) {
-	if(!$postIDs = Post\Item::getSearchResultIDs($search, [HTTP::GET('d'), HTTP::GET('m'), HTTP::GET('y')], $Database)) {
+	if(!$attributes = Post\Item::getSearchResults($search, [HTTP::GET('d'), HTTP::GET('m'), HTTP::GET('y')], $Database)) {
 		$message = $Language->text('search_no_results', escapeHTML($search));
 	}
 }
@@ -38,10 +38,10 @@ $search_data = [
 # TRY: Template\Exception
 #===============================================================================
 try {
-	if(isset($postIDs) AND !empty($postIDs)) {
-		foreach($postIDs as $postID) {
+	if(isset($attributes) AND !empty($attributes)) {
+		foreach($attributes as $Attribute) {
 			try {
-				$Post = Post\Factory::build($postID);
+				$Post = Post\Factory::buildByAttribute($Attribute);
 				$User = User\Factory::build($Post->attr('user'));
 
 				$posts[] = generatePostItemTemplate($Post, $User);

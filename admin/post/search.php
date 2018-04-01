@@ -14,17 +14,15 @@ require '../../core/application.php';
 # IF: Handle search request
 #===============================================================================
 if($search = HTTP::GET('q')) {
-	if($postIDs = Post\Item::getSearchResultIDs($search, [NULL, NULL, NULL], $Database)) {
-		foreach($postIDs as $postID) {
-			try {
-				$Post = Post\Factory::build($postID);
-				$User = User\Factory::build($Post->attr('user'));
+	foreach(Post\Item::getSearchResults($search, [NULL, NULL, NULL], $Database) as $Attribute) {
+		try {
+			$Post = Post\Factory::buildByAttribute($Attribute);
+			$User = User\Factory::build($Post->attr('user'));
 
-				$posts[] = generatePostItemTemplate($Post, $User);
-			}
-			catch(Post\Exception $Exception){}
-			catch(User\Exception $Exception){}
+			$posts[] = generatePostItemTemplate($Post, $User);
 		}
+		catch(Post\Exception $Exception){}
+		catch(User\Exception $Exception){}
 	}
 }
 
