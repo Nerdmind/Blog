@@ -18,7 +18,19 @@ abstract class ItemFactory extends Factory {
 	#===========================================================================
 	public static function buildBySlug($slug): Item {
 		$Item = (new ReflectionClass(get_called_class()))->getNamespaceName().'\\Item';
-		return self::build($Item::getIDByField('slug', $slug, \Application::getDatabase()));
+		return self::buildByAttribute($Item::getByField('slug', $slug, \Application::getDatabase()));
+	}
+
+	#===========================================================================
+	# Build instance by Attribute
+	#===========================================================================
+	public static function buildByAttribute(Attribute $Attribute) {
+		if(!$Instance = parent::fetchInstance($Attribute->get('id'))) {
+			$Item = (new ReflectionClass(get_called_class()))->getNamespaceName().'\\Item';
+			$Instance = parent::storeInstance($Attribute->get('id'), new $Item($Attribute, \Application::getDatabase()));
+		}
+
+		return $Instance;
 	}
 }
 ?>
