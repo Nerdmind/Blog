@@ -41,6 +41,20 @@ class Item extends \Item {
 	}
 
 	#===============================================================================
+	# Return search results as Page\Attribute
+	#===============================================================================
+	public static function getSearchResults($search, \Database $Database): array {
+		$Statement = $Database->prepare(sprintf("SELECT * FROM %s WHERE
+			MATCH(name, body) AGAINST(? IN BOOLEAN MODE) LIMIT 20", Attribute::TABLE));
+
+		if($Statement->execute([$search])) {
+			return $Statement->fetchAll($Database::FETCH_CLASS, 'Page\Attribute');
+		}
+
+		return [];
+	}
+
+	#===============================================================================
 	# Return associated User\Attribute
 	#===============================================================================
 	public function getUserAttribute() {
