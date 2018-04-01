@@ -46,5 +46,13 @@ class Item extends \Item {
 
 		return [];
 	}
+
+	#===============================================================================
+	# Return associated User\Attribute
+	#===============================================================================
+	public function getUserAttribute() {
+		$Statement = $this->Database->query(sprintf('SELECT * FROM user WHERE id = %d', $this->Attribute->get('user')));
+		return $Statement->fetchObject('User\Attribute');
+	}
 }
 ?>
