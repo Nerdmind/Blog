@@ -1,5 +1,5 @@
 <?php
 interface ItemInterface {
-	public function __construct($itemID, \Database $Database);
+	public function __construct($param, \Database $Database);
 }
 ?>

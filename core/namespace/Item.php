@@ -10,13 +10,24 @@ abstract class Item implements ItemInterface {
 	#===============================================================================
 	# Abstract item constructor
 	#===============================================================================
-	public final function __construct($itemID, \Database $Database) {
+	public final function __construct($param, \Database $Database) {
 		$this->Database = $Database;
 
 		$this->Reflection = new ReflectionObject($this);
 
 		$attribute = "{$this->Reflection->getNamespaceName()}\\Attribute";
 		$exception = "{$this->Reflection->getNamespaceName()}\\Exception";
+
+		# If $param is an instance of Attribute,
+		# skip fetching attribute from database!
+		if($param instanceof Attribute) {
+			$this->Attribute = $param;
+			return;
+		}
+
+		# If this gets executed, then $param
+		# is not an instance of Attribute!
+		$itemID = $param;
 
 		#===============================================================================
 		# Checking if item in database exists
