@@ -26,18 +26,18 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 }
 
 #===============================================================================
-# Fetch post IDs from database
+# Fetch items from database
 #===============================================================================
-$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-$postIDs = $Database->query(sprintf($execSQL, Post\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+$execSQL = "SELECT * FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
+$Statement = $Database->query(sprintf($execSQL, Post\Attribute::TABLE));
 
 #===============================================================================
 # TRY: Template\Exception
 #===============================================================================
 try {
-	foreach($postIDs as $postID) {
+	while($Attribute = $Statement->fetchObject('Post\Attribute')) {
 		try {
-			$Post = Post\Factory::build($postID);
+			$Post = Post\Factory::buildByAttribute($Attribute);
 			$User = User\Factory::build($Post->attr('user'));
 
 			$ItemTemplate = generatePostItemTemplate($Post, $User);

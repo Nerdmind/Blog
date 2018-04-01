@@ -9,14 +9,12 @@ $Language = Application::getLanguage();
 # TRY: Template\Exception
 #===============================================================================
 try {
-	$execSQL = 'SELECT id FROM %s ORDER BY '.Application::get('POST.LIST_SORT').' LIMIT '.Application::get('POST.LIST_SIZE');
+	$execSQL = 'SELECT * FROM %s ORDER BY '.Application::get('POST.LIST_SORT').' LIMIT '.Application::get('POST.LIST_SIZE');
 	$Statement = $Database->query(sprintf($execSQL, Post\Attribute::TABLE));
 
-	$postIDs = $Statement->fetchAll($Database::FETCH_COLUMN);
-
-	foreach($postIDs as $postID) {
+	while($Attribute = $Statement->fetchObject('Post\Attribute')) {
 		try {
-			$Post = Post\Factory::build($postID);
+			$Post = Post\Factory::buildByAttribute($Attribute);
 			$User = User\Factory::build($Post->attr('user'));
 
 			$ItemTemplate = generatePostItemTemplate($Post, $User);

@@ -26,18 +26,18 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 }
 
 #===============================================================================
-# Fetch user IDs from database
+# Fetch items from database
 #===============================================================================
-$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-$userIDs = $Database->query(sprintf($execSQL, User\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+$execSQL = "SELECT * FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
+$Statement = $Database->query(sprintf($execSQL, User\Attribute::TABLE));
 
 #===============================================================================
 # TRY: Template\Exception
 #===============================================================================
 try {
-	foreach($userIDs as $userID) {
+	while($Attribute = $Statement->fetchObject('User\Attribute')) {
 		try {
-			$User = User\Factory::build($userID);
+			$User = User\Factory::buildByAttribute($Attribute);
 			$ItemTemplate = generateUserItemTemplate($User);
 
 			$users[] = $ItemTemplate;

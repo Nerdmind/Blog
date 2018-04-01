@@ -34,12 +34,12 @@ if(Application::get('PAGE.SINGLE_REDIRECT') === TRUE AND $count === '1') {
 # TRY: Template\Exception
 #===============================================================================
 try {
-	$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-	$pageIDs = $Database->query(sprintf($execSQL, Page\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+	$execSQL = "SELECT * FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
+	$Statement = $Database->query(sprintf($execSQL, Page\Attribute::TABLE));
 
-	foreach($pageIDs as $pageID) {
+	while($Attribute = $Statement->fetchObject('Page\Attribute')) {
 		try {
-			$Page = Page\Factory::build($pageID);
+			$Page = Page\Factory::buildByAttribute($Attribute);
 			$User = User\Factory::build($Page->attr('user'));
 
 			$ItemTemplate = generatePageItemTemplate($Page, $User);

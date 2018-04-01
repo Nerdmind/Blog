@@ -18,12 +18,12 @@ try {
 		$POST['FEED_SORT'] = Application::get('POST.FEED_SORT');
 		$POST['FEED_SIZE'] = Application::get('POST.FEED_SIZE');
 
-		$execSQL = "SELECT id FROM %s ORDER BY {$POST['FEED_SORT']} LIMIT {$POST['FEED_SIZE']}";
-		$postIDs = $Database->query(sprintf($execSQL, Post\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+		$execSQL = "SELECT * FROM %s ORDER BY {$POST['FEED_SORT']} LIMIT {$POST['FEED_SIZE']}";
+		$Statement = $Database->query(sprintf($execSQL, Post\Attribute::TABLE));
 
-		foreach($postIDs as $postID) {
+		while($Attribute = $Statement->fetchObject('Post\Attribute')) {
 			try {
-				$Post = Post\Factory::build($postID);
+				$Post = Post\Factory::buildByAttribute($Attribute);
 				$User = User\Factory::build($Post->attr('user'));
 
 				$ItemTemplate = Template\Factory::build('feed/item_post');
@@ -42,12 +42,12 @@ try {
 		$PAGE['FEED_SORT'] = Application::get('PAGE.FEED_SORT');
 		$PAGE['FEED_SIZE'] = Application::get('PAGE.FEED_SIZE');
 
-		$execSQL = "SELECT id FROM %s ORDER BY {$PAGE['FEED_SORT']} LIMIT {$PAGE['FEED_SIZE']}";
-		$pageIDs = $Database->query(sprintf($execSQL, Page\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+		$execSQL = "SELECT * FROM %s ORDER BY {$PAGE['FEED_SORT']} LIMIT {$PAGE['FEED_SIZE']}";
+		$Statement = $Database->query(sprintf($execSQL, Page\Attribute::TABLE));
 
-		foreach($pageIDs as $pageID) {
+		while($Attribute = $Statement->fetchObject('Page\Attribute')) {
 			try {
-				$Page = Page\Factory::build($pageID);
+				$Page = Page\Factory::buildByAttribute($Attribute);
 				$User = User\Factory::build($Page->attr('user'));
 
 				$ItemTemplate = Template\Factory::build('feed/item_page');
