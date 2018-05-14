@@ -7,9 +7,9 @@ const next = document.getElementById("next-site");
 //==============================================================================
 // Handle arrow keys and change the location to the desired direction
 //==============================================================================
-document.addEventListener("keyup", function(event) {
-	if(!event.ctrlKey && !event.shiftKey) {
-		(event.keyCode === 37 && prev) && (window.location.href = prev.getAttribute("href"));
-		(event.keyCode === 39 && next) && (window.location.href = next.getAttribute("href"));
+document.addEventListener("keyup", function(e) {
+	if(!e.ctrlKey && !e.shiftKey) {
+		(e.keyCode === 37 && prev) && (window.location.href = prev.getAttribute("href"));
+		(e.keyCode === 39 && next) && (window.location.href = next.getAttribute("href"));
 	}
 }, false);
