@@ -16,7 +16,7 @@
 		<div class="flex-item">
 			<div class="form-icon-flex"><i class="fa fa-database"></i></div>
 			<div class="form-label-flex"><label for="form_id">ID</label></div>
-			<div class="form-field-flex"><input<?=($FORM['TYPE'] === 'UPDATE') ? ' disabled="disabled"' : '';?> id="form_id" name="id" type="number" placeholder="[AUTO_INCREMENT]" value="<?=escapeHTML($FORM['DATA']['ID'])?>" /></div>
+			<div class="form-field-flex"><input<?=($FORM['TYPE'] === 'UPDATE') ? ' disabled="disabled"' : '';?> id="form_id" name="id" type="number" placeholder="AUTO_INCREMENT" value="<?=escapeHTML($FORM['DATA']['ID'])?>" /></div>
 		</div>
 		<div class="flex-item">
 			<div class="form-icon-flex"><i class="fa fa-user"></i></div>
@@ -46,12 +46,12 @@
 		<div class="flex-item">
 			<div class="form-icon-flex"><i class="fa fa-clock-o"></i></div>
 			<div class="form-label-flex"><label for="form_time_insert"><?=$Language->text('label_insert')?></label></div>
-			<div class="form-field-flex"><input id="form_time_insert" name="time_insert" placeholder="[YYYY-MM-DD HH:II:SS]" value="<?=escapeHTML($FORM['DATA']['TIME_INSERT'])?>" /></div>
+			<div class="form-field-flex"><input id="form_time_insert" name="time_insert" placeholder="YYYY-MM-DD HH:II:SS" value="<?=escapeHTML($FORM['DATA']['TIME_INSERT'])?>" /></div>
 		</div>
 		<div class="flex-item">
 			<div class="form-icon-flex"><i class="fa fa-clock-o"></i></div>
 			<div class="form-label-flex"><label for="form_time_update"><?=$Language->text('label_update')?></label></div>
-			<div class="form-field-flex"><input id="form_time_update" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ? $FORM['DATA']['TIME_UPDATE'] : '[CURRENT_TIMESTAMP]')?>" value="" /></div>
+			<div class="form-field-flex"><input id="form_time_update" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ? $FORM['DATA']['TIME_UPDATE'] : 'CURRENT_TIMESTAMP')?>" value="" /></div>
 		</div>
 	</div>
 	<div class="flex flex-direction-column">
