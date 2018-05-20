@@ -139,6 +139,7 @@ table,td{padding:0.5rem;border:0.05rem solid #AAA;}
 .item > header,
 .item > footer{background:#EEE;overflow:hidden;}
 .item > blockquote{margin:0;padding:0.75rem;font-family:inherit;}
+.item > blockquote p{margin-bottom:0;}
 .item > header{padding:0.5rem 0.75rem;border-bottom:0.05rem solid #AAA;position:sticky;top:0;}
 .item > footer{border-top:0.05rem solid #AAA;}
 .item > footer > ul{margin:0;padding:0;list-style:none;}
