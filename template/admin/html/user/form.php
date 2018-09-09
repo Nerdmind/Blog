@@ -78,8 +78,8 @@
 	</div>
 	<div class="flex flex-padding background flex-emoticons">
 		<ul id="emoticon-list" class="button-list emoticons">
-			<?php foreach(getEmoticons() as $emoticon => $data):?>
-				<li data-emoticon="<?=$emoticon?>" title="<?=$data[1]?>"><?=$data[0]?></li>
+			<?php foreach(getUnicodeEmoticons() as $emoticon => $explanation):?>
+				<li data-emoticon="<?=$emoticon?>" title="<?=$explanation?>"><?=$emoticon?></li>
 			<?php endforeach; ?>
 		</ul>
 	</div>
