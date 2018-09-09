@@ -184,7 +184,7 @@ function getEmoticons(): array {
 function parseEmoticons($string): string {
 	foreach(getEmoticons() as $emoticon => $data) {
 		$pattern = '#(^|\s)'.preg_quote($emoticon).'#';
-		$replace = " <span title=\"{$data[1]}\">{$data[0]}</span>";
+		$replace = "\\1<span title=\"{$data[1]}\">{$data[0]}</span>";
 
 		$string = preg_replace($pattern, $replace, $string);
 	}
@@ -222,7 +222,7 @@ function getUnicodeEmoticons(): array {
 function parseUnicodeEmoticons($string): string {
 	foreach(getUnicodeEmoticons() as $emoticon => $explanation) {
 		$pattern = '#(^|\s)'.preg_quote($emoticon).'#';
-		$replace = " <span title=\"{$explanation}\">{$emoticon}</span>";
+		$replace = "\\1<span title=\"{$explanation}\">{$emoticon}</span>";
 
 		$string = preg_replace($pattern, $replace, $string);
 	}
