@@ -217,6 +217,20 @@ function getUnicodeEmoticons(): array {
 }
 
 #===============================================================================
+# Wrap emoticons in <span> element with "title" attribute for explanation
+#===============================================================================
+function parseUnicodeEmoticons($string): string {
+	foreach(getUnicodeEmoticons() as $emoticon => $explanation) {
+		$pattern = '#(^|\s)'.preg_quote($emoticon).'#';
+		$replace = " <span title=\"{$explanation}\">{$emoticon}</span>";
+
+		$string = preg_replace($pattern, $replace, $string);
+	}
+
+	return $string;
+}
+
+#===============================================================================
 # Wrapper function for htmlspecialchars()
 #===============================================================================
 function escapeHTML($string): string {
