@@ -188,10 +188,9 @@ form{border:0.05rem solid #AAA;}
 #button-list-wrapper{border-bottom:0.05rem solid #AAA;background:#EEE;}
 
 .button-list{margin:0;padding:0;list-style:none;}
-.button-list.emoticons > li{display:inline-block;background:#EEE;padding:0.5rem;border:0.05rem solid #AAA;cursor:pointer;}
-.button-list.emoticons > li {padding:0.25rem 0.5rem;}
+.button-list.emoticons > li{font-size:1.25rem;display:inline-block;padding:0.2rem;border-bottom:0.2rem solid transparent;border-radius:0.1rem;cursor:pointer;}
 .button-list.emoticons > li:hover,
-.button-list.emoticons > li:active{background:#CCC;}
+.button-list.emoticons > li:active{/*background:#CCC;border:0.05rem solid #AAA;*/border-bottom:0.2rem solid #AAA;}
 
 .button-list.markdown > li{float:left;padding:0.5rem;cursor:pointer;width:1.75rem;box-sizing:border-box;text-align:center;}
 .button-list.markdown > li:hover,
