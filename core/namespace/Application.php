@@ -59,7 +59,7 @@ class Application {
 
 			$Language = new Language(self::get('CORE.LANGUAGE'));
 			$Language->load(sprintf(ROOT.'core/language/%s.php', Application::get('CORE.LANGUAGE')));
-			$Language->load(sprintf(ROOT.'template/%s/lang/%s.php', $template_name, $template_lang));
+			$Language->load(sprintf(ROOT.'theme/%s/lang/%s.php', $template_name, $template_lang));
 
 			self::$Language = $Language;
 		}
@@ -136,7 +136,7 @@ class Application {
 	#===============================================================================
 	public static function getTemplateURL($more = ''): string {
 		$template = self::get('TEMPLATE.NAME');
-		return self::getURL("template/{$template}/{$more}");
+		return self::getURL("theme/{$template}/{$more}");
 	}
 
 	#===============================================================================
