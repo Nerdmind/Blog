@@ -22,7 +22,7 @@ Application::set('BLOGMETA.LANG', 'en');
 Application::set('DATABASE.BASENAME', 'blog');
 Application::set('DATABASE.USERNAME', '');
 Application::set('DATABASE.PASSWORD', '');
-Application::set('TEMPLATE.NAME', 'standard');
+Application::set('TEMPLATE.NAME', 'default');
 Application::set('TEMPLATE.LANG', Application::get('CORE.LANGUAGE'));
 Application::set('ADMIN.LANGUAGE', Application::get('CORE.LANGUAGE'));
 ?>
