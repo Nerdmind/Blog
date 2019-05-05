@@ -79,7 +79,7 @@ main {
 html {
 	font-size: 1.25rem;
 	color: #333;
-	background: #CCC;
+	background: #DDD;
 	-webkit-hyphens: auto;
 	hyphens: auto;
 }
@@ -88,15 +88,22 @@ body {
 	font-family: Ruda, sans-serif;
 	font-size: 0.7rem;
 	line-height: 1.2rem;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Main content
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 #main-content {
+	flex: 1;
+	width: 100%;
 	background: #FFF;
+	box-sizing: border-box;
 	border: 0.05rem solid #AAA;
 	border-top: none;
+	border-bottom: none;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -185,16 +192,13 @@ body {
 	margin-right: 0.125rem;
 }
 
-#main-footer > ul > li:before {
-	content: "[";
-	font-weight: 700;
-	margin-right: 0.1rem;
+#main-footer li:after {
+	content: " · ";
+	font-weight: bold;
 }
 
-#main-footer > ul > li:after {
-	content: "]";
-	font-weight: 700;
-	margin-left: 0.1rem;
+#main-footer li:last-child:after {
+	content: none;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -505,16 +509,12 @@ table, td {
 	color: #40779A;
 }
 
-.arguments > li:before {
-	content: "[";
-	font-weight: 700;
-	margin-right: 0.1rem;
-}
-
 .arguments > li:after {
-	content: "]";
-	font-weight: 700;
-	margin-left: 0.1rem;
+	content: " · ";
+	font-weight: bold;
+}
+.arguments > li:last-child:after{
+	content:none;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -650,6 +650,7 @@ input, select, textarea {
 	font-size: 0.7rem;
 	padding: 0.25rem;
 	border: 0.05rem solid #AAA;
+	box-sizing: border-box;
 }
 
 textarea {
@@ -658,7 +659,7 @@ textarea {
 	display: inline-block;
 	resize: vertical;
 	min-height: 15rem;
-	line-height: 1.3rem;
+	line-height: 1.2rem;
 	padding: 0.5rem;
 	-webkit-hyphens: none;
 	hyphens: none;
@@ -932,6 +933,15 @@ label:after {
 
 	.actions-before {
 		float: none;
+	}
+
+	.arguments {
+		font-size: 0.5rem;
+		line-height: 0.75rem;
+	}
+
+	main {
+		padding: 0.5rem;
 	}
 }
 
