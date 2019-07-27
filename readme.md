@@ -1,6 +1,9 @@
 # PHP7 blogging application
 Easy blogging application written with PHP7! The application comes with a fulltext search functionality for posts and with customizable themes and languages. You can build your own theme if the default theme does not satisfy you.
 
+**Notice:**  
+This project is currently **not in active development**, but the *master* branch is considered to be stable.
+
 ![Default theme](https://nmnd.de/file/p/github-blog/default-theme.png)
 
 ## Administration interface
