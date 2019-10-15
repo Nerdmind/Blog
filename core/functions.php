@@ -107,37 +107,12 @@ function generateItemTemplateData(Item $Item): array {
 # Parser for datetime formatted strings [YYYY-MM-DD HH:II:SS]
 #===============================================================================
 function parseDatetime($datetime, $format): string {
-	$Language = Application::getLanguage();
-
 	list($date, $time) = explode(' ', $datetime);
 
 	list($DATE['Y'], $DATE['M'], $DATE['D']) = explode('-', $date);
 	list($TIME['H'], $TIME['M'], $TIME['S']) = explode(':', $time);
 
-	$M_LIST = [
-		'01' => $Language->text('month_01'),
-		'02' => $Language->text('month_02'),
-		'03' => $Language->text('month_03'),
-		'04' => $Language->text('month_04'),
-		'05' => $Language->text('month_05'),
-		'06' => $Language->text('month_06'),
-		'07' => $Language->text('month_07'),
-		'08' => $Language->text('month_08'),
-		'09' => $Language->text('month_09'),
-		'10' => $Language->text('month_10'),
-		'11' => $Language->text('month_11'),
-		'12' => $Language->text('month_12'),
-	];
-
-	$D_LIST = [
-		0 => $Language->text('day_6'),
-		1 => $Language->text('day_0'),
-		2 => $Language->text('day_1'),
-		3 => $Language->text('day_2'),
-		4 => $Language->text('day_3'),
-		5 => $Language->text('day_4'),
-		6 => $Language->text('day_5'),
-	];
+	$unixtime = strtotime($datetime);
 
 	return strtr($format, [
 		'[Y]' => $DATE['Y'],
@@ -146,11 +121,11 @@ function parseDatetime($datetime, $format): string {
 		'[H]' => $TIME['H'],
 		'[I]' => $TIME['M'],
 		'[S]' => $TIME['S'],
-		'[W]' => $D_LIST[date('w', strtotime($datetime))],
-		'[F]' => $M_LIST[date('m', strtotime($datetime))],
+		'[W]' => strftime('%A', $unixtime),
+		'[F]' => strftime('%B', $unixtime),
 		'[DATE]' => $date,
 		'[TIME]' => $time,
-		'[RFC2822]' => date('r', strtotime($datetime))
+		'[RFC2822]' => date('r', $unixtime)
 	]);
 }
 

@@ -13,6 +13,8 @@
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
+# setlocale(LC_TIME, ['en_US.utf8', 'en_US']);
+
 Application::set('CORE.LANGUAGE', 'en');
 Application::set('BLOGMETA.NAME', 'My Techblog');
 Application::set('BLOGMETA.DESC', '[a creative description]');
