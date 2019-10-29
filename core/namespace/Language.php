@@ -49,4 +49,3 @@ class Language {
 		return $this->text($name, $params);
 	}
 }
-?>

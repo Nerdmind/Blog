@@ -86,4 +86,3 @@ try {
 catch(Page\Exception $Exception) {
 	Application::error404();
 }
-?>

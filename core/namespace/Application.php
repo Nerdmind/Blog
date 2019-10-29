@@ -163,4 +163,3 @@ class Application {
 		exit();
 	}
 }
-?>

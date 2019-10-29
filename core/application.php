@@ -186,4 +186,3 @@ if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {
 		}
 	}
 }
-?>

@@ -27,4 +27,3 @@ try {
 catch(Template\Exception $Exception) {
 	Application::exit($Exception->getMessage());
 }
-?>

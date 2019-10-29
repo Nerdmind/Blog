@@ -331,4 +331,3 @@ function USER(int $id): array {
 		return [];
 	}
 }
-?>

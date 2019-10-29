@@ -143,4 +143,3 @@ $LANGUAGE['markdown_code'] = 'Codeblock';
 $LANGUAGE['markdown_quote'] = 'Zitat';
 $LANGUAGE['markdown_list_ul'] = 'Liste [ungeordnet]';
 $LANGUAGE['markdown_list_ol'] = 'Liste [geordnet]';
-?>

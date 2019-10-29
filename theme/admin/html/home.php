@@ -43,3 +43,4 @@
 <?php else: ?>
 	<p><em><?=$Language->text('home_no_users')?></em></p>
 <?php endif; ?>
+

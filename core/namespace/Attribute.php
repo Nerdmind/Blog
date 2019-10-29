@@ -82,4 +82,3 @@ abstract class Attribute implements AttributeInterface {
 		return $Statement->execute([$this->get('id')]);
 	}
 }
-?>

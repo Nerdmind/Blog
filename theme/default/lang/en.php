@@ -69,4 +69,3 @@ $LANGUAGE['403_heading_desc'] = 'You are denied to access this resource because 
 #===============================================================================
 $LANGUAGE['404_heading_text'] = 'Not found';
 $LANGUAGE['404_heading_desc'] = 'The requested resource could not be found.';
-?>

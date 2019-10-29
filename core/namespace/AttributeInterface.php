@@ -4,4 +4,3 @@ interface AttributeInterface {
 	public function databaseUPDATE(\Database $Database);
 	public function databaseDELETE(\Database $Database);
 }
-?>

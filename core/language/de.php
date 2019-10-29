@@ -210,4 +210,3 @@ $LANGUAGE['title_search_results'] = 'Ergebnisse für "%s"';
 $LANGUAGE['feed_name_items'] = '%s [alle Inhalte]';
 $LANGUAGE['feed_name_pages'] = '%s [nur Seiten]';
 $LANGUAGE['feed_name_posts'] = '%s [nur Beiträge]';
-?>

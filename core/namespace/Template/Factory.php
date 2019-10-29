@@ -15,4 +15,3 @@ class Factory extends \Factory implements \FactoryInterface {
 		return $Template;
 	}
 }
-?>

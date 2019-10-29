@@ -21,4 +21,3 @@ abstract class ItemFactory extends Factory {
 		return self::build($Item::getIDByField('slug', $slug, \Application::getDatabase()));
 	}
 }
-?>

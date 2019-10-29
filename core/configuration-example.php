@@ -27,4 +27,3 @@ Application::set('DATABASE.PASSWORD', '');
 Application::set('TEMPLATE.NAME', 'default');
 Application::set('TEMPLATE.LANG', Application::get('CORE.LANGUAGE'));
 Application::set('ADMIN.LANGUAGE', Application::get('CORE.LANGUAGE'));
-?>

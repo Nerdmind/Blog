@@ -47,4 +47,3 @@ class Item extends \Item {
 		return [];
 	}
 }
-?>

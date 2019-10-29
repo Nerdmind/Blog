@@ -63,4 +63,3 @@ try {
 catch(User\Exception $Exception) {
 	Application::error404();
 }
-?>

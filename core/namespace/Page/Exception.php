@@ -2,4 +2,3 @@
 namespace Page;
 
 class Exception extends \Exception {}
-?>
