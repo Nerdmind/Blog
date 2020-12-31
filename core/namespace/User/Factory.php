@@ -6,4 +6,3 @@ class Factory extends \ItemFactory {
 		return self::build(Item::getIDByField('username', $username, \Application::getDatabase()));
 	}
 }
-?>

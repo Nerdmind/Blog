@@ -33,4 +33,3 @@ class Item extends \Item {
 		return password_verify($password, $this->Attribute->get('password'));
 	}
 }
-?>
