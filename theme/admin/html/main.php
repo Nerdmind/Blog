@@ -12,7 +12,9 @@
 	<header id="main-header">
 		<div class="header-line">
 			<div class="header-content">
-				<a href="<?=Application::getAdminURL()?>"><img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration" /></a>
+				<a href="<?=Application::getURL()?>">
+					<img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration" />
+				</a>
 				<div id="header-text">Administration</div>
 				<div id="header-desc">PHP7 blogging application by <span>Nerdmind</span>!</div>
 			</div>
