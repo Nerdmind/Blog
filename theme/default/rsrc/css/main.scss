@@ -1,0 +1,412 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Hyperlinks
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+a {
+	color: #0060A0;
+	text-decoration: none;
+
+	&:focus {
+		background: #CCC;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Headings
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	font-weight: 600;
+
+	+ p {
+		margin-top: 0;
+	}
+}
+
+h1 {
+	font-size: 0.80rem;
+}
+
+h2 {
+	font-size: 0.70rem;
+}
+
+h3 {
+	font-size: 0.65rem;
+}
+
+h4 {
+	font-size: 0.60rem;
+}
+
+h5 {
+	font-size: 0.55rem;
+}
+
+h6 {
+	font-size: 0.50rem;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Document
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 1.25rem;
+	color: #333;
+	background: #CCC;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+}
+
+body {
+	font-family: "Ruda", "sans-serif";
+	font-size: 0.7rem;
+	line-height: 1.2rem;
+}
+
+#container {
+	max-width: 45rem;
+	margin: 1rem auto;
+	border: 0.05rem solid #AAA;
+	background: #FFF;
+}
+
+main, #main-header > div {
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Header
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-header > div {
+	overflow: hidden;
+}
+
+#main-logo {
+	height: 1.75rem;
+	display: block;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Footer
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-footer {
+	background: #EEE;
+	border-top: 0.05rem solid #AAA;
+	padding: 0.25rem 1rem;
+	text-align: center;
+	font-size: 0.6rem;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Main Navigation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-navi {
+	font-size: 0.6rem;
+	background: #EEE;
+	border: 0.05rem solid #AAA;
+	border-left: none;
+	border-right: none;
+	padding: 0 1rem;
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			display: inline;
+
+			&:last-child {
+				float: right;
+			}
+		}
+	}
+
+	a {
+		padding: 0.25rem 0.3rem;
+		color: inherit;
+		text-decoration: none;
+		text-align: center;
+		display: inline-block;
+		border: 0.05rem solid transparent;
+		border-top: none;
+		border-bottom: none;
+
+		&:hover, &:focus {
+			text-decoration: none;
+			background: #DDD;
+			border: 0.05rem solid #AAA;
+			border-top: none;
+			border-bottom: none;
+		}
+	}
+}
+
+#main-navi li .fa, h1 > .fa, h2 > .fa {
+	margin-right: 0.25rem;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Site Navigation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#site-navi {
+	clear: both;
+	display: flex;
+	box-sizing: border-box;
+	justify-content: space-between;
+
+	> div {
+		display: flex;
+		align-items: center;
+		border: 0.05rem solid #AAA;
+		background: #EEE;
+
+		> a {
+			display: block;
+		}
+	}
+
+	> section {
+		display: flex;
+		overflow: hidden;
+		align-items: center;
+
+		> div {
+			border: 0.05rem solid #AAA;
+			background: #EEE;
+		}
+	}
+
+	.disabled {
+		pointer-events: none;
+		color: #AAA;
+	}
+
+	.active a {
+		background: #CCC !important;
+		font-weight: 600;
+		pointer-events: none;
+	}
+
+	ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			float: left;
+			display: inline-block;
+
+			+ li {
+				border-left: 0.05rem solid #AAA;
+			}
+		}
+	}
+
+	a {
+		padding: 0 0.5rem;
+		text-decoration: none;
+		color: inherit;
+		display: inline-block;
+
+		&:hover, &:focus {
+			background: #CCC;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Elements
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+pre {
+	font-family: "monospace";
+	margin-bottom: 1rem;
+	overflow: auto;
+	-moz-tab-size: 4;
+	tab-size: 4;
+}
+
+code, pre {
+	font-family: "monospace";
+	color: #008B45;
+}
+
+strong, label {
+	font-weight: 600;
+}
+
+img {
+	border: none;
+	max-width: 100%;
+}
+
+main img {
+	border: 0.05rem solid #000;
+	border-radius: 0.15rem;
+}
+
+table img {
+	border: none;
+	border-radius: 0;
+}
+
+.red {
+	color: #B03060;
+}
+
+.head-link {
+	font-size: 0.6rem;
+	float: right;
+
+	.fa {
+		margin-right: 0.125rem;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Brackets
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.brackets {
+	&:before {
+		content: "[";
+	}
+
+	&:after {
+		content: "]";
+	}
+
+	&:before, &:after {
+		color: #222;
+	}
+}
+
+.brackets a, a.brackets {
+	text-decoration: none;
+}
+
+a.brackets:before, a.brackets:after {
+	color: #222;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Item Element
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.item {
+	background: #EEE;
+	border: 0.05rem solid #AAA;
+	overflow: hidden;
+	margin: 0.5rem 0;
+
+	header {
+		padding: 0.25rem 1rem;
+		border-bottom: 0.05rem solid #AAA;
+		overflow: hidden;
+		text-transform: uppercase;
+
+		h2 {
+			font-size: 0.65rem;
+			float: left;
+		}
+
+		.info {
+			float: right;
+			font-size: 0.6rem;
+			font-weight: 400;
+		}
+
+		a {
+			color: inherit;
+		}
+	}
+
+	blockquote {
+		margin: 0;
+		padding: 0 1rem;
+		font-family: inherit;
+
+		img {
+			display: block;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Item content on main sites
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#content {
+	background: #EEE;
+	border: 0.05rem solid #AAA;
+	margin: 0.5rem 0;
+	padding: 0 1rem;
+
+	img {
+		display: block;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Responsive
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#toogle-nav {
+	display: none;
+	clear: both;
+}
+
+#toogle-nav-label {
+	display: none;
+	cursor: pointer;
+	font-size: 1.25rem;
+	text-align: center;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form elements
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+input, select {
+	background: #EEE;
+	color: inherit;
+	padding: 0.2rem;
+	border: 0.1rem solid #AAA;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Table elements
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+table {
+	width: 100%;
+	margin: 0 0 1rem;
+}
+
+td {
+	vertical-align: middle;
+}
+
+table, td {
+	border-spacing: 0;
+	border-collapse: collapse;
+	padding: 0.5rem;
+	border: 0.05rem solid #000;
+}
+
+thead, tr:nth-child(even) {
+	background: #EEE;
+}
+
+thead > tr, th {
+	font-weight: 600;
+	font-style: italic;
+}
+
+thead > tr > td, th > td {
+	text-align: center;
+}
+
+@import "import/responsive";
+@import "import/font-awesome";
+@import "import/fonts";

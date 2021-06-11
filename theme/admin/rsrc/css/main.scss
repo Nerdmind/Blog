@@ -1,0 +1,726 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Selection
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+::-moz-selection {
+	background: #BBB;
+	color: #000;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Hyperlinks
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+a {
+	color: #0060A0;
+	text-decoration: none;
+
+	&:focus {
+		background: #CCC;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Headings
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	text-transform: uppercase;
+
+	+p {
+		margin-top: 0;
+	}
+
+	.fa {
+		margin-right: 0.25rem;
+	}
+}
+
+h1 {
+	font-size: 0.80rem;
+}
+
+h2 {
+	font-size: 0.70rem;
+}
+
+h3 {
+	font-size: 0.65rem;
+}
+
+h4 {
+	font-size: 0.60rem;
+}
+
+h5 {
+	font-size: 0.55rem;
+}
+
+h6 {
+	font-size: 0.50rem;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Document
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 1.25rem;
+	color: #333;
+	background: #DDD;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+}
+
+body {
+	font-family: "Ruda", "sans-serif";
+	font-size: 0.7rem;
+	line-height: 1.2rem;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	padding: 0.75rem;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Main content
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-content {
+	flex: 1;
+	width: 100%;
+	background: #FFF;
+	box-sizing: border-box;
+	border: 0.05rem solid #AAA;
+	border-top: none;
+	border-bottom: none;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Width
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-content, .header-content {
+	max-width: 50rem;
+	margin: 0 auto;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Header
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-header {
+	font-size: 0.6rem;
+}
+
+#header-text, #header-desc {
+	text-shadow: 0 -1px #4E718F, 1px 0 #4E718F, 0 1px #4E718F, -1px 0 #4E718F;
+}
+
+#header-text {
+	font-size: 0.8rem;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+#header-desc {
+	font-size: 0.6rem;
+	font-weight: 700;
+	line-height: 1rem;
+
+	span {
+		color: #CCC;
+	}
+}
+
+#header-logo {
+	display: block;
+	max-height: 5rem;
+	float: left;
+	margin-right: 0.5rem;
+}
+
+.header-line {
+	padding: 0.5rem 0.75rem;
+	overflow: hidden;
+
+	&:first-child {
+		background: #5E819F;
+		position: sticky;
+		top: 0;
+	}
+
+	&:last-child {
+		background: #EEE;
+		border: 0.05rem solid #AAA;
+		border-left: none;
+		border-right: none;
+		padding: 0.25rem 0.75rem;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Footer
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-footer {
+	font-size: 0.6rem;
+	background: #EEE;
+	border-top: 0.05rem solid #AAA;
+	padding: 0.5rem 0.75rem;
+	text-align: center;
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		li {
+			display: inline;
+
+			.fa {
+				margin-right: 0.125rem;
+			}
+		}
+
+		li:after {
+			content: " · ";
+			font-weight: bold;
+		}
+
+		li:last-child:after {
+			content: none;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Main Navigation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-navi {
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			display: inline;
+
+			.fa {
+				margin-right: 0.25rem;
+			}
+		}
+
+		li:last-child {
+			float: right;
+		}
+
+		li:first-child {
+			float: none;
+		}
+	}
+
+	a {
+		padding: 0.1rem 0.3rem;
+		background: #DDD;
+		border: 0.05rem solid #AAA;
+		color: inherit;
+		text-decoration: none;
+		text-align: center;
+		display: inline-block;
+
+		&:hover, &:focus {
+			text-decoration: none;
+			background: #CCC;
+		}
+
+		&:focus {
+			background: #CCC;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Site Navigation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#site-navi {
+	clear: both;
+	display: flex;
+	box-sizing: border-box;
+	justify-content: space-between;
+
+	> div {
+		display: flex;
+		align-items: center;
+		border: 0.05rem solid #AAA;
+		background: #EEE;
+
+		> a {
+			display: block;
+		}
+	}
+
+	.disabled {
+		pointer-events: none;
+		color: #AAA;
+	}
+
+	.active a {
+		background: #CCC !important;
+		font-weight: 600;
+		pointer-events: none;
+	}
+
+	ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			float: left;
+			display: inline-block;
+
+			+ li {
+				border-left: 0.05rem solid #AAA;
+			}
+		}
+	}
+
+	a {
+		padding: 0 0.5rem;
+		text-decoration: none;
+		color: inherit;
+		display: inline-block;
+
+		&:hover, &:focus {
+			background: #CCC;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Actions
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.actions {
+	margin: 0 0 0.5rem 0;
+	padding: 0;
+	list-style: none;
+	font-size: 0.6rem;
+	float: right;
+	text-align: center;
+
+	.fa {
+		margin-right: 0.1rem;
+	}
+
+	li {
+		display: inline-block;
+		font-weight: bold;
+		background: #EEE;
+		border: 0.05rem solid #AAA;
+	}
+
+	a {
+	   color: inherit;
+	   display: block;
+	   padding: 0 0.25rem;
+   }
+}
+
+.actions-before {
+	float: left;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Elements
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+pre {
+	margin-bottom: 1rem;
+	overflow: auto;
+	-moz-tab-size: 4;
+	tab-size: 4;
+}
+
+code, pre {
+	font-family: "monospace";
+	color: #B03060;
+}
+
+p {
+	margin-top: 0;
+}
+
+img {
+	border: none;
+	max-width: 100%;
+}
+
+.red {
+	color: #B03060;
+}
+
+.blue {
+	color: #40779A;
+}
+
+.green {
+	color: #008B45;
+}
+
+.right {
+	float: right;
+}
+
+.hidden {
+	display: none;
+}
+
+#database-result {
+	color: inherit;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Tables
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+table {
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+td {
+	vertical-align: middle;
+}
+
+table, td {
+	padding: 0.5rem;
+	border: 0.05rem solid #AAA;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Brackets
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.brackets {
+	&:after, &:before {
+		color: #222;
+	}
+
+	&:before {
+		content: "[";
+	}
+
+	&:after {
+		content: "]";
+	}
+}
+
+.brackets a, a.brackets {
+	text-decoration: none;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Item Element
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.item {
+	display: block;
+	border: 0.05rem solid #AAA;
+	margin-bottom: 1rem;
+	clear: both;
+
+	header {
+		padding: 0.5rem 0.75rem;
+		border-bottom: 0.05rem solid #AAA;
+		position: sticky;
+		top: 0;
+	}
+
+	footer {
+		border-top: 0.05rem solid #AAA;
+
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+
+			li {
+				display: inline-block;
+				float: left;
+
+				&:last-child {
+					float: right;
+				}
+			}
+		}
+
+		a {
+			color: inherit;
+			display: inline-block;
+			padding: 0.25rem 2rem;
+
+			&:hover, &:active {
+				background: #DDD;
+			}
+		}
+	}
+
+	header, footer {
+		background: #EEE;
+		overflow: hidden;
+	}
+
+	blockquote {
+		margin: 0;
+		padding: 0.75rem;
+		font-family: inherit;
+
+		p {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.item-id {
+	float: right;
+	color: #666;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Argument list
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.arguments {
+	list-style: none;
+	margin: 0;
+	padding: 0.25rem 0.75rem;
+	background: #EEE;
+	font-size: 0.6rem;
+	text-align: center;
+	border-top: 0.05rem solid #AAA;
+
+	li {
+		display: inline;
+
+		> span {
+			color: #40779A;
+		}
+
+		&:after {
+			content: " · ";
+			font-weight: bold;
+		}
+
+		&:last-child:after {
+			content: none;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form flex-box
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+form {
+	border: 0.05rem solid #AAA;
+}
+
+.flex {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	overflow: hidden;
+	box-sizing: border-box;
+
+	+ .flex {
+		border-top: 0.05rem solid #AAA;
+	}
+}
+
+.flex > .flex-item {
+	border-right: 0.05rem solid #AAA;
+	display: flex;
+	width: 100%;
+
+	&:last-child {
+		border-right: none;
+	}
+
+	> div {
+		display: flex;
+		align-items: center;
+		padding: 0.5rem;
+		box-sizing: border-box;
+
+		+ div {
+			border-left: 0.05rem solid #AAA;
+		}
+	}
+}
+
+.flex.flex-responsive > .flex-item {
+	width: 50%;
+}
+
+.form-icon-flex {
+	background: #DDD;
+	width: 10%;
+	justify-content: center;
+}
+
+.form-label-flex {
+	background: #DDD;
+	width: 30%;
+	border-left: none !important;
+}
+
+.form-field-flex {
+	width: 60%;
+}
+
+.background {
+	background: #DDD;
+}
+
+.flex-padding {
+	padding: 0.5rem;
+}
+
+.flex-direction-column {
+	flex-direction: column;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form buttons
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#button-list-wrapper {
+	border-bottom: 0.05rem solid #AAA;
+	background: #EEE;
+}
+
+.button-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.button-list.emoticons > li {
+	font-size: 1.25rem;
+	display: inline-block;
+	padding: 0.2rem;
+	border-bottom: 0.2rem solid transparent;
+	border-radius: 0.1rem;
+	cursor: pointer;
+
+	&:hover, &:active {
+		border-bottom: 0.2rem solid #AAA;
+	}
+}
+
+.button-list.markdown > li {
+	float: left;
+	padding: 0.5rem;
+	cursor: pointer;
+	width: 1.75rem;
+	box-sizing: border-box;
+	text-align: center;
+
+	&:hover, &:active {
+		color: #40779A;
+	}
+}
+
+#content-editor {
+	border: none;
+	margin: 0;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form elements
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+input, select, textarea {
+	width: 100%;
+	background: #EEE;
+	color: #404040;
+	font-family: inherit;
+	font-size: 0.7rem;
+	padding: 0.25rem;
+	border: 0.05rem solid #AAA;
+	box-sizing: border-box;
+}
+
+textarea {
+	font-family: "Kadwa", "sans-serif";
+	box-sizing: border-box;
+	display: inline-block;
+	resize: vertical;
+	min-height: 15rem;
+	line-height: 1.2rem;
+	padding: 0.5rem;
+	-webkit-hyphens: none;
+	hyphens: none;
+}
+
+input {
+	&[type="submit"] {
+		text-transform: uppercase;
+		border-radius: 0.1rem;
+	}
+
+	&:disabled {
+		background: #DDD;
+		color: #888;
+
+		&:hover {
+			cursor: not-allowed;
+		}
+	}
+}
+
+label {
+	text-transform: uppercase;
+	font-weight: normal;
+
+	&:after {
+		content: ":";
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form buttons
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#insert-button, #update-button, #delete-button {
+	color: #EEE;
+	border: 0.05rem solid #404040;
+}
+
+#insert-button {
+	background: #4D8D5D;
+}
+
+#update-button {
+	background: #6A8AA5;
+}
+
+#delete-button {
+	background: #C45C66;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form message list
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#message-list {
+	margin: 0;
+	padding: 0.5rem;
+	list-style: none;
+	background: #C45C66;
+	color: #EEE;
+	font-size: 0.6rem;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Search form
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#search-form {
+	margin-bottom: 1rem;
+}
+
+@import "import/responsive";
+@import "import/font-awesome";
+@import "import/fonts";

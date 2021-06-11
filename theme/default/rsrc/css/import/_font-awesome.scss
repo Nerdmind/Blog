@@ -1,0 +1,65 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# FontAwesome Main
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.fa {
+	display: inline-block;
+	font: normal normal normal 14px/1 "FontAwesome";
+	font-size: inherit;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# FontAwesome Icons
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.fa-rss:before {
+	content: "\f09e";
+}
+
+.fa-key:before {
+	content: "\f084";
+}
+
+.fa-bars:before {
+	content: "\f0c9";
+}
+
+.fa-user:before {
+	content: "\f007";
+}
+
+.fa-home:before {
+	content: "\f015";
+}
+
+.fa-search:before {
+	content: "\f002";
+}
+
+.fa-rss-square:before {
+	content: "\f143";
+}
+
+.fa-arrow-left:before {
+	content: "\f060";
+}
+
+.fa-user-secret:before {
+	content: "\f21b";
+}
+
+.fa-file-text-o:before {
+	content: "\f0f6";
+}
+
+.fa-newspaper-o:before {
+	content: "\f1ea";
+}
+
+.fa-arrow-right:before {
+	content: "\f061";
+}
+
+.fa-exclamation-triangle:before {
+	content: "\f071";
+}

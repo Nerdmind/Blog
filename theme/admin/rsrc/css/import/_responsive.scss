@@ -1,0 +1,80 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Responsive Level #1
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+@media only screen and (max-width: 50em) {
+	html {
+		font-size: 1.125rem; /*18px*/
+		background-image: none !important;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Responsive Level #2
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+@media only screen and (max-width: 37.5em) {
+	.flex.flex-responsive {
+		display: block;
+		width: auto;
+
+		> .flex-item {
+			width: 100%;
+
+			+ .flex-item {
+				border-top: 0.05rem solid #AAA;
+			}
+		}
+	}
+
+	#main-navi {
+		font-size: 1rem;
+
+		li {
+			span {
+				display: none;
+			}
+
+			.fa {
+				margin-right: 0;
+			}
+		}
+
+		a {
+			padding: 0.5rem;
+		}
+	}
+
+	.flex-emoticons {
+		display: none;
+	}
+
+	.actions {
+		float: none;
+		display: flex;
+		width: 100%;
+		flex-grow: 1;
+		justify-content: center;
+		overflow: hidden;
+		box-sizing: border-box;
+
+		li {
+			flex-grow: 1;
+
+			+ li {
+				border-left: none;
+			}
+		}
+	}
+
+	.actions-before {
+		float: none;
+	}
+
+	.arguments {
+		font-size: 0.5rem;
+		line-height: 0.75rem;
+	}
+
+	main {
+		padding: 0.5rem;
+	}
+}

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="referrer" content="origin-when-crossorigin" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/main.css')?>" />
+	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/css/main.css')?>" />
 	<script defer src="<?=Application::getTemplateURL('rsrc/main.js')?>"></script>
 	<title><?=escapeHTML($NAME)?> | Administration</title>
 </head>
