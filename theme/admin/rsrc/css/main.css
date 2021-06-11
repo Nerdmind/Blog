@@ -428,15 +428,25 @@ table, td {
 .item blockquote {
   margin: 0;
   padding: 0.75rem;
+  overflow: hidden;
   font-family: inherit;
 }
 .item blockquote p {
   margin-bottom: 0;
 }
-
 .item-id {
   float: right;
   color: #666;
+}
+.item-image {
+  float: left;
+  display: block;
+  margin-right: 0.75rem;
+  width: 10rem;
+  height: 7rem;
+  object-fit: cover;
+  background: #EEE;
+  border: 0.05rem solid #AAA;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

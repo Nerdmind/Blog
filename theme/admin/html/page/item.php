@@ -8,6 +8,9 @@
 		</div>
 	</header>
 	<blockquote cite="<?=$PAGE['URL']?>">
+		<?php if(isset($PAGE['FILE']['LIST'][0])): ?>
+			<img class="item-image" src="<?=$PAGE['FILE']['LIST'][0]?>" alt="" />
+		<?php endif; ?>
 		<p><?=excerpt($PAGE['BODY']['HTML']())?></p>
 	</blockquote>
 
