@@ -476,79 +476,63 @@ table, td {
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Form flex-box
+# Grids
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-form {
-  border: 0.05rem solid #AAA;
+.form-grid {
+  display: grid;
+  grid-template-columns: 8rem auto 8rem auto;
+  border-left: 0.05rem solid #AAA;
+  border-bottom: 0.05rem solid #AAA;
 }
-
-.flex {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  overflow: hidden;
-  box-sizing: border-box;
+.form-grid.two-columns {
+  grid-template-columns: auto auto;
 }
-.flex + .flex {
-  border-top: 0.05rem solid #AAA;
-}
-
-.flex > .flex-item {
-  border-right: 0.05rem solid #AAA;
-  display: flex;
-  width: 100%;
-}
-.flex > .flex-item:last-child {
-  border-right: none;
-}
-.flex > .flex-item > div {
+.form-grid > label {
   display: flex;
   align-items: center;
+  background: #DDD;
+}
+.form-grid > label .fa {
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+}
+.form-grid-item,
+.form-grid > label {
   padding: 0.5rem;
-  box-sizing: border-box;
-}
-.flex > .flex-item > div + div {
-  border-left: 0.05rem solid #AAA;
+  border-top: 0.05rem solid #AAA;
+  border-right: 0.05rem solid #AAA;
 }
 
-.flex.flex-responsive > .flex-item {
-  width: 50%;
+.form-border-box {
+  border: 0.05rem solid #AAA;
 }
-
-.form-icon-flex {
-  background: #DDD;
-  width: 10%;
-  justify-content: center;
-}
-
-.form-label-flex {
-  background: #DDD;
-  width: 30%;
-  border-left: none !important;
-}
-
-.form-field-flex {
-  width: 60%;
-}
-
-.background {
-  background: #DDD;
-}
-
-.flex-padding {
+.form-border-box.padding {
   padding: 0.5rem;
 }
-
-.flex-direction-column {
-  flex-direction: column;
+.form-border-box.background {
+  background: #DDD;
+}
+.form-border-box.nobordertop {
+  border-top: none;
+}
+.form-border-box + .form-border-box {
+  border-top: none;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Form buttons
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#emoticon-list-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
 #button-list-wrapper {
   border-bottom: 0.05rem solid #AAA;
   background: #EEE;
+  overflow: hidden;
 }
 
 .button-list {
@@ -585,6 +569,9 @@ form {
   border: none;
   margin: 0;
 }
+#content-editor-wrapper {
+  border-top: none;
+}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Form elements
@@ -606,7 +593,7 @@ input:focus, select:focus, textarea:focus {
 textarea {
   font-family: "Kadwa", "sans-serif";
   box-sizing: border-box;
-  display: inline-block;
+  display: block;
   resize: vertical;
   min-height: 15rem;
   line-height: 1.2rem;
@@ -692,17 +679,6 @@ label:after {
 # Responsive Level #2
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 @media only screen and (max-width: 37.5em) {
-  .flex.flex-responsive {
-    display: block;
-    width: auto;
-  }
-  .flex.flex-responsive > .flex-item {
-    width: 100%;
-  }
-  .flex.flex-responsive > .flex-item + .flex-item {
-    border-top: 0.05rem solid #AAA;
-  }
-
   #main-navi {
     font-size: 1rem;
   }
@@ -716,8 +692,12 @@ label:after {
     padding: 0.5rem;
   }
 
-  .flex-emoticons {
+  #emoticon-list-wrapper {
     display: none;
+  }
+
+  .form-grid {
+    grid-template-columns: auto auto;
   }
 
   .actions {

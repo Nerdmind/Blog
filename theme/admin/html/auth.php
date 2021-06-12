@@ -14,21 +14,23 @@
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
 
-	<div class="flex">
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-user-secret"></i></div>
-			<div class="form-label-flex"><label for="form_username"><?=$Language->text('label_username')?></label></div>
-			<div class="form-field-flex"><input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" /></div>
+	<div class="form-grid two-columns">
+		<label for="form_username">
+			<i class="fa fa-user-secret"></i><?=$Language->text('label_username')?></label>
+
+		<div class="form-grid-item">
+			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" />
+		</div>
+
+		<label for="form_password">
+			<i class="fa fa-key"></i><?=$Language->text('label_password')?></label>
+
+		<div class="form-grid-item">
+			<input type="password" id="form_password" name="password" />
 		</div>
 	</div>
-	<div class="flex">
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-key"></i></div>
-			<div class="form-label-flex"><label for="form_password"><?=$Language->text('label_password')?></label></div>
-			<div class="form-field-flex"><input type="password" id="form_password" name="password" /></div>
-		</div>
-	</div>
-	<div class="flex flex-padding background">
+
+	<div class="form-border-box background padding nobordertop">
 		<input type="submit" name="auth" value="<?=$Language->text('login')?>" />
 	</div>
 </form>

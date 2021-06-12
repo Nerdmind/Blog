@@ -12,55 +12,65 @@
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
 
 <?php if($FORM['TYPE'] !== 'DELETE'): ?>
-	<div class="flex flex-responsive">
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-database"></i></div>
-			<div class="form-label-flex"><label for="form_id">ID</label></div>
-			<div class="form-field-flex"><input<?=($FORM['TYPE'] === 'UPDATE') ? ' disabled="disabled"' : '';?> id="form_id" name="id" type="number" placeholder="AUTO_INCREMENT" value="<?=escapeHTML($FORM['DATA']['ID'])?>" /></div>
+	<div class="form-grid">
+		<label for="form_id">
+			<i class="fa fa-database"></i>ID</label>
+
+		<div class="form-grid-item">
+			<input<?=($FORM['TYPE'] === 'UPDATE') ? ' disabled="disabled"' : '';?> id="form_id" name="id" type="number" placeholder="AUTO_INCREMENT" value="<?=escapeHTML($FORM['DATA']['ID'])?>" />
 		</div>
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-key"></i></div>
-			<div class="form-label-flex"><label for="form_password"><?=$Language->text('label_password')?></label></div>
-			<div class="form-field-flex"><input id="form_password" name="password" placeholder="NO CHANGE" type="password" /></div>
+
+		<label for="form_password">
+			<i class="fa fa-key"></i><?=$Language->text('label_password')?></label>
+
+		<div class="form-grid-item">
+			<input id="form_password" name="password" placeholder="NO CHANGE" type="password" />
+		</div>
+
+		<label for="form_fullname">
+			<i class="fa fa-user"></i><?=$Language->text('label_fullname')?></label>
+
+		<div class="form-grid-item">
+			<input id="form_fullname" name="fullname" value="<?=escapeHTML($FORM['DATA']['FULLNAME'])?>" />
+		</div>
+
+		<label for="form_mailaddr">
+			<i class="fa fa-envelope-o"></i><?=$Language->text('label_mailaddr')?></label>
+
+		<div class="form-grid-item">
+			<input id="form_mailaddr" name="mailaddr" value="<?=escapeHTML($FORM['DATA']['MAILADDR'])?>" />
+		</div>
+
+		<label for="form_username">
+			<i class="fa fa-user-secret"></i><?=$Language->text('label_username')?></label>
+
+		<div class="form-grid-item">
+			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" />
+		</div>
+
+		<label for="form_slug">
+			<i class="fa fa-link"></i><?=$Language->text('label_slug')?></label>
+
+		<div class="form-grid-item">
+			<input id="form_slug" name="slug" value="<?=escapeHTML($FORM['DATA']['SLUG'])?>" />
+		</div>
+
+		<label for="form_time_insert">
+			<i class="fa fa-clock-o"></i><?=$Language->text('label_insert')?></label>
+
+		<div class="form-grid-item">
+			<input id="form_time_insert" name="time_insert" placeholder="YYYY-MM-DD HH:II:SS" value="<?=escapeHTML($FORM['DATA']['TIME_INSERT'])?>" />
+		</div>
+
+		<label for="form_time_update">
+			<i class="fa fa-clock-o"></i><?=$Language->text('label_update')?></label>
+
+		<div class="form-grid-item">
+			<input id="form_time_update" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ? $FORM['DATA']['TIME_UPDATE'] : 'CURRENT_TIMESTAMP')?>" value="" />
 		</div>
 	</div>
-	<div class="flex flex-responsive">
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-user"></i></div>
-			<div class="form-label-flex"><label for="form_fullname"><?=$Language->text('label_fullname')?></label></div>
-			<div class="form-field-flex"><input id="form_fullname" name="fullname" value="<?=escapeHTML($FORM['DATA']['FULLNAME'])?>" /></div>
-		</div>
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-envelope-o"></i></div>
-			<div class="form-label-flex"><label for="form_mailaddr"><?=$Language->text('label_mailaddr')?></label></div>
-			<div class="form-field-flex"><input id="form_mailaddr" name="mailaddr" value="<?=escapeHTML($FORM['DATA']['MAILADDR'])?>" /></div>
-		</div>
-	</div>
-	<div class="flex flex-responsive">
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-user-secret"></i></div>
-			<div class="form-label-flex"><label for="form_username"><?=$Language->text('label_username')?></label></div>
-			<div class="form-field-flex"><input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" /></div>
-		</div>
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-link"></i></div>
-			<div class="form-label-flex"><label for="form_slug"><?=$Language->text('label_slug')?></label></div>
-			<div class="form-field-flex"><input id="form_slug" name="slug" value="<?=escapeHTML($FORM['DATA']['SLUG'])?>" /></div>
-		</div>
-	</div>
-	<div class="flex flex-responsive">
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-clock-o"></i></div>
-			<div class="form-label-flex"><label for="form_time_insert"><?=$Language->text('label_insert')?></label></div>
-			<div class="form-field-flex"><input id="form_time_insert" name="time_insert" placeholder="YYYY-MM-DD HH:II:SS" value="<?=escapeHTML($FORM['DATA']['TIME_INSERT'])?>" /></div>
-		</div>
-		<div class="flex-item">
-			<div class="form-icon-flex"><i class="fa fa-clock-o"></i></div>
-			<div class="form-label-flex"><label for="form_time_update"><?=$Language->text('label_update')?></label></div>
-			<div class="form-field-flex"><input id="form_time_update" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ? $FORM['DATA']['TIME_UPDATE'] : 'CURRENT_TIMESTAMP')?>" value="" /></div>
-		</div>
-	</div>
-	<div class="flex flex-direction-column">
+
+	<div id="content-editor-wrapper" class="form-border-box">
 		<div id="button-list-wrapper">
 			<ul id="markdown-list" class="button-list markdown">
 				<li data-markdown="bold" class="fa fa-bold" title="<?=$Language->text('markdown_bold')?>"></li>
@@ -76,23 +86,23 @@
 		</div>
 		<textarea id="content-editor" name="body" placeholder="[…]"><?=escapeHTML($FORM['DATA']['BODY'])?></textarea>
 	</div>
-	<div class="flex flex-padding background flex-emoticons">
+	<div id="emoticon-list-wrapper" class="form-border-box background padding">
 		<ul id="emoticon-list" class="button-list emoticons">
 			<?php foreach(getUnicodeEmoticons() as $emoticon => $explanation):?>
 				<li data-emoticon="<?=$emoticon?>" title="<?=$explanation?>"><?=$emoticon?></li>
 			<?php endforeach; ?>
 		</ul>
 	</div>
-	<div class="flex flex-padding background">
+	<div class="form-border-box background padding">
 		<input id="form_argv" name="argv" maxlength="250" placeholder="[ARGUMENT_ONE=foo|ARGUMENT_TWO=bar …]" value="<?=escapeHTML($FORM['DATA']['ARGV'])?>" />
 	</div>
 <?php else: ?>
-	<div class="flex flex-padding background flex-direction-column">
+	<div class="form-border-box background padding">
 		<?=$HTML?>
 	</div>
 <?php endif; ?>
 
-	<div class="flex flex-padding background">
+	<div class="form-border-box background padding">
 		<?php if($FORM['TYPE'] === 'INSERT'): ?>
 			<input id="insert-button" type="submit" name="insert" value="<?=$Language->text('insert')?>" />
 		<?php elseif($FORM['TYPE'] === 'UPDATE'): ?>

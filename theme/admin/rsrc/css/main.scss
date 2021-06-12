@@ -527,83 +527,72 @@ table, td {
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Form flex-box
+# Grids
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-form {
-	border: 0.05rem solid #AAA;
-}
+.form-grid {
+	display: grid;
+	grid-template-columns: 8rem auto 8rem auto;
 
-.flex {
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	overflow: hidden;
-	box-sizing: border-box;
+	border-left: 0.05rem solid #AAA;
+	border-bottom: 0.05rem solid #AAA;
 
-	+ .flex {
-		border-top: 0.05rem solid #AAA;
-	}
-}
-
-.flex > .flex-item {
-	border-right: 0.05rem solid #AAA;
-	display: flex;
-	width: 100%;
-
-	&:last-child {
-		border-right: none;
+	&.two-columns {
+		grid-template-columns: auto auto;
 	}
 
-	> div {
+	> label {
 		display: flex;
 		align-items: center;
-		padding: 0.5rem;
-		box-sizing: border-box;
+		background: #DDD;
 
-		+ div {
-			border-left: 0.05rem solid #AAA;
+		.fa {
+			margin-left: 0.5rem;
+			margin-right: 1rem;
 		}
+	}
+
+	&-item,
+	> label {
+		padding: 0.5rem;
+		border-top: 0.05rem solid #AAA;
+		border-right: 0.05rem solid #AAA;
 	}
 }
 
-.flex.flex-responsive > .flex-item {
-	width: 50%;
-}
+.form-border-box {
+	border: 0.05rem solid #AAA;
 
-.form-icon-flex {
-	background: #DDD;
-	width: 10%;
-	justify-content: center;
-}
+	&.padding {
+		padding: 0.5rem;
+	}
 
-.form-label-flex {
-	background: #DDD;
-	width: 30%;
-	border-left: none !important;
-}
+	&.background {
+		background: #DDD;
+	}
 
-.form-field-flex {
-	width: 60%;
-}
+	&.nobordertop {
+		border-top: none;
+	}
 
-.background {
-	background: #DDD;
-}
-
-.flex-padding {
-	padding: 0.5rem;
-}
-
-.flex-direction-column {
-	flex-direction: column;
+	+.form-border-box {
+		border-top: none;
+	}
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Form buttons
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#emoticon-list-wrapper {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	box-sizing: border-box;
+}
+
 #button-list-wrapper {
 	border-bottom: 0.05rem solid #AAA;
 	background: #EEE;
+	overflow: hidden;
 }
 
 .button-list {
@@ -641,6 +630,10 @@ form {
 #content-editor {
 	border: none;
 	margin: 0;
+
+	&-wrapper {
+		border-top: none;
+	}
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -664,7 +657,7 @@ input, select, textarea {
 textarea {
 	font-family: "Kadwa", "sans-serif";
 	box-sizing: border-box;
-	display: inline-block;
+	display: block;
 	resize: vertical;
 	min-height: 15rem;
 	line-height: 1.2rem;

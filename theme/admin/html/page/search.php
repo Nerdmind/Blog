@@ -2,10 +2,10 @@
 <p><?=$Language->text('search_page_desc')?></p>
 
 <form id="search-form" method="GET">
-	<div class="flex flex-padding background">
+	<div class="form-border-box background padding">
 		<input id="search-text" type="search" name="q" placeholder="<?=$Language->text('placeholder_search')?>" value="<?=escapeHTML($QUERY)?>" />
 	</div>
-	<div class="flex flex-padding background">
+	<div class="form-border-box background padding">
 		<input id="update-button" type="submit" value="<?=$Language->text('search')?>" />
 	</div>
 </form>

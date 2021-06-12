@@ -14,17 +14,17 @@
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
 
-	<div class="flex">
+	<div class="form-border-box">
 		<textarea id="content-editor" placeholder="<?=$Language->text('database_warning')?>" name="command"><?=escapeHTML($FORM['COMMAND'])?></textarea>
 	</div>
 
 <?php if($FORM['RESULT']): ?>
-	<div class="flex flex-padding background flex-direction-column">
+	<div class="form-border-box background padding">
 		<pre id="database-result"><?=escapeHTML($FORM['RESULT'])?></pre>
 	</div>
 <?php endif; ?>
 
-	<div class="flex flex-padding background">
+	<div class="form-border-box background padding">
 		<input id="insert-button" type="submit" name="execute" value="Execute" />
 	</div>
 </form>

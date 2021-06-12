@@ -12,19 +12,6 @@
 # Responsive Level #2
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 @media only screen and (max-width: 37.5em) {
-	.flex.flex-responsive {
-		display: block;
-		width: auto;
-
-		> .flex-item {
-			width: 100%;
-
-			+ .flex-item {
-				border-top: 0.05rem solid #AAA;
-			}
-		}
-	}
-
 	#main-navi {
 		font-size: 1rem;
 
@@ -43,8 +30,12 @@
 		}
 	}
 
-	.flex-emoticons {
+	#emoticon-list-wrapper {
 		display: none;
+	}
+
+	.form-grid {
+		grid-template-columns: auto auto;
 	}
 
 	.actions {
