@@ -1,18 +1,18 @@
 <h1><i class="fa fa-sign-in"></i><?=$Language->text('authentication_text')?></h1>
 <p><?=$Language->text('authentication_desc')?></p>
 
+<?php if($FORM['INFO']): ?>
+	<div id="message-list-wrapper">
+		<ul id="message-list">
+			<?php foreach($FORM['INFO'] as $message): ?>
+				<li><?=$message?></li>
+			<?php endforeach ?>
+		</ul>
+	</div>
+<?php endif ?>
+
 <form action="" method="POST">
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
-
-	<?php if($FORM['INFO']): ?>
-		<div class="flex flex-direction-column">
-			<ul id="message-list">
-				<?php foreach($FORM['INFO'] as $message): ?>
-					<li><?=$message?></li>
-				<?php endforeach; ?>
-			</ul>
-		</div>
-	<?php endif; ?>
 
 	<div class="flex">
 		<div class="flex-item">

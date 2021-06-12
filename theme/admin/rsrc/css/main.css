@@ -663,6 +663,10 @@ label:after {
   color: #EEE;
   font-size: 0.6rem;
 }
+#message-list-wrapper {
+  margin-bottom: 0.5rem;
+  border: 0.1rem solid #ae3f4a;
+}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Search form

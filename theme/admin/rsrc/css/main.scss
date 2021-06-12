@@ -724,6 +724,11 @@ label {
 	background: #C45C66;
 	color: #EEE;
 	font-size: 0.6rem;
+
+	&-wrapper {
+		margin-bottom: 0.5rem;
+		border: 0.1rem solid darken(#C45C66, 10%);
+	}
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
