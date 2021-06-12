@@ -234,13 +234,6 @@ function removeWhitespace($string): string {
 }
 
 #===============================================================================
-# Return pseudo-random (hex converted) string
-#===============================================================================
-function getRandomValue($length = 40): string {
-	return strtoupper(bin2hex(random_bytes(ceil($length / 2))));
-}
-
-#===============================================================================
 # Return truncated string
 #===============================================================================
 function truncate($string, $length, $replace = '') {
