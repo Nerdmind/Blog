@@ -655,6 +655,10 @@ input, select, textarea {
 	padding: 0.25rem;
 	border: 0.05rem solid #AAA;
 	box-sizing: border-box;
+
+	&:focus {
+		outline: none;
+	}
 }
 
 textarea {
