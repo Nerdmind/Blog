@@ -92,6 +92,20 @@ foreach($configuration as $name => $value) {
 }
 
 #===============================================================================
+# Set default configuration (for admin prefixes)
+#===============================================================================
+foreach([
+	'ADMIN.PAGE.LIST_SIZE' => Application::get('PAGE.LIST_SIZE'),
+	'ADMIN.POST.LIST_SIZE' => Application::get('POST.LIST_SIZE'),
+	'ADMIN.USER.LIST_SIZE' => Application::get('USER.LIST_SIZE'),
+	'ADMIN.PAGE.LIST_SORT' => Application::get('PAGE.LIST_SORT'),
+	'ADMIN.POST.LIST_SORT' => Application::get('POST.LIST_SORT'),
+	'ADMIN.USER.LIST_SORT' => Application::get('USER.LIST_SORT')
+] as $name => $value) {
+	Application::set($name, $value);
+}
+
+#===============================================================================
 # Include custom configuration
 #===============================================================================
 require 'configuration.php';

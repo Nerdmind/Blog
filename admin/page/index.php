@@ -13,8 +13,8 @@ require '../../core/application.php';
 #===============================================================================
 # Pagination
 #===============================================================================
-$site_size = Application::get('PAGE.LIST_SIZE');
-$site_sort = Application::get('PAGE.LIST_SORT');
+$site_size = Application::get('ADMIN.PAGE.LIST_SIZE');
+$site_sort = Application::get('ADMIN.PAGE.LIST_SORT');
 
 $lastSite = ceil($Database->query(sprintf('SELECT COUNT(id) FROM %s', Page\Attribute::TABLE))->fetchColumn() / $site_size);
 
