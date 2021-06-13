@@ -1,3 +1,4 @@
+<main id="main-content" <?=!$PAGES ?: 'class="wide"'?>>
 <h1><i class="fa fa-search"></i><?=$Language->text('title_page_search')?></h1>
 <p><?=$Language->text('search_page_desc')?></p>
 
@@ -10,8 +11,9 @@
 	</div>
 </form>
 
-<div class="item-container post">
+<div class="item-container post grid">
 	<?php foreach($PAGES as $page): ?>
 		<?php echo $page; ?>
 	<?php endforeach; ?>
 </div>
+</main>

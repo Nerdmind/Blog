@@ -38,11 +38,9 @@
 			</div>
 		</div>
 	</header>
-	<div id="main-content">
-		<main>
-			<?=$HTML?>
-		</main>
-	</div>
+
+	<?=$HTML?>
+
 	<footer id="main-footer">
 		<ul>
 			<li><i class="fa fa-github-square"></i><a href="https://github.com/Nerdmind/Blog/releases" target="_blank">Releases</a></li>

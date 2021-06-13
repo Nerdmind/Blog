@@ -1,3 +1,4 @@
+<main id="main-content">
 <h1><i class="fa fa-dashboard"></i><?=$Language->text('overview_dashboard_text')?></h1>
 <p><?=$Language->text('overview_dashboard_desc')?></p>
 
@@ -43,4 +44,4 @@
 <?php else: ?>
 	<p><em><?=$Language->text('home_no_users')?></em></p>
 <?php endif; ?>
-
+</main>

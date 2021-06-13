@@ -1,17 +1,34 @@
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Responsive Level #1
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-@media only screen and (max-width: 50em) {
-	html {
-		font-size: 1.125rem; /*18px*/
-		background-image: none !important;
+@media only screen and (max-width: 90em /*1440px*/) {
+	.item-container.grid {
+		grid-template-columns: auto auto;
 	}
 }
 
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Responsive Level #2
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-@media only screen and (max-width: 37.5em) {
+@media only screen and (min-width: 62.5em /*1000px*/) {
+	#main-content {
+		border: 0.05rem solid #AAA;
+		border-top: none;
+		border-bottom: none;
+	}
+}
+
+@media only screen and (max-width: 62.5em /*1000px*/) {
+	.item-container.grid {
+		grid-template-columns: auto;
+	}
+}
+
+@media only screen and (max-width: 50em /*800px*/) {
+	html {
+		font-size: 1.125rem; /*18px*/
+	}
+}
+
+@media only screen and (max-width: 37.5em /*600px*/) {
+	#main-content {
+		padding: 0.5rem;
+	}
+
 	#main-navi {
 		font-size: 1rem;
 
@@ -32,6 +49,13 @@
 
 	#emoticon-list-wrapper {
 		display: none;
+	}
+
+	.item-container.grid {
+		grid-column-gap: 0.75rem;
+		grid-row-gap: 0.75rem;
+		column-gap: 0.75rem;
+		row-gap: 0.75rem;
 	}
 
 	.form-grid {
@@ -63,9 +87,5 @@
 	.arguments {
 		font-size: 0.5rem;
 		line-height: 0.75rem;
-	}
-
-	main {
-		padding: 0.5rem;
 	}
 }

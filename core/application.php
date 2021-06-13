@@ -95,8 +95,8 @@ foreach($configuration as $name => $value) {
 # Set default configuration (for admin prefixes)
 #===============================================================================
 foreach([
-	'ADMIN.PAGE.LIST_SIZE' => Application::get('PAGE.LIST_SIZE'),
-	'ADMIN.POST.LIST_SIZE' => Application::get('POST.LIST_SIZE'),
+	'ADMIN.PAGE.LIST_SIZE' => 12, # for 1/2/3-column grid layout
+	'ADMIN.POST.LIST_SIZE' => 12, # for 1/2/3-column grid layout
 	'ADMIN.USER.LIST_SIZE' => Application::get('USER.LIST_SIZE'),
 	'ADMIN.PAGE.LIST_SORT' => Application::get('PAGE.LIST_SORT'),
 	'ADMIN.POST.LIST_SORT' => Application::get('POST.LIST_SORT'),

@@ -1,3 +1,4 @@
+<main id="main-content">
 <h1><i class="fa fa-sign-in"></i><?=$Language->text('authentication_text')?></h1>
 <p><?=$Language->text('authentication_desc')?></p>
 
@@ -34,3 +35,4 @@
 		<input type="submit" name="auth" value="<?=$Language->text('login')?>" />
 	</div>
 </form>
+</main>

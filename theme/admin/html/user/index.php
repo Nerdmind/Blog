@@ -1,3 +1,4 @@
+<main id="main-content">
 <h1><i class="fa fa-user"></i><?=$Language->text('user_overview')?></h1>
 <p class="actions-before"><?=$Language->text('overview_user_desc')?></p>
 <ul class="actions">
@@ -11,3 +12,4 @@
 </div>
 
 <?=$PAGINATION['HTML']?>
+</main>

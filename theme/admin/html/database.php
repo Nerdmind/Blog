@@ -1,3 +1,4 @@
+<main id="main-content">
 <h1><i class="fa fa-database"></i><?=$Language->text('overview_database_text')?></h1>
 <p><?=$Language->text('overview_database_desc')?></p>
 
@@ -28,3 +29,4 @@
 		<input id="insert-button" type="submit" name="execute" value="Execute" />
 	</div>
 </form>
+</main>

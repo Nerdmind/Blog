@@ -1,3 +1,4 @@
+<main id="main-content" <?=!$POSTS ?: 'class="wide"'?>>
 <h1><i class="fa fa-search"></i><?=$Language->text('title_post_search')?></h1>
 <p><?=$Language->text('search_post_desc')?></p>
 
@@ -10,8 +11,9 @@
 	</div>
 </form>
 
-<div class="item-container post">
+<div class="item-container post grid">
 	<?php foreach($POSTS as $post): ?>
 		<?php echo $post; ?>
 	<?php endforeach; ?>
 </div>
+</main>
