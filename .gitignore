@@ -1,2 +1,4 @@
 .idea/
+*.js.map
+*.css.map
 core/configuration.php
