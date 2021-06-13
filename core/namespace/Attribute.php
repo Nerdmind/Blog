@@ -1,5 +1,5 @@
 <?php
-abstract class Attribute implements AttributeInterface {
+abstract class Attribute {
 
 	#===============================================================================
 	# Set attribute
