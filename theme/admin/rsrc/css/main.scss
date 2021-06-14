@@ -717,14 +717,26 @@ label {
 
 #insert-button {
 	background: #4D8D5D;
+
+	&:active, &:focus {
+		background: darken(#4D8D5D, 10%)
+	}
 }
 
 #update-button {
 	background: #6A8AA5;
+
+	&:active, &:focus {
+		background: darken(#6A8AA5, 10%)
+	}
 }
 
 #delete-button {
 	background: #C45C66;
+
+	&:active, &:focus {
+		background: darken(#C45C66, 10%)
+	}
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

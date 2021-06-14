@@ -645,13 +645,22 @@ label:after {
 #insert-button {
   background: #4D8D5D;
 }
+#insert-button:active, #insert-button:focus {
+  background: #3b6c47;
+}
 
 #update-button {
   background: #6A8AA5;
 }
+#update-button:active, #update-button:focus {
+  background: #537089;
+}
 
 #delete-button {
   background: #C45C66;
+}
+#delete-button:active, #delete-button:focus {
+  background: #ae3f4a;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -926,5 +935,3 @@ label:after {
   font-weight: 700;
   src: url("../font/ruda-n-700.woff2") format("woff2");
 }
-
-/*# sourceMappingURL=main.css.map */
