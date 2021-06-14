@@ -30,44 +30,35 @@ if(Application::get('USER.SINGLE_REDIRECT') === TRUE AND $count === '1') {
 	HTTP::redirect($User->getURL());
 }
 
-#===============================================================================
-# TRY: Template\Exception
-#===============================================================================
-try {
-	$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-	$userIDs = $Database->query(sprintf($execSQL, User\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
+$userIDs = $Database->query(sprintf($execSQL, User\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
 
-	foreach($userIDs as $userID) {
-		try {
-			$User = User\Factory::build($userID);
-			$ItemTemplate = generateUserItemTemplate($User);
+foreach($userIDs as $userID) {
+	try {
+		$User = User\Factory::build($userID);
+		$ItemTemplate = generateUserItemTemplate($User);
 
-			$users[] = $ItemTemplate;
-		} catch(User\Exception $Exception){}
-	}
-
-	$ListTemplate = Template\Factory::build('user/list');
-	$ListTemplate->set('PAGINATION', [
-		'THIS' => $currentSite,
-		'LAST' => $lastSite,
-		'HTML' => generateUserNaviTemplate($currentSite)
-	]);
-	$ListTemplate->set('LIST', [
-		'USERS' => $users ?? []
-	]);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('HTML', $ListTemplate);
-	$MainTemplate->set('HEAD', [
-		'NAME' => $Language->text('title_user_overview', $currentSite)
-	]);
-
-	echo $MainTemplate;
+		$users[] = $ItemTemplate;
+	} catch(User\Exception $Exception){}
 }
 
 #===============================================================================
-# CATCH: Template\Exception
+# Build document
 #===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
+$ListTemplate = Template\Factory::build('user/list');
+$ListTemplate->set('PAGINATION', [
+	'THIS' => $currentSite,
+	'LAST' => $lastSite,
+	'HTML' => generateUserNaviTemplate($currentSite)
+]);
+$ListTemplate->set('LIST', [
+	'USERS' => $users ?? []
+]);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('HTML', $ListTemplate);
+$MainTemplate->set('HEAD', [
+	'NAME' => $Language->text('title_user_overview', $currentSite)
+]);
+
+echo $MainTemplate;

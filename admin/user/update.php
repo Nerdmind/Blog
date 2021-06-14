@@ -42,32 +42,23 @@ try {
 	}
 
 	#===============================================================================
-	# TRY: Template\Exception
+	# Build document
 	#===============================================================================
-	try {
-		$FormTemplate = Template\Factory::build('user/form');
-		$FormTemplate->set('FORM', [
-			'TYPE' => 'UPDATE',
-			'INFO' => $messages ?? [],
-			'DATA' => array_change_key_case($Attribute->getAll(['password']), CASE_UPPER),
-			'TOKEN' => Application::getSecurityToken()
-		]);
+	$FormTemplate = Template\Factory::build('user/form');
+	$FormTemplate->set('FORM', [
+		'TYPE' => 'UPDATE',
+		'INFO' => $messages ?? [],
+		'DATA' => array_change_key_case($Attribute->getAll(['password']), CASE_UPPER),
+		'TOKEN' => Application::getSecurityToken()
+	]);
 
-		$InsertTemplate = Template\Factory::build('user/update');
-		$InsertTemplate->set('HTML', $FormTemplate);
+	$InsertTemplate = Template\Factory::build('user/update');
+	$InsertTemplate->set('HTML', $FormTemplate);
 
-		$MainTemplate = Template\Factory::build('main');
-		$MainTemplate->set('NAME', $Language->text('title_user_update'));
-		$MainTemplate->set('HTML', $InsertTemplate);
-		echo $MainTemplate;
-	}
-
-	#===============================================================================
-	# CATCH: Template\Exception
-	#===============================================================================
-	catch(Template\Exception $Exception) {
-		Application::exit($Exception->getMessage());
-	}
+	$MainTemplate = Template\Factory::build('main');
+	$MainTemplate->set('NAME', $Language->text('title_user_update'));
+	$MainTemplate->set('HTML', $InsertTemplate);
+	echo $MainTemplate;
 }
 
 #===============================================================================

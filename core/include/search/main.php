@@ -35,55 +35,46 @@ $search_data = [
 ];
 
 #===============================================================================
-# TRY: Template\Exception
+# Build document
 #===============================================================================
-try {
-	if(isset($postIDs) AND !empty($postIDs)) {
-		foreach($postIDs as $postID) {
-			try {
-				$Post = Post\Factory::build($postID);
-				$User = User\Factory::build($Post->attr('user'));
+if(isset($postIDs) AND !empty($postIDs)) {
+	foreach($postIDs as $postID) {
+		try {
+			$Post = Post\Factory::build($postID);
+			$User = User\Factory::build($Post->attr('user'));
 
-				$posts[] = generatePostItemTemplate($Post, $User);
-			}
-			catch(Post\Exception $Exception){}
-			catch(User\Exception $Exception){}
+			$posts[] = generatePostItemTemplate($Post, $User);
 		}
-
-		$ResultTemplate = Template\Factory::build('search/result');
-		$ResultTemplate->set('FORM', $form_data);
-		$ResultTemplate->set('SEARCH', $search_data);
-		$ResultTemplate->set('RESULT', [
-			'LIST' => $posts ?? []
-		]);
-
-		$MainTemplate = Template\Factory::build('main');
-		$MainTemplate->set('HTML', $ResultTemplate);
-		$MainTemplate->set('HEAD', [
-			'NAME' => $Language->text('title_search_results', escapeHTML($search)),
-			'PERM' => Application::getURL('search/')
-		]);
+		catch(Post\Exception $Exception){}
+		catch(User\Exception $Exception){}
 	}
 
-	else {
-		$SearchTemplate = Template\Factory::build('search/main');
-		$SearchTemplate->set('FORM', $form_data);
-		$SearchTemplate->set('SEARCH', $search_data);
+	$ResultTemplate = Template\Factory::build('search/result');
+	$ResultTemplate->set('FORM', $form_data);
+	$ResultTemplate->set('SEARCH', $search_data);
+	$ResultTemplate->set('RESULT', [
+		'LIST' => $posts ?? []
+	]);
 
-		$MainTemplate = Template\Factory::build('main');
-		$MainTemplate->set('HTML', $SearchTemplate);
-		$MainTemplate->set('HEAD', [
-			'NAME' => $Language->text('title_search_request'),
-			'PERM' => Application::getURL('search/')
-		]);
-	}
-
-	echo $MainTemplate;
+	$MainTemplate = Template\Factory::build('main');
+	$MainTemplate->set('HTML', $ResultTemplate);
+	$MainTemplate->set('HEAD', [
+		'NAME' => $Language->text('title_search_results', escapeHTML($search)),
+		'PERM' => Application::getURL('search/')
+	]);
 }
 
-#===============================================================================
-# CATCH: Template\Exception
-#===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
+else {
+	$SearchTemplate = Template\Factory::build('search/main');
+	$SearchTemplate->set('FORM', $form_data);
+	$SearchTemplate->set('SEARCH', $search_data);
+
+	$MainTemplate = Template\Factory::build('main');
+	$MainTemplate->set('HTML', $SearchTemplate);
+	$MainTemplate->set('HEAD', [
+		'NAME' => $Language->text('title_search_request'),
+		'PERM' => Application::getURL('search/')
+	]);
 }
+
+echo $MainTemplate;

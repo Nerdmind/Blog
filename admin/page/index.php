@@ -31,48 +31,39 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 $execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
 $pageIDs = $Database->query(sprintf($execSQL, Page\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
 
-#===============================================================================
-# TRY: Template\Exception
-#===============================================================================
-try {
-	foreach($pageIDs as $pageID) {
-		try {
-			$Page = Page\Factory::build($pageID);
-			$User = User\Factory::build($Page->attr('user'));
+foreach($pageIDs as $pageID) {
+	try {
+		$Page = Page\Factory::build($pageID);
+		$User = User\Factory::build($Page->attr('user'));
 
-			$ItemTemplate = generatePageItemTemplate($Page, $User);
+		$ItemTemplate = generatePageItemTemplate($Page, $User);
 
-			$pages[] = $ItemTemplate;
-		}
-		catch(Page\Exception $Exception){}
-		catch(User\Exception $Exception){}
+		$pages[] = $ItemTemplate;
 	}
-
-	$PaginationTemplate = Template\Factory::build('pagination');
-	$PaginationTemplate->set('THIS', $currentSite);
-	$PaginationTemplate->set('LAST', $lastSite);
-	$PaginationTemplate->set('HREF', Application::getAdminURL('page/?site=%d'));
-
-	$ListTemplate = Template\Factory::build('page/index');
-	$ListTemplate->set('LIST', [
-		'PAGES' => $pages ?? []
-	]);
-
-	$ListTemplate->set('PAGINATION', [
-		'THIS' => $currentSite,
-		'LAST' => $lastSite,
-		'HTML' => $PaginationTemplate
-	]);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('NAME', $Language->text('title_page_overview', $currentSite));
-	$MainTemplate->set('HTML', $ListTemplate);
-	echo $MainTemplate;
+	catch(Page\Exception $Exception){}
+	catch(User\Exception $Exception){}
 }
 
 #===============================================================================
-# CATCH: Template\Exception
+# Build document
 #===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
+$PaginationTemplate = Template\Factory::build('pagination');
+$PaginationTemplate->set('THIS', $currentSite);
+$PaginationTemplate->set('LAST', $lastSite);
+$PaginationTemplate->set('HREF', Application::getAdminURL('page/?site=%d'));
+
+$ListTemplate = Template\Factory::build('page/index');
+$ListTemplate->set('LIST', [
+	'PAGES' => $pages ?? []
+]);
+
+$ListTemplate->set('PAGINATION', [
+	'THIS' => $currentSite,
+	'LAST' => $lastSite,
+	'HTML' => $PaginationTemplate
+]);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('NAME', $Language->text('title_page_overview', $currentSite));
+$MainTemplate->set('HTML', $ListTemplate);
+echo $MainTemplate;

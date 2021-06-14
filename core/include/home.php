@@ -5,50 +5,41 @@
 $Database = Application::getDatabase();
 $Language = Application::getLanguage();
 
-#===============================================================================
-# TRY: Template\Exception
-#===============================================================================
-try {
-	$execSQL = 'SELECT id FROM %s ORDER BY '.Application::get('POST.LIST_SORT').' LIMIT '.Application::get('POST.LIST_SIZE');
-	$Statement = $Database->query(sprintf($execSQL, Post\Attribute::TABLE));
+$execSQL = 'SELECT id FROM %s ORDER BY '.Application::get('POST.LIST_SORT').' LIMIT '.Application::get('POST.LIST_SIZE');
+$Statement = $Database->query(sprintf($execSQL, Post\Attribute::TABLE));
 
-	$postIDs = $Statement->fetchAll($Database::FETCH_COLUMN);
+$postIDs = $Statement->fetchAll($Database::FETCH_COLUMN);
 
-	foreach($postIDs as $postID) {
-		try {
-			$Post = Post\Factory::build($postID);
-			$User = User\Factory::build($Post->attr('user'));
+foreach($postIDs as $postID) {
+	try {
+		$Post = Post\Factory::build($postID);
+		$User = User\Factory::build($Post->attr('user'));
 
-			$ItemTemplate = generatePostItemTemplate($Post, $User);
+		$ItemTemplate = generatePostItemTemplate($Post, $User);
 
-			$posts[] = $ItemTemplate;
-		}
-		catch(Post\Exception $Exception){}
-		catch(User\Exception $Exception){}
+		$posts[] = $ItemTemplate;
 	}
-
-	$HomeTemplate = Template\Factory::build('home');
-	$HomeTemplate->set('PAGINATION', [
-		'HTML' => generatePostNaviTemplate(1)
-	]);
-	$HomeTemplate->set('LIST', [
-		'POSTS' => $posts ?? []
-	]);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('HTML', $HomeTemplate);
-	$MainTemplate->set('HEAD', [
-		'NAME' => Application::get('BLOGMETA.HOME'),
-		'DESC' => Application::get('BLOGMETA.NAME').' – '.Application::get('BLOGMETA.DESC'),
-		'PERM' => Application::getURL()
-	]);
-
-	echo $MainTemplate;
+	catch(Post\Exception $Exception){}
+	catch(User\Exception $Exception){}
 }
 
 #===============================================================================
-# CATCH: Template\Exception
+# Build document
 #===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
+$HomeTemplate = Template\Factory::build('home');
+$HomeTemplate->set('PAGINATION', [
+	'HTML' => generatePostNaviTemplate(1)
+]);
+$HomeTemplate->set('LIST', [
+	'POSTS' => $posts ?? []
+]);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('HTML', $HomeTemplate);
+$MainTemplate->set('HEAD', [
+	'NAME' => Application::get('BLOGMETA.HOME'),
+	'DESC' => Application::get('BLOGMETA.NAME').' – '.Application::get('BLOGMETA.DESC'),
+	'PERM' => Application::getURL()
+]);
+
+echo $MainTemplate;

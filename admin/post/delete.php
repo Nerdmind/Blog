@@ -28,33 +28,24 @@ try {
 	}
 
 	#===============================================================================
-	# TRY: Template\Exception
+	# Build document
 	#===============================================================================
-	try {
-		$FormTemplate = Template\Factory::build('post/form');
-		$FormTemplate->set('HTML', $Post->getHTML());
-		$FormTemplate->set('FORM', [
-			'TYPE' => 'DELETE',
-			'INFO' => $messages ?? [],
-			'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
-			'TOKEN' => Application::getSecurityToken()
-		]);
+	$FormTemplate = Template\Factory::build('post/form');
+	$FormTemplate->set('HTML', $Post->getHTML());
+	$FormTemplate->set('FORM', [
+		'TYPE' => 'DELETE',
+		'INFO' => $messages ?? [],
+		'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
+		'TOKEN' => Application::getSecurityToken()
+	]);
 
-		$DeleteTemplate = Template\Factory::build('post/delete');
-		$DeleteTemplate->set('HTML', $FormTemplate);
+	$DeleteTemplate = Template\Factory::build('post/delete');
+	$DeleteTemplate->set('HTML', $FormTemplate);
 
-		$MainTemplate = Template\Factory::build('main');
-		$MainTemplate->set('NAME', $Language->text('title_post_delete'));
-		$MainTemplate->set('HTML', $DeleteTemplate);
-		echo $MainTemplate;
-	}
-
-	#===============================================================================
-	# CATCH: Template\Exception
-	#===============================================================================
-	catch(Template\Exception $Exception) {
-		Application::exit($Exception->getMessage());
-	}
+	$MainTemplate = Template\Factory::build('main');
+	$MainTemplate->set('NAME', $Language->text('title_post_delete'));
+	$MainTemplate->set('HTML', $DeleteTemplate);
+	echo $MainTemplate;
 }
 
 #===============================================================================

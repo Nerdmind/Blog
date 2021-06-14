@@ -37,42 +37,33 @@ if(HTTP::issetPOST('id', 'user', 'slug', 'name', 'body', 'argv', 'time_insert', 
 	}
 }
 
-#===============================================================================
-# TRY: Template\Exception
-#===============================================================================
-try {
-	$userIDs = $Database->query(sprintf('SELECT id FROM %s ORDER BY fullname ASC', User\Attribute::TABLE));
+$userIDs = $Database->query(sprintf('SELECT id FROM %s ORDER BY fullname ASC', User\Attribute::TABLE));
 
-	foreach($userIDs->fetchAll($Database::FETCH_COLUMN) as $userID) {
-		$User = User\Factory::build($userID);
-		$userAttributes[] = [
-			'ID' => $User->attr('id'),
-			'FULLNAME' => $User->attr('fullname'),
-			'USERNAME' => $User->attr('username'),
-		];
-	}
-
-	$FormTemplate = Template\Factory::build('post/form');
-	$FormTemplate->set('FORM', [
-		'TYPE' => 'INSERT',
-		'INFO' => $messages ?? [],
-		'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
-		'USER_LIST' => $userAttributes ??  [],
-		'TOKEN' => Application::getSecurityToken()
-	]);
-
-	$InsertTemplate = Template\Factory::build('post/insert');
-	$InsertTemplate->set('HTML', $FormTemplate);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('NAME', $Language->text('title_post_insert'));
-	$MainTemplate->set('HTML', $InsertTemplate);
-	echo $MainTemplate;
+foreach($userIDs->fetchAll($Database::FETCH_COLUMN) as $userID) {
+	$User = User\Factory::build($userID);
+	$userAttributes[] = [
+		'ID' => $User->attr('id'),
+		'FULLNAME' => $User->attr('fullname'),
+		'USERNAME' => $User->attr('username'),
+	];
 }
 
 #===============================================================================
-# CATCH: Template\Exception
+# Build document
 #===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
+$FormTemplate = Template\Factory::build('post/form');
+$FormTemplate->set('FORM', [
+	'TYPE' => 'INSERT',
+	'INFO' => $messages ?? [],
+	'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
+	'USER_LIST' => $userAttributes ??  [],
+	'TOKEN' => Application::getSecurityToken()
+]);
+
+$InsertTemplate = Template\Factory::build('post/insert');
+$InsertTemplate->set('HTML', $FormTemplate);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('NAME', $Language->text('title_post_insert'));
+$MainTemplate->set('HTML', $InsertTemplate);
+echo $MainTemplate;

@@ -10,20 +10,11 @@ require_once 'core/application.php';
 http_response_code(403);
 
 #===============================================================================
-# TRY: Template\Exception
+# Build document
 #===============================================================================
-try {
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('NAME', '403 Forbidden');
-	$MainTemplate->set('HEAD', ['NAME' => $MainTemplate->get('NAME')]);
-	$MainTemplate->set('HTML', Template\Factory::build('403'));
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('NAME', '403 Forbidden');
+$MainTemplate->set('HEAD', ['NAME' => $MainTemplate->get('NAME')]);
+$MainTemplate->set('HTML', Template\Factory::build('403'));
 
-	echo $MainTemplate;
-}
-
-#===============================================================================
-# CATCH: Template\Exception
-#===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
+echo $MainTemplate;

@@ -30,48 +30,39 @@ if(Application::get('POST.SINGLE_REDIRECT') === TRUE AND $count === '1') {
 	HTTP::redirect($Post->getURL());
 }
 
-#===============================================================================
-# TRY: Template\Exception
-#===============================================================================
-try {
-	$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-	$postIDs = $Database->query(sprintf($execSQL, Post\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
+$postIDs = $Database->query(sprintf($execSQL, Post\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
 
-	foreach($postIDs as $postID) {
-		try {
-			$Post = Post\Factory::build($postID);
-			$User = User\Factory::build($Post->attr('user'));
+foreach($postIDs as $postID) {
+	try {
+		$Post = Post\Factory::build($postID);
+		$User = User\Factory::build($Post->attr('user'));
 
-			$ItemTemplate = generatePostItemTemplate($Post, $User);
+		$ItemTemplate = generatePostItemTemplate($Post, $User);
 
-			$posts[] = $ItemTemplate;
-		}
-		catch(Post\Exception $Exception){}
-		catch(User\Exception $Exception){}
+		$posts[] = $ItemTemplate;
 	}
-
-	$ListTemplate = Template\Factory::build('post/list');
-	$ListTemplate->set('PAGINATION', [
-		'THIS' => $currentSite,
-		'LAST' => $lastSite,
-		'HTML' => generatePostNaviTemplate($currentSite)
-	]);
-	$ListTemplate->set('LIST', [
-		'POSTS' => $posts ?? []
-	]);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('HTML', $ListTemplate);
-	$MainTemplate->set('HEAD', [
-		'NAME' => $Language->text('title_post_overview', $currentSite)
-	]);
-
-	echo $MainTemplate;
+	catch(Post\Exception $Exception){}
+	catch(User\Exception $Exception){}
 }
 
 #===============================================================================
-# CATCH: Template\Exception
+# Build document
 #===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
+$ListTemplate = Template\Factory::build('post/list');
+$ListTemplate->set('PAGINATION', [
+	'THIS' => $currentSite,
+	'LAST' => $lastSite,
+	'HTML' => generatePostNaviTemplate($currentSite)
+]);
+$ListTemplate->set('LIST', [
+	'POSTS' => $posts ?? []
+]);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('HTML', $ListTemplate);
+$MainTemplate->set('HEAD', [
+	'NAME' => $Language->text('title_post_overview', $currentSite)
+]);
+
+echo $MainTemplate;
