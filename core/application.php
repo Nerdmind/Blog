@@ -141,22 +141,23 @@ if(defined('ADMINISTRATION') AND ADMINISTRATION === TRUE) {
 require 'functions.php';
 
 #===============================================================================
-# TRY: PDOException
+# Get Language and Database singletons
 #===============================================================================
-try {
-	$Language = Application::getLanguage();
-	$Database = Application::getDatabase();
-
-	$Database->setAttribute($Database::ATTR_DEFAULT_FETCH_MODE, $Database::FETCH_ASSOC);
-	$Database->setAttribute($Database::ATTR_ERRMODE, $Database::ERRMODE_EXCEPTION);
-}
+$Language = Application::getLanguage();
+$Database = Application::getDatabase();
 
 #===============================================================================
-# CATCH: PDOException
+# Set Database attributes
 #===============================================================================
-catch(PDOException $Exception) {
-	Application::exit($Exception->getMessage());
-}
+$Database->setAttribute(
+	$Database::ATTR_DEFAULT_FETCH_MODE,
+	$Database::FETCH_ASSOC
+);
+
+$Database->setAttribute(
+	$Database::ATTR_ERRMODE,
+	$Database::ERRMODE_EXCEPTION
+);
 
 #===============================================================================
 # Check if "304 Not Modified" and ETag header should be sent
