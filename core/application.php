@@ -34,9 +34,9 @@ set_exception_handler(function(Throwable $Exception) {
 HTTP::init($_GET, $_POST, $_FILES, TRUE);
 
 #===============================================================================
-# Default configuration (can be overridden in configuration.php)
+# Set default configuration
 #===============================================================================
-$configuration = [
+foreach([
 	'CORE.LANGUAGE' => 'en',
 	'CORE.SEND_304' => FALSE,
 	'BLOGMETA.NAME' => 'Example blog',
@@ -82,12 +82,7 @@ $configuration = [
 	'POST.FEED_SORT' => 'time_insert DESC',
 	'PAGE.FEED_GUID' => ['id', 'time_insert'],
 	'POST.FEED_GUID' => ['id', 'time_insert']
-];
-
-#===============================================================================
-# Set default configuration
-#===============================================================================
-foreach($configuration as $name => $value) {
+] as $name => $value) {
 	Application::set($name, $value);
 }
 
