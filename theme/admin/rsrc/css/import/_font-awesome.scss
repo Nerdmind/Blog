@@ -1,0 +1,138 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# FontAwesome Main
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.fa {
+	font: normal normal normal 14px/1 "FontAwesome";
+	font-size: inherit;
+	speak: none;
+	display: inline-block;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# FontAwesome Icons
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.fa-bug:before {
+	content: "\f188";
+}
+
+.fa-key:before {
+	content: "\f084";
+}
+
+.fa-link:before {
+	content: "\f0c1";
+}
+
+.fa-bold:before {
+	content: "\f032";
+}
+
+.fa-code:before {
+	content: "\f121";
+}
+
+.fa-user:before {
+	content: "\f007";
+}
+
+.fa-book:before {
+	content: "\f02d";
+}
+
+.fa-italic:before {
+	content: "\f033";
+}
+
+.fa-header:before {
+	content: "\f1dc";
+}
+
+.fa-search:before {
+	content: "\f002";
+}
+
+.fa-trash-o:before {
+	content: "\f014";
+}
+
+.fa-sign-in:before {
+	content: "\f090";
+}
+
+.fa-clock-o:before {
+	content: "\f017";
+}
+
+.fa-list-ul:before {
+	content: "\f0ca";
+}
+
+.fa-list-ol:before {
+	content: "\f0cb";
+}
+
+.fa-database:before {
+	content: "\f1c0";
+}
+
+.fa-language:before {
+	content: "\f1ab";
+}
+
+.fa-sign-out:before {
+	content: "\f08b";
+}
+
+.fa-dashboard:before {
+	content: "\f0e4";
+}
+
+.fa-picture-o:before {
+	content: "\f03e";
+}
+
+.fa-envelope-o:before {
+	content: "\f003";
+}
+
+.fa-arrow-left:before {
+	content: "\f060";
+}
+
+.fa-quote-right:before {
+	content: "\f10e";
+}
+
+.fa-user-secret:before {
+	content: "\f21b";
+}
+
+.fa-file-text-o:before {
+	content: "\f0f6";
+}
+
+.fa-newspaper-o:before {
+	content: "\f1ea";
+}
+
+.fa-arrow-right:before {
+	content: "\f061";
+}
+
+.fa-external-link:before {
+	content: "\f08e";
+}
+
+.fa-github-square:before {
+	content: "\f092";
+}
+
+.fa-pencil-square-o:before {
+	content: "\f044";
+}
+
+.fa-exclamation-triangle:before {
+	content: "\f071";
+}

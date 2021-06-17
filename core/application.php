@@ -34,9 +34,9 @@ set_exception_handler(function(Throwable $Exception) {
 HTTP::init($_GET, $_POST, $_FILES, TRUE);
 
 #===============================================================================
-# Default configuration (can be overridden in configuration.php)
+# Set default configuration
 #===============================================================================
-$configuration = [
+foreach([
 	'CORE.LANGUAGE' => 'en',
 	'CORE.SEND_304' => FALSE,
 	'BLOGMETA.NAME' => 'Example blog',
@@ -48,7 +48,7 @@ $configuration = [
 	'DATABASE.BASENAME' => 'blog',
 	'DATABASE.USERNAME' => 'blog',
 	'DATABASE.PASSWORD' => '',
-	'TEMPLATE.NAME' => 'standard',
+	'TEMPLATE.NAME' => 'default',
 	'TEMPLATE.LANG' => 'en',
 	'ADMIN.TEMPLATE' => 'admin',
 	'ADMIN.LANGUAGE' => 'en',
@@ -82,12 +82,21 @@ $configuration = [
 	'POST.FEED_SORT' => 'time_insert DESC',
 	'PAGE.FEED_GUID' => ['id', 'time_insert'],
 	'POST.FEED_GUID' => ['id', 'time_insert']
-];
+] as $name => $value) {
+	Application::set($name, $value);
+}
 
 #===============================================================================
-# Set default configuration
+# Set default configuration (for admin prefixes)
 #===============================================================================
-foreach($configuration as $name => $value) {
+foreach([
+	'ADMIN.PAGE.LIST_SIZE' => 12, # for 1/2/3-column grid layout
+	'ADMIN.POST.LIST_SIZE' => 12, # for 1/2/3-column grid layout
+	'ADMIN.USER.LIST_SIZE' => Application::get('USER.LIST_SIZE'),
+	'ADMIN.PAGE.LIST_SORT' => Application::get('PAGE.LIST_SORT'),
+	'ADMIN.POST.LIST_SORT' => Application::get('POST.LIST_SORT'),
+	'ADMIN.USER.LIST_SORT' => Application::get('USER.LIST_SORT')
+] as $name => $value) {
 	Application::set($name, $value);
 }
 
@@ -127,22 +136,23 @@ if(defined('ADMINISTRATION') AND ADMINISTRATION === TRUE) {
 require 'functions.php';
 
 #===============================================================================
-# TRY: PDOException
+# Get Language and Database singletons
 #===============================================================================
-try {
-	$Language = Application::getLanguage();
-	$Database = Application::getDatabase();
-
-	$Database->setAttribute($Database::ATTR_DEFAULT_FETCH_MODE, $Database::FETCH_ASSOC);
-	$Database->setAttribute($Database::ATTR_ERRMODE, $Database::ERRMODE_EXCEPTION);
-}
+$Language = Application::getLanguage();
+$Database = Application::getDatabase();
 
 #===============================================================================
-# CATCH: PDOException
+# Set Database attributes
 #===============================================================================
-catch(PDOException $Exception) {
-	Application::exit($Exception->getMessage());
-}
+$Database->setAttribute(
+	$Database::ATTR_DEFAULT_FETCH_MODE,
+	$Database::FETCH_ASSOC
+);
+
+$Database->setAttribute(
+	$Database::ATTR_ERRMODE,
+	$Database::ERRMODE_EXCEPTION
+);
 
 #===============================================================================
 # Check if "304 Not Modified" and ETag header should be sent
@@ -186,4 +196,3 @@ if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {
 		}
 	}
 }
-?>

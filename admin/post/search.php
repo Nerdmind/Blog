@@ -27,24 +27,14 @@ if($search = HTTP::GET('q')) {
 }
 
 #===============================================================================
-# TRY: Template\Exception
+# Build document
 #===============================================================================
-try {
-	$SearchTemplate = Template\Factory::build('post/search');
-	$SearchTemplate->set('QUERY', $search);
-	$SearchTemplate->set('POSTS', $posts ?? []);
+$SearchTemplate = Template\Factory::build('post/search');
+$SearchTemplate->set('QUERY', $search);
+$SearchTemplate->set('POSTS', $posts ?? []);
 
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('NAME', $Language->text('title_post_search'));
-	$MainTemplate->set('HTML', $SearchTemplate);
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('NAME', $Language->text('title_post_search'));
+$MainTemplate->set('HTML', $SearchTemplate);
 
-	echo $MainTemplate;
-}
-
-#===============================================================================
-# CATCH: Template\Exception
-#===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
-?>
+echo $MainTemplate;

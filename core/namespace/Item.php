@@ -96,6 +96,7 @@ abstract class Item implements ItemInterface {
 		$content = $this->getBody();
 
 		if(\Application::get($item::CONFIGURATION.'.EMOTICONS') === TRUE) {
+			$content = parseUnicodeEmoticons($content);
 			$content = parseEmoticons($content);
 		}
 
@@ -196,4 +197,3 @@ abstract class Item implements ItemInterface {
 		}
 	}
 }
-?>

@@ -16,4 +16,3 @@ abstract class Factory implements FactoryInterface {
 		return self::$storage[get_called_class()][$identifier] ?? FALSE;
 	}
 }
-?>

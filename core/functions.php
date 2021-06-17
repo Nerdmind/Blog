@@ -107,37 +107,12 @@ function generateItemTemplateData(Item $Item): array {
 # Parser for datetime formatted strings [YYYY-MM-DD HH:II:SS]
 #===============================================================================
 function parseDatetime($datetime, $format): string {
-	$Language = Application::getLanguage();
-
 	list($date, $time) = explode(' ', $datetime);
 
 	list($DATE['Y'], $DATE['M'], $DATE['D']) = explode('-', $date);
 	list($TIME['H'], $TIME['M'], $TIME['S']) = explode(':', $time);
 
-	$M_LIST = [
-		'01' => $Language->text('month_01'),
-		'02' => $Language->text('month_02'),
-		'03' => $Language->text('month_03'),
-		'04' => $Language->text('month_04'),
-		'05' => $Language->text('month_05'),
-		'06' => $Language->text('month_06'),
-		'07' => $Language->text('month_07'),
-		'08' => $Language->text('month_08'),
-		'09' => $Language->text('month_09'),
-		'10' => $Language->text('month_10'),
-		'11' => $Language->text('month_11'),
-		'12' => $Language->text('month_12'),
-	];
-
-	$D_LIST = [
-		0 => $Language->text('day_6'),
-		1 => $Language->text('day_0'),
-		2 => $Language->text('day_1'),
-		3 => $Language->text('day_2'),
-		4 => $Language->text('day_3'),
-		5 => $Language->text('day_4'),
-		6 => $Language->text('day_5'),
-	];
+	$unixtime = strtotime($datetime);
 
 	return strtr($format, [
 		'[Y]' => $DATE['Y'],
@@ -146,11 +121,11 @@ function parseDatetime($datetime, $format): string {
 		'[H]' => $TIME['H'],
 		'[I]' => $TIME['M'],
 		'[S]' => $TIME['S'],
-		'[W]' => $D_LIST[date('w', strtotime($datetime))],
-		'[F]' => $M_LIST[date('m', strtotime($datetime))],
+		'[W]' => strftime('%A', $unixtime),
+		'[F]' => strftime('%B', $unixtime),
 		'[DATE]' => $date,
 		'[TIME]' => $time,
-		'[RFC2822]' => date('r', strtotime($datetime))
+		'[RFC2822]' => date('r', $unixtime)
 	]);
 }
 
@@ -184,7 +159,45 @@ function getEmoticons(): array {
 function parseEmoticons($string): string {
 	foreach(getEmoticons() as $emoticon => $data) {
 		$pattern = '#(^|\s)'.preg_quote($emoticon).'#';
-		$replace = " <span title=\"{$data[1]}\">{$data[0]}</span>";
+		$replace = "\\1<span title=\"{$data[1]}\">{$data[0]}</span>";
+
+		$string = preg_replace($pattern, $replace, $string);
+	}
+
+	return $string;
+}
+
+#===============================================================================
+# Get unicode emoticons with their corresponding explanation
+#===============================================================================
+function getUnicodeEmoticons(): array {
+	$Language = Application::getLanguage();
+
+	return [
+		html_entity_decode('&#x1F60A;') => $Language->text('emoticon_1F60A'),
+		html_entity_decode('&#x1F61E;') => $Language->text('emoticon_1F61E'),
+		html_entity_decode('&#x1F603;') => $Language->text('emoticon_1F603'),
+		html_entity_decode('&#x1F61B;') => $Language->text('emoticon_1F61B'),
+		html_entity_decode('&#x1F632;') => $Language->text('emoticon_1F632'),
+		html_entity_decode('&#x1F609;') => $Language->text('emoticon_1F609'),
+		html_entity_decode('&#x1F622;') => $Language->text('emoticon_1F622'),
+		html_entity_decode('&#x1F610;') => $Language->text('emoticon_1F610'),
+		html_entity_decode('&#x1F635;') => $Language->text('emoticon_1F635'),
+		html_entity_decode('&#x1F612;') => $Language->text('emoticon_1F612'),
+		html_entity_decode('&#x1F60E;') => $Language->text('emoticon_1F60E'),
+		html_entity_decode('&#x1F61F;') => $Language->text('emoticon_1F61F'),
+		html_entity_decode('&#x1F602;') => $Language->text('emoticon_1F602'),
+		html_entity_decode('&#x1F604;') => $Language->text('emoticon_1F604'),
+	];
+}
+
+#===============================================================================
+# Wrap emoticons in <span> element with "title" attribute for explanation
+#===============================================================================
+function parseUnicodeEmoticons($string): string {
+	foreach(getUnicodeEmoticons() as $emoticon => $explanation) {
+		$pattern = '#(^|\s)'.preg_quote($emoticon).'#';
+		$replace = "\\1<span title=\"{$explanation}\">{$emoticon}</span>";
 
 		$string = preg_replace($pattern, $replace, $string);
 	}
@@ -218,13 +231,6 @@ function removeDoubleLineBreaks($string): string {
 #===============================================================================
 function removeWhitespace($string): string {
 	return preg_replace('/\s+/S', ' ', trim($string));
-}
-
-#===============================================================================
-# Return pseudo-random (hex converted) string
-#===============================================================================
-function getRandomValue($length = 40): string {
-	return strtoupper(bin2hex(random_bytes(ceil($length / 2))));
 }
 
 #===============================================================================
@@ -318,4 +324,3 @@ function USER(int $id): array {
 		return [];
 	}
 }
-?>

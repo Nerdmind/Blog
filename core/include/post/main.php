@@ -6,7 +6,7 @@ $Database = Application::getDatabase();
 $Language = Application::getLanguage();
 
 #===============================================================================
-# TRY: Post\Exception, User\Exception
+# TRY: Post\Exception
 #===============================================================================
 try {
 	if(Application::get('POST.SLUG_URLS')) {
@@ -36,36 +36,27 @@ try {
 	} catch(Post\Exception $Exception){}
 
 	#===============================================================================
-	# TRY: Template\Exception
+	# Build document
 	#===============================================================================
-	try {
-		$PostTemplate = Template\Factory::build('post/main');
-		$PostTemplate->set('POST', $post_data);
-		$PostTemplate->set('USER', $user_data);
+	$PostTemplate = Template\Factory::build('post/main');
+	$PostTemplate->set('POST', $post_data);
+	$PostTemplate->set('USER', $user_data);
 
-		$MainTemplate = Template\Factory::build('main');
-		$MainTemplate->set('HTML', $PostTemplate);
-		$MainTemplate->set('HEAD', [
-			'NAME' => $post_data['ATTR']['NAME'],
-			'DESC' => description($post_data['BODY']['HTML'](), Application::get('POST.DESCRIPTION_SIZE')),
-			'PERM' => $post_data['URL'],
-			'OG_IMAGES' => $post_data['FILE']['LIST']
-		]);
+	$MainTemplate = Template\Factory::build('main');
+	$MainTemplate->set('HTML', $PostTemplate);
+	$MainTemplate->set('HEAD', [
+		'NAME' => $post_data['ATTR']['NAME'],
+		'DESC' => description($post_data['BODY']['HTML'](), Application::get('POST.DESCRIPTION_SIZE')),
+		'PERM' => $post_data['URL'],
+		'OG_IMAGES' => $post_data['FILE']['LIST']
+	]);
 
-		# Get access to the current item data from main template
-		$MainTemplate->set('TYPE', 'POST');
-		$MainTemplate->set('POST', $post_data);
-		$MainTemplate->set('USER', $user_data);
+	# Get access to the current item data from main template
+	$MainTemplate->set('TYPE', 'POST');
+	$MainTemplate->set('POST', $post_data);
+	$MainTemplate->set('USER', $user_data);
 
-		echo $MainTemplate;
-	}
-
-	#===============================================================================
-	# CATCH: Template\Exception
-	#===============================================================================
-	catch(Template\Exception $Exception) {
-		Application::exit($Exception->getMessage());
-	}
+	echo $MainTemplate;
 }
 
 #===============================================================================
@@ -86,11 +77,3 @@ catch(Post\Exception $Exception) {
 		Application::error404();
 	}
 }
-
-#===============================================================================
-# CATCH: User\Exception
-#===============================================================================
-catch(User\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
-?>

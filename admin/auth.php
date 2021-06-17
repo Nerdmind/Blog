@@ -50,29 +50,19 @@ if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'username', 'pa
 }
 
 #===============================================================================
-# TRY: Template\Exception
+# Build document
 #===============================================================================
-try {
-	$AuthTemplate = Template\Factory::build('auth');
-	$AuthTemplate->set('FORM', [
-		'INFO' => $messages ?? [],
-		'DATA' => [
-			'USERNAME' => HTTP::POST('username'),
-			'PASSWORD' => HTTP::POST('password'),
-		],
-		'TOKEN' => Application::getSecurityToken()
-	]);
+$AuthTemplate = Template\Factory::build('auth');
+$AuthTemplate->set('FORM', [
+	'INFO' => $messages ?? [],
+	'DATA' => [
+		'USERNAME' => HTTP::POST('username'),
+		'PASSWORD' => HTTP::POST('password'),
+	],
+	'TOKEN' => Application::getSecurityToken()
+]);
 
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('NAME', 'Authentication');
-	$MainTemplate->set('HTML', $AuthTemplate);
-	echo $MainTemplate;
-}
-
-#===============================================================================
-# CATCH: Template\Exception
-#===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
-?>
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('NAME', 'Authentication');
+$MainTemplate->set('HTML', $AuthTemplate);
+echo $MainTemplate;

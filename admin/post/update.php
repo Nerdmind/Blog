@@ -39,45 +39,36 @@ try {
 		}
 	}
 
-	#===============================================================================
-	# TRY: Template\Exception
-	#===============================================================================
-	try {
-		$userIDs = $Database->query(sprintf('SELECT id FROM %s ORDER BY fullname ASC', User\Attribute::TABLE));
+	$userIDs = $Database->query(sprintf('SELECT id FROM %s ORDER BY fullname ASC', User\Attribute::TABLE));
 
-		foreach($userIDs->fetchAll($Database::FETCH_COLUMN) as $userID) {
-			$User = User\Factory::build($userID);
-			$userAttributes[] = [
-				'ID' => $User->attr('id'),
-				'FULLNAME' => $User->attr('fullname'),
-				'USERNAME' => $User->attr('username'),
-			];
-		}
-
-		$FormTemplate = Template\Factory::build('post/form');
-		$FormTemplate->set('FORM', [
-			'TYPE' => 'UPDATE',
-			'INFO' => $messages ?? [],
-			'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
-			'USER_LIST' => $userAttributes ??  [],
-			'TOKEN' => Application::getSecurityToken()
-		]);
-
-		$PostUpdateTemplate = Template\Factory::build('post/update');
-		$PostUpdateTemplate->set('HTML', $FormTemplate);
-
-		$MainTemplate = Template\Factory::build('main');
-		$MainTemplate->set('NAME', $Language->text('title_post_update'));
-		$MainTemplate->set('HTML', $PostUpdateTemplate);
-		echo $MainTemplate;
+	foreach($userIDs->fetchAll($Database::FETCH_COLUMN) as $userID) {
+		$User = User\Factory::build($userID);
+		$userAttributes[] = [
+			'ID' => $User->attr('id'),
+			'FULLNAME' => $User->attr('fullname'),
+			'USERNAME' => $User->attr('username'),
+		];
 	}
 
 	#===============================================================================
-	# CATCH: Template\Exception
+	# Build document
 	#===============================================================================
-	catch(Template\Exception $Exception) {
-		Application::exit($Exception->getMessage());
-	}
+	$FormTemplate = Template\Factory::build('post/form');
+	$FormTemplate->set('FORM', [
+		'TYPE' => 'UPDATE',
+		'INFO' => $messages ?? [],
+		'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
+		'USER_LIST' => $userAttributes ??  [],
+		'TOKEN' => Application::getSecurityToken()
+	]);
+
+	$PostUpdateTemplate = Template\Factory::build('post/update');
+	$PostUpdateTemplate->set('HTML', $FormTemplate);
+
+	$MainTemplate = Template\Factory::build('main');
+	$MainTemplate->set('NAME', $Language->text('title_post_update'));
+	$MainTemplate->set('HTML', $PostUpdateTemplate);
+	echo $MainTemplate;
 }
 
 #===============================================================================
@@ -86,4 +77,3 @@ try {
 catch(Post\Exception $Exception) {
 	Application::error404();
 }
-?>

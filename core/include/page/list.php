@@ -30,49 +30,39 @@ if(Application::get('PAGE.SINGLE_REDIRECT') === TRUE AND $count === '1') {
 	HTTP::redirect($Page->getURL());
 }
 
-#===============================================================================
-# TRY: Template\Exception
-#===============================================================================
-try {
-	$execSQL = "SELECT * FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-	$Statement = $Database->query(sprintf($execSQL, Page\Attribute::TABLE));
+$execSQL = "SELECT * FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
+$Statement = $Database->query(sprintf($execSQL, Page\Attribute::TABLE));
 
-	while($Attribute = $Statement->fetchObject('Page\Attribute')) {
-		try {
-			$Page = Page\Factory::buildByAttribute($Attribute);
-			$User = User\Factory::build($Page->attr('user'));
+while($Attribute = $Statement->fetchObject('Page\Attribute')) {
+	try {
+		$Page = Page\Factory::buildByAttribute($Attribute);
+		$User = User\Factory::build($Page->attr('user'));
 
-			$ItemTemplate = generatePageItemTemplate($Page, $User);
+		$ItemTemplate = generatePageItemTemplate($Page, $User);
 
-			$pages[] = $ItemTemplate;
-		}
-		catch(Page\Exception $Exception){}
-		catch(User\Exception $Exception){}
+		$pages[] = $ItemTemplate;
 	}
-
-	$ListTemplate = Template\Factory::build('page/list');
-	$ListTemplate->set('PAGINATION', [
-		'THIS' => $currentSite,
-		'LAST' => $lastSite,
-		'HTML' => generatePageNaviTemplate($currentSite)
-	]);
-	$ListTemplate->set('LIST', [
-		'PAGES' => $pages ?? []
-	]);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('HTML', $ListTemplate);
-	$MainTemplate->set('HEAD', [
-		'NAME' => $Language->text('title_page_overview', $currentSite)
-	]);
-
-	echo $MainTemplate;
+	catch(Page\Exception $Exception){}
+	catch(User\Exception $Exception){}
 }
 
 #===============================================================================
-# CATCH: Template\Exception
+# Build document
 #===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
-?>
+$ListTemplate = Template\Factory::build('page/list');
+$ListTemplate->set('PAGINATION', [
+	'THIS' => $currentSite,
+	'LAST' => $lastSite,
+	'HTML' => generatePageNaviTemplate($currentSite)
+]);
+$ListTemplate->set('LIST', [
+	'PAGES' => $pages ?? []
+]);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('HTML', $ListTemplate);
+$MainTemplate->set('HEAD', [
+	'NAME' => $Language->text('title_page_overview', $currentSite)
+]);
+
+echo $MainTemplate;

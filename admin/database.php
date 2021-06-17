@@ -26,27 +26,17 @@ if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'command')) {
 }
 
 #===============================================================================
-# TRY: Template\Exception
+# Build document
 #===============================================================================
-try {
-	$DatabaseTemplate = Template\Factory::build('database');
-	$DatabaseTemplate->set('FORM', [
-		'INFO' => $messages ?? [],
-		'TOKEN' => Application::getSecurityToken(),
-		'RESULT' => implode(NULL, $result ?? []),
-		'COMMAND' => HTTP::POST('command'),
-	]);
+$DatabaseTemplate = Template\Factory::build('database');
+$DatabaseTemplate->set('FORM', [
+	'INFO' => $messages ?? [],
+	'TOKEN' => Application::getSecurityToken(),
+	'RESULT' => implode(NULL, $result ?? []),
+	'COMMAND' => HTTP::POST('command'),
+]);
 
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('NAME', 'SQL');
-	$MainTemplate->set('HTML', $DatabaseTemplate);
-	echo $MainTemplate;
-}
-
-#===============================================================================
-# CATCH: Template\Exception
-#===============================================================================
-catch(Template\Exception $Exception) {
-	Application::exit($Exception->getMessage());
-}
-?>
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('NAME', 'SQL');
+$MainTemplate->set('HTML', $DatabaseTemplate);
+echo $MainTemplate;

@@ -1,5 +1,5 @@
 <?php
-abstract class Attribute implements AttributeInterface {
+abstract class Attribute {
 
 	#===============================================================================
 	# Set attribute
@@ -82,4 +82,3 @@ abstract class Attribute implements AttributeInterface {
 		return $Statement->execute([$this->get('id')]);
 	}
 }
-?>

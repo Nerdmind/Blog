@@ -33,4 +33,3 @@ abstract class ItemFactory extends Factory {
 		return $Instance;
 	}
 }
-?>

@@ -55,4 +55,3 @@ class Item extends \Item {
 		return $Statement->fetchObject('User\Attribute');
 	}
 }
-?>

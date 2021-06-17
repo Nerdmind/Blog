@@ -30,8 +30,7 @@ try {
 
 		if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 			try {
-				if($Attribute->databaseUPDATE($Database)) {
-				}
+				$Attribute->databaseUPDATE($Database);
 			} catch(PDOException $Exception) {
 				$messages[] = $Exception->getMessage();
 			}
@@ -42,33 +41,24 @@ try {
 		}
 	}
 
-#===============================================================================
-# TRY: Template\Exception
-#===============================================================================
-	try {
-		$FormTemplate = Template\Factory::build('user/form');
-		$FormTemplate->set('FORM', [
-			'TYPE' => 'UPDATE',
-			'INFO' => $messages ?? [],
-			'DATA' => array_change_key_case($Attribute->getAll(['password']), CASE_UPPER),
-			'TOKEN' => Application::getSecurityToken()
-		]);
+	#===============================================================================
+	# Build document
+	#===============================================================================
+	$FormTemplate = Template\Factory::build('user/form');
+	$FormTemplate->set('FORM', [
+		'TYPE' => 'UPDATE',
+		'INFO' => $messages ?? [],
+		'DATA' => array_change_key_case($Attribute->getAll(['password']), CASE_UPPER),
+		'TOKEN' => Application::getSecurityToken()
+	]);
 
-		$InsertTemplate = Template\Factory::build('user/update');
-		$InsertTemplate->set('HTML', $FormTemplate);
+	$InsertTemplate = Template\Factory::build('user/update');
+	$InsertTemplate->set('HTML', $FormTemplate);
 
-		$MainTemplate = Template\Factory::build('main');
-		$MainTemplate->set('NAME', $Language->text('title_user_update'));
-		$MainTemplate->set('HTML', $InsertTemplate);
-		echo $MainTemplate;
-	}
-
-#===============================================================================
-# CATCH: Template\Exception
-#===============================================================================
-	catch(Template\Exception $Exception) {
-		Application::exit($Exception->getMessage());
-	}
+	$MainTemplate = Template\Factory::build('main');
+	$MainTemplate->set('NAME', $Language->text('title_user_update'));
+	$MainTemplate->set('HTML', $InsertTemplate);
+	echo $MainTemplate;
 }
 
 #===============================================================================
@@ -77,4 +67,3 @@ try {
 catch(User\Exception $Exception) {
 	Application::error404();
 }
-?>

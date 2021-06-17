@@ -4,4 +4,3 @@ class Database extends \PDO {
 		parent::__construct("mysql:host={$hostname};dbname={$basename};charset=utf8mb4;", $username, $password);
 	}
 }
-?>
