@@ -24,7 +24,7 @@ if(HTTP::issetPOST('id', 'user', 'slug', 'name', 'body', 'argv', 'time_insert', 
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			if($Attribute->databaseINSERT($Database)) {
+			if($Attribute->insert($Database)) {
 				HTTP::redirect(Application::getAdminURL('post/'));
 			}
 		} catch(PDOException $Exception) {

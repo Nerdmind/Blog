@@ -30,7 +30,7 @@ try {
 
 		if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 			try {
-				$Attribute->databaseUPDATE($Database);
+				$Attribute->update($Database);
 			} catch(PDOException $Exception) {
 				$messages[] = $Exception->getMessage();
 			}

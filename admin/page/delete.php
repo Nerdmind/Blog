@@ -19,7 +19,7 @@ try {
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'delete')) {
 		try {
-			if($Attribute->databaseDELETE($Database)) {
+			if($Attribute->delete($Database)) {
 				HTTP::redirect(Application::getAdminURL('page/'));
 			}
 		} catch(PDOException $Exception) {

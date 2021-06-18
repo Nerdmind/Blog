@@ -38,7 +38,7 @@ abstract class Attribute {
 	#===============================================================================
 	# Insert database item
 	#===============================================================================
-	public function databaseINSERT(\Database $Database): bool {
+	public function insert(\Database $Database): bool {
 		$part[0] = '';
 		$part[1] = '';
 
@@ -59,7 +59,7 @@ abstract class Attribute {
 	#===============================================================================
 	# Update database item
 	#===============================================================================
-	public function databaseUPDATE(\Database $Database): bool {
+	public function update(\Database $Database): bool {
 		$part = '';
 
 		$attributes = $this->getFilteredAttributes();
@@ -77,7 +77,7 @@ abstract class Attribute {
 	#===============================================================================
 	# Delete database item
 	#===============================================================================
-	public function databaseDELETE(\Database $Database): bool {
+	public function delete(\Database $Database): bool {
 		$Statement = $Database->prepare('DELETE FROM '.static::TABLE.' WHERE id = ?');
 		return $Statement->execute([$this->get('id')]);
 	}

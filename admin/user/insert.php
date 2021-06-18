@@ -26,7 +26,7 @@ if(HTTP::issetPOST('id', 'slug', 'username', 'password', 'fullname', 'mailaddr',
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			if($Attribute->databaseINSERT($Database)) {
+			if($Attribute->insert($Database)) {
 				HTTP::redirect(Application::getAdminURL('user/'));
 			}
 		} catch(PDOException $Exception) {
