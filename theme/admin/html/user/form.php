@@ -13,11 +13,18 @@
 
 <?php if($FORM['TYPE'] !== 'DELETE'): ?>
 	<div class="form-grid">
-		<label for="form_id">
-			<i class="fa fa-database"></i>ID</label>
+		<label for="form_fullname">
+			<i class="fa fa-user"></i><?=$Language->text('label_fullname')?></label>
+
+		<div class="form-grid-item first">
+			<input id="form_fullname" name="fullname" value="<?=escapeHTML($FORM['DATA']['FULLNAME'])?>" />
+		</div>
+
+		<label for="form_username">
+			<i class="fa fa-user-secret"></i><?=$Language->text('label_username')?></label>
 
 		<div class="form-grid-item">
-			<input<?=($FORM['TYPE'] === 'UPDATE') ? ' disabled="disabled"' : '';?> id="form_id" name="id" type="number" placeholder="AUTO_INCREMENT" value="<?=escapeHTML($FORM['DATA']['ID'])?>" />
+			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" />
 		</div>
 
 		<label for="form_password">
@@ -27,25 +34,11 @@
 			<input id="form_password" name="password" placeholder="NO CHANGE" type="password" />
 		</div>
 
-		<label for="form_fullname">
-			<i class="fa fa-user"></i><?=$Language->text('label_fullname')?></label>
-
-		<div class="form-grid-item">
-			<input id="form_fullname" name="fullname" value="<?=escapeHTML($FORM['DATA']['FULLNAME'])?>" />
-		</div>
-
 		<label for="form_mailaddr">
 			<i class="fa fa-envelope-o"></i><?=$Language->text('label_mailaddr')?></label>
 
 		<div class="form-grid-item">
 			<input id="form_mailaddr" name="mailaddr" value="<?=escapeHTML($FORM['DATA']['MAILADDR'])?>" />
-		</div>
-
-		<label for="form_username">
-			<i class="fa fa-user-secret"></i><?=$Language->text('label_username')?></label>
-
-		<div class="form-grid-item">
-			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" />
 		</div>
 
 		<label for="form_slug">

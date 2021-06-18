@@ -60,6 +60,11 @@
 
 	.form-grid {
 		grid-template-columns: auto auto;
+
+		&-item.first {
+			grid-column-start: 2;
+			grid-column-end: 3;
+		}
 	}
 
 	.actions {

@@ -13,11 +13,18 @@
 
 <?php if($FORM['TYPE'] !== 'DELETE'): ?>
 	<div class="form-grid">
-		<label for="form_id">
-			<i class="fa fa-database"></i>ID</label>
+		<label for="form_name">
+			<i class="fa fa-newspaper-o"></i><?=$Language->text('label_name')?></label>
+
+		<div class="form-grid-item first">
+			<input id="form_name" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" />
+		</div>
+
+		<label for="form_slug">
+			<i class="fa fa-link"></i><?=$Language->text('label_slug')?></label>
 
 		<div class="form-grid-item">
-			<input<?=($FORM['TYPE'] === 'UPDATE') ? ' disabled="disabled"' : '';?> id="form_id" name="id" type="number" placeholder="AUTO_INCREMENT" value="<?=escapeHTML($FORM['DATA']['ID'])?>" />
+			<input id="form_slug" name="slug" value="<?=escapeHTML($FORM['DATA']['SLUG'])?>" />
 		</div>
 
 		<label for="form_user">
@@ -29,20 +36,6 @@
 					<option value="<?=$user['ID']?>"<?=($FORM['DATA']['USER'] === $user['ID']) ? ' selected' : '' ?>><?=escapeHTML($user['FULLNAME'])?> [<?=$user['USERNAME']?>]</option>
 				<?php endforeach; ?>
 			</select>
-		</div>
-
-		<label for="form_name">
-			<i class="fa fa-newspaper-o"></i><?=$Language->text('label_name')?></label>
-
-		<div class="form-grid-item">
-			<input id="form_name" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" />
-		</div>
-
-		<label for="form_slug">
-			<i class="fa fa-link"></i><?=$Language->text('label_slug')?></label>
-
-		<div class="form-grid-item">
-			<input id="form_slug" name="slug" value="<?=escapeHTML($FORM['DATA']['SLUG'])?>" />
 		</div>
 
 		<label for="form_time_insert">

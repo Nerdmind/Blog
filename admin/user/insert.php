@@ -12,8 +12,7 @@ require '../../core/application.php';
 
 $Attribute = new User\Attribute();
 
-if(HTTP::issetPOST('id', 'slug', 'username', 'password', 'fullname', 'mailaddr', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
-	$Attribute->set('id',       HTTP::POST('id') ? HTTP::POST('id') : FALSE);
+if(HTTP::issetPOST('slug', 'username', 'password', 'fullname', 'mailaddr', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
 	$Attribute->set('slug',     HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('username')));
 	$Attribute->set('username', HTTP::POST('username') ? HTTP::POST('username') : NULL);
 	$Attribute->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : FALSE);

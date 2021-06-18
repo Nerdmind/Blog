@@ -578,6 +578,11 @@ table, td {
 		border-top: 0.05rem solid #AAA;
 		border-right: 0.05rem solid #AAA;
 	}
+
+	&-item.first {
+		grid-column-start: 2;
+		grid-column-end: 5;
+	}
 }
 
 .form-border-box {

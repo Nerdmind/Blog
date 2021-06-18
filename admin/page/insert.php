@@ -12,8 +12,7 @@ require '../../core/application.php';
 
 $Attribute = new Page\Attribute();
 
-if(HTTP::issetPOST('id', 'user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
-	$Attribute->set('id',   HTTP::POST('id') ? HTTP::POST('id') : FALSE);
+if(HTTP::issetPOST('user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
 	$Attribute->set('user', HTTP::POST('user'));
 	$Attribute->set('slug', HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('name')));
 	$Attribute->set('name', HTTP::POST('name') ? HTTP::POST('name') : NULL);

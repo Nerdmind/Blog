@@ -518,6 +518,10 @@ table, td {
   border-top: 0.05rem solid #AAA;
   border-right: 0.05rem solid #AAA;
 }
+.form-grid-item.first {
+  grid-column-start: 2;
+  grid-column-end: 5;
+}
 
 .form-border-box {
   border: 0.05rem solid #AAA;
@@ -744,6 +748,10 @@ label:after {
 
   .form-grid {
     grid-template-columns: auto auto;
+  }
+  .form-grid-item.first {
+    grid-column-start: 2;
+    grid-column-end: 3;
   }
 
   .actions {
