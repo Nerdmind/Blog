@@ -426,6 +426,7 @@ table, td {
 	display: flex;
 	flex-direction: column;
 	border: 0.05rem solid #AAA;
+	margin-bottom: 0.75rem;
 	clear: both;
 
 	header {
@@ -509,6 +510,10 @@ table, td {
 		grid-row-gap: 1rem;
 		column-gap: 1rem;
 		row-gap: 1rem;
+
+		.item {
+			margin-bottom: 0;
+		}
 	}
 }
 
