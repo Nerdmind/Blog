@@ -30,8 +30,9 @@ if(Application::isAuthenticated()) {
 if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'username', 'password')) {
 	try {
 		$User = User\Factory::buildByUsername(HTTP::POST('username'));
+		$password = $User->getAttribute()->get('password');
 
-		if($User->comparePassword(HTTP::POST('password'))) {
+		if(password_verify(HTTP::POST('password'), $password)) {
 			$_SESSION['auth'] = $User->getID();
 			HTTP::redirect(Application::getAdminURL());
 		}

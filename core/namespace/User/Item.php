@@ -25,11 +25,4 @@ class Item extends \Item {
 
 		return sha1(implode(NULL, $attributes));
 	}
-
-	#===============================================================================
-	# Compare plaintext password with hashed password from database
-	#===============================================================================
-	public function comparePassword($password): bool {
-		return password_verify($password, $this->Attribute->get('password'));
-	}
 }
