@@ -140,6 +140,26 @@ class Application {
 	}
 
 	#===============================================================================
+	# Return absolute URL of a specifc entity
+	#===============================================================================
+	public function getEntityURL(Item $Entity) {
+		switch($class = get_class($Entity)) {
+			case 'Page\Item':
+				$attr = self::get('PAGE.SLUG_URLS') ? 'slug' : 'id';
+				return self::getPageURL($Entity->attr($attr).'/');
+			case 'Post\Item':
+				$attr = self::get('POST.SLUG_URLS') ? 'slug' : 'id';
+				return self::getPostURL($Entity->attr($attr).'/');
+			case 'User\Item':
+				$attr = self::get('USER.SLUG_URLS') ? 'slug' : 'id';
+				return self::getUserURL($Entity->attr($attr).'/');
+			default:
+				$error = 'Unknown URL handler for <code>%s</code> entities.';
+				throw new Exception(sprintf($error, $class));
+		}
+	}
+
+	#===============================================================================
 	# Exit application with a custom message and status code
 	#===============================================================================
 	public static function exit($message = '', $code = 503): void {
