@@ -78,6 +78,8 @@ function generateItemTemplateData(Item $Item): array {
 	$ATTR = $Item->getAttribute()->getAll(['password']);
 	$ATTR = array_change_key_case($ATTR, CASE_UPPER);
 
+	$preparsed = parseContentTags($Item->attr('body'));
+
 	return [
 		'URL' => Application::getEntityURL($Item),
 		'GUID' => generatePseudoGUID($Item),
@@ -94,7 +96,7 @@ function generateItemTemplateData(Item $Item): array {
 
 		'BODY' => [
 			'TEXT' => function() use($Item) {
-				return $Item->getBody();
+				return $preparsed;
 			},
 			'HTML' => function() use($Item) {
 				return $Item->getHTML();
