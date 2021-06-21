@@ -51,56 +51,6 @@ abstract class Item implements ItemInterface {
 	}
 
 	#===============================================================================
-	# Return pre-parsed content
-	#===============================================================================
-	public function getBody(): string {
-		$content = preg_replace_callback('#\{(POST|PAGE|USER)\[([0-9]+)\]\}#', function($matches) {
-			$namespace = ucfirst(strtolower($matches[1])).'\\Factory';
-
-			try {
-				$Item = $namespace::build($matches[2]);
-				return Application::getEntityURL($Item);
-			} catch(Exception $Exception) {
-				return '{undefined}';
-			}
-		}, $this->Attribute->get('body'));
-
-		$content = preg_replace('#\{BASE\[\"([^"]+)\"\]\}#', \Application::getURL('$1'), $content);
-		$content = preg_replace('#\{FILE\[\"([^"]+)\"\]\}#', \Application::getFileURL('$1'), $content);
-
-		return $content;
-	}
-
-	#===============================================================================
-	# Return parsed content
-	#===============================================================================
-	public function getHTML(): string {
-		$item = "{$this->Reflection->getNamespaceName()}\\Item";
-
-		$Parsedown = new Parsedown();
-		$Parsedown->setUrlsLinked(FALSE);
-		$content = $this->getBody();
-
-		if(\Application::get($item::CONFIGURATION.'.EMOTICONS') === TRUE) {
-			$content = parseUnicodeEmoticons($content);
-			$content = parseEmoticons($content);
-		}
-
-		return $Parsedown->text($content);
-	}
-
-	#===============================================================================
-	# Return attached files
-	#===============================================================================
-	public function getFiles(): array {
-		if(preg_match_all('#\!\[(.*)\][ ]?(?:\n[ ]*)?\((.*)(\s[\'"](.*)[\'"])?\)#U', $this->getBody(), $matches)) {
-			return array_map('htmlentities', $matches[2]);
-		}
-
-		return [];
-	}
-
-	#===============================================================================
 	# Return parsed arguments
 	#===============================================================================
 	public function getArguments(): array {
