@@ -17,7 +17,7 @@ try {
 		$Page = Page\Factory::build($param);
 	}
 
-	$User = User\Factory::build($Page->attr('user'));
+	$User = User\Factory::build($Page->get('user'));
 
 	$page_data = generateItemTemplateData($Page);
 	$user_data = generateItemTemplateData($User);

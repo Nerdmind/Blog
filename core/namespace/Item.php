@@ -32,7 +32,7 @@ abstract class Item implements ItemInterface {
 	#===============================================================================
 	# Return attribute by name (short hand wrapper)
 	#===============================================================================
-	public function attr($attribute) {
+	public function get($attribute) {
 		return $this->Attribute->get($attribute);
 	}
 

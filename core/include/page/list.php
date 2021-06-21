@@ -36,7 +36,7 @@ $pageIDs = $Database->query(sprintf($execSQL, Page\Attribute::TABLE))->fetchAll(
 foreach($pageIDs as $pageID) {
 	try {
 		$Page = Page\Factory::build($pageID);
-		$User = User\Factory::build($Page->attr('user'));
+		$User = User\Factory::build($Page->get('user'));
 
 		$ItemTemplate = generatePageItemTemplate($Page, $User);
 

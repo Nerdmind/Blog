@@ -18,7 +18,7 @@ if($search = HTTP::GET('q')) {
 		foreach($postIDs as $postID) {
 			try {
 				$Post = Post\Factory::build($postID);
-				$User = User\Factory::build($Post->attr('user'));
+				$User = User\Factory::build($Post->get('user'));
 
 				$posts[] = generatePostItemTemplate($Post, $User);
 			}

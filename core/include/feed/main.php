@@ -23,7 +23,7 @@ if(!isset($param) OR $param !== 'page') {
 	foreach($postIDs as $postID) {
 		try {
 			$Post = Post\Factory::build($postID);
-			$User = User\Factory::build($Post->attr('user'));
+			$User = User\Factory::build($Post->get('user'));
 
 			$ItemTemplate = Template\Factory::build('feed/item_post');
 			$ItemTemplate->set('POST', generateItemTemplateData($Post));
@@ -50,7 +50,7 @@ if(!isset($param) OR $param !== 'post') {
 	foreach($pageIDs as $pageID) {
 		try {
 			$Page = Page\Factory::build($pageID);
-			$User = User\Factory::build($Page->attr('user'));
+			$User = User\Factory::build($Page->get('user'));
 
 			$ItemTemplate = Template\Factory::build('feed/item_page');
 			$ItemTemplate->set('PAGE', generateItemTemplateData($Page));

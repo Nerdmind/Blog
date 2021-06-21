@@ -13,7 +13,7 @@ $postIDs = $Statement->fetchAll($Database::FETCH_COLUMN);
 foreach($postIDs as $postID) {
 	try {
 		$Post = Post\Factory::build($postID);
-		$User = User\Factory::build($Post->attr('user'));
+		$User = User\Factory::build($Post->get('user'));
 
 		$ItemTemplate = generatePostItemTemplate($Post, $User);
 

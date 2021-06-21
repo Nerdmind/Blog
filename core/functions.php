@@ -78,12 +78,12 @@ function generateItemTemplateData(Item $Item): array {
 	$ATTR = $Item->getAttribute()->getAll(['password']);
 	$ATTR = array_change_key_case($ATTR, CASE_UPPER);
 
-	$preparsed = parseContentTags($Item->attr('body'));
+	$preparsed = parseContentTags($Item->get('body'));
 
 	return [
 		'URL' => Application::getEntityURL($Item),
 		'GUID' => generatePseudoGUID($Item),
-		'ARGV' => parseArguments($Item->attr('argv')),
+		'ARGV' => parseArguments($Item->get('argv')),
 
 		'ATTR' => $ATTR,
 
@@ -121,7 +121,7 @@ function generatePseudoGUID(Item $Entity) {
 	}
 
 	foreach($attr as $attribute) {
-		$attributes[] = $Entity->attr($attribute);
+		$attributes[] = $Entity->get($attribute);
 	}
 
 	return sha1(implode('', $attributes));
@@ -175,7 +175,7 @@ function parseEntityContent(Item $Item): string {
 	$Parsedown = new Parsedown();
 	$Parsedown->setUrlsLinked(FALSE);
 
-	$text = parseContentTags($Item->attr('body'));
+	$text = parseContentTags($Item->get('body'));
 
 	if(Application::get("$prefix.EMOTICONS")) {
 		$text = parseUnicodeEmoticons($text);

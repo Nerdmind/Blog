@@ -25,7 +25,7 @@ $UserCountStatement = $Database->query(sprintf($execute, User\Attribute::TABLE))
 
 try {
 	$LastPage = Page\Factory::build($LastPageStatement->fetchColumn());
-	$LastPageUser = User\Factory::build($LastPage->attr('user'));
+	$LastPageUser = User\Factory::build($LastPage->get('user'));
 
 	$PageItemTemplate = generatePageItemTemplate($LastPage, $LastPageUser);
 }
@@ -35,7 +35,7 @@ catch(User\Exception $Exception){}
 
 try {
 	$LastPost = Post\Factory::build($LastPostStatement->fetchColumn());
-	$LastPostUser = User\Factory::build($LastPost->attr('user'));
+	$LastPostUser = User\Factory::build($LastPost->get('user'));
 
 	$PostItemTemplate = generatePostItemTemplate($LastPost, $LastPostUser);
 }

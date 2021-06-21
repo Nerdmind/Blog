@@ -17,7 +17,7 @@ try {
 		$Post = Post\Factory::build($param);
 	}
 
-	$User = User\Factory::build($Post->attr('user'));
+	$User = User\Factory::build($Post->get('user'));
 
 	$post_data = generateItemTemplateData($Post);
 	$user_data = generateItemTemplateData($User);

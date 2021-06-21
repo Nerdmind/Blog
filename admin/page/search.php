@@ -18,7 +18,7 @@ if($search = HTTP::GET('q')) {
 		foreach($pageIDs as $pageID) {
 			try {
 				$Page = Page\Factory::build($pageID);
-				$User = User\Factory::build($Page->attr('user'));
+				$User = User\Factory::build($Page->get('user'));
 
 				$pages[] = generatePageItemTemplate($Page, $User);
 			}

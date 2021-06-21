@@ -44,9 +44,9 @@ try {
 	foreach($userIDs->fetchAll($Database::FETCH_COLUMN) as $userID) {
 		$User = User\Factory::build($userID);
 		$userAttributes[] = [
-			'ID' => $User->attr('id'),
-			'FULLNAME' => $User->attr('fullname'),
-			'USERNAME' => $User->attr('username'),
+			'ID' => $User->get('id'),
+			'FULLNAME' => $User->get('fullname'),
+			'USERNAME' => $User->get('username'),
 		];
 	}
 

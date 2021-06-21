@@ -146,13 +146,13 @@ class Application {
 		switch($class = get_class($Entity)) {
 			case 'Page\Item':
 				$attr = self::get('PAGE.SLUG_URLS') ? 'slug' : 'id';
-				return self::getPageURL($Entity->attr($attr).'/');
+				return self::getPageURL($Entity->get($attr).'/');
 			case 'Post\Item':
 				$attr = self::get('POST.SLUG_URLS') ? 'slug' : 'id';
-				return self::getPostURL($Entity->attr($attr).'/');
+				return self::getPostURL($Entity->get($attr).'/');
 			case 'User\Item':
 				$attr = self::get('USER.SLUG_URLS') ? 'slug' : 'id';
-				return self::getUserURL($Entity->attr($attr).'/');
+				return self::getUserURL($Entity->get($attr).'/');
 			default:
 				$error = 'Unknown URL handler for <code>%s</code> entities.';
 				throw new Exception(sprintf($error, $class));
