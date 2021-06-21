@@ -104,6 +104,28 @@ function generateItemTemplateData(Item $Item): array {
 }
 
 #===============================================================================
+# Generate pseudo GUID for entity
+#===============================================================================
+function generatePseudoGUID(Item $Entity) {
+	switch(get_class($Entity)) {
+		case "Page\Item":
+			$attr = Application::get('PAGE.FEED_GUID');
+			break;
+		case "Post\Item":
+			$attr = Application::get('POST.FEED_GUID');
+			break;
+		default:
+			$attr = ['id', 'time_insert'];
+	}
+
+	foreach($attr as $attribute) {
+		$attributes[] = $Entity->attr($attribute);
+	}
+
+	return sha1(implode('', $attributes));
+}
+
+#===============================================================================
 # Parser for datetime formatted strings [YYYY-MM-DD HH:II:SS]
 #===============================================================================
 function parseDatetime($datetime, $format): string {
