@@ -4,8 +4,6 @@ abstract class Item implements ItemInterface {
 	protected $Attribute  = NULL;
 	protected $Reflection = NULL;
 
-	abstract public function getGUID();
-
 	#===============================================================================
 	# Abstract item constructor
 	#===============================================================================

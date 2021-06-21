@@ -5,17 +5,6 @@ class Item extends \Item {
 	const CONFIGURATION = 'POST';
 
 	#===============================================================================
-	# Return unique pseudo GUID
-	#===============================================================================
-	public function getGUID(): string {
-		foreach(\Application::get('POST.FEED_GUID') as $attribute) {
-			$attributes[] = $this->Attribute->get($attribute);
-		}
-
-		return sha1(implode(NULL, $attributes));
-	}
-
-	#===============================================================================
 	# Return unique post IDs for search results
 	#===============================================================================
 	public static function getSearchResultIDs($search, array $date, \Database $Database): array {
