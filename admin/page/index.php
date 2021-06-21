@@ -35,10 +35,7 @@ foreach($pageIDs as $pageID) {
 	try {
 		$Page = Page\Factory::build($pageID);
 		$User = User\Factory::build($Page->get('user'));
-
-		$ItemTemplate = generatePageItemTemplate($Page, $User);
-
-		$templates[] = $ItemTemplate;
+		$templates[] = generatePageItemTemplate($Page, $User);
 	}
 	catch(Page\Exception $Exception){}
 	catch(User\Exception $Exception){}

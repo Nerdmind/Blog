@@ -41,7 +41,6 @@ if(isset($postIDs) AND !empty($postIDs)) {
 		try {
 			$Post = Post\Factory::build($postID);
 			$User = User\Factory::build($Post->get('user'));
-
 			$templates[] = generatePostItemTemplate($Post, $User);
 		}
 		catch(Post\Exception $Exception){}

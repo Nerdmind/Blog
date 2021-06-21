@@ -37,10 +37,7 @@ foreach($postIDs as $postID) {
 	try {
 		$Post = Post\Factory::build($postID);
 		$User = User\Factory::build($Post->get('user'));
-
-		$ItemTemplate = generatePostItemTemplate($Post, $User);
-
-		$templates[] = $ItemTemplate;
+		$templates[] = generatePostItemTemplate($Post, $User);
 	}
 	catch(Post\Exception $Exception){}
 	catch(User\Exception $Exception){}

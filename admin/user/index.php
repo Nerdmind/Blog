@@ -34,9 +34,7 @@ $userIDs = $Database->query(sprintf($execSQL, User\Attribute::TABLE))->fetchAll(
 foreach($userIDs as $userID) {
 	try {
 		$User = User\Factory::build($userID);
-		$ItemTemplate = generateUserItemTemplate($User);
-
-		$templates[] = $ItemTemplate;
+		$templates[] = generateUserItemTemplate($User);
 	} catch(User\Exception $Exception){}
 }
 
