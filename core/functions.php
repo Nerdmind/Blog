@@ -126,6 +126,32 @@ function generatePseudoGUID(Item $Entity) {
 }
 
 #===============================================================================
+# Parse content tags
+#===============================================================================
+function parseContentTags(string $text): string {
+	$entity_tags = '#\{(POST|PAGE|USER)\[([0-9]+)\]\}#';
+
+	$text = preg_replace_callback($entity_tags, function($matches) {
+		$namespace = ucfirst(strtolower($matches[1])).'\\Factory';
+
+		try {
+			$Entity = $namespace::build($matches[2]);
+			return Application::getEntityURL($Entity);
+		} catch(Exception $Exception) {
+			return '{undefined}';
+		}
+	}, $text);
+
+	$base_tag = '#\{BASE\[\"([^"]+)\"\]\}#';
+	$file_tag = '#\{FILE\[\"([^"]+)\"\]\}#';
+
+	$text = preg_replace($base_tag, \Application::getURL('$1'), $text);
+	$text = preg_replace($file_tag, \Application::getFileURL('$1'), $text);
+
+	return $text;
+}
+
+#===============================================================================
 # Parser for datetime formatted strings [YYYY-MM-DD HH:II:SS]
 #===============================================================================
 function parseDatetime($datetime, $format): string {
