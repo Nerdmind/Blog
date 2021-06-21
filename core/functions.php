@@ -186,6 +186,20 @@ function parseEntityContent(Item $Item): string {
 }
 
 #===============================================================================
+# Extract Markdown formatted image URLs
+#===============================================================================
+function getMarkdownImageURLs(string $text): array {
+	$pattern = '#\!\[(.*)\][ ]?(?:\n[ ]*)?\((.*)(\s[\'"](.*)[\'"])?\)#U';
+	$content = parseContentTags($text);
+
+	if(preg_match_all($pattern, $content, $matches)) {
+		return array_map('htmlentities', $matches[2]);
+	}
+
+	return [];
+}
+
+#===============================================================================
 # Parser for datetime formatted strings [YYYY-MM-DD HH:II:SS]
 #===============================================================================
 function parseDatetime($datetime, $format): string {
