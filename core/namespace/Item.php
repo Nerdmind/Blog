@@ -51,26 +51,6 @@ abstract class Item implements ItemInterface {
 	}
 
 	#===============================================================================
-	# Return parsed arguments
-	#===============================================================================
-	public function getArguments(): array {
-		if($argv = $this->Attribute->get('argv')) {
-			foreach(explode('|', $argv) as $delimeter) {
-				$part = explode('=', $delimeter);
-
-				$argumentK = $part[0] ?? NULL;
-				$argumentV = $part[1] ?? TRUE;
-
-				if(preg_match('#^[[:word:]]+$#', $argumentK)) {
-					$arguments[strtoupper($argumentK)] = $argumentV;
-				}
-			}
-		}
-
-		return $arguments ?? [];
-	}
-
-	#===============================================================================
 	# Return previous item ID
 	#===============================================================================
 	public function getPrevID(): int {
