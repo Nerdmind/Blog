@@ -152,6 +152,38 @@ function parseContentTags(string $text): string {
 }
 
 #===============================================================================
+# Parse entity content
+#===============================================================================
+function parseEntityContent(Item $Item): string {
+	switch($class = get_class($Item)) {
+		case 'Page\Item':
+			$prefix = 'PAGE';
+			break;
+		case 'Post\Item':
+			$prefix = 'POST';
+			break;
+		case 'User\Item':
+			$prefix = 'USER';
+			break;
+		default:
+			$error = 'Unknown config prefix for <code>%s</code> entities.';
+			throw new Exception(sprintf($error, $class));
+	}
+
+	$Parsedown = new Parsedown();
+	$Parsedown->setUrlsLinked(FALSE);
+
+	$text = parseContentTags($Item->attr('body'));
+
+	if(Application::get("$prefix.EMOTICONS")) {
+		$text = parseUnicodeEmoticons($text);
+		$text = parseEmoticons($text);
+	}
+
+	return $Parsedown->text($text);
+}
+
+#===============================================================================
 # Parser for datetime formatted strings [YYYY-MM-DD HH:II:SS]
 #===============================================================================
 function parseDatetime($datetime, $format): string {
