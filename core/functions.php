@@ -83,7 +83,7 @@ function generateItemTemplateData(Item $Item): array {
 	return [
 		'URL' => Application::getEntityURL($Item),
 		'GUID' => generatePseudoGUID($Item),
-		'ARGV' => $Item->getArguments(),
+		'ARGV' => parseArguments($Item->attr('argv')),
 
 		'ATTR' => $ATTR,
 
