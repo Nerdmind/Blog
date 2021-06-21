@@ -31,7 +31,7 @@ try {
 	# Build document
 	#===============================================================================
 	$FormTemplate = Template\Factory::build('user/form');
-	$FormTemplate->set('HTML', $User->getHTML());
+	$FormTemplate->set('HTML', parseEntityContent($User));
 	$FormTemplate->set('FORM', [
 		'TYPE' => 'DELETE',
 		'INFO' => $messages ?? [],

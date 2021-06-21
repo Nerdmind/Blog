@@ -99,7 +99,7 @@ function generateItemTemplateData(Item $Item): array {
 				return $preparsed;
 			},
 			'HTML' => function() use($Item) {
-				return $Item->getHTML();
+				return parseEntityContent($Item);
 			}
 		]
 	];
