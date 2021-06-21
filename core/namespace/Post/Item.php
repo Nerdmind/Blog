@@ -5,17 +5,6 @@ class Item extends \Item {
 	const CONFIGURATION = 'POST';
 
 	#===============================================================================
-	# Return absolute post URL
-	#===============================================================================
-	public function getURL(): string {
-		if(\Application::get('POST.SLUG_URLS')) {
-			return \Application::getPostURL("{$this->Attribute->get('slug')}/");
-		}
-
-		return \Application::getPostURL("{$this->Attribute->get('id')}/");
-	}
-
-	#===============================================================================
 	# Return unique pseudo GUID
 	#===============================================================================
 	public function getGUID(): string {

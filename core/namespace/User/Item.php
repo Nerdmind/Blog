@@ -5,17 +5,6 @@ class Item extends \Item {
 	const CONFIGURATION = 'USER';
 
 	#===============================================================================
-	# Return absolute user URL
-	#===============================================================================
-	public function getURL(): string {
-		if(\Application::get('USER.SLUG_URLS')) {
-			return \Application::getUserURL("{$this->Attribute->get('slug')}/");
-		}
-
-		return \Application::getUserURL("{$this->Attribute->get('id')}/");
-	}
-
-	#===============================================================================
 	# Return unique pseudo GUID
 	#===============================================================================
 	public function getGUID(): string {

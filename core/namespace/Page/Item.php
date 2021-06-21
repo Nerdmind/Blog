@@ -5,17 +5,6 @@ class Item extends \Item {
 	const CONFIGURATION = 'PAGE';
 
 	#===============================================================================
-	# Return absolute page URL
-	#===============================================================================
-	public function getURL(): string {
-		if(\Application::get('PAGE.SLUG_URLS')) {
-			return \Application::getPageURL("{$this->Attribute->get('slug')}/");
-		}
-
-		return \Application::getPageURL("{$this->Attribute->get('id')}/");
-	}
-
-	#===============================================================================
 	# Return unique pseudo GUID
 	#===============================================================================
 	public function getGUID(): string {
