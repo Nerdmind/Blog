@@ -62,7 +62,7 @@ abstract class Item implements ItemInterface {
 
 			try {
 				$Item = $namespace::build($matches[2]);
-				return $Item->getURL();
+				return Application::getEntityURL($Item);
 			} catch(Exception $Exception) {
 				return '{undefined}';
 			}

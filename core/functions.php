@@ -79,7 +79,7 @@ function generateItemTemplateData(Item $Item): array {
 	$ATTR = array_change_key_case($ATTR, CASE_UPPER);
 
 	return [
-		'URL' => $Item->getURL(),
+		'URL' => Application::getEntityURL($Item),
 		'GUID' => $Item->getGUID(),
 		'ARGV' => $Item->getArguments(),
 

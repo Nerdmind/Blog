@@ -50,7 +50,7 @@ try {
 	$MainTemplate->set('HEAD', [
 		'NAME' => $user_data['ATTR']['FULLNAME'],
 		'DESC' => description($user_data['BODY']['HTML'](), Application::get('USER.DESCRIPTION_SIZE')),
-		'PERM' => $User->getURL(),
+		'PERM' => $user_data['URL'],
 		'OG_IMAGES' => $User->getFiles()
 	]);
 
@@ -72,7 +72,7 @@ catch(User\Exception $Exception) {
 			$User = User\Factory::build($param);
 		}
 
-		HTTP::redirect($User->getURL());
+		HTTP::redirect(Application::getEntityURL($User));
 	}
 
 	catch(User\Exception $Exception) {

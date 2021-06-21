@@ -70,7 +70,7 @@ catch(Post\Exception $Exception) {
 			$Post = Post\Factory::build($param);
 		}
 
-		HTTP::redirect($Post->getURL());
+		HTTP::redirect(Application::getEntityURL($Post));
 	}
 
 	catch(Post\Exception $Exception) {

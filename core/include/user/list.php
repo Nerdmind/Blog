@@ -27,7 +27,7 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 if(Application::get('USER.SINGLE_REDIRECT') === TRUE AND $count === '1') {
 	$Statement = $Database->query(sprintf('SELECT id FROM %s LIMIT 1', User\Attribute::TABLE));
 	$User = User\Factory::build($Statement->fetchColumn());
-	HTTP::redirect($User->getURL());
+	HTTP::redirect(Application::getEntityURL($User));
 }
 
 $execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
