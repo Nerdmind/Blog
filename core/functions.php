@@ -91,7 +91,7 @@ function generateItemTemplateData(Item $Item): array {
 		'NEXT' => FALSE,
 
 		'FILE' => [
-			'LIST' => $Item->getFiles()
+			'LIST' => getMarkdownImageURLs($preparsed),
 		],
 
 		'BODY' => [

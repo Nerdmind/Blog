@@ -51,7 +51,7 @@ try {
 		'NAME' => $user_data['ATTR']['FULLNAME'],
 		'DESC' => description($user_data['BODY']['HTML'](), Application::get('USER.DESCRIPTION_SIZE')),
 		'PERM' => $user_data['URL'],
-		'OG_IMAGES' => $User->getFiles()
+		'OG_IMAGES' => $user_data['FILE']['LIST']
 	]);
 
 	# Get access to the current item data from main template
