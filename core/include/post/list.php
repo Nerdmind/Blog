@@ -2,8 +2,13 @@
 #===============================================================================
 # Get instances
 #===============================================================================
-$Database = Application::getDatabase();
 $Language = Application::getLanguage();
+
+#===============================================================================
+# Get repositories
+#===============================================================================
+$PostRepository = Application::getRepository('Post');
+$UserRepository = Application::getRepository('User');
 
 #===============================================================================
 # Pagination
@@ -11,7 +16,7 @@ $Language = Application::getLanguage();
 $site_size = Application::get('POST.LIST_SIZE');
 $site_sort = Application::get('POST.LIST_SORT');
 
-$count = $Database->query(sprintf('SELECT COUNT(id) FROM %s', Post\Attribute::TABLE))->fetchColumn();
+$count = $PostRepository->getCount();
 $lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
@@ -24,23 +29,23 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 #===============================================================================
 # Single redirect
 #===============================================================================
-if(Application::get('POST.SINGLE_REDIRECT') === TRUE AND $count === '1') {
-	$Statement = $Database->query(sprintf('SELECT id FROM %s LIMIT 1', Post\Attribute::TABLE));
-	$Post = Post\Factory::build($Statement->fetchColumn());
+if(Application::get('POST.SINGLE_REDIRECT') === TRUE AND $count === 1) {
+	$Post = $PostRepository->getLast();
 	HTTP::redirect(Application::getEntityURL($Post));
 }
 
-$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-$postIDs = $Database->query(sprintf($execSQL, Post\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+#===============================================================================
+# Get paginated post list
+#===============================================================================
+$posts = $PostRepository->getPaginated(
+	$site_sort,
+	$site_size,
+	($currentSite-1) * $site_size
+);
 
-foreach($postIDs as $postID) {
-	try {
-		$Post = Post\Factory::build($postID);
-		$User = User\Factory::build($Post->get('user'));
-		$templates[] = generatePostItemTemplate($Post, $User);
-	}
-	catch(Post\Exception $Exception){}
-	catch(User\Exception $Exception){}
+foreach($posts as $Post) {
+	$User = $UserRepository->find($Post->get('user'));
+	$templates[] = generatePostItemTemplate($Post, $User);
 }
 
 #===============================================================================

@@ -1,16 +1,20 @@
 <?php
+use Page\Entity as Page;
+use Post\Entity as Post;
+use User\Entity as User;
+use Template\Template as Template;
+use Template\Factory as TemplateFactory;
+
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generateNaviTemplate(int $current, $location, $namespace): Template\Template {
-	$Database = Application::getDatabase();
-	$Attribute = "{$namespace}\\Attribute";
+function generateNaviTemplate(int $current, $location, $namespace): Template {
+	$Repository = Application::getRepository($namespace);
 
-	$Statement = $Database->query(sprintf('SELECT COUNT(id) FROM %s', $Attribute::TABLE));
+	$listSize = Application::get(strtoupper($namespace).'.LIST_SIZE');
+	$lastSite = ceil($Repository->getCount() / $listSize);
 
-	$lastSite = ceil($Statement->fetchColumn() / Application::get(strtoupper($namespace).'.LIST_SIZE'));
-
-	$PaginationTemplate = Template\Factory::build('pagination');
+	$PaginationTemplate = TemplateFactory::build('pagination');
 	$PaginationTemplate->set('THIS', $current);
 	$PaginationTemplate->set('LAST', $lastSite);
 	$PaginationTemplate->set('HREF', "{$location}?site=%d");
@@ -21,29 +25,29 @@ function generateNaviTemplate(int $current, $location, $namespace): Template\Tem
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generatePageNaviTemplate($current): Template\Template {
+function generatePageNaviTemplate($current): Template {
 	return generateNaviTemplate($current, Application::getPageURL(), 'Page');
 }
 
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generatePostNaviTemplate($current): Template\Template {
+function generatePostNaviTemplate($current): Template {
 	return generateNaviTemplate($current, Application::getPostURL(), 'Post');
 }
 
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generateUserNaviTemplate($current): Template\Template {
+function generateUserNaviTemplate($current): Template {
 	return generateNaviTemplate($current, Application::getUserURL(), 'User');
 }
 
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generatePageItemTemplate(Page\Item $Page, User\Item $User): Template\Template {
-	$Template = Template\Factory::build('page/item');
+function generatePageItemTemplate(Page $Page, User $User): Template {
+	$Template = TemplateFactory::build('page/item');
 	$Template->set('PAGE', generateItemTemplateData($Page));
 	$Template->set('USER', generateItemTemplateData($User));
 
@@ -53,8 +57,8 @@ function generatePageItemTemplate(Page\Item $Page, User\Item $User): Template\Te
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generatePostItemTemplate(Post\Item $Post, User\Item $User): Template\Template {
-	$Template = Template\Factory::build('post/item');
+function generatePostItemTemplate(Post $Post, User $User): Template {
+	$Template = TemplateFactory::build('post/item');
 	$Template->set('POST', generateItemTemplateData($Post));
 	$Template->set('USER', generateItemTemplateData($User));
 
@@ -64,8 +68,8 @@ function generatePostItemTemplate(Post\Item $Post, User\Item $User): Template\Te
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generateUserItemTemplate(User\Item $User): Template\Template {
-	$Template = Template\Factory::build('user/item');
+function generateUserItemTemplate(User $User): Template {
+	$Template = TemplateFactory::build('user/item');
 	$Template->set('USER', generateItemTemplateData($User));
 
 	return $Template;
@@ -74,16 +78,16 @@ function generateUserItemTemplate(User\Item $User): Template\Template {
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generateItemTemplateData(Item $Item): array {
-	$ATTR = $Item->getAttribute()->getAll(['password']);
+function generateItemTemplateData(EntityInterface $Entity): array {
+	$ATTR = $Entity->getAll(['password']);
 	$ATTR = array_change_key_case($ATTR, CASE_UPPER);
 
-	$preparsed = parseContentTags($Item->get('body'));
+	$preparsed = parseContentTags($Entity->get('body'));
 
 	return [
-		'URL' => Application::getEntityURL($Item),
-		'GUID' => generatePseudoGUID($Item),
-		'ARGV' => parseArguments($Item->get('argv')),
+		'URL' => Application::getEntityURL($Entity),
+		'GUID' => generatePseudoGUID($Entity),
+		'ARGV' => parseArguments($Entity->get('argv')),
 
 		'ATTR' => $ATTR,
 
@@ -95,11 +99,11 @@ function generateItemTemplateData(Item $Item): array {
 		],
 
 		'BODY' => [
-			'TEXT' => function() use($Item) {
+			'TEXT' => function() use($Entity) {
 				return $preparsed;
 			},
-			'HTML' => function() use($Item) {
-				return parseEntityContent($Item);
+			'HTML' => function() use($Entity) {
+				return parseEntityContent($Entity);
 			}
 		]
 	];
@@ -108,12 +112,12 @@ function generateItemTemplateData(Item $Item): array {
 #===============================================================================
 # Generate pseudo GUID for entity
 #===============================================================================
-function generatePseudoGUID(Item $Entity) {
+function generatePseudoGUID(EntityInterface $Entity) {
 	switch(get_class($Entity)) {
-		case "Page\Item":
+		case "Page\Entity":
 			$attr = Application::get('PAGE.FEED_GUID');
 			break;
-		case "Post\Item":
+		case "Post\Entity":
 			$attr = Application::get('POST.FEED_GUID');
 			break;
 		default:
@@ -134,12 +138,14 @@ function parseContentTags(string $text): string {
 	$entity_tags = '#\{(POST|PAGE|USER)\[([0-9]+)\]\}#';
 
 	$text = preg_replace_callback($entity_tags, function($matches) {
-		$namespace = ucfirst(strtolower($matches[1])).'\\Factory';
+		$namespace = ucfirst(strtolower($matches[1]));
+		$Repository = Application::getRepository($namespace);
 
-		try {
-			$Entity = $namespace::build($matches[2]);
+		if($Entity = $Repository->find($matches[2])) {
 			return Application::getEntityURL($Entity);
-		} catch(Exception $Exception) {
+		}
+
+		else {
 			return '{undefined}';
 		}
 	}, $text);
@@ -156,15 +162,15 @@ function parseContentTags(string $text): string {
 #===============================================================================
 # Parse entity content
 #===============================================================================
-function parseEntityContent(Item $Item): string {
-	switch($class = get_class($Item)) {
-		case 'Page\Item':
+function parseEntityContent(EntityInterface $Entity): string {
+	switch($class = get_class($Entity)) {
+		case 'Page\Entity':
 			$prefix = 'PAGE';
 			break;
-		case 'Post\Item':
+		case 'Post\Entity':
 			$prefix = 'POST';
 			break;
-		case 'User\Item':
+		case 'User\Entity':
 			$prefix = 'USER';
 			break;
 		default:
@@ -175,7 +181,7 @@ function parseEntityContent(Item $Item): string {
 	$Parsedown = new Parsedown();
 	$Parsedown->setUrlsLinked(FALSE);
 
-	$text = parseContentTags($Item->get('body'));
+	$text = parseContentTags($Entity->get('body'));
 
 	if(Application::get("$prefix.EMOTICONS")) {
 		$text = parseUnicodeEmoticons($text);
@@ -409,34 +415,37 @@ function generateSlug($string, $separator = '-') {
 # Function to get data from specific page in templates
 #===============================================================================
 function PAGE(int $id): array {
-	try {
-		$Page = Page\Factory::build($id);
+	$Repository = Application::getRepository('Page');
+
+	if($Page = $Repository->find($id)) {
 		return generateItemTemplateData($Page);
-	} catch(Page\Exception $Exception) {
-		return [];
 	}
+
+	return [];
 }
 
 #===============================================================================
 # Function to get data from specific post in templates
 #===============================================================================
 function POST(int $id): array {
-	try {
-		$Post = Post\Factory::build($id);
+	$Repository = Application::getRepository('Post');
+
+	if($Post = $Repository->find($id)) {
 		return generateItemTemplateData($Post);
-	} catch(Post\Exception $Exception) {
-		return [];
 	}
+
+	return [];
 }
 
 #===============================================================================
 # Function to get data from specific user in templates
 #===============================================================================
 function USER(int $id): array {
-	try {
-		$User = User\Factory::build($id);
+	$Repository = Application::getRepository('User');
+
+	if($User = $Repository->find($id)) {
 		return generateItemTemplateData($User);
-	} catch(User\Exception $Exception) {
-		return [];
 	}
+
+	return [];
 }

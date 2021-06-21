@@ -11,42 +11,28 @@ define('AUTHENTICATION', TRUE);
 require '../core/application.php';
 
 #===============================================================================
-# Fetch last items and item count
+# Get repositories
 #===============================================================================
-$execute = 'SELECT id FROM %s ORDER BY time_insert DESC LIMIT 1';
-$LastPageStatement = $Database->query(sprintf($execute, Page\Attribute::TABLE));
-$LastPostStatement = $Database->query(sprintf($execute, Post\Attribute::TABLE));
-$LastUserStatement = $Database->query(sprintf($execute, User\Attribute::TABLE));
+$PageRepository = Application::getRepository('Page');
+$PostRepository = Application::getRepository('Post');
+$UserRepository = Application::getRepository('User');
 
-$execute = 'SELECT COUNT(*) FROM %s';
-$PageCountStatement = $Database->query(sprintf($execute, Page\Attribute::TABLE));
-$PostCountStatement = $Database->query(sprintf($execute, Post\Attribute::TABLE));
-$UserCountStatement = $Database->query(sprintf($execute, User\Attribute::TABLE));
-
-try {
-	$LastPage = Page\Factory::build($LastPageStatement->fetchColumn());
-	$LastPageUser = User\Factory::build($LastPage->get('user'));
-
-	$PageItemTemplate = generatePageItemTemplate($LastPage, $LastPageUser);
+#===============================================================================
+# Last items
+#===============================================================================
+if($Page = $PageRepository->getLast()) {
+	$User = $UserRepository->find($Page->get('user'));
+	$PageItemTemplate = generatePageItemTemplate($Page, $User);
 }
 
-catch(Page\Exception $Exception){}
-catch(User\Exception $Exception){}
-
-try {
-	$LastPost = Post\Factory::build($LastPostStatement->fetchColumn());
-	$LastPostUser = User\Factory::build($LastPost->get('user'));
-
-	$PostItemTemplate = generatePostItemTemplate($LastPost, $LastPostUser);
+if($Post = $PostRepository->getLast()) {
+	$User = $UserRepository->find($Post->get('user'));
+	$PostItemTemplate = generatePostItemTemplate($Post, $User);
 }
 
-catch(Post\Exception $Exception){}
-catch(User\Exception $Exception){}
-
-try {
-	$LastUser = User\Factory::build($LastUserStatement->fetchColumn());
-	$UserItemTemplate = generateUserItemTemplate($LastUser);
-} catch(User\Exception $Exception){}
+if($User = $UserRepository->getLast()) {
+	$UserItemTemplate = generateUserItemTemplate($User);
+}
 
 #===============================================================================
 # Build document
@@ -55,14 +41,13 @@ $HomeTemplate = Template\Factory::build('home');
 $HomeTemplate->set('LAST', [
 	'PAGE' => $PageItemTemplate ?? FALSE,
 	'POST' => $PostItemTemplate ?? FALSE,
-	'USER' => $UserItemTemplate ?? FALSE,
-
+	'USER' => $UserItemTemplate ?? FALSE
 ]);
 
 $HomeTemplate->set('COUNT', [
-	'PAGE' => $PageCountStatement->fetchColumn(),
-	'POST' => $PostCountStatement->fetchColumn(),
-	'USER' => $UserCountStatement->fetchColumn(),
+	'PAGE' => $PageRepository->getCount(),
+	'POST' => $PostRepository->getCount(),
+	'USER' => $UserRepository->getCount()
 ]);
 
 $MainTemplate = Template\Factory::build('main');

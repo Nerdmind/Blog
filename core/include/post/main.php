@@ -1,79 +1,72 @@
 <?php
 #===============================================================================
-# Get instances
+# Get repositories
 #===============================================================================
-$Database = Application::getDatabase();
-$Language = Application::getLanguage();
-
-#===============================================================================
-# TRY: Post\Exception
-#===============================================================================
-try {
-	if(Application::get('POST.SLUG_URLS')) {
-		$Post = Post\Factory::buildBySlug($param);
-	}
-
-	else {
-		$Post = Post\Factory::build($param);
-	}
-
-	$User = User\Factory::build($Post->get('user'));
-
-	$post_data = generateItemTemplateData($Post);
-	$user_data = generateItemTemplateData($User);
-
-	#===============================================================================
-	# Add post data for previous and next post
-	#===============================================================================
-	try {
-		$PrevPost = Post\Factory::build($Post->getPrevID());
-		$post_data['PREV'] = generateItemTemplateData($PrevPost);
-	} catch(Post\Exception $Exception){}
-
-	try {
-		$NextPost = Post\Factory::build($Post->getNextID());
-		$post_data['NEXT'] = generateItemTemplateData($NextPost);
-	} catch(Post\Exception $Exception){}
-
-	#===============================================================================
-	# Build document
-	#===============================================================================
-	$PostTemplate = Template\Factory::build('post/main');
-	$PostTemplate->set('POST', $post_data);
-	$PostTemplate->set('USER', $user_data);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('HTML', $PostTemplate);
-	$MainTemplate->set('HEAD', [
-		'NAME' => $post_data['ATTR']['NAME'],
-		'DESC' => description($post_data['BODY']['HTML'](), Application::get('POST.DESCRIPTION_SIZE')),
-		'PERM' => $post_data['URL'],
-		'OG_IMAGES' => $post_data['FILE']['LIST']
-	]);
-
-	# Get access to the current item data from main template
-	$MainTemplate->set('TYPE', 'POST');
-	$MainTemplate->set('POST', $post_data);
-	$MainTemplate->set('USER', $user_data);
-
-	echo $MainTemplate;
-}
+$PostRepository = Application::getRepository('Post');
+$UserRepository = Application::getRepository('User');
 
 #===============================================================================
-# CATCH: Post\Exception
+# Try to find post by slug URL or unique ID
 #===============================================================================
-catch(Post\Exception $Exception) {
-	try {
-		if(Application::get('POST.SLUG_URLS') === FALSE) {
-			$Post = Post\Factory::buildBySlug($param);
-		} else {
-			$Post = Post\Factory::build($param);
+if(Application::get('POST.SLUG_URLS')) {
+	if(!$Post = $PostRepository->findBy('slug', $param)) {
+		if($Post = $PostRepository->find($param)) {
+			HTTP::redirect(Application::getEntityURL($Post));
 		}
-
-		HTTP::redirect(Application::getEntityURL($Post));
-	}
-
-	catch(Post\Exception $Exception) {
-		Application::error404();
 	}
 }
+
+else {
+	if(!$Post = $PostRepository->find($param)) {
+		if($Post = $PostRepository->findBy('slug', $param)) {
+			HTTP::redirect(Application::getEntityURL($Post));
+		}
+	}
+}
+
+#===============================================================================
+# Throw 404 error if post could not be found
+#===============================================================================
+if(!isset($Post)) {
+	Application::error404();
+}
+
+#===============================================================================
+# Generate template data
+#===============================================================================
+$User = $UserRepository->find($Post->get('user'));
+$post_data = generateItemTemplateData($Post);
+$user_data = generateItemTemplateData($User);
+
+#===============================================================================
+# Add template data for previous and next post
+#===============================================================================
+if($PrevPost = $PostRepository->findPrev($Post)) {
+	$post_data['PREV'] = generateItemTemplateData($PrevPost);
+}
+
+if($NextPost = $PostRepository->findNext($Post)) {
+	$post_data['NEXT'] = generateItemTemplateData($NextPost);
+}
+
+#===============================================================================
+# Build document
+#===============================================================================
+$PostTemplate = Template\Factory::build('post/main');
+$PostTemplate->set('POST', $post_data);
+$PostTemplate->set('USER', $user_data);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('TYPE', 'POST');
+$MainTemplate->set('POST', $post_data);
+$MainTemplate->set('USER', $user_data);
+$MainTemplate->set('HTML', $PostTemplate);
+$MainTemplate->set('HEAD', [
+	'NAME' => $post_data['ATTR']['NAME'],
+	'DESC' => description($post_data['BODY']['HTML'](),
+		Application::get('POST.DESCRIPTION_SIZE')),
+	'PERM' => $post_data['URL'],
+	'OG_IMAGES' => $post_data['FILE']['LIST']
+]);
+
+echo $MainTemplate;

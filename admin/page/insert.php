@@ -10,20 +10,32 @@ define('AUTHENTICATION', TRUE);
 #===============================================================================
 require '../../core/application.php';
 
-$Attribute = new Page\Attribute();
+#===============================================================================
+# Get repositories
+#===============================================================================
+$PageRepository = Application::getRepository('Page');
+$UserRepository = Application::getRepository('User');
 
+#===============================================================================
+# Instantiate new Page entity
+#===============================================================================
+$Page = new Page\Entity;
+
+#===============================================================================
+# Check for insert request
+#===============================================================================
 if(HTTP::issetPOST('user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
-	$Attribute->set('user', HTTP::POST('user'));
-	$Attribute->set('slug', HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('name')));
-	$Attribute->set('name', HTTP::POST('name') ? HTTP::POST('name') : NULL);
-	$Attribute->set('body', HTTP::POST('body') ? HTTP::POST('body') : NULL);
-	$Attribute->set('argv', HTTP::POST('argv') ? HTTP::POST('argv') : NULL);
-	$Attribute->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
-	$Attribute->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
+	$Page->set('user', HTTP::POST('user'));
+	$Page->set('slug', HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('name')));
+	$Page->set('name', HTTP::POST('name') ? HTTP::POST('name') : NULL);
+	$Page->set('body', HTTP::POST('body') ? HTTP::POST('body') : NULL);
+	$Page->set('argv', HTTP::POST('argv') ? HTTP::POST('argv') : NULL);
+	$Page->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
+	$Page->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			if($Attribute->insert($Database)) {
+			if($PageRepository->insert($Page)) {
 				HTTP::redirect(Application::getAdminURL('page/'));
 			}
 		} catch(PDOException $Exception) {
@@ -36,12 +48,12 @@ if(HTTP::issetPOST('user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_
 	}
 }
 
-$userIDs = $Database->query(sprintf('SELECT id FROM %s ORDER BY fullname ASC', User\Attribute::TABLE));
-
-foreach($userIDs->fetchAll($Database::FETCH_COLUMN) as $userID) {
-	$User = User\Factory::build($userID);
-	$userAttributes[] = [
-		'ID' => $User->get('id'),
+#===============================================================================
+# Generate user list
+#===============================================================================
+foreach($UserRepository->getAll([], 'fullname ASC') as $User) {
+	$userList[] = [
+		'ID' => $User->getID(),
 		'FULLNAME' => $User->get('fullname'),
 		'USERNAME' => $User->get('username'),
 	];
@@ -54,8 +66,8 @@ $FormTemplate = Template\Factory::build('page/form');
 $FormTemplate->set('FORM', [
 	'TYPE' => 'INSERT',
 	'INFO' => $messages ?? [],
-	'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
-	'USER_LIST' => $userAttributes ??  [],
+	'DATA' => array_change_key_case($Page->getAll(), CASE_UPPER),
+	'USER_LIST' => $userList ??  [],
 	'TOKEN' => Application::getSecurityToken()
 ]);
 

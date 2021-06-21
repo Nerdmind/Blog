@@ -11,46 +11,46 @@ define('AUTHENTICATION', TRUE);
 require '../../core/application.php';
 
 #===============================================================================
-# TRY: Page\Exception
+# Get repositories
 #===============================================================================
-try {
-	$Page = Page\Factory::build(HTTP::GET('id'));
-	$Attribute = $Page->getAttribute();
-
-	if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'delete')) {
-		try {
-			if($Attribute->delete($Database)) {
-				HTTP::redirect(Application::getAdminURL('page/'));
-			}
-		} catch(PDOException $Exception) {
-			$messages[] = $Exception->getMessage();
-		}
-	}
-
-	#===============================================================================
-	# Build document
-	#===============================================================================
-	$FormTemplate = Template\Factory::build('page/form');
-	$FormTemplate->set('HTML', parseEntityContent($Page));
-	$FormTemplate->set('FORM', [
-		'TYPE' => 'DELETE',
-		'INFO' => $messages ?? [],
-		'DATA' => array_change_key_case($Attribute->getAll(), CASE_UPPER),
-		'TOKEN' => Application::getSecurityToken()
-	]);
-
-	$DeleteTemplate = Template\Factory::build('page/delete');
-	$DeleteTemplate->set('HTML', $FormTemplate);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('NAME', $Language->text('title_page_delete'));
-	$MainTemplate->set('HTML', $DeleteTemplate);
-	echo $MainTemplate;
-}
+$PageRepository = Application::getRepository('Page');
 
 #===============================================================================
-# CATCH: Page\Exception
+# Throw 404 error if page could not be found
 #===============================================================================
-catch(Page\Exception $Exception) {
+if(!$Page = $PageRepository->find(HTTP::GET('id'))) {
 	Application::error404();
 }
+
+#===============================================================================
+# Check for delete request
+#===============================================================================
+if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'delete')) {
+	try {
+		if($PageRepository->delete($Page)) {
+			HTTP::redirect(Application::getAdminURL('page/'));
+		}
+	} catch(PDOException $Exception) {
+		$messages[] = $Exception->getMessage();
+	}
+}
+
+#===============================================================================
+# Build document
+#===============================================================================
+$FormTemplate = Template\Factory::build('page/form');
+$FormTemplate->set('HTML', parseEntityContent($Page));
+$FormTemplate->set('FORM', [
+	'TYPE' => 'DELETE',
+	'INFO' => $messages ?? [],
+	'DATA' => array_change_key_case($Page->getAll(), CASE_UPPER),
+	'TOKEN' => Application::getSecurityToken()
+]);
+
+$DeleteTemplate = Template\Factory::build('page/delete');
+$DeleteTemplate->set('HTML', $FormTemplate);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('NAME', $Language->text('title_page_delete'));
+$MainTemplate->set('HTML', $DeleteTemplate);
+echo $MainTemplate;

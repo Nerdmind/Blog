@@ -2,8 +2,13 @@
 #===============================================================================
 # Get instances
 #===============================================================================
-$Database = Application::getDatabase();
 $Language = Application::getLanguage();
+
+#===============================================================================
+# Get repositories
+#===============================================================================
+$PageRepository = Application::getRepository('Page');
+$UserRepository = Application::getRepository('User');
 
 #===============================================================================
 # Pagination
@@ -11,7 +16,7 @@ $Language = Application::getLanguage();
 $site_size = Application::get('PAGE.LIST_SIZE');
 $site_sort = Application::get('PAGE.LIST_SORT');
 
-$count = $Database->query(sprintf('SELECT COUNT(id) FROM %s', Page\Attribute::TABLE))->fetchColumn();
+$count = $PageRepository->getCount();
 $lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
@@ -24,23 +29,23 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 #===============================================================================
 # Single redirect
 #===============================================================================
-if(Application::get('PAGE.SINGLE_REDIRECT') === TRUE AND $count === '1') {
-	$Statement = $Database->query(sprintf('SELECT id FROM %s LIMIT 1', Page\Attribute::TABLE));
-	$Page = Page\Factory::build($Statement->fetchColumn());
+if(Application::get('PAGE.SINGLE_REDIRECT') === TRUE AND $count === 1) {
+	$Page = $PageRepository->getLast();
 	HTTP::redirect(Application::getEntityURL($Page));
 }
 
-$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-$pageIDs = $Database->query(sprintf($execSQL, Page\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+#===============================================================================
+# Get paginated page list
+#===============================================================================
+$pages = $PageRepository->getPaginated(
+	$site_sort,
+	$site_size,
+	($currentSite-1) * $site_size
+);
 
-foreach($pageIDs as $pageID) {
-	try {
-		$Page = Page\Factory::build($pageID);
-		$User = User\Factory::build($Page->get('user'));
-		$templates[] = generatePageItemTemplate($Page, $User);
-	}
-	catch(Page\Exception $Exception){}
-	catch(User\Exception $Exception){}
+foreach($pages as $Page) {
+	$User = $UserRepository->find($Page->get('user'));
+	$templates[] = generatePageItemTemplate($Page, $User);
 }
 
 #===============================================================================

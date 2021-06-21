@@ -2,15 +2,22 @@
 #===============================================================================
 # Get instances
 #===============================================================================
-$Database = Application::getDatabase();
 $Language = Application::getLanguage();
 
-$D_LIST = $Database->query(sprintf('SELECT DISTINCT DAY(time_insert) AS temp FROM %s ORDER BY temp', Post\Attribute::TABLE));
-$M_LIST = $Database->query(sprintf('SELECT DISTINCT MONTH(time_insert) AS temp FROM %s ORDER BY temp', Post\Attribute::TABLE));
-$Y_LIST = $Database->query(sprintf('SELECT DISTINCT YEAR(time_insert) AS temp FROM %s ORDER BY temp', Post\Attribute::TABLE));
+#===============================================================================
+# Get repositories
+#===============================================================================
+$PostRepository = Application::getRepository('Post');
+$UserRepository = Application::getRepository('User');
 
 if($search = HTTP::GET('q')) {
-	if(!$postIDs = Post\Item::getSearchResultIDs($search, [HTTP::GET('d'), HTTP::GET('m'), HTTP::GET('y')], $Database)) {
+	$filter = [
+		'day'   => HTTP::GET('d'),
+		'month' => HTTP::GET('m'),
+		'year'  => HTTP::GET('y')
+	];
+
+	if(!$posts = $PostRepository->search($search, $filter)) {
 		$message = $Language->text('search_no_results', escapeHTML($search));
 	}
 }
@@ -22,9 +29,9 @@ $form_data = [
 		'Y' => HTTP::GET('y'),
 	],
 	'OPTIONS' => [
-		'D' => $D_LIST->fetchAll($Database::FETCH_COLUMN),
-		'M' => $M_LIST->fetchAll($Database::FETCH_COLUMN),
-		'Y' => $Y_LIST->fetchAll($Database::FETCH_COLUMN),
+		'D' => $PostRepository->getDistinctDays(),
+		'M' => $PostRepository->getDistinctMonths(),
+		'Y' => $PostRepository->getDistinctYears(),
 	]
 ];
 
@@ -36,15 +43,10 @@ $search_data = [
 #===============================================================================
 # Build document
 #===============================================================================
-if(isset($postIDs) AND !empty($postIDs)) {
-	foreach($postIDs as $postID) {
-		try {
-			$Post = Post\Factory::build($postID);
-			$User = User\Factory::build($Post->get('user'));
-			$templates[] = generatePostItemTemplate($Post, $User);
-		}
-		catch(Post\Exception $Exception){}
-		catch(User\Exception $Exception){}
+if(!empty($posts)) {
+	foreach($posts as $Post) {
+		$User = $UserRepository->find($Post->get('user'));
+		$templates[] = generatePostItemTemplate($Post, $User);
 	}
 
 	$ResultTemplate = Template\Factory::build('search/result');

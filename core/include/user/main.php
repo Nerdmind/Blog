@@ -1,81 +1,73 @@
 <?php
 #===============================================================================
-# Get instances
+# Get repositories
 #===============================================================================
-$Database = Application::getDatabase();
-$Language = Application::getLanguage();
-
-#===============================================================================
-# TRY: User\Exception
-#===============================================================================
-try {
-	if(Application::get('USER.SLUG_URLS')) {
-		$User = User\Factory::buildBySlug($param);
-	}
-
-	else {
-		$User = User\Factory::build($param);
-	}
-
-	$user_data = generateItemTemplateData($User);
-
-	#===============================================================================
-	# Add user data for previous and next user
-	#===============================================================================
-	try {
-		$PrevUser = User\Factory::build($User->getPrevID());
-		$user_data['PREV'] = generateItemTemplateData($PrevUser);
-	} catch(User\Exception $Exception){}
-
-	try {
-		$NextUser = User\Factory::build($User->getNextID());
-		$user_data['NEXT'] = generateItemTemplateData($NextUser);
-	} catch(User\Exception $Exception){}
-
-	$PostCountStatement = $Database->query(sprintf('SELECT COUNT(*) FROM %s WHERE user = %d', Post\Attribute::TABLE, $User->getID()));
-	$PageCountStatement = $Database->query(sprintf('SELECT COUNT(*) FROM %s WHERE user = %d', Page\Attribute::TABLE, $User->getID()));
-
-	#===============================================================================
-	# Build document
-	#===============================================================================
-	$UserTemplate = Template\Factory::build('user/main');
-	$UserTemplate->set('USER', $user_data);
-	$UserTemplate->set('COUNT', [
-		'POST' => $PostCountStatement->fetchColumn(),
-		'PAGE' => $PageCountStatement->fetchColumn()
-	]);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('HTML', $UserTemplate);
-	$MainTemplate->set('HEAD', [
-		'NAME' => $user_data['ATTR']['FULLNAME'],
-		'DESC' => description($user_data['BODY']['HTML'](), Application::get('USER.DESCRIPTION_SIZE')),
-		'PERM' => $user_data['URL'],
-		'OG_IMAGES' => $user_data['FILE']['LIST']
-	]);
-
-	# Get access to the current item data from main template
-	$MainTemplate->set('TYPE', 'USER');
-	$MainTemplate->set('USER', $user_data);
-
-	echo $MainTemplate;
-}
+$PageRepository = Application::getRepository('Page');
+$PostRepository = Application::getRepository('Post');
+$UserRepository = Application::getRepository('User');
 
 #===============================================================================
-# CATCH: User\Exception
+# Try to find user by slug URL or unique ID
 #===============================================================================
-catch(User\Exception $Exception) {
-	try {
-		if(Application::get('USER.SLUG_URLS') === FALSE) {
-			$User = User\Factory::buildBySlug($param);
-		} else {
-			$User = User\Factory::build($param);
+if(Application::get('USER.SLUG_URLS')) {
+	if(!$User = $UserRepository->findBy('slug', $param)) {
+		if($User = $UserRepository->find($param)) {
+			HTTP::redirect(Application::getEntityURL($User));
 		}
-
-		HTTP::redirect(Application::getEntityURL($User));
-	}
-
-	catch(User\Exception $Exception) {
-		Application::error404();
 	}
 }
+
+else {
+	if(!$User = $UserRepository->find($param)) {
+		if($User = $UserRepository->findBy('slug', $param)) {
+			HTTP::redirect(Application::getEntityURL($User));
+		}
+	}
+}
+
+#===============================================================================
+# Throw 404 error if user could not be found
+#===============================================================================
+if(!isset($User)) {
+	Application::error404();
+}
+
+#===============================================================================
+# Generate template data
+#===============================================================================
+$user_data = generateItemTemplateData($User);
+
+#===============================================================================
+# Add template data for previous and next user
+#===============================================================================
+if($PrevUser = $UserRepository->findPrev($User)) {
+	$user_data['PREV'] = generateItemTemplateData($PrevUser);
+}
+
+if($NextUser = $UserRepository->findNext($User)) {
+	$user_data['NEXT'] = generateItemTemplateData($NextUser);
+}
+
+#===============================================================================
+# Build document
+#===============================================================================
+$UserTemplate = Template\Factory::build('user/main');
+$UserTemplate->set('USER', $user_data);
+$UserTemplate->set('COUNT', [
+	'POST' => $PostRepository->getCountByUser($User),
+	'PAGE' => $PageRepository->getCountByUser($User)
+]);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('TYPE', 'USER');
+$MainTemplate->set('USER', $user_data);
+$MainTemplate->set('HTML', $UserTemplate);
+$MainTemplate->set('HEAD', [
+	'NAME' => $user_data['ATTR']['FULLNAME'],
+	'DESC' => description($user_data['BODY']['HTML'](),
+		Application::get('USER.DESCRIPTION_SIZE')),
+	'PERM' => $user_data['URL'],
+	'OG_IMAGES' => $user_data['FILE']['LIST']
+]);
+
+echo $MainTemplate;

@@ -11,12 +11,18 @@ define('AUTHENTICATION', TRUE);
 require '../../core/application.php';
 
 #===============================================================================
+# Get repositories
+#===============================================================================
+$UserRepository = Application::getRepository('User');
+
+#===============================================================================
 # Pagination
 #===============================================================================
 $site_size = Application::get('ADMIN.USER.LIST_SIZE');
 $site_sort = Application::get('ADMIN.USER.LIST_SORT');
 
-$lastSite = ceil($Database->query(sprintf('SELECT COUNT(id) FROM %s', User\Attribute::TABLE))->fetchColumn() / $site_size);
+$count = $UserRepository->getCount();
+$lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
@@ -26,16 +32,16 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 }
 
 #===============================================================================
-# Fetch user IDs from database
+# Get paginated user list
 #===============================================================================
-$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-$userIDs = $Database->query(sprintf($execSQL, User\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+$users = $UserRepository->getPaginated(
+	$site_sort,
+	$site_size,
+	($currentSite-1) * $site_size
+);
 
-foreach($userIDs as $userID) {
-	try {
-		$User = User\Factory::build($userID);
-		$templates[] = generateUserItemTemplate($User);
-	} catch(User\Exception $Exception){}
+foreach($users as $User) {
+	$templates[] = generateUserItemTemplate($User);
 }
 
 #===============================================================================

@@ -2,8 +2,12 @@
 #===============================================================================
 # Get instances
 #===============================================================================
-$Database = Application::getDatabase();
 $Language = Application::getLanguage();
+
+#===============================================================================
+# Get repositories
+#===============================================================================
+$UserRepository = Application::getRepository('User');
 
 #===============================================================================
 # Pagination
@@ -11,7 +15,7 @@ $Language = Application::getLanguage();
 $site_size = Application::get('USER.LIST_SIZE');
 $site_sort = Application::get('USER.LIST_SORT');
 
-$count = $Database->query(sprintf('SELECT COUNT(id) FROM %s', User\Attribute::TABLE))->fetchColumn();
+$count = $UserRepository->getCount();
 $lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
@@ -24,20 +28,22 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 #===============================================================================
 # Single redirect
 #===============================================================================
-if(Application::get('USER.SINGLE_REDIRECT') === TRUE AND $count === '1') {
-	$Statement = $Database->query(sprintf('SELECT id FROM %s LIMIT 1', User\Attribute::TABLE));
-	$User = User\Factory::build($Statement->fetchColumn());
+if(Application::get('USER.SINGLE_REDIRECT') === TRUE AND $count === 1) {
+	$User = $UserRepository->getLast();
 	HTTP::redirect(Application::getEntityURL($User));
 }
 
-$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-$userIDs = $Database->query(sprintf($execSQL, User\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+#===============================================================================
+# Get paginated user list
+#===============================================================================
+$users = $UserRepository->getPaginated(
+	$site_sort,
+	$site_size,
+	($currentSite-1) * $site_size
+);
 
-foreach($userIDs as $userID) {
-	try {
-		$User = User\Factory::build($userID);
-		$templates[] = generateUserItemTemplate($User);
-	} catch(User\Exception $Exception){}
+foreach($users as $User) {
+	$templates[] = generateUserItemTemplate($User);
 }
 
 #===============================================================================

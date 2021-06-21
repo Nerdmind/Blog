@@ -1,23 +1,21 @@
 <?php
 #===============================================================================
-# Get instances
+# Get repositories
 #===============================================================================
-$Database = Application::getDatabase();
-$Language = Application::getLanguage();
+$PostRepository = Application::getRepository('Post');
+$UserRepository = Application::getRepository('User');
 
-$execSQL = 'SELECT id FROM %s ORDER BY '.Application::get('POST.LIST_SORT').' LIMIT '.Application::get('POST.LIST_SIZE');
-$Statement = $Database->query(sprintf($execSQL, Post\Attribute::TABLE));
+#===============================================================================
+# Get paginated post list
+#===============================================================================
+$posts = $PostRepository->getPaginated(
+	Application::get('POST.LIST_SORT'),
+	Application::get('POST.LIST_SIZE')
+);
 
-$postIDs = $Statement->fetchAll($Database::FETCH_COLUMN);
-
-foreach($postIDs as $postID) {
-	try {
-		$Post = Post\Factory::build($postID);
-		$User = User\Factory::build($Post->get('user'));
-		$templates[] = generatePostItemTemplate($Post, $User);
-	}
-	catch(Post\Exception $Exception){}
-	catch(User\Exception $Exception){}
+foreach($posts as $Post) {
+	$User = $UserRepository->find($Post->get('user'));
+	$templates[] = generatePostItemTemplate($Post, $User);
 }
 
 #===============================================================================
@@ -35,7 +33,8 @@ $MainTemplate = Template\Factory::build('main');
 $MainTemplate->set('HTML', $HomeTemplate);
 $MainTemplate->set('HEAD', [
 	'NAME' => Application::get('BLOGMETA.HOME'),
-	'DESC' => Application::get('BLOGMETA.NAME').' – '.Application::get('BLOGMETA.DESC'),
+	'DESC' => Application::get('BLOGMETA.NAME').' – '
+		.Application::get('BLOGMETA.DESC'),
 	'PERM' => Application::getURL()
 ]);
 

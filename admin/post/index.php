@@ -11,12 +11,19 @@ define('AUTHENTICATION', TRUE);
 require '../../core/application.php';
 
 #===============================================================================
+# Get repositories
+#===============================================================================
+$PostRepository = Application::getRepository('Post');
+$UserRepository = Application::getRepository('User');
+
+#===============================================================================
 # Pagination
 #===============================================================================
 $site_size = Application::get('ADMIN.POST.LIST_SIZE');
 $site_sort = Application::get('ADMIN.POST.LIST_SORT');
 
-$lastSite = ceil($Database->query(sprintf('SELECT COUNT(id) FROM %s', Post\Attribute::TABLE))->fetchColumn() / $site_size);
+$count = $PostRepository->getCount();
+$lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
@@ -26,19 +33,17 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 }
 
 #===============================================================================
-# Fetch post IDs from database
+# Get paginated post list
 #===============================================================================
-$execSQL = "SELECT id FROM %s ORDER BY {$site_sort} LIMIT ".(($currentSite-1) * $site_size).", {$site_size}";
-$postIDs = $Database->query(sprintf($execSQL, Post\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+$posts = $PostRepository->getPaginated(
+	$site_sort,
+	$site_size,
+	($currentSite-1) * $site_size
+);
 
-foreach($postIDs as $postID) {
-	try {
-		$Post = Post\Factory::build($postID);
-		$User = User\Factory::build($Post->get('user'));
-		$templates[] = generatePostItemTemplate($Post, $User);
-	}
-	catch(Post\Exception $Exception){}
-	catch(User\Exception $Exception){}
+foreach($posts as $Post) {
+	$User = $UserRepository->find($Post->get('user'));
+	$templates[] = generatePostItemTemplate($Post, $User);
 }
 
 #===============================================================================

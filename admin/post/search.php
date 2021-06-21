@@ -11,20 +11,15 @@ define('AUTHENTICATION', TRUE);
 require '../../core/application.php';
 
 #===============================================================================
-# IF: Handle search request
+# Check for search request
 #===============================================================================
 if($search = HTTP::GET('q')) {
-	if($postIDs = Post\Item::getSearchResultIDs($search, [NULL, NULL, NULL], $Database)) {
-		foreach($postIDs as $postID) {
-			try {
-				$Post = Post\Factory::build($postID);
-				$User = User\Factory::build($Post->get('user'));
+	$PostRepository = Application::getRepository('Post');
+	$UserRepository = Application::getRepository('User');
 
-				$templates[] = generatePostItemTemplate($Post, $User);
-			}
-			catch(Post\Exception $Exception){}
-			catch(User\Exception $Exception){}
-		}
+	foreach($PostRepository->search($search) as $Post) {
+		$User = $UserRepository->find($Post->get('user'));
+		$templates[] = generatePostItemTemplate($Post, $User);
 	}
 }
 

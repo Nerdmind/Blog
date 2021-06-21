@@ -6,6 +6,7 @@ class Application {
 	#===============================================================================
 	private static $Database;
 	private static $Language;
+	private static $repositories = [];
 
 	#===============================================================================
 	# Configuration array
@@ -65,6 +66,21 @@ class Application {
 		}
 
 		return self::$Language;
+	}
+
+	#===============================================================================
+	# Return singleton repository instance
+	#===============================================================================
+	public function getRepository(string $namespace): Repository {
+		$identifier = strtolower($namespace);
+		$repository = "$namespace\Repository";
+
+		if(!isset(self::$repositories[$identifier])) {
+			$Repository = new $repository(self::getDatabase());
+			self::$repositories[$identifier] = $Repository;
+		}
+
+		return self::$repositories[$identifier];
 	}
 
 	#===============================================================================
@@ -142,15 +158,15 @@ class Application {
 	#===============================================================================
 	# Return absolute URL of a specifc entity
 	#===============================================================================
-	public function getEntityURL(Item $Entity) {
+	public function getEntityURL(EntityInterface $Entity) {
 		switch($class = get_class($Entity)) {
-			case 'Page\Item':
+			case 'Page\Entity':
 				$attr = self::get('PAGE.SLUG_URLS') ? 'slug' : 'id';
 				return self::getPageURL($Entity->get($attr).'/');
-			case 'Post\Item':
+			case 'Post\Entity':
 				$attr = self::get('POST.SLUG_URLS') ? 'slug' : 'id';
 				return self::getPostURL($Entity->get($attr).'/');
-			case 'User\Item':
+			case 'User\Entity':
 				$attr = self::get('USER.SLUG_URLS') ? 'slug' : 'id';
 				return self::getUserURL($Entity->get($attr).'/');
 			default:

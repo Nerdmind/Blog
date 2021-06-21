@@ -11,20 +11,15 @@ define('AUTHENTICATION', TRUE);
 require '../../core/application.php';
 
 #===============================================================================
-# IF: Handle search request
+# Check for search request
 #===============================================================================
 if($search = HTTP::GET('q')) {
-	if($pageIDs = Page\Item::getSearchResultIDs($search, $Database)) {
-		foreach($pageIDs as $pageID) {
-			try {
-				$Page = Page\Factory::build($pageID);
-				$User = User\Factory::build($Page->get('user'));
+	$PageRepository = Application::getRepository('Page');
+	$UserRepository = Application::getRepository('User');
 
-				$templates[] = generatePageItemTemplate($Page, $User);
-			}
-			catch(Page\Exception $Exception){}
-			catch(User\Exception $Exception){}
-		}
+	foreach($PageRepository->search($search) as $Page) {
+		$User = $UserRepository->find($Page->get('user'));
+		$templates[] = generatePageItemTemplate($Page, $User);
 	}
 }
 

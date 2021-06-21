@@ -10,22 +10,33 @@ define('AUTHENTICATION', TRUE);
 #===============================================================================
 require '../../core/application.php';
 
-$Attribute = new User\Attribute();
+#===============================================================================
+# Get repositories
+#===============================================================================
+$UserRepository = Application::getRepository('User');
 
+#===============================================================================
+# Instantiate new User entity
+#===============================================================================
+$User = new User\Entity;
+
+#===============================================================================
+# Check for insert request
+#===============================================================================
 if(HTTP::issetPOST('slug', 'username', 'password', 'fullname', 'mailaddr', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
-	$Attribute->set('slug',     HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('username')));
-	$Attribute->set('username', HTTP::POST('username') ? HTTP::POST('username') : NULL);
-	$Attribute->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : FALSE);
-	$Attribute->set('fullname', HTTP::POST('fullname') ? HTTP::POST('fullname') : NULL);
-	$Attribute->set('mailaddr', HTTP::POST('mailaddr') ? HTTP::POST('mailaddr') : NULL);
-	$Attribute->set('body',     HTTP::POST('body') ? HTTP::POST('body') : NULL);
-	$Attribute->set('argv',     HTTP::POST('argv') ? HTTP::POST('argv') : NULL);
-	$Attribute->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
-	$Attribute->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
+	$User->set('slug',     HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('username')));
+	$User->set('username', HTTP::POST('username') ? HTTP::POST('username') : NULL);
+	$User->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : FALSE);
+	$User->set('fullname', HTTP::POST('fullname') ? HTTP::POST('fullname') : NULL);
+	$User->set('mailaddr', HTTP::POST('mailaddr') ? HTTP::POST('mailaddr') : NULL);
+	$User->set('body',     HTTP::POST('body') ? HTTP::POST('body') : NULL);
+	$User->set('argv',     HTTP::POST('argv') ? HTTP::POST('argv') : NULL);
+	$User->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
+	$User->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			if($Attribute->insert($Database)) {
+			if($UserRepository->insert($User)) {
 				HTTP::redirect(Application::getAdminURL('user/'));
 			}
 		} catch(PDOException $Exception) {
@@ -45,7 +56,7 @@ $FormTemplate = Template\Factory::build('user/form');
 $FormTemplate->set('FORM', [
 	'TYPE' => 'INSERT',
 	'INFO' => $messages ?? [],
-	'DATA' => array_change_key_case($Attribute->getAll(['password']), CASE_UPPER),
+	'DATA' => array_change_key_case($User->getAll(['password']), CASE_UPPER),
 	'TOKEN' => Application::getSecurityToken()
 ]);
 

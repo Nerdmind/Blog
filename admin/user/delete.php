@@ -11,46 +11,46 @@ define('AUTHENTICATION', TRUE);
 require '../../core/application.php';
 
 #===============================================================================
-# TRY: User\Exception
+# Get repositories
 #===============================================================================
-try {
-	$User = User\Factory::build(HTTP::GET('id'));
-	$Attribute = $User->getAttribute();
-
-	if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'delete')) {
-		try {
-			if($Attribute->delete($Database)) {
-				HTTP::redirect(Application::getAdminURL('user/'));
-			}
-		} catch(PDOException $Exception) {
-			$messages[] = $Exception->getMessage();
-		}
-	}
-
-	#===============================================================================
-	# Build document
-	#===============================================================================
-	$FormTemplate = Template\Factory::build('user/form');
-	$FormTemplate->set('HTML', parseEntityContent($User));
-	$FormTemplate->set('FORM', [
-		'TYPE' => 'DELETE',
-		'INFO' => $messages ?? [],
-		'DATA' => array_change_key_case($Attribute->getAll(['password']), CASE_UPPER),
-		'TOKEN' => Application::getSecurityToken()
-	]);
-
-	$DeleteTemplate = Template\Factory::build('user/delete');
-	$DeleteTemplate->set('HTML', $FormTemplate);
-
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('NAME', $Language->text('title_user_delete'));
-	$MainTemplate->set('HTML', $DeleteTemplate);
-	echo $MainTemplate;
-}
+$UserRepository = Application::getRepository('User');
 
 #===============================================================================
-# CATCH: User\Exception
+# Throw 404 error if user could not be found
 #===============================================================================
-catch(User\Exception $Exception) {
+if(!$User = $UserRepository->find(HTTP::GET('id'))) {
 	Application::error404();
 }
+
+#===============================================================================
+# Check for delete request
+#===============================================================================
+if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'delete')) {
+	try {
+		if($UserRepository->delete($User)) {
+			HTTP::redirect(Application::getAdminURL('user/'));
+		}
+	} catch(PDOException $Exception) {
+		$messages[] = $Exception->getMessage();
+	}
+}
+
+#===============================================================================
+# Build document
+#===============================================================================
+$FormTemplate = Template\Factory::build('user/form');
+$FormTemplate->set('HTML', parseEntityContent($User));
+$FormTemplate->set('FORM', [
+	'TYPE' => 'DELETE',
+	'INFO' => $messages ?? [],
+	'DATA' => array_change_key_case($User->getAll(['password']), CASE_UPPER),
+	'TOKEN' => Application::getSecurityToken()
+]);
+
+$DeleteTemplate = Template\Factory::build('user/delete');
+$DeleteTemplate->set('HTML', $FormTemplate);
+
+$MainTemplate = Template\Factory::build('main');
+$MainTemplate->set('NAME', $Language->text('title_user_delete'));
+$MainTemplate->set('HTML', $DeleteTemplate);
+echo $MainTemplate;

@@ -28,11 +28,10 @@ if(Application::isAuthenticated()) {
 # IF: Login action
 #===============================================================================
 if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'username', 'password')) {
-	try {
-		$User = User\Factory::buildByUsername(HTTP::POST('username'));
-		$password = $User->getAttribute()->get('password');
+	$UserRepository = Application::getRepository('User');
 
-		if(password_verify(HTTP::POST('password'), $password)) {
+	if($User = $UserRepository->findBy('username', HTTP::POST('username'))) {
+		if(password_verify(HTTP::POST('password'), $User->get('password'))) {
 			$_SESSION['auth'] = $User->getID();
 			HTTP::redirect(Application::getAdminURL());
 		}
@@ -40,7 +39,9 @@ if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'username', 'pa
 		else {
 			$messages[] = $Language->text('authentication_failure');
 		}
-	} catch(User\Exception $Exception){
+	}
+
+	else {
 		$fake_hash = '$2y$10$xpnwDU2HumOgGQhVpMOP9uataEF82YXizniFhSUhYjUiXF8aoDk0C';
 		$fake_pass = HTTP::POST('password');
 

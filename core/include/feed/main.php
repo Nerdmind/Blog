@@ -1,9 +1,8 @@
 <?php
 #===============================================================================
-# Get instances
+# Get repositories
 #===============================================================================
-$Database = Application::getDatabase();
-$Language = Application::getLanguage();
+$UserRepository = Application::getRepository('User');
 
 #===============================================================================
 # HEADER: Content-Type for XML document
@@ -14,26 +13,21 @@ HTTP::responseHeader(HTTP::HEADER_CONTENT_TYPE, HTTP::CONTENT_TYPE_XML);
 # Post feed
 #===============================================================================
 if(!isset($param) OR $param !== 'page') {
-	$POST['FEED_SORT'] = Application::get('POST.FEED_SORT');
-	$POST['FEED_SIZE'] = Application::get('POST.FEED_SIZE');
+	$PostRepository = Application::getRepository('Post');
 
-	$execSQL = "SELECT id FROM %s ORDER BY {$POST['FEED_SORT']} LIMIT {$POST['FEED_SIZE']}";
-	$postIDs = $Database->query(sprintf($execSQL, Post\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+	$posts = $PostRepository->getPaginated(
+		Application::get('POST.FEED_SORT'),
+		Application::get('POST.FEED_SIZE')
+	);
 
-	foreach($postIDs as $postID) {
-		try {
-			$Post = Post\Factory::build($postID);
-			$User = User\Factory::build($Post->get('user'));
+	foreach($posts as $Post) {
+		$User = $UserRepository->find($Post->get('user'));
 
-			$ItemTemplate = Template\Factory::build('feed/item_post');
-			$ItemTemplate->set('POST', generateItemTemplateData($Post));
-			$ItemTemplate->set('USER', generateItemTemplateData($User));
+		$ItemTemplate = Template\Factory::build('feed/item_post');
+		$ItemTemplate->set('POST', generateItemTemplateData($Post));
+		$ItemTemplate->set('USER', generateItemTemplateData($User));
 
-			$post_templates[] = $ItemTemplate;
-		}
-
-		catch(Post\Exception $Exception){}
-		catch(User\Exception $Exception){}
+		$post_templates[] = $ItemTemplate;
 	}
 }
 
@@ -41,26 +35,21 @@ if(!isset($param) OR $param !== 'page') {
 # Page feed
 #===============================================================================
 if(!isset($param) OR $param !== 'post') {
-	$PAGE['FEED_SORT'] = Application::get('PAGE.FEED_SORT');
-	$PAGE['FEED_SIZE'] = Application::get('PAGE.FEED_SIZE');
+	$PageRepository = Application::getRepository('Page');
 
-	$execSQL = "SELECT id FROM %s ORDER BY {$PAGE['FEED_SORT']} LIMIT {$PAGE['FEED_SIZE']}";
-	$pageIDs = $Database->query(sprintf($execSQL, Page\Attribute::TABLE))->fetchAll($Database::FETCH_COLUMN);
+	$pages = $PageRepository->getPaginated(
+		Application::get('PAGE.FEED_SORT'),
+		Application::get('PAGE.FEED_SIZE')
+	);
 
-	foreach($pageIDs as $pageID) {
-		try {
-			$Page = Page\Factory::build($pageID);
-			$User = User\Factory::build($Page->get('user'));
+	foreach($pages as $Page) {
+		$User = $UserRepository->find($Page->get('user'));
 
-			$ItemTemplate = Template\Factory::build('feed/item_page');
-			$ItemTemplate->set('PAGE', generateItemTemplateData($Page));
-			$ItemTemplate->set('USER', generateItemTemplateData($User));
+		$ItemTemplate = Template\Factory::build('feed/item_page');
+		$ItemTemplate->set('PAGE', generateItemTemplateData($Page));
+		$ItemTemplate->set('USER', generateItemTemplateData($User));
 
-			$page_templates[] = $ItemTemplate;
-		}
-
-		catch(Page\Exception $Exception){}
-		catch(User\Exception $Exception){}
+		$page_templates[] = $ItemTemplate;
 	}
 }
 
