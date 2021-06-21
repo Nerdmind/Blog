@@ -200,6 +200,26 @@ function getMarkdownImageURLs(string $text): array {
 }
 
 #===============================================================================
+# Parse argument string to array
+#===============================================================================
+function parseArguments(?string $argv): array {
+	if($argv) {
+		foreach(explode('|', $argv) as $delimeter) {
+			$part = explode('=', $delimeter);
+
+			$argumentK = $part[0] ?? NULL;
+			$argumentV = $part[1] ?? TRUE;
+
+			if(preg_match('#^[[:word:]]+$#', $argumentK)) {
+				$arguments[strtoupper($argumentK)] = $argumentV;
+			}
+		}
+	}
+
+	return $arguments ?? [];
+}
+
+#===============================================================================
 # Parser for datetime formatted strings [YYYY-MM-DD HH:II:SS]
 #===============================================================================
 function parseDatetime($datetime, $format): string {
