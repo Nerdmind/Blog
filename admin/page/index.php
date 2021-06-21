@@ -38,7 +38,7 @@ foreach($pageIDs as $pageID) {
 
 		$ItemTemplate = generatePageItemTemplate($Page, $User);
 
-		$pages[] = $ItemTemplate;
+		$templates[] = $ItemTemplate;
 	}
 	catch(Page\Exception $Exception){}
 	catch(User\Exception $Exception){}
@@ -54,7 +54,7 @@ $PaginationTemplate->set('HREF', Application::getAdminURL('page/?site=%d'));
 
 $ListTemplate = Template\Factory::build('page/index');
 $ListTemplate->set('LIST', [
-	'PAGES' => $pages ?? []
+	'PAGES' => $templates ?? []
 ]);
 
 $ListTemplate->set('PAGINATION', [

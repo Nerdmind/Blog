@@ -36,7 +36,7 @@ foreach($userIDs as $userID) {
 		$User = User\Factory::build($userID);
 		$ItemTemplate = generateUserItemTemplate($User);
 
-		$users[] = $ItemTemplate;
+		$templates[] = $ItemTemplate;
 	} catch(User\Exception $Exception){}
 }
 
@@ -50,7 +50,7 @@ $PaginationTemplate->set('HREF', Application::getAdminURL('user/?site=%d'));
 
 $ListTemplate = Template\Factory::build('user/index');
 $ListTemplate->set('LIST', [
-	'USERS' => $users ?? []
+	'USERS' => $templates ?? []
 ]);
 
 $ListTemplate->set('PAGINATION', [

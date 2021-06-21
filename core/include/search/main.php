@@ -42,7 +42,7 @@ if(isset($postIDs) AND !empty($postIDs)) {
 			$Post = Post\Factory::build($postID);
 			$User = User\Factory::build($Post->get('user'));
 
-			$posts[] = generatePostItemTemplate($Post, $User);
+			$templates[] = generatePostItemTemplate($Post, $User);
 		}
 		catch(Post\Exception $Exception){}
 		catch(User\Exception $Exception){}
@@ -52,7 +52,7 @@ if(isset($postIDs) AND !empty($postIDs)) {
 	$ResultTemplate->set('FORM', $form_data);
 	$ResultTemplate->set('SEARCH', $search_data);
 	$ResultTemplate->set('RESULT', [
-		'LIST' => $posts ?? []
+		'LIST' => $templates ?? []
 	]);
 
 	$MainTemplate = Template\Factory::build('main');

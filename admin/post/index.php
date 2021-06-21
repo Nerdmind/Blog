@@ -38,7 +38,7 @@ foreach($postIDs as $postID) {
 
 		$ItemTemplate = generatePostItemTemplate($Post, $User);
 
-		$posts[] = $ItemTemplate;
+		$templates[] = $ItemTemplate;
 	}
 	catch(Post\Exception $Exception){}
 	catch(User\Exception $Exception){}
@@ -54,7 +54,7 @@ $PaginationTemplate->set('HREF', Application::getAdminURL('post/?site=%d'));
 
 $ListTemplate = Template\Factory::build('post/index');
 $ListTemplate->set('LIST', [
-	'POSTS' => $posts ?? []
+	'POSTS' => $templates ?? []
 ]);
 
 $ListTemplate->set('PAGINATION', [

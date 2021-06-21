@@ -20,7 +20,7 @@ if($search = HTTP::GET('q')) {
 				$Post = Post\Factory::build($postID);
 				$User = User\Factory::build($Post->get('user'));
 
-				$posts[] = generatePostItemTemplate($Post, $User);
+				$templates[] = generatePostItemTemplate($Post, $User);
 			}
 			catch(Post\Exception $Exception){}
 			catch(User\Exception $Exception){}
@@ -33,7 +33,7 @@ if($search = HTTP::GET('q')) {
 #===============================================================================
 $SearchTemplate = Template\Factory::build('post/search');
 $SearchTemplate->set('QUERY', $search);
-$SearchTemplate->set('POSTS', $posts ?? []);
+$SearchTemplate->set('POSTS', $templates ?? []);
 
 $MainTemplate = Template\Factory::build('main');
 $MainTemplate->set('NAME', $Language->text('title_post_search'));

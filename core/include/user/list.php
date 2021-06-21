@@ -38,7 +38,7 @@ foreach($userIDs as $userID) {
 		$User = User\Factory::build($userID);
 		$ItemTemplate = generateUserItemTemplate($User);
 
-		$users[] = $ItemTemplate;
+		$templates[] = $ItemTemplate;
 	} catch(User\Exception $Exception){}
 }
 
@@ -52,7 +52,7 @@ $ListTemplate->set('PAGINATION', [
 	'HTML' => generateUserNaviTemplate($currentSite)
 ]);
 $ListTemplate->set('LIST', [
-	'USERS' => $users ?? []
+	'USERS' => $templates ?? []
 ]);
 
 $MainTemplate = Template\Factory::build('main');

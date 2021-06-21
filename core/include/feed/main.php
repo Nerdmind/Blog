@@ -29,7 +29,7 @@ if(!isset($param) OR $param !== 'page') {
 			$ItemTemplate->set('POST', generateItemTemplateData($Post));
 			$ItemTemplate->set('USER', generateItemTemplateData($User));
 
-			$posts[] = $ItemTemplate;
+			$post_templates[] = $ItemTemplate;
 		}
 
 		catch(Post\Exception $Exception){}
@@ -56,7 +56,7 @@ if(!isset($param) OR $param !== 'post') {
 			$ItemTemplate->set('PAGE', generateItemTemplateData($Page));
 			$ItemTemplate->set('USER', generateItemTemplateData($User));
 
-			$pages[] = $ItemTemplate;
+			$page_templates[] = $ItemTemplate;
 		}
 
 		catch(Page\Exception $Exception){}
@@ -71,8 +71,8 @@ $FeedTemplate = Template\Factory::build('feed/main');
 $FeedTemplate->set('FEED', [
 	'TYPE' => $param ?? NULL,
 	'LIST' => [
-		'POSTS' => $posts ?? [],
-		'PAGES' => $pages ?? [],
+		'POSTS' => $post_templates ?? [],
+		'PAGES' => $page_templates ?? [],
 	]
 ]);
 

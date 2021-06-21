@@ -40,7 +40,7 @@ foreach($pageIDs as $pageID) {
 
 		$ItemTemplate = generatePageItemTemplate($Page, $User);
 
-		$pages[] = $ItemTemplate;
+		$templates[] = $ItemTemplate;
 	}
 	catch(Page\Exception $Exception){}
 	catch(User\Exception $Exception){}
@@ -56,7 +56,7 @@ $ListTemplate->set('PAGINATION', [
 	'HTML' => generatePageNaviTemplate($currentSite)
 ]);
 $ListTemplate->set('LIST', [
-	'PAGES' => $pages ?? []
+	'PAGES' => $templates ?? []
 ]);
 
 $MainTemplate = Template\Factory::build('main');

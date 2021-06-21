@@ -40,7 +40,7 @@ foreach($postIDs as $postID) {
 
 		$ItemTemplate = generatePostItemTemplate($Post, $User);
 
-		$posts[] = $ItemTemplate;
+		$templates[] = $ItemTemplate;
 	}
 	catch(Post\Exception $Exception){}
 	catch(User\Exception $Exception){}
@@ -56,7 +56,7 @@ $ListTemplate->set('PAGINATION', [
 	'HTML' => generatePostNaviTemplate($currentSite)
 ]);
 $ListTemplate->set('LIST', [
-	'POSTS' => $posts ?? []
+	'POSTS' => $templates ?? []
 ]);
 
 $MainTemplate = Template\Factory::build('main');
