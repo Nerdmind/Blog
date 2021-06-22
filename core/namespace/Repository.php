@@ -125,7 +125,7 @@ abstract class Repository {
 	}
 
 	#===============================================================================
-	# Find previous entitiy
+	# Find previous entity
 	#===============================================================================
 	public function findPrev(EntityInterface $Entity): ?EntityInterface {
 		$query = 'SELECT * FROM %s WHERE time_insert < ? ORDER BY time_insert DESC LIMIT 1';

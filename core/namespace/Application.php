@@ -71,7 +71,7 @@ class Application {
 	#===============================================================================
 	# Return singleton repository instance
 	#===============================================================================
-	public function getRepository(string $namespace): Repository {
+	public static function getRepository(string $namespace): Repository {
 		$identifier = strtolower($namespace);
 		$repository = "$namespace\Repository";
 
@@ -156,9 +156,9 @@ class Application {
 	}
 
 	#===============================================================================
-	# Return absolute URL of a specifc entity
+	# Return absolute URL of a specific entity
 	#===============================================================================
-	public function getEntityURL(EntityInterface $Entity) {
+	public static function getEntityURL(EntityInterface $Entity) {
 		switch($class = get_class($Entity)) {
 			case 'Page\Entity':
 				$attr = self::get('PAGE.SLUG_URLS') ? 'slug' : 'id';
