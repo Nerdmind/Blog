@@ -142,19 +142,6 @@ $Language = Application::getLanguage();
 $Database = Application::getDatabase();
 
 #===============================================================================
-# Set Database attributes
-#===============================================================================
-$Database->setAttribute(
-	$Database::ATTR_DEFAULT_FETCH_MODE,
-	$Database::FETCH_ASSOC
-);
-
-$Database->setAttribute(
-	$Database::ATTR_ERRMODE,
-	$Database::ERRMODE_EXCEPTION
-);
-
-#===============================================================================
 # Check if "304 Not Modified" and ETag header should be sent
 #===============================================================================
 if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {

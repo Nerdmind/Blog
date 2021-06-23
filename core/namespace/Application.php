@@ -44,7 +44,19 @@ class Application {
 			$username = self::get('DATABASE.USERNAME');
 			$password = self::get('DATABASE.PASSWORD');
 
-			self::$Database = new Database($hostname, $basename, $username, $password);
+			$Database = new Database($hostname, $basename, $username, $password);
+
+			$Database->setAttribute(
+				$Database::ATTR_DEFAULT_FETCH_MODE,
+				$Database::FETCH_ASSOC
+			);
+
+			$Database->setAttribute(
+				$Database::ATTR_ERRMODE,
+				$Database::ERRMODE_EXCEPTION
+			);
+
+			self::$Database = $Database;
 		}
 
 		return self::$Database;
