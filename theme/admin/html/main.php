@@ -15,8 +15,8 @@
 				<a href="<?=Application::getURL()?>">
 					<img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration" />
 				</a>
-				<div id="header-text">Administration</div>
-				<div id="header-desc">PHP7 blogging application by <span>Nerdmind</span>!</div>
+				<div id="header-text"><?=escapeHTML($BLOGMETA['NAME'])?></div>
+				<div id="header-desc"><?=escapeHTML($BLOGMETA['DESC'])?></div>
 			</div>
 		</div>
 		<div class="header-line">
