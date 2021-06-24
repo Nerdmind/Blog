@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header id="main-header">
-		<div class="header-line">
+		<div class="header-line background">
 			<div class="header-content">
 				<a href="<?=Application::getURL()?>">
 					<img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration" />

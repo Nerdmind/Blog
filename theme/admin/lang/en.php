@@ -143,3 +143,13 @@ $LANGUAGE['markdown_code'] = 'Code block';
 $LANGUAGE['markdown_quote'] = 'Quote';
 $LANGUAGE['markdown_list_ul'] = 'List [unordered]';
 $LANGUAGE['markdown_list_ol'] = 'List [ordered]';
+
+#===============================================================================
+# Migrations
+#===============================================================================
+$LANGUAGE['maintenance_mode'] = 'Maintenance mode';
+$LANGUAGE['migration_upgrade'] = 'A database schema migration is required!<br>The on-disk schema version is
+	<code>%d</code> but the application uses the higher schema version <code>%d</code>.';
+$LANGUAGE['migration_notice'] = 'The following commands will migrate the database schema from <code>%d</code> to <code>%d</code>.';
+$LANGUAGE['migration_successful'] = 'The following migrations were successful:';
+$LANGUAGE['migration_submit'] = 'Run migrations';

@@ -143,3 +143,13 @@ $LANGUAGE['markdown_code'] = 'Codeblock';
 $LANGUAGE['markdown_quote'] = 'Zitat';
 $LANGUAGE['markdown_list_ul'] = 'Liste [ungeordnet]';
 $LANGUAGE['markdown_list_ol'] = 'Liste [geordnet]';
+
+#===============================================================================
+# Migrations
+#===============================================================================
+$LANGUAGE['maintenance_mode'] = 'Wartungsmodus';
+$LANGUAGE['migration_upgrade'] = 'Eine Migration des Datenbankschemas ist erforderlich!<br>Die Datenbank verwendet die
+	Schema-Version <code>%d</code>, aber die Applikation benutzt die höhere Schema-Version <code>%d</code>.';
+$LANGUAGE['migration_notice'] = 'Die folgenden Kommandos migrieren das Datenbankschema von <code>%d</code> nach <code>%d</code>.';
+$LANGUAGE['migration_successful'] = 'Die folgenden Migrationen waren erfolgreich:';
+$LANGUAGE['migration_submit'] = 'Migrationen ausführen';

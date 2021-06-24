@@ -6,6 +6,7 @@ class Application {
 	#===============================================================================
 	private static $Database;
 	private static $Language;
+	private static $Migrator;
 	private static $repositories = [];
 
 	#===============================================================================
@@ -78,6 +79,19 @@ class Application {
 		}
 
 		return self::$Language;
+	}
+
+	#===============================================================================
+	# Return singleton Migrator instance
+	#===============================================================================
+	public static function getMigrator(): Migrator {
+		if(!self::$Migrator instanceof Migrator) {
+			$Migrator = new Migrator(self::getDatabase());
+			$Migrator->setMigrationsDir(ROOT.'core/db/migrations/');
+			self::$Migrator = $Migrator;
+		}
+
+		return self::$Migrator;
 	}
 
 	#===============================================================================

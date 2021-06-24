@@ -140,18 +140,18 @@ body {
 .header-line {
   padding: 0.5rem 0.75rem;
   overflow: hidden;
-}
-.header-line:first-child {
-  background: #5E819F;
-  position: sticky;
-  top: 0;
-}
-.header-line:last-child {
   background: #EEE;
+  padding: 0.25rem 0.75rem;
+}
+.header-line + .header-line {
   border: 0.05rem solid #AAA;
   border-left: none;
   border-right: none;
-  padding: 0.25rem 0.75rem;
+}
+.header-line.background {
+  background: #5E819F;
+  position: sticky;
+  top: 0;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -308,11 +308,18 @@ pre {
   overflow: auto;
   -moz-tab-size: 4;
   tab-size: 4;
+  background: #EEE;
+  padding: 0.5rem;
+  border: 0.05rem solid #AAA;
+  font-style: italic;
 }
 
 code, pre {
   font-family: "monospace";
-  color: #B03060;
+}
+
+code {
+  color: #008B45;
 }
 
 p {
@@ -342,6 +349,12 @@ img {
 
 .hidden {
   display: none;
+}
+
+.no-visual-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 #database-result {

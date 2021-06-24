@@ -142,6 +142,11 @@ $Language = Application::getLanguage();
 $Database = Application::getDatabase();
 
 #===============================================================================
+# Include migration detection
+#===============================================================================
+require 'migrations.php';
+
+#===============================================================================
 # Check if "304 Not Modified" and ETag header should be sent
 #===============================================================================
 if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {
