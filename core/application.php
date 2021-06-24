@@ -48,6 +48,7 @@ foreach([
 	'DATABASE.BASENAME' => 'blog',
 	'DATABASE.USERNAME' => 'blog',
 	'DATABASE.PASSWORD' => '',
+	'MIGRATOR.ENABLED' => TRUE,
 	'TEMPLATE.NAME' => 'default',
 	'TEMPLATE.LANG' => 'en',
 	'ADMIN.TEMPLATE' => 'admin',
@@ -144,7 +145,9 @@ $Database = Application::getDatabase();
 #===============================================================================
 # Include migration detection
 #===============================================================================
-require 'migrations.php';
+if(Application::get('MIGRATOR.ENABLED')) {
+	require 'migrations.php';
+}
 
 #===============================================================================
 # Check if "304 Not Modified" and ETag header should be sent
