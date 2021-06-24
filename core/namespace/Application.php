@@ -25,7 +25,7 @@ class Application {
 	# Get configuration value
 	#===============================================================================
 	public static function get($config) {
-		return self::$configuration[$config] ?? "{$config}";
+		return self::$configuration[$config] ?? NULL;
 	}
 
 	#===============================================================================
