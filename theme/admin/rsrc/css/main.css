@@ -588,7 +588,7 @@ table, td {
 
 .button-list.markdown > li {
   float: left;
-  padding: 0.5rem;
+  padding: 0.25rem;
   cursor: pointer;
   width: 1.75rem;
   box-sizing: border-box;
@@ -793,70 +793,216 @@ label:after {
   }
 }
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# FontAwesome Main
+# Fontello
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.fa {
-  font: normal normal normal 14px/1 "FontAwesome";
-  font-size: inherit;
-  speak: none;
+.fa:before {
+  font-family: "Fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
   display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* Font smoothing. That was taken from TWBS */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# FontAwesome Icons
+# Font Awesome icons
+# ------------------
+# Copyright (C) 2016 by Dave Gandy
+# Author: Dave Gandy
+# License: SIL
+# Homepage: http://fortawesome.github.com/Font-Awesome/
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.fa-bug:before {
-  content: "";
+.fa-pencil:before {
+  content: "";
 }
 
-.fa-key:before {
-  content: "";
+.fa-comment:before {
+  content: "";
 }
 
-.fa-link:before {
-  content: "";
+.fa-chat:before {
+  content: "";
 }
 
-.fa-bold:before {
-  content: "";
+.fa-users:before {
+  content: "";
 }
 
-.fa-code:before {
-  content: "";
+.fa-cancel:before {
+  content: "";
 }
 
-.fa-user:before {
-  content: "";
+.fa-plus:before {
+  content: "";
 }
 
-.fa-book:before {
-  content: "";
+.fa-list:before {
+  content: "";
 }
 
-.fa-italic:before {
-  content: "";
+.fa-arrow-down:before {
+  content: "";
 }
 
-.fa-header:before {
-  content: "";
+.fa-arrow-up:before {
+  content: "";
+}
+
+.fa-arrows-cw:before {
+  content: "";
+}
+
+.fa-tag:before {
+  content: "";
+}
+
+.fa-tags:before {
+  content: "";
+}
+
+.fa-star:before {
+  content: "";
+}
+
+.fa-star-empty:before {
+  content: "";
+}
+
+.fa-eye:before {
+  content: "";
+}
+
+.fa-ok:before {
+  content: "";
+}
+
+.fa-info-circled:before {
+  content: "";
+}
+
+.fa-home:before {
+  content: "";
+}
+
+.fa-attach:before {
+  content: "";
+}
+
+.fa-cog:before {
+  content: "";
+}
+
+.fa-check:before {
+  content: "";
+}
+
+.fa-floppy:before {
+  content: "";
+}
+
+.fa-eye-off:before {
+  content: "";
+}
+
+.fa-folder-open:before {
+  content: "";
+}
+
+.fa-wrench:before {
+  content: "";
 }
 
 .fa-search:before {
   content: "";
 }
 
+.fa-envelope-o:before {
+  content: "";
+}
+
+.fa-user:before {
+  content: "";
+}
+
 .fa-trash-o:before {
   content: "";
+}
+
+.fa-clock-o:before {
+  content: "";
+}
+
+.fa-book:before {
+  content: "";
+}
+
+.fa-bold:before {
+  content: "";
+}
+
+.fa-italic:before {
+  content: "";
+}
+
+.fa-picture-o:before {
+  content: "";
+}
+
+.fa-pencil-square-o:before {
+  content: "";
+}
+
+.fa-arrow-left:before {
+  content: "";
+}
+
+.fa-arrow-right:before {
+  content: "";
+}
+
+.fa-exclamation-triangle:before {
+  content: "";
+}
+
+.fa-key:before {
+  content: "";
+}
+
+.fa-sign-out:before {
+  content: "";
+}
+
+.fa-external-link:before {
+  content: "";
 }
 
 .fa-sign-in:before {
   content: "";
 }
 
-.fa-clock-o:before {
-  content: "";
+.fa-github-square:before {
+  content: "";
+}
+
+.fa-uncheck:before {
+  content: "";
+}
+
+.fa-link:before {
+  content: "";
+}
+
+.fa-menu:before {
+  content: "";
 }
 
 .fa-list-ul:before {
@@ -867,77 +1013,154 @@ label:after {
   content: "";
 }
 
-.fa-database:before {
-  content: "";
-}
-
-.fa-language:before {
-  content: "";
-}
-
-.fa-sign-out:before {
-  content: "";
-}
-
 .fa-dashboard:before {
   content: "";
 }
 
-.fa-picture-o:before {
-  content: "";
+.fa-comment-empty:before {
+  content: "";
 }
 
-.fa-envelope-o:before {
-  content: "";
-}
-
-.fa-arrow-left:before {
-  content: "";
-}
-
-.fa-quote-right:before {
-  content: "";
-}
-
-.fa-user-secret:before {
-  content: "";
+.fa-chat-empty:before {
+  content: "";
 }
 
 .fa-file-text-o:before {
   content: "";
 }
 
+.fa-quote-left:before {
+  content: "";
+}
+
+.fa-quote-right:before {
+  content: "";
+}
+
+.fa-smile:before {
+  content: "";
+}
+
+.fa-frown:before {
+  content: "";
+}
+
+.fa-meh:before {
+  content: "";
+}
+
+.fa-keyboard:before {
+  content: "";
+}
+
+.fa-code:before {
+  content: "";
+}
+
+.fa-attention-alt:before {
+  content: "";
+}
+
+.fa-sort-name-up:before {
+  content: "";
+}
+
+.fa-sort-name-down:before {
+  content: "";
+}
+
+.fa-sort-up:before {
+  content: "";
+}
+
+.fa-sort-down:before {
+  content: "";
+}
+
+.fa-sort-number-up:before {
+  content: "";
+}
+
+.fa-sort-number-down:before {
+  content: "";
+}
+
+.fa-sun:before {
+  content: "";
+}
+
+.fa-moon:before {
+  content: "";
+}
+
+.fa-box:before {
+  content: "";
+}
+
+.fa-bug:before {
+  content: "";
+}
+
+.fa-language:before {
+  content: "";
+}
+
+.fa-database:before {
+  content: "";
+}
+
+.fa-file-archive:before {
+  content: "";
+}
+
+.fa-header:before {
+  content: "";
+}
+
 .fa-newspaper-o:before {
   content: "";
 }
 
-.fa-arrow-right:before {
-  content: "";
+.fa-at:before {
+  content: "";
 }
 
-.fa-external-link:before {
-  content: "";
+.fa-toggle-off:before {
+  content: "";
 }
 
-.fa-github-square:before {
-  content: "";
+.fa-toggle-on:before {
+  content: "";
 }
 
-.fa-pencil-square-o:before {
-  content: "";
+.fa-user-secret:before {
+  content: "";
 }
 
-.fa-exclamation-triangle:before {
-  content: "";
+.fa-server:before {
+  content: "";
+}
+
+.fa-commenting:before {
+  content: "";
+}
+
+.fa-commenting-o:before {
+  content: "";
+}
+
+.fa-user-circle-o:before {
+  content: "";
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Font "Font Awesome" [4.7.0] (by Fontello): SIL Open Font License (OFL)
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 @font-face {
-  font-family: "FontAwesome";
+  font-family: "Fontello";
   font-weight: 400;
-  src: url("../font/font-awesome-fontello.woff2") format("woff2");
+  font-style: normal;
+  src: url("../font/fontello.woff2") format("woff2");
 }
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Font "Kadwa": SIL Open Font License (OFL)

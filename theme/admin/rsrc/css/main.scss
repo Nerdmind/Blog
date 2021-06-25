@@ -656,7 +656,7 @@ table, td {
 
 .button-list.markdown > li {
 	float: left;
-	padding: 0.5rem;
+	padding: 0.25rem;
 	cursor: pointer;
 	width: 1.75rem;
 	box-sizing: border-box;
@@ -788,5 +788,5 @@ label {
 }
 
 @import "import/responsive";
-@import "import/font-awesome";
+@import "import/fontello";
 @import "import/fonts";
