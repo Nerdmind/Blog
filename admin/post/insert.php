@@ -19,7 +19,7 @@ $UserRepository = Application::getRepository('User');
 #===============================================================================
 # Instantiate new Post entity
 #===============================================================================
-$Post = new Post\Entity;
+$Post = new ORM\Entities\Post;
 
 #===============================================================================
 # Check for insert request

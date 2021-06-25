@@ -1,11 +1,13 @@
 <?php
-namespace Post;
+namespace ORM\Repositories;
+use ORM\Repository;
+use ORM\Entities\User;
 
-class Repository extends \Repository {
+class Post extends Repository {
 	public static function getTableName(): string { return 'post'; }
-	public static function getClassName(): string { return 'Post\Entity'; }
+	public static function getClassName(): string { return 'ORM\Entities\Post'; }
 
-	public function getCountByUser(\User\Entity $User): int {
+	public function getCountByUser(User $User): int {
 		$query = 'SELECT COUNT(id) FROM %s WHERE user = ?';
 		$query = sprintf($query, static::getTableName());
 

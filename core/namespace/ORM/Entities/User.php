@@ -1,7 +1,8 @@
 <?php
-namespace User;
+namespace ORM\Entities;
+use ORM\Entity;
 
-class Entity extends \Entity {
+class User extends Entity {
 	protected $id       = FALSE;
 	protected $slug     = FALSE;
 	protected $username = FALSE;

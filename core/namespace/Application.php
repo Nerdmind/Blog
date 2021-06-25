@@ -1,4 +1,6 @@
 <?php
+use ORM\EntityInterface;
+
 class Application {
 
 	#===============================================================================
@@ -97,9 +99,9 @@ class Application {
 	#===============================================================================
 	# Return singleton repository instance
 	#===============================================================================
-	public static function getRepository(string $namespace): Repository {
-		$identifier = strtolower($namespace);
-		$repository = "$namespace\Repository";
+	public static function getRepository(string $entity): ORM\Repository {
+		$identifier = strtolower($entity);
+		$repository = "ORM\Repositories\\$entity";
 
 		if(!isset(self::$repositories[$identifier])) {
 			$Repository = new $repository(self::getDatabase());
@@ -186,13 +188,13 @@ class Application {
 	#===============================================================================
 	public static function getEntityURL(EntityInterface $Entity) {
 		switch($class = get_class($Entity)) {
-			case 'Page\Entity':
+			case 'ORM\Entities\Page':
 				$attr = self::get('PAGE.SLUG_URLS') ? 'slug' : 'id';
 				return self::getPageURL($Entity->get($attr).'/');
-			case 'Post\Entity':
+			case 'ORM\Entities\Post':
 				$attr = self::get('POST.SLUG_URLS') ? 'slug' : 'id';
 				return self::getPostURL($Entity->get($attr).'/');
-			case 'User\Entity':
+			case 'ORM\Entities\User':
 				$attr = self::get('USER.SLUG_URLS') ? 'slug' : 'id';
 				return self::getUserURL($Entity->get($attr).'/');
 			default:

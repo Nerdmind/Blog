@@ -1,4 +1,7 @@
 <?php
+namespace ORM;
+use Database;
+
 abstract class Repository {
 	protected $Database;
 	protected $entities = [];

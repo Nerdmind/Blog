@@ -1,7 +1,8 @@
 <?php
-namespace Post;
+namespace ORM\Entities;
+use ORM\Entity;
 
-class Entity extends \Entity {
+class Page extends Entity {
 	protected $id   = FALSE;
 	protected $user = FALSE;
 	protected $slug = FALSE;

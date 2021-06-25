@@ -19,7 +19,7 @@ $UserRepository = Application::getRepository('User');
 #===============================================================================
 # Instantiate new Page entity
 #===============================================================================
-$Page = new Page\Entity;
+$Page = new ORM\Entities\Page;
 
 #===============================================================================
 # Check for insert request

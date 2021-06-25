@@ -1,4 +1,6 @@
 <?php
+namespace ORM;
+
 abstract class Entity implements EntityInterface {
 	protected $id;
 	protected $time_insert;

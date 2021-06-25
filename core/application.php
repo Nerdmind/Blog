@@ -159,9 +159,9 @@ if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {
 	#===========================================================================
 	$execute = '(SELECT time_update FROM %s ORDER BY time_update DESC LIMIT 1) AS %s';
 
-	$pageTable = Page\Repository::getTableName();
-	$postTable = Post\Repository::getTableName();
-	$userTable = User\Repository::getTableName();
+	$pageTable = ORM\Repositories\Page::getTableName();
+	$postTable = ORM\Repositories\Post::getTableName();
+	$userTable = ORM\Repositories\User::getTableName();
 
 	$pageSQL = sprintf($execute, $pageTable, $pageTable);
 	$postSQL = sprintf($execute, $postTable, $postTable);

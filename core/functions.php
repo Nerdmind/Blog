@@ -1,7 +1,9 @@
 <?php
-use Page\Entity as Page;
-use Post\Entity as Post;
-use User\Entity as User;
+use ORM\Entities\Page;
+use ORM\Entities\Post;
+use ORM\Entities\User;
+use ORM\EntityInterface;
+
 use Template\Template as Template;
 use Template\Factory as TemplateFactory;
 
@@ -114,10 +116,10 @@ function generateItemTemplateData(EntityInterface $Entity): array {
 #===============================================================================
 function generatePseudoGUID(EntityInterface $Entity) {
 	switch(get_class($Entity)) {
-		case "Page\Entity":
+		case "ORM\Entities\Page":
 			$attr = Application::get('PAGE.FEED_GUID');
 			break;
-		case "Post\Entity":
+		case "ORM\Entities\Post":
 			$attr = Application::get('POST.FEED_GUID');
 			break;
 		default:
@@ -164,13 +166,13 @@ function parseContentTags(string $text): string {
 #===============================================================================
 function parseEntityContent(EntityInterface $Entity): string {
 	switch($class = get_class($Entity)) {
-		case 'Page\Entity':
+		case 'ORM\Entities\Page':
 			$prefix = 'PAGE';
 			break;
-		case 'Post\Entity':
+		case 'ORM\Entities\Post':
 			$prefix = 'POST';
 			break;
-		case 'User\Entity':
+		case 'ORM\Entities\User':
 			$prefix = 'USER';
 			break;
 		default:

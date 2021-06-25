@@ -18,7 +18,7 @@ $UserRepository = Application::getRepository('User');
 #===============================================================================
 # Instantiate new User entity
 #===============================================================================
-$User = new User\Entity;
+$User = new ORM\Entities\User;
 
 #===============================================================================
 # Check for insert request
