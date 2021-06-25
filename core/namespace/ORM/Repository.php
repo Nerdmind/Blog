@@ -42,8 +42,8 @@ abstract class Repository {
 	# Removes an entity from the runtime cache
 	#===============================================================================
 	protected function removeInstance(int $identifier) {
-		if(isset($this->cache[$identifier])) {
-			unset($this->cache[$identifier]);
+		if(isset($this->entities[$identifier])) {
+			unset($this->entities[$identifier]);
 		}
 	}
 
