@@ -24,13 +24,13 @@ $User = new ORM\Entities\User;
 # Check for insert request
 #===============================================================================
 if(HTTP::issetPOST('slug', 'username', 'password', 'fullname', 'mailaddr', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
-	$User->set('slug',     HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('username')));
-	$User->set('username', HTTP::POST('username') ? HTTP::POST('username') : NULL);
+	$User->set('slug',     HTTP::POST('slug') ?: generateSlug(HTTP::POST('username')));
+	$User->set('username', HTTP::POST('username') ?: NULL);
 	$User->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : FALSE);
-	$User->set('fullname', HTTP::POST('fullname') ? HTTP::POST('fullname') : NULL);
-	$User->set('mailaddr', HTTP::POST('mailaddr') ? HTTP::POST('mailaddr') : NULL);
-	$User->set('body',     HTTP::POST('body') ? HTTP::POST('body') : NULL);
-	$User->set('argv',     HTTP::POST('argv') ? HTTP::POST('argv') : NULL);
+	$User->set('fullname', HTTP::POST('fullname') ?: NULL);
+	$User->set('mailaddr', HTTP::POST('mailaddr') ?: NULL);
+	$User->set('body',     HTTP::POST('body') ?: NULL);
+	$User->set('argv',     HTTP::POST('argv') ?: NULL);
 	$User->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
 	$User->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 

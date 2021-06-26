@@ -28,10 +28,10 @@ if(!$Page = $PageRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 if(HTTP::issetPOST('user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'update')) {
 	$Page->set('user', HTTP::POST('user'));
-	$Page->set('slug', HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('name')));
-	$Page->set('name', HTTP::POST('name') ? HTTP::POST('name') : NULL);
-	$Page->set('body', HTTP::POST('body') ? HTTP::POST('body') : NULL);
-	$Page->set('argv', HTTP::POST('argv') ? HTTP::POST('argv') : NULL);
+	$Page->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
+	$Page->set('name', HTTP::POST('name') ?: NULL);
+	$Page->set('body', HTTP::POST('body') ?: NULL);
+	$Page->set('argv', HTTP::POST('argv') ?: NULL);
 	$Page->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
 	$Page->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 

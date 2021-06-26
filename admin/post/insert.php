@@ -26,10 +26,10 @@ $Post = new ORM\Entities\Post;
 #===============================================================================
 if(HTTP::issetPOST('user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
 	$Post->set('user', HTTP::POST('user'));
-	$Post->set('slug', HTTP::POST('slug') ? HTTP::POST('slug') : generateSlug(HTTP::POST('name')));
-	$Post->set('name', HTTP::POST('name') ? HTTP::POST('name') : NULL);
-	$Post->set('body', HTTP::POST('body') ? HTTP::POST('body') : NULL);
-	$Post->set('argv', HTTP::POST('argv') ? HTTP::POST('argv') : NULL);
+	$Post->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
+	$Post->set('name', HTTP::POST('name') ?: NULL);
+	$Post->set('body', HTTP::POST('body') ?: NULL);
+	$Post->set('argv', HTTP::POST('argv') ?: NULL);
 	$Post->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
 	$Post->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 
