@@ -49,7 +49,7 @@
 			<i class="fa fa-pencil"></i><?=$Language->text('label_update')?></label>
 
 		<div class="form-grid-item">
-			<input id="form_time_update" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ? $FORM['DATA']['TIME_UPDATE'] : 'CURRENT_TIMESTAMP')?>" value="" />
+			<input id="form_time_update" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ?: 'CURRENT_TIMESTAMP')?>" value="" />
 		</div>
 	</div>
 
