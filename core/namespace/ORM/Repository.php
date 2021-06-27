@@ -34,14 +34,14 @@ abstract class Repository {
 	#===============================================================================
 	# Gets an entity from the runtime cache
 	#===============================================================================
-	protected function fetchInstance(int $identifier) {
+	protected function fetchInstance($identifier) {
 		return $this->entities[$identifier] ?? FALSE;
 	}
 
 	#===============================================================================
 	# Removes an entity from the runtime cache
 	#===============================================================================
-	protected function removeInstance(int $identifier) {
+	protected function removeInstance($identifier) {
 		if(isset($this->entities[$identifier])) {
 			unset($this->entities[$identifier]);
 		}
@@ -101,7 +101,7 @@ abstract class Repository {
 	#===========================================================================
 	# Find entity based on primary key
 	#===========================================================================
-	public function find(int $id): ?EntityInterface {
+	public function find($id): ?EntityInterface {
 		if($Entity = $this->fetchInstance($id)) {
 			return $Entity;
 		}
