@@ -207,8 +207,12 @@ abstract class Repository {
 
 		if(!empty($filter)) {
 			foreach($filter as $column => $value) {
-				$wheres[] = "$column = ?";
-				$params[] = $value;
+				if($value === NULL) {
+					$wheres[] = "$column IS NULL";
+				} else {
+					$wheres[] = "$column = ?";
+					$params[] = $value;
+				}
 			}
 
 			$where = 'WHERE '.implode(' AND ', $wheres);
