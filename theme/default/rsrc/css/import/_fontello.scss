@@ -1,0 +1,119 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Fontello
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.fa:before {
+	font-family: "Fontello";
+	font-style: normal;
+	font-weight: normal;
+	speak: never;
+
+	display: inline-block;
+	text-decoration: inherit;
+	text-align: center;
+
+	/* For safety - reset parent styles, that can break glyph codes*/
+	font-variant: normal;
+	text-transform: none;
+
+	/* Font smoothing. That was taken from TWBS */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* Uncomment for 3D effect */
+	/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Font Awesome icons
+# ------------------
+# Copyright (C) 2016 by Dave Gandy
+# Author: Dave Gandy
+# License: SIL
+# Homepage: http://fortawesome.github.com/Font-Awesome/
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.fa-pencil:before { content: '\e800'; }
+.fa-comment:before { content: '\e801'; }
+.fa-chat:before { content: '\e802'; }
+.fa-users:before { content: '\e803'; }
+.fa-cancel:before { content: '\e804'; }
+.fa-plus:before { content: '\e805'; }
+.fa-list:before { content: '\e80b'; }
+.fa-arrow-down:before { content: '\e80e'; }
+.fa-arrow-up:before { content: '\e811'; }
+.fa-arrows-cw:before { content: '\e813'; }
+.fa-tag:before { content: '\e815'; }
+.fa-tags:before { content: '\e816'; }
+.fa-star:before { content: '\e817'; }
+.fa-star-empty:before { content: '\e818'; }
+.fa-eye:before { content: '\e81a'; }
+.fa-ok:before { content: '\e81b'; }
+.fa-info-circled:before { content: '\e81c'; }
+.fa-home:before { content: '\e81d'; }
+.fa-attach:before { content: '\e81e'; }
+.fa-cog:before { content: '\e81f'; }
+.fa-check:before { content: '\e821'; }
+.fa-floppy:before { content: '\e822'; }
+.fa-eye-off:before { content: '\e823'; }
+.fa-folder-open:before { content: '\e824'; }
+.fa-wrench:before { content: '\e825'; }
+.fa-search:before { content: '\f002'; }
+.fa-envelope-o:before { content: '\f003'; }
+.fa-user:before { content: '\f007'; }
+.fa-trash-o:before { content: '\f014'; }
+.fa-clock-o:before { content: '\f017'; }
+.fa-book:before { content: '\f02d'; }
+.fa-bold:before { content: '\f032'; }
+.fa-italic:before { content: '\f033'; }
+.fa-picture-o:before { content: '\f03e'; }
+.fa-pencil-square-o:before { content: '\f044'; }
+.fa-arrow-left:before { content: '\f060'; }
+.fa-arrow-right:before { content: '\f061'; }
+.fa-exclamation-triangle:before { content: '\f071'; }
+.fa-key:before { content: '\f084'; }
+.fa-sign-out:before { content: '\f08b'; }
+.fa-external-link:before { content: '\f08e'; }
+.fa-sign-in:before { content: '\f090'; }
+.fa-github-square:before { content: '\f092'; }
+.fa-uncheck:before { content: '\f096'; }
+.fa-rss:before { content: '\f09e'; }
+.fa-link:before { content: '\f0c1'; }
+.fa-menu:before { content: '\f0c9'; }
+.fa-list-ul:before { content: '\f0ca'; }
+.fa-list-ol:before { content: '\f0cb'; }
+.fa-dashboard:before { content: '\f0e4'; }
+.fa-comment-empty:before { content: '\f0e5'; }
+.fa-chat-empty:before { content: '\f0e6'; }
+.fa-file-text-o:before { content: '\f0f6'; }
+.fa-quote-left:before { content: '\f10d'; }
+.fa-quote-right:before { content: '\f10e'; }
+.fa-smile:before { content: '\f118'; }
+.fa-frown:before { content: '\f119'; }
+.fa-meh:before { content: '\f11a'; }
+.fa-keyboard:before { content: '\f11c'; }
+.fa-code:before { content: '\f121'; }
+.fa-attention-alt:before { content: '\f12a'; }
+.fa-rss-squared:before { content: '\f143'; }
+.fa-sort-name-up:before { content: '\f15d'; }
+.fa-sort-name-down:before { content: '\f15e'; }
+.fa-sort-up:before { content: '\f160'; }
+.fa-sort-down:before { content: '\f161'; }
+.fa-sort-number-up:before { content: '\f162'; }
+.fa-sort-number-down:before { content: '\f163'; }
+.fa-sun:before { content: '\f185'; }
+.fa-moon:before { content: '\f186'; }
+.fa-box:before { content: '\f187'; }
+.fa-bug:before { content: '\f188'; }
+.fa-plus-squared-alt:before { content: '\f196'; }
+.fa-language:before { content: '\f1ab'; }
+.fa-database:before { content: '\f1c0'; }
+.fa-file-archive:before { content: '\f1c6'; }
+.fa-header:before { content: '\f1dc'; }
+.fa-newspaper-o:before { content: '\f1ea'; }
+.fa-at:before { content: '\f1fa'; }
+.fa-toggle-off:before { content: '\f204'; }
+.fa-toggle-on:before { content: '\f205'; }
+.fa-user-secret:before { content: '\f21b'; }
+.fa-server:before { content: '\f233'; }
+.fa-commenting:before { content: '\f27a'; }
+.fa-commenting-o:before { content: '\f27b'; }
+.fa-user-circle-o:before { content: '\f2be'; }
