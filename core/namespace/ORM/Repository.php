@@ -183,11 +183,30 @@ abstract class Repository {
 	#===========================================================================
 	# Get entity count
 	#===========================================================================
-	public function getCount(): int {
-		$query = 'SELECT COUNT(id) FROM %s';
-		$query = sprintf($query, static::getTableName());
+	public function getCount(array $filter = []): int {
+		$wheres = [];
+		$params = [];
 
-		return $this->Database->query($query)->fetchColumn();
+		if(!empty($filter)) {
+			foreach($filter as $column => $value) {
+				if($value === NULL) {
+					$wheres[] = "$column IS NULL";
+				} else {
+					$wheres[] = "$column = ?";
+					$params[] = $value;
+				}
+			}
+
+			$where = 'WHERE '.implode(' AND ', $wheres);
+		}
+
+		$query = 'SELECT COUNT(id) FROM %s %s';
+		$query = sprintf($query, static::getTableName(), $where ?? '');
+
+		$Statement = $this->Database->prepare($query);
+		$Statement->execute($params);
+
+		return $Statement->fetchColumn();
 	}
 
 	#===========================================================================
