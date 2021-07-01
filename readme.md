@@ -9,6 +9,10 @@ Easy blogging application written with PHP7! The application comes with a fullte
 ## Content editor
 ![Content editor](https://nmnd.de/file/p/github-blog/admin-template-1.png)
 
+## Requirements
+* PHP version `>= 7.3`!
+* MariaDB version `>= 10.2.2` or MySQL version `>= 8.0`!
+
 ## Installation
 1. Clone the repository to the target directory (usually your *document root*). (Alternatively you also can download a specific release as ZIP archive and extract it to the target destination and skip step 2.)
 2. Check out the latest tag (or the tag you wish) by running `git tag -l` and `git checkout <tag>`.
