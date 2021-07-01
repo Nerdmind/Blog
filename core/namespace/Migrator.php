@@ -16,7 +16,8 @@ class Migrator {
 		try {
 			$Statement = $Database->query('SELECT schema_version FROM migration');
 
-			if(!$this->version = $Statement->fetchColumn()) {
+			# Explicitly check for FALSE, because result can be "0"
+			if(($this->version = $Statement->fetchColumn()) === FALSE) {
 				throw new Exception('The migration table does exist, but there is
 					no row containing the currently used on-disk schema version!');
 			}
