@@ -3,7 +3,26 @@
 -- =============================================================================
 CREATE TABLE `migration` (`schema_version` smallint(4) NOT NULL)
 	ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `migration` (`schema_version`) VALUES (5);
+INSERT INTO `migration` (`schema_version`) VALUES (6);
+
+-- =============================================================================
+-- Table structure for category entities
+-- =============================================================================
+CREATE TABLE `category` (
+	`id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`time_insert` datetime NOT NULL,
+	`time_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`parent` tinyint(3) UNSIGNED DEFAULT NULL,
+	`slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+	`name` varchar(100) NOT NULL,
+	`body` text NOT NULL,
+	`argv` varchar(250) DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `time_insert` (`time_insert`),
+	UNIQUE KEY `slug` (`slug`),
+	KEY `category_parent` (`parent`),
+	FULLTEXT KEY `search` (`name`, `body`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- =============================================================================
 -- Table structure for page entities
@@ -32,6 +51,7 @@ CREATE TABLE `post` (
 	`time_insert` datetime NOT NULL,
 	`time_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	`user` tinyint(3) UNSIGNED NOT NULL,
+	`category` tinyint(3) UNSIGNED DEFAULT NULL,
 	`slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
 	`name` varchar(100) NOT NULL,
 	`body` text NOT NULL,
@@ -40,6 +60,7 @@ CREATE TABLE `post` (
 	UNIQUE KEY `time_insert` (`time_insert`),
 	UNIQUE KEY `slug` (`slug`),
 	KEY `post_user` (`user`),
+	KEY `post_category` (`category`),
 	FULLTEXT KEY `search` (`name`, `body`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -66,10 +87,14 @@ CREATE TABLE `user` (
 -- =============================================================================
 -- Add foreign keys for entity relationships
 -- =============================================================================
+ALTER TABLE `category` ADD CONSTRAINT `category_parent` FOREIGN KEY (`parent`)
+	REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE `page` ADD CONSTRAINT `page_user` FOREIGN KEY (`user`)
 	REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `post` ADD CONSTRAINT `post_user` FOREIGN KEY (`user`)
 	REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `post` ADD CONSTRAINT `post_category` FOREIGN KEY (`category`)
+	REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- =============================================================================
 -- Insert some demo data
