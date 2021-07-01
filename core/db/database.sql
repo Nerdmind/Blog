@@ -3,16 +3,16 @@
 -- =============================================================================
 CREATE TABLE `migration` (`schema_version` smallint(4) NOT NULL)
 	ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `migration` (`schema_version`) VALUES (4);
+INSERT INTO `migration` (`schema_version`) VALUES (5);
 
 -- =============================================================================
 -- Table structure for page entities
 -- =============================================================================
 CREATE TABLE `page` (
-	`id` smallint(6) NOT NULL AUTO_INCREMENT,
+	`id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`time_insert` datetime NOT NULL,
 	`time_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`user` tinyint(4) NOT NULL,
+	`user` tinyint(3) UNSIGNED NOT NULL,
 	`slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
 	`name` varchar(100) NOT NULL,
 	`body` text NOT NULL,
@@ -28,10 +28,10 @@ CREATE TABLE `page` (
 -- Table structure for post entities
 -- =============================================================================
 CREATE TABLE `post` (
-	`id` smallint(6) NOT NULL AUTO_INCREMENT,
+	`id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`time_insert` datetime NOT NULL,
 	`time_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`user` tinyint(4) NOT NULL,
+	`user` tinyint(3) UNSIGNED NOT NULL,
 	`slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
 	`name` varchar(100) NOT NULL,
 	`body` text NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE `post` (
 -- Table structure for user entities
 -- =============================================================================
 CREATE TABLE `user` (
-	`id` tinyint(4) NOT NULL AUTO_INCREMENT,
+	`id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`time_insert` datetime NOT NULL,
 	`time_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	`slug` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,

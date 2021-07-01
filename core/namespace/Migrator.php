@@ -5,7 +5,7 @@ class Migrator {
 	private $directory;
 	private $migrations = [];
 
-	const CURRENT_SCHEMA_VERSION = 4;
+	const CURRENT_SCHEMA_VERSION = 5;
 
 	#===============================================================================
 	# Fetch on-disk schema version from migration table
