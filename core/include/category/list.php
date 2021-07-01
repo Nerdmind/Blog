@@ -14,9 +14,7 @@ $PostRepository = Application::getRepository('Post');
 # Pagination
 #===============================================================================
 $site_size = Application::get('CATEGORY.LIST_SIZE');
-$site_sort = Application::get('CATEGORY.LIST_SORT');
 
-#$count = $CategoryRepository->getCount(['parent' => NULL]);
 $count = $CategoryRepository->getCount();
 $lastSite = ceil($count / $site_size);
 

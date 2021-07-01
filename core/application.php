@@ -89,6 +89,7 @@ foreach([
 	'PAGE.SINGLE_REDIRECT' => FALSE,
 	'POST.SINGLE_REDIRECT' => FALSE,
 	'USER.SINGLE_REDIRECT' => FALSE,
+	'CATEGORY.LIST_SORT' => 'name ASC',
 	'PAGE.LIST_SORT' => 'time_insert DESC',
 	'POST.LIST_SORT' => 'time_insert DESC',
 	'USER.LIST_SORT' => 'time_insert DESC',
