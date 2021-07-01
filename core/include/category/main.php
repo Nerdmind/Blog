@@ -28,7 +28,7 @@ else {
 #===============================================================================
 # Throw 404 error if category (with parents) could not be found
 #===============================================================================
-if(!isset($categories)) {
+if(empty($categories)) {
 	Application::error404();
 }
 
