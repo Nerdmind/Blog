@@ -28,6 +28,13 @@ $lastSite = ceil($count / $site_size);
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
 
+#===============================================================================
+# Redirect to post create form if no post exists
+#===============================================================================
+if(!$count) {
+	HTTP::redirect(Application::getAdminURL('post/insert.php'));
+}
+
 if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 	Application::error404();
 }
