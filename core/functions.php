@@ -54,6 +54,24 @@ function generateCategoryNaviTemplate($current): Template {
 }
 
 #===============================================================================
+# Generate the post navigation template for posts in a category
+#===============================================================================
+function generateCategoryPostNaviTemplate(int $current, Category $Category): Template {
+	$location = Application::getEntityURL($Category);
+	$Repository = Application::getRepository('Post');
+
+	$listSize = Application::get('POST.LIST_SIZE');
+	$lastSite = ceil($Repository->getCountByCategory($Category) / $listSize);
+
+	$PaginationTemplate = TemplateFactory::build('pagination');
+	$PaginationTemplate->set('THIS', $current);
+	$PaginationTemplate->set('LAST', $lastSite);
+	$PaginationTemplate->set('HREF', "{$location}?site=%d");
+
+	return $PaginationTemplate;
+}
+
+#===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
 function generateCategoryItemTemplate(Category $Category, bool $is_root = FALSE): Template {
