@@ -2,6 +2,7 @@
 #===============================================================================
 # Get repositories
 #===============================================================================
+$CategoryRepository = Application::getRepository('Category');
 $PostRepository = Application::getRepository('Post');
 $UserRepository = Application::getRepository('User');
 
@@ -50,11 +51,27 @@ if($NextPost = $PostRepository->findNext($Post)) {
 }
 
 #===============================================================================
+# Generate category template data (including parents)
+#===============================================================================
+foreach($CategoryRepository->findWithParents($Post->get('category')) as $Category) {
+	$category_list[] = generateItemTemplateData($Category);
+}
+
+#===============================================================================
+# Define data variable for current category
+#===============================================================================
+if(isset($category_list)) {
+	$category_data = $category_list[array_key_last($category_list)];
+}
+
+#===============================================================================
 # Build document
 #===============================================================================
 $PostTemplate = Template\Factory::build('post/main');
 $PostTemplate->set('POST', $post_data);
 $PostTemplate->set('USER', $user_data);
+$PostTemplate->set('CATEGORY', $category_data ?? []);
+$PostTemplate->set('CATEGORIES', $category_list ?? []);
 
 $MainTemplate = Template\Factory::build('main');
 $MainTemplate->set('TYPE', 'POST');

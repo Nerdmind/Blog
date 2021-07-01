@@ -1,8 +1,9 @@
 <?php
+use ORM\EntityInterface;
+use ORM\Entities\Category;
 use ORM\Entities\Page;
 use ORM\Entities\Post;
 use ORM\Entities\User;
-use ORM\EntityInterface;
 
 use Template\Template as Template;
 use Template\Factory as TemplateFactory;
@@ -48,6 +49,37 @@ function generateUserNaviTemplate($current): Template {
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
+function generateCategoryNaviTemplate($current): Template {
+	return generateNaviTemplate($current, Application::getCategoryURL(), 'Category');
+}
+
+#===============================================================================
+# Helper function to reduce duplicate code
+#===============================================================================
+function generateCategoryItemTemplate(Category $Category, bool $is_root = FALSE): Template {
+	$CategoryRepository = Application::getRepository('Category');
+	$PostRepository = Application::getRepository('Post');
+
+	foreach($CategoryRepository->findWithParents($Category->getID()) as $Category) {
+		$category_data = generateItemTemplateData($Category);
+		$category_list[] = $category_data;
+	}
+
+	$Template = TemplateFactory::build('category/item');
+	$Template->set('IS_ROOT', $is_root);
+	$Template->set('CATEGORY', $category_data ?? []);
+	$Template->set('CATEGORIES', $category_list ?? []);
+	$Template->set('COUNT', [
+		'POST' => $PostRepository->getCountByCategory($Category),
+		'CHILDREN' => $CategoryRepository->getChildrenCount($Category)
+	]);
+
+	return $Template;
+}
+
+#===============================================================================
+# Helper function to reduce duplicate code
+#===============================================================================
 function generatePageItemTemplate(Page $Page, User $User): Template {
 	$Template = TemplateFactory::build('page/item');
 	$Template->set('PAGE', generateItemTemplateData($Page));
@@ -60,9 +92,18 @@ function generatePageItemTemplate(Page $Page, User $User): Template {
 # Helper function to reduce duplicate code
 #===============================================================================
 function generatePostItemTemplate(Post $Post, User $User): Template {
+	$CategoryRepository = Application::getRepository('Category');
+
+	foreach($CategoryRepository->findWithParents($Post->get('category')) as $Category) {
+		$category_data = generateItemTemplateData($Category);
+		$categories[] = $category_data;
+	}
+
 	$Template = TemplateFactory::build('post/item');
 	$Template->set('POST', generateItemTemplateData($Post));
 	$Template->set('USER', generateItemTemplateData($User));
+	$Template->set('CATEGORY', $category_data ?? []);
+	$Template->set('CATEGORIES', $categories ?? []);
 
 	return $Template;
 }
@@ -109,6 +150,24 @@ function generateItemTemplateData(EntityInterface $Entity): array {
 			}
 		]
 	];
+}
+
+#===============================================================================
+# Generate a nested tree from a category data array
+#===============================================================================
+function generateCategoryDataTree(array $category_data, $root = 0): array {
+	foreach($category_data as &$category){
+		$tree[intval($category['PARENT'])][] = &$category;
+		unset($category['PARENT']);
+	}
+
+	foreach($category_data as &$category){
+		if (isset($tree[$category['ID']])){
+			$category['CHILDS'] = $tree[$category['ID']];
+		}
+	}
+
+	return $tree[$root] ?? [];
 }
 
 #===============================================================================
@@ -166,6 +225,9 @@ function parseContentTags(string $text): string {
 #===============================================================================
 function parseEntityContent(EntityInterface $Entity): string {
 	switch($class = get_class($Entity)) {
+		case 'ORM\Entities\Category':
+			$prefix = 'CATEGORY';
+			break;
 		case 'ORM\Entities\Page':
 			$prefix = 'PAGE';
 			break;

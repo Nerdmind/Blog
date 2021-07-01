@@ -13,6 +13,7 @@ require '../../core/application.php';
 #===============================================================================
 # Get repositories
 #===============================================================================
+$CategoryRepository = Application::getRepository('Category');
 $PostRepository = Application::getRepository('Post');
 $UserRepository = Application::getRepository('User');
 
@@ -26,7 +27,8 @@ if(!$Post = $PostRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 # Check for update request
 #===============================================================================
-if(HTTP::issetPOST('user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'update')) {
+if(HTTP::issetPOST('category', 'user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'update')) {
+	$Post->set('category', HTTP::POST('category') ?: NULL);
 	$Post->set('user', HTTP::POST('user'));
 	$Post->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
 	$Post->set('name', HTTP::POST('name') ?: NULL);
@@ -60,6 +62,17 @@ foreach($UserRepository->getAll([], 'fullname ASC') as $User) {
 }
 
 #===============================================================================
+# Generate category list
+#===============================================================================
+foreach($CategoryRepository->getAll([], 'name ASC') as $Category) {
+	$categoryList[] = [
+		'ID' => $Category->getID(),
+		'NAME' => $Category->get('name'),
+		'PARENT' => $Category->get('parent'),
+	];
+}
+
+#===============================================================================
 # Build document
 #===============================================================================
 $FormTemplate = Template\Factory::build('post/form');
@@ -68,6 +81,8 @@ $FormTemplate->set('FORM', [
 	'INFO' => $messages ?? [],
 	'DATA' => array_change_key_case($Post->getAll(), CASE_UPPER),
 	'USER_LIST' => $userList ??  [],
+	'CATEGORY_LIST' => $categoryList ?? [],
+	'CATEGORY_TREE' => generateCategoryDataTree($categoryList ?? []),
 	'TOKEN' => Application::getSecurityToken()
 ]);
 

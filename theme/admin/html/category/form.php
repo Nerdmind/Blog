@@ -1,14 +1,15 @@
 <?php
-function categorySelectList($category_tree, $selected = NULL, $prefix = '') {
+function categorySelectList($category_tree, $selected = NULL, $current = NULL, $prefix = '') {
 	foreach($category_tree as $category) {
 		$option = '<option value="%s"%s>%s%s [%d]</option>';
 		$select = ($category['ID'] == $selected) ? ' selected' : '';
+		$select = ($category['ID'] == $current) ? ' disabled' : $select;
 
 		printf($option, $category['ID'], $select, $prefix, escapeHTML($category['NAME']), $category['ID']);
 
 		if(isset($category['CHILDS'])) {
 			# If there are children, call self and pass children array.
-			(__FUNCTION__)($category['CHILDS'], $selected, $prefix.'– ');
+			(__FUNCTION__)($category['CHILDS'], $selected, $current, $prefix.'– ');
 		}
 	}
 }
@@ -29,9 +30,9 @@ function categorySelectList($category_tree, $selected = NULL, $prefix = '') {
 <?php if($FORM['TYPE'] !== 'DELETE'): ?>
 	<div class="form-grid">
 		<label for="form_name">
-			<i class="fa fa-newspaper-o"></i><?=$Language->text('label_name')?></label>
+			<i class="fa fa-tag"></i><?=$Language->text('label_name')?></label>
 
-		<div class="form-grid-item">
+		<div class="form-grid-item first">
 			<input id="form_name" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" />
 		</div>
 
@@ -42,24 +43,13 @@ function categorySelectList($category_tree, $selected = NULL, $prefix = '') {
 			<input id="form_slug" name="slug" value="<?=escapeHTML($FORM['DATA']['SLUG'])?>" />
 		</div>
 
-		<label for="form_category">
-			<i class="fa fa-tag"></i><?=$Language->text('label_category')?></label>
+		<label for="form_category_parent">
+			<i class="fa fa-tags"></i><?=$Language->text('label_category_parent')?></label>
 
 		<div class="form-grid-item">
-			<select id="form_category" name="category">
+			<select id="form_category_parent" name="parent">
 				<option value="">[ –– <?=$Language->text('label_category')?> –– ]</option>
-				<?=categorySelectList($FORM['CATEGORY_TREE'], $FORM['DATA']['CATEGORY']);?>
-			</select>
-		</div>
-
-		<label for="form_user">
-			<i class="fa fa-user"></i><?=$Language->text('label_user')?></label>
-
-		<div class="form-grid-item">
-			<select id="form_user" name="user">
-				<?php foreach($FORM['USER_LIST'] as $user): ?>
-					<option value="<?=$user['ID']?>"<?=($FORM['DATA']['USER'] == $user['ID']) ? ' selected' : '' ?>><?=escapeHTML($user['FULLNAME'])?> [<?=$user['USERNAME']?>]</option>
-				<?php endforeach; ?>
+				<?=categorySelectList($FORM['CATEGORY_TREE'], $FORM['DATA']['PARENT'], $FORM['DATA']['ID']);?>
 			</select>
 		</div>
 

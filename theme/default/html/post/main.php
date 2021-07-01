@@ -17,6 +17,14 @@ $time = "<time datetime=\"{$POST['ATTR']['TIME_INSERT']}\" title=\"".parseDateti
 	<?=$POST['BODY']['HTML']()?>
 </div>
 
+<?php if($CATEGORIES): ?>
+	<ul class="category-list fa fa-tag">
+		<?php foreach($CATEGORIES as $category): ?>
+			<li><a href="<?=$category['URL']?>"><?=escapeHTML($category['ATTR']['NAME'])?></a></li>
+		<?php endforeach ?>
+	</ul>
+<?php endif ?>
+
 <section id="site-navi">
 
 	<?php if($POST['PREV']): ?>

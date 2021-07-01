@@ -141,6 +141,13 @@ class Application {
 	}
 
 	#===============================================================================
+	# Return absolute category URL
+	#===============================================================================
+	public static function getCategoryURL($more = ''): string {
+		return self::getURL(self::get('CATEGORY.DIRECTORY')."/{$more}");
+	}
+
+	#===============================================================================
 	# Return absolute post URL
 	#===============================================================================
 	public static function getPostURL($more = ''): string {
@@ -188,6 +195,9 @@ class Application {
 	#===============================================================================
 	public static function getEntityURL(EntityInterface $Entity) {
 		switch($class = get_class($Entity)) {
+			case 'ORM\Entities\Category':
+				$attr = self::get('CATEGORY.SLUG_URLS') ? 'slug' : 'id';
+				return self::getCategoryURL($Entity->get($attr).'/');
 			case 'ORM\Entities\Page':
 				$attr = self::get('PAGE.SLUG_URLS') ? 'slug' : 'id';
 				return self::getPageURL($Entity->get($attr).'/');

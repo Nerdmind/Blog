@@ -74,6 +74,11 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 						</a>
 					</li>
 					<li>
+						<a href="<?=Application::getCategoryURL()?>" title="<?=$Language->text('category_overview')?>">
+							<i class="fa fa-tags"></i><?=$Language->text('categories')?>
+						</a>
+					</li>
+					<li>
 						<a href="<?=Application::getPageURL()?>" title="<?=$Language->text('page_overview')?>">
 							<i class="fa fa-file-text-o"></i><?=$Language->text('pages')?>
 						</a>

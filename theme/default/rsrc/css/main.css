@@ -281,9 +281,11 @@ a.brackets:before, a.brackets:after {
   overflow: hidden;
   margin: 0.5rem 0;
 }
+.item-container {
+  clear: both;
+}
 .item header {
   padding: 0.25rem 1rem;
-  border-bottom: 0.05rem solid #AAA;
   overflow: hidden;
   text-transform: uppercase;
 }
@@ -303,6 +305,7 @@ a.brackets:before, a.brackets:after {
   margin: 0;
   padding: 0 1rem;
   font-family: inherit;
+  border-top: 0.05rem solid #AAA;
 }
 .item blockquote img {
   display: block;
@@ -319,6 +322,49 @@ a.brackets:before, a.brackets:after {
 }
 #content img {
   display: block;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Category list
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#category-heading,
+#category-posts-heading {
+  float: left;
+}
+
+#category-posts-page {
+  float: right;
+  font-size: 0.6rem;
+}
+
+#category-body {
+  clear: both;
+}
+
+.category-list,
+.category-heading-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.6rem;
+  text-align: center;
+}
+.category-list li,
+.category-heading-list li {
+  display: inline-block;
+}
+.category-list li + li:before,
+.category-heading-list li + li:before {
+  content: " ➜ ";
+}
+.category-list a,
+.category-heading-list a {
+  text-decoration: underline;
+}
+
+.category-heading-list {
+  text-align: left;
+  float: right;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

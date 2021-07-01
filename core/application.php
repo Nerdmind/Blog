@@ -63,23 +63,29 @@ foreach([
 	'PATHINFO.PROT' => $_SERVER['REQUEST_SCHEME'] ?? 'https',
 	'PATHINFO.HOST' => $_SERVER['HTTP_HOST'] ?? 'localhost',
 	'PATHINFO.BASE' => '',
+	'CATEGORY.DIRECTORY' => 'category',
 	'PAGE.DIRECTORY' => 'page',
 	'POST.DIRECTORY' => 'post',
 	'USER.DIRECTORY' => 'user',
+	'CATEGORY.SLUG_URLS' => TRUE,
 	'PAGE.SLUG_URLS' => TRUE,
 	'POST.SLUG_URLS' => TRUE,
 	'USER.SLUG_URLS' => TRUE,
+	'CATEGORY.EMOTICONS' => TRUE,
 	'PAGE.EMOTICONS' => TRUE,
 	'POST.EMOTICONS' => TRUE,
 	'USER.EMOTICONS' => TRUE,
+	'CATEGORY.LIST_SIZE' => 10,
 	'PAGE.LIST_SIZE' => 10,
 	'POST.LIST_SIZE' => 10,
 	'USER.LIST_SIZE' => 10,
 	'PAGE.FEED_SIZE' => 25,
 	'POST.FEED_SIZE' => 25,
+	'CATEGORY.DESCRIPTION_SIZE' => 200,
 	'PAGE.DESCRIPTION_SIZE' => 200,
 	'POST.DESCRIPTION_SIZE' => 200,
 	'USER.DESCRIPTION_SIZE' => 200,
+	'CATEGORY.SINGLE_REDIRECT' => FALSE,
 	'PAGE.SINGLE_REDIRECT' => FALSE,
 	'POST.SINGLE_REDIRECT' => FALSE,
 	'USER.SINGLE_REDIRECT' => FALSE,
@@ -98,6 +104,7 @@ foreach([
 # Set default configuration (for admin prefixes)
 #===============================================================================
 foreach([
+	'ADMIN.CATEGORY.LIST_SIZE' => 12, # for 1/2/3-column grid layout
 	'ADMIN.PAGE.LIST_SIZE' => 12, # for 1/2/3-column grid layout
 	'ADMIN.POST.LIST_SIZE' => 12, # for 1/2/3-column grid layout
 	'ADMIN.USER.LIST_SIZE' => Application::get('USER.LIST_SIZE'),
