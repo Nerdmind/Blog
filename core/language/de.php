@@ -88,6 +88,7 @@ $LANGUAGE['authentication_failure'] = 'Der Benutzername oder das Passwort ist ni
 #===============================================================================
 # Items [singular]
 #===============================================================================
+$LANGUAGE['category'] = 'Kategorie';
 $LANGUAGE['page'] = 'Seite';
 $LANGUAGE['post'] = 'Beitrag';
 $LANGUAGE['user'] = 'Benutzer';
@@ -95,6 +96,7 @@ $LANGUAGE['user'] = 'Benutzer';
 #===============================================================================
 # Items [plural]
 #===============================================================================
+$LANGUAGE['categories'] = 'Kategorien';
 $LANGUAGE['pages'] = 'Seiten';
 $LANGUAGE['posts'] = 'Beiträge';
 $LANGUAGE['users'] = 'Benutzer';
@@ -126,6 +128,7 @@ $LANGUAGE['next_user'] = 'Nächster Benutzer';
 #===============================================================================
 # Item overview
 #===============================================================================
+$LANGUAGE['category_overview'] = 'Kategorieübersicht';
 $LANGUAGE['page_overview'] = 'Seitenübersicht';
 $LANGUAGE['post_overview'] = 'Beitragsübersicht';
 $LANGUAGE['user_overview'] = 'Benutzerübersicht';
@@ -133,6 +136,7 @@ $LANGUAGE['user_overview'] = 'Benutzerübersicht';
 #===============================================================================
 # Items select
 #===============================================================================
+$LANGUAGE['select_category'] = 'Kategorie anzeigen';
 $LANGUAGE['select_page'] = 'Seite anzeigen';
 $LANGUAGE['select_post'] = 'Beitrag anzeigen';
 $LANGUAGE['select_user'] = 'Benutzer anzeigen';
@@ -140,6 +144,7 @@ $LANGUAGE['select_user'] = 'Benutzer anzeigen';
 #===============================================================================
 # Items insert
 #===============================================================================
+$LANGUAGE['insert_category'] = 'Kategorie erstellen';
 $LANGUAGE['insert_page'] = 'Seite erstellen';
 $LANGUAGE['insert_post'] = 'Beitrag erstellen';
 $LANGUAGE['insert_user'] = 'Benutzer erstellen';
@@ -147,6 +152,7 @@ $LANGUAGE['insert_user'] = 'Benutzer erstellen';
 #===============================================================================
 # Items update
 #===============================================================================
+$LANGUAGE['update_category'] = 'Kategorie bearbeiten';
 $LANGUAGE['update_page'] = 'Seite bearbeiten';
 $LANGUAGE['update_post'] = 'Beitrag bearbeiten';
 $LANGUAGE['update_user'] = 'Benutzer bearbeiten';
@@ -154,6 +160,7 @@ $LANGUAGE['update_user'] = 'Benutzer bearbeiten';
 #===============================================================================
 # Items delete
 #===============================================================================
+$LANGUAGE['delete_category'] = 'Kategorie löschen';
 $LANGUAGE['delete_page'] = 'Seite löschen';
 $LANGUAGE['delete_post'] = 'Beitrag löschen';
 $LANGUAGE['delete_user'] = 'Benutzer löschen';
@@ -167,6 +174,7 @@ $LANGUAGE['search_post'] = 'Beiträge durchsuchen';
 #===============================================================================
 # Item insert titles
 #===============================================================================
+$LANGUAGE['title_category_insert'] = $LANGUAGE['insert_category'];
 $LANGUAGE['title_page_insert'] = $LANGUAGE['insert_page'];
 $LANGUAGE['title_post_insert'] = $LANGUAGE['insert_post'];
 $LANGUAGE['title_user_insert'] = $LANGUAGE['insert_user'];
@@ -174,6 +182,7 @@ $LANGUAGE['title_user_insert'] = $LANGUAGE['insert_user'];
 #===============================================================================
 # Item update titles
 #===============================================================================
+$LANGUAGE['title_category_update'] = $LANGUAGE['update_category'];
 $LANGUAGE['title_page_update'] = $LANGUAGE['update_page'];
 $LANGUAGE['title_post_update'] = $LANGUAGE['update_post'];
 $LANGUAGE['title_user_update'] = $LANGUAGE['update_user'];
@@ -181,6 +190,7 @@ $LANGUAGE['title_user_update'] = $LANGUAGE['update_user'];
 #===============================================================================
 # Item delete titles
 #===============================================================================
+$LANGUAGE['title_category_delete'] = $LANGUAGE['delete_category'];
 $LANGUAGE['title_page_delete'] = $LANGUAGE['delete_page'];
 $LANGUAGE['title_post_delete'] = $LANGUAGE['delete_post'];
 $LANGUAGE['title_user_delete'] = $LANGUAGE['delete_user'];
@@ -194,6 +204,7 @@ $LANGUAGE['title_post_search'] = $LANGUAGE['search_post'];
 #===============================================================================
 # Item overview titles
 #===============================================================================
+$LANGUAGE['title_category_overview'] = "{$LANGUAGE['category_overview']} [%d]";
 $LANGUAGE['title_page_overview'] = "{$LANGUAGE['page_overview']} [%d]";
 $LANGUAGE['title_post_overview'] = "{$LANGUAGE['post_overview']} [%d]";
 $LANGUAGE['title_user_overview'] = "{$LANGUAGE['user_overview']} [%d]";

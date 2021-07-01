@@ -54,6 +54,14 @@ $LANGUAGE['search_result_heading_text'] = 'Search results for <code>%s</code>';
 $LANGUAGE['search_result_heading_desc'] = 'Congratulations, your search request seems to have been successful!';
 
 #===============================================================================
+# Categories
+#===============================================================================
+$LANGUAGE['category_list_title'] = '[Page: <b>%d</b>] Here you can see all categories and its sub categories in sorted order.';
+$LANGUAGE['category_posts_page'] = '<strong>Page:</strong> %d';
+$LANGUAGE['category_list_empty'] = 'The category list is empty. No categories have been created yet.';
+$LANGUAGE['category_empty'] = 'This category is empty. There are no published posts here.';
+
+#===============================================================================
 # Search form placeholder text
 #===============================================================================
 $LANGUAGE['search_form_placeholder'] = 'Enter search term …';

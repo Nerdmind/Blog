@@ -23,6 +23,7 @@ $LANGUAGE['last_user'] = 'Last user';
 #===============================================================================
 # Insert item description
 #===============================================================================
+$LANGUAGE['insert_category_desc'] = 'Here you can create a new category to categorize your posts.';
 $LANGUAGE['insert_page_desc'] = 'Here you can create and publish a new page.';
 $LANGUAGE['insert_post_desc'] = 'Here you can create and publish a new post.';
 $LANGUAGE['insert_user_desc'] = 'Here you can create and publish a new user.';
@@ -30,6 +31,7 @@ $LANGUAGE['insert_user_desc'] = 'Here you can create and publish a new user.';
 #===============================================================================
 # Update item description
 #===============================================================================
+$LANGUAGE['update_category_desc'] = 'Here you can edit an existing category and save the changes.';
 $LANGUAGE['update_page_desc'] = 'Here you can edit an existing page and save the changes.';
 $LANGUAGE['update_post_desc'] = 'Here you can edit an existing post and save the changes.';
 $LANGUAGE['update_user_desc'] = 'Here you can edit an existing user and save the changes.';
@@ -37,6 +39,7 @@ $LANGUAGE['update_user_desc'] = 'Here you can edit an existing user and save the
 #===============================================================================
 # Delete item description
 #===============================================================================
+$LANGUAGE['delete_category_desc'] = 'If you do not need this category anymore, you can permanently delete it by clicking the following button.';
 $LANGUAGE['delete_page_desc'] = 'If you do not need this page anymore, you can permanently delete it by clicking the following button.';
 $LANGUAGE['delete_post_desc'] = 'If you do not need this post anymore, you can permanently delete it by clicking the following button.';
 $LANGUAGE['delete_user_desc'] = 'If you do not need this user anymore, you can permanently delete it by clicking the following button.';
@@ -50,6 +53,7 @@ $LANGUAGE['search_post_desc'] = 'Here you can search a post with the <em>boolean
 #===============================================================================
 # Item overview description
 #===============================================================================
+$LANGUAGE['overview_category_desc'] = 'Here you can see all existing categories in sorted order.';
 $LANGUAGE['overview_page_desc'] = 'Here you can see all existing pages.';
 $LANGUAGE['overview_post_desc'] = 'Here you can see all existing posts.';
 $LANGUAGE['overview_user_desc'] = 'Here you can see all existing users.';
@@ -130,6 +134,8 @@ $LANGUAGE['label_mailaddr'] = 'Email';
 $LANGUAGE['label_username'] = 'Username';
 $LANGUAGE['label_password'] = 'Password';
 $LANGUAGE['label_language'] = 'Language';
+$LANGUAGE['label_category'] = 'Category';
+$LANGUAGE['label_category_parent'] = 'Within';
 
 #===============================================================================
 # Markdown
