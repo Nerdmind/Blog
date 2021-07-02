@@ -167,22 +167,23 @@ if(Application::get('MIGRATOR.ENABLED')) {
 #===============================================================================
 # Check if "304 Not Modified" and ETag header should be sent
 #===============================================================================
-if(Application::get('CORE.SEND_304') === TRUE AND !defined('ADMINISTRATION')) {
+if(Application::get('CORE.SEND_304') AND !defined('ADMINISTRATION')) {
 
 	#===========================================================================
-	# Select edit time from last edited items (page, post, user)
+	# Fetch timestamps of the last modified entities
 	#===========================================================================
-	$execute = '(SELECT time_update FROM %s ORDER BY time_update DESC LIMIT 1) AS %s';
+	$query = '(SELECT time_update FROM %s ORDER BY time_update DESC LIMIT 1) AS %s';
 
-	$pageTable = ORM\Repositories\Page::getTableName();
-	$postTable = ORM\Repositories\Post::getTableName();
-	$userTable = ORM\Repositories\User::getTableName();
+	foreach([
+		ORM\Repositories\Category::getTableName(),
+		ORM\Repositories\Page::getTableName(),
+		ORM\Repositories\Post::getTableName(),
+		ORM\Repositories\User::getTableName()
+    ] as $table) {
+		$parts[] = sprintf($query, $table, $table);
+	}
 
-	$pageSQL = sprintf($execute, $pageTable, $pageTable);
-	$postSQL = sprintf($execute, $postTable, $postTable);
-	$userSQL = sprintf($execute, $postTable, $postTable);
-
-	$Statement = $Database->query("SELECT {$pageSQL}, {$postSQL}, {$userSQL}");
+	$Statement = $Database->query('SELECT '.implode(',', $parts));
 
 	#===========================================================================
 	# Define HTTP ETag header identifier
