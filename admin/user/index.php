@@ -54,11 +54,6 @@ foreach($users as $User) {
 #===============================================================================
 # Build document
 #===============================================================================
-$PaginationTemplate = Template\Factory::build('pagination');
-$PaginationTemplate->set('THIS', $currentSite);
-$PaginationTemplate->set('LAST', $lastSite);
-$PaginationTemplate->set('HREF', Application::getAdminURL('user/?site=%d'));
-
 $ListTemplate = Template\Factory::build('user/index');
 $ListTemplate->set('LIST', [
 	'USERS' => $templates ?? []
@@ -67,7 +62,9 @@ $ListTemplate->set('LIST', [
 $ListTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
-	'HTML' => $PaginationTemplate
+	'HTML' => createPaginationTemplate(
+		$currentSite, $lastSite, Application::getAdminURL('user/')
+	)
 ]);
 
 $MainTemplate = Template\Factory::build('main');

@@ -50,11 +50,6 @@ foreach($categories as $Category) {
 #===============================================================================
 # Build document
 #===============================================================================
-$PaginationTemplate = Template\Factory::build('pagination');
-$PaginationTemplate->set('THIS', $currentSite);
-$PaginationTemplate->set('LAST', $lastSite);
-$PaginationTemplate->set('HREF', Application::getAdminURL('category/?site=%d'));
-
 $ListTemplate = Template\Factory::build('category/index');
 $ListTemplate->set('LIST', [
 	'CATEGORIES' => $templates ?? []
@@ -63,7 +58,9 @@ $ListTemplate->set('LIST', [
 $ListTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
-	'HTML' => $PaginationTemplate
+	'HTML' => createPaginationTemplate(
+		$currentSite, $lastSite, Application::getAdminURL('category/')
+	)
 ]);
 
 $MainTemplate = Template\Factory::build('main');
