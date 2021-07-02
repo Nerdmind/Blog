@@ -161,7 +161,7 @@ class Migrator {
 	#===============================================================================
 	private function determineFallbackSchemaVersion(): int {
 		# If the migration table does not yet exist, the user may have upgraded from
-		# an older release of the application and sits somewhere between 0 and 4. So
+		# an older release of the application and sits either at 0, 1, 2, 3 or 4. So
 		# we run some checks against the tables to determine the schema version.
 		$test[4] = 'SHOW COLUMNS FROM post WHERE Field = "argv" AND Type = "varchar(250)"';
 		$test[3] = 'SHOW INDEX FROM post WHERE Key_name = "search"';
