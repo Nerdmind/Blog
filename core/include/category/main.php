@@ -111,7 +111,8 @@ $CategoryTemplate->set('COUNT', [
 $CategoryTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
-	'HTML' => generateCategoryPostNaviTemplate($currentSite, $Category)
+	'HTML' => createPaginationTemplate(
+		$currentSite, $lastSite, Application::getEntityURL($Category))
 ]);
 $CategoryTemplate->set('LIST', [
 	'POSTS' => $post_templates ?? [],

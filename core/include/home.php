@@ -19,11 +19,18 @@ foreach($posts as $Post) {
 }
 
 #===============================================================================
+# Pagination
+#===============================================================================
+$count = $PostRepository->getCount();
+$lastSite = ceil($count / Application::get('POST.LIST_SIZE'));
+
+#===============================================================================
 # Build document
 #===============================================================================
 $HomeTemplate = Template\Factory::build('home');
 $HomeTemplate->set('PAGINATION', [
-	'HTML' => generatePostNaviTemplate(1)
+	'HTML' => createPaginationTemplate(
+		1, $lastSite, Application::getPostURL())
 ]);
 $HomeTemplate->set('LIST', [
 	'POSTS' => $templates ?? []

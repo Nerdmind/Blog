@@ -9,66 +9,15 @@ use Template\Template as Template;
 use Template\Factory as TemplateFactory;
 
 #===============================================================================
-# Helper function to reduce duplicate code
+# Create generic pagination template
 #===============================================================================
-function generateNaviTemplate(int $current, $location, $namespace): Template {
-	$Repository = Application::getRepository($namespace);
+function createPaginationTemplate($current, $last, string $location): Template {
+	$Pagination = TemplateFactory::build('pagination');
+	$Pagination->set('THIS', $current);
+	$Pagination->set('LAST', $last);
+	$Pagination->set('HREF', "{$location}?site=%d");
 
-	$listSize = Application::get(strtoupper($namespace).'.LIST_SIZE');
-	$lastSite = ceil($Repository->getCount() / $listSize);
-
-	$PaginationTemplate = TemplateFactory::build('pagination');
-	$PaginationTemplate->set('THIS', $current);
-	$PaginationTemplate->set('LAST', $lastSite);
-	$PaginationTemplate->set('HREF', "{$location}?site=%d");
-
-	return $PaginationTemplate;
-}
-
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generatePageNaviTemplate($current): Template {
-	return generateNaviTemplate($current, Application::getPageURL(), 'Page');
-}
-
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generatePostNaviTemplate($current): Template {
-	return generateNaviTemplate($current, Application::getPostURL(), 'Post');
-}
-
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generateUserNaviTemplate($current): Template {
-	return generateNaviTemplate($current, Application::getUserURL(), 'User');
-}
-
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generateCategoryNaviTemplate($current): Template {
-	return generateNaviTemplate($current, Application::getCategoryURL(), 'Category');
-}
-
-#===============================================================================
-# Generate the post navigation template for posts in a category
-#===============================================================================
-function generateCategoryPostNaviTemplate(int $current, Category $Category): Template {
-	$location = Application::getEntityURL($Category);
-	$Repository = Application::getRepository('Post');
-
-	$listSize = Application::get('POST.LIST_SIZE');
-	$lastSite = ceil($Repository->getCountByCategory($Category) / $listSize);
-
-	$PaginationTemplate = TemplateFactory::build('pagination');
-	$PaginationTemplate->set('THIS', $current);
-	$PaginationTemplate->set('LAST', $lastSite);
-	$PaginationTemplate->set('HREF', "{$location}?site=%d");
-
-	return $PaginationTemplate;
+	return $Pagination;
 }
 
 #===============================================================================

@@ -52,7 +52,8 @@ $ListTemplate = Template\Factory::build('category/list');
 $ListTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
-	'HTML' => generateCategoryNaviTemplate($currentSite)
+	'HTML' => createPaginationTemplate(
+		$currentSite, $lastSite, Application::getCategoryURL())
 ]);
 $ListTemplate->set('LIST', [
 	'CATEGORIES' => $templates ?? []

@@ -53,7 +53,9 @@ $ListTemplate = Template\Factory::build('user/list');
 $ListTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
-	'HTML' => generateUserNaviTemplate($currentSite)
+	'HTML' => createPaginationTemplate(
+		$currentSite, $lastSite, Application::getUserURL()
+	)
 ]);
 $ListTemplate->set('LIST', [
 	'USERS' => $templates ?? []

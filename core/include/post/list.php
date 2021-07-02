@@ -55,7 +55,8 @@ $ListTemplate = Template\Factory::build('post/list');
 $ListTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
-	'HTML' => generatePostNaviTemplate($currentSite)
+	'HTML' => createPaginationTemplate(
+		$currentSite, $lastSite, Application::getPostURL())
 ]);
 $ListTemplate->set('LIST', [
 	'POSTS' => $templates ?? []
