@@ -1,8 +1,50 @@
 @charset "UTF-8";
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Content background and border color
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Header and navigation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Text colors
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Misc
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Forms
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form buttons
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Information message box
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import stylesheet
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import variables
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Line height
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Font families
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Text font sizes
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Heading font sizes
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Content widths
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Selection
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-::-moz-selection {
+::selection {
   background: #BBB;
   color: #000;
 }
@@ -99,22 +141,18 @@ body {
   font-size: 0.6rem;
 }
 
-#header-text, #header-desc {
-  text-shadow: 0 -1px #4E718F, 1px 0 #4E718F, 0 1px #4E718F, -1px 0 #4E718F;
-}
-
 #header-text {
   font-size: 0.8rem;
-  font-weight: 700;
   text-transform: uppercase;
 }
-
 #header-desc {
-  font-size: 0.6rem;
-  font-weight: 700;
   line-height: 1rem;
 }
-
+#header-text, #header-desc {
+  text-shadow: 0 -1px #4E718F, 1px 0 #4E718F, 0 1px #4E718F, -1px 0 #4E718F;
+  color: #333;
+  font-weight: bold;
+}
 #header-logo {
   display: block;
   max-height: 5rem;
@@ -123,10 +161,9 @@ body {
 }
 
 .header-line {
-  padding: 0.5rem 0.75rem;
+  padding: 0.25rem 0.75rem;
   overflow: hidden;
   background: #EEE;
-  padding: 0.25rem 0.75rem;
 }
 .header-line + .header-line {
   border: 0.05rem solid #AAA;
@@ -161,7 +198,7 @@ body {
   margin-right: 0.125rem;
 }
 #main-footer ul li:after {
-  content: " · ";
+  content: " – ";
   font-weight: bold;
 }
 #main-footer ul li:last-child:after {
@@ -225,11 +262,6 @@ body {
   pointer-events: none;
   color: #AAA;
 }
-#site-navi .active a {
-  background: #CCC !important;
-  font-weight: 600;
-  pointer-events: none;
-}
 #site-navi ol {
   list-style: none;
   margin: 0;
@@ -241,6 +273,11 @@ body {
 }
 #site-navi ol li + li {
   border-left: 0.05rem solid #AAA;
+}
+#site-navi ol li.active a {
+  background: #CCC;
+  font-weight: 600;
+  pointer-events: none;
 }
 #site-navi a {
   padding: 0 0.5rem;
@@ -293,7 +330,6 @@ pre {
   background: #EEE;
   padding: 0.5rem;
   border: 0.05rem solid #AAA;
-  font-style: italic;
 }
 
 code, pre {
@@ -313,20 +349,8 @@ img {
   max-width: 100%;
 }
 
-.red {
+.warning {
   color: #B03060;
-}
-
-.blue {
-  color: #40779A;
-}
-
-.green {
-  color: #008B45;
-}
-
-.right {
-  float: right;
 }
 
 .hidden {
@@ -337,10 +361,6 @@ img {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-#database-result {
-  color: inherit;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -413,14 +433,14 @@ img {
 .item-meta-right {
   float: right;
 }
-.item-meta-right:before {
-  content: none !important;
-}
 .item-meta li {
   display: inline-block;
 }
 .item-meta li + li:before {
   content: " – ";
+}
+.item-meta li.item-meta-right:before {
+  content: none;
 }
 .item-image {
   float: left;
@@ -460,8 +480,9 @@ img {
 .arguments li {
   display: inline;
 }
-.arguments li > span {
-  color: #40779A;
+.arguments li > code {
+  font-family: inherit;
+  color: #666;
 }
 .arguments li:after {
   content: " · ";
@@ -565,7 +586,7 @@ img {
   text-align: center;
 }
 .button-list.markdown > li:hover, .button-list.markdown > li:active {
-  color: #40779A;
+  color: #000;
 }
 
 #content-editor {
@@ -608,13 +629,6 @@ textarea {
 input[type=submit] {
   text-transform: uppercase;
   border-radius: 0.1rem;
-}
-input:disabled {
-  background: #DDD;
-  color: #888;
-}
-input:disabled:hover {
-  cursor: not-allowed;
 }
 
 label {
@@ -677,6 +691,9 @@ label:after {
   margin-bottom: 1rem;
 }
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import other files
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 @media only screen and (max-width: 90em) {
   .item-container.grid {
     grid-template-columns: auto auto;
@@ -708,10 +725,10 @@ label:after {
   #main-navi {
     font-size: 1rem;
   }
-  #main-navi li span {
+  #main-navi ul li span {
     display: none;
   }
-  #main-navi li .fa {
+  #main-navi ul li .fa {
     margin-right: 0;
   }
   #main-navi a {
@@ -746,20 +763,14 @@ label:after {
     overflow: hidden;
     box-sizing: border-box;
   }
+  .actions-before {
+    float: none;
+  }
   .actions li {
     flex-grow: 1;
   }
   .actions li + li {
     border-left: none;
-  }
-
-  .actions-before {
-    float: none;
-  }
-
-  .arguments {
-    font-size: 0.5rem;
-    line-height: 0.75rem;
   }
 }
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

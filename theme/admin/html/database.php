@@ -21,7 +21,7 @@
 
 <?php if($FORM['RESULT']): ?>
 	<div class="form-border-box background padding">
-		<pre id="database-result"><?=escapeHTML($FORM['RESULT'])?></pre>
+		<pre><?=escapeHTML($FORM['RESULT'])?></pre>
 	</div>
 <?php endif; ?>
 

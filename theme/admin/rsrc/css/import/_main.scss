@@ -1,0 +1,743 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import variables
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+@import "variables";
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Selection
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+::selection {
+	background: #BBB;
+	color: #000;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Hyperlinks
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+a {
+	color: $linkColor;
+	text-decoration: none;
+
+	&:focus {
+		background: $linkColorFocused;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Headings
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+h1, h2, h3 {
+	margin-bottom: 0;
+	text-transform: uppercase;
+
+	+p {
+		margin-top: 0;
+	}
+
+	.fa {
+		margin-right: 0.25rem;
+	}
+}
+
+h1 {
+	margin-top: 0;
+	font-size: $fontSizeH1;
+}
+
+h2 {
+	font-size: $fontSizeH2;
+}
+
+h3 {
+	font-size: $fontSizeH3;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Document
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 1.25rem;
+	color: $textColor;
+	background: $htmlBackgroundColor;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+}
+
+body {
+	font-family: $fontFamily;
+	font-size: $fontSize;
+	line-height: $lineHeight;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Main content
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-content {
+	flex: 1;
+	width: 100%;
+	background: $backgroundColor;
+	box-sizing: border-box;
+	padding: 0.75rem;
+	// border definition in _responsive.scss
+
+	&.wide {
+		max-width: $contentWidthWide;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Width
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-content, .header-content {
+	max-width: $contentWidth;
+	margin: 0 auto;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Header
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-header {
+	font-size: $fontSizeSmall;
+}
+
+#header {
+	&-text {
+		font-size: $fontSizeLarge;
+		text-transform: uppercase;
+	}
+
+	&-desc {
+		line-height: 1rem;
+	}
+	&-text, &-desc {
+		text-shadow: 0 -1px #4E718F, 1px 0 #4E718F, 0 1px #4E718F, -1px 0 #4E718F;
+		color: $headerBarTextColor;
+		font-weight: bold;
+	}
+
+	&-logo {
+		display: block;
+		max-height: 5rem;
+		float: left;
+		margin-right: 0.5rem;
+	}
+}
+
+.header-line {
+	padding: 0.25rem 0.75rem;
+	overflow: hidden;
+	background: $backgroundColorEmphasize;
+
+	+.header-line {
+		border: 0.05rem solid $borderColor;
+		border-left: none;
+		border-right: none;
+	}
+
+	&.background {
+		background: #5E819F;
+		position: sticky;
+		top: 0;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Footer
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-footer {
+	font-size: $fontSizeSmall;
+	background: $backgroundColorEmphasize;
+	border-top: 0.05rem solid $borderColor;
+	padding: 0.5rem 0.75rem;
+	text-align: center;
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		li {
+			display: inline;
+
+			.fa {
+				margin-right: 0.125rem;
+			}
+		}
+
+		li:after {
+			content: " – ";
+			font-weight: bold;
+		}
+
+		li:last-child:after {
+			content: none;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Main Navigation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#main-navi {
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			display: inline;
+
+			.fa {
+				margin-right: 0.25rem;
+			}
+		}
+
+		li:last-child {
+			float: right;
+		}
+
+		li:first-child {
+			float: none;
+		}
+	}
+
+	a {
+		padding: 0.1rem 0.3rem;
+		background: $navigationLinkBackgroundColor;
+		border: 0.05rem solid $borderColor;
+		color: inherit;
+		text-decoration: none;
+		text-align: center;
+		display: inline-block;
+
+		&:hover, &:focus {
+			text-decoration: none;
+			background: $navigationLinkFocusedBackgroundColor;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Site Navigation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#site-navi {
+	clear: both;
+	display: flex;
+	box-sizing: border-box;
+	justify-content: space-between;
+	margin-top: 0.75rem;
+
+	> div {
+		display: flex;
+		align-items: center;
+		border: 0.05rem solid $borderColor;
+		background: $backgroundColorEmphasize;
+
+		> a {
+			display: block;
+		}
+	}
+
+	.disabled {
+		pointer-events: none;
+		color: $borderColor;
+	}
+
+	ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			float: left;
+			display: inline-block;
+
+			+ li {
+				border-left: 0.05rem solid $borderColor;
+			}
+
+			&.active a {
+				background: $paginationActiveBackgroundColor;
+				font-weight: 600;
+				pointer-events: none;
+			}
+		}
+	}
+
+	a {
+		padding: 0 0.5rem;
+		text-decoration: none;
+		color: inherit;
+		display: inline-block;
+
+		&:hover, &:focus {
+			background: $navigationLinkFocusedBackgroundColor;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Actions
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.actions {
+	margin: 0 0 0.5rem 0;
+	padding: 0;
+	list-style: none;
+	font-size: $fontSizeSmall;
+	float: right;
+	text-align: center;
+
+	.fa {
+		margin-right: 0.1rem;
+	}
+
+	li {
+		display: inline-block;
+		font-weight: bold;
+		background: $backgroundColorEmphasize;
+		border: 0.05rem solid $borderColor;
+	}
+
+	a {
+	   color: inherit;
+	   display: block;
+	   padding: 0 0.25rem;
+   }
+}
+
+.actions-before {
+	float: left;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Elements
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+pre {
+	margin-bottom: 1rem;
+	overflow: auto;
+	-moz-tab-size: 4;
+	tab-size: 4;
+	background: $backgroundColorEmphasize;
+	padding: 0.5rem;
+	border: 0.05rem solid $borderColor;
+}
+
+code, pre {
+	font-family: $fontFamilyMonospaced;
+}
+
+code {
+	color: $codeTextColor;
+}
+
+p {
+	margin-top: 0;
+}
+
+img {
+	border: none;
+	max-width: 100%;
+}
+
+.warning {
+	color: $warningTextColor;
+}
+
+.hidden {
+	display: none;
+}
+
+.no-visual-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Item Element
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.item {
+	display: flex;
+	flex-direction: column;
+	border: 0.05rem solid $borderColor;
+	margin-bottom: 0.75rem;
+	clear: both;
+
+	header {
+		padding: 0.5rem 0.75rem;
+		border-bottom: 0.05rem solid $borderColor;
+		position: sticky;
+		top: 0;
+
+		h2 {
+			margin-top: 0;
+		}
+	}
+
+	footer {
+		border-top: 0.05rem solid $borderColor;
+
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+
+			li {
+				display: inline-block;
+				float: left;
+
+				&:last-child {
+					float: right;
+				}
+			}
+		}
+
+		a {
+			color: inherit;
+			display: inline-block;
+			padding: 0.25rem 2rem;
+
+			&:hover, &:active {
+				background: $itemLinkHoverBackgroundColor;
+			}
+		}
+	}
+
+	header, footer {
+		background: $backgroundColorEmphasize;
+		overflow: hidden;
+	}
+
+	blockquote {
+		margin: 0;
+		padding: 0.75rem;
+		overflow: hidden;
+		font-family: inherit;
+		flex-grow: 1;
+
+		p {
+			margin-bottom: 0;
+		}
+	}
+
+	&-id {
+		float: right;
+		color: $textColorLight;
+		font-size: 0.7rem;
+		font-weight: normal;
+	}
+
+	&-meta {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		&-right {
+			float: right;
+		}
+
+		li {
+			display: inline-block;
+
+			+li:before {
+				content: " – ";
+			}
+
+			&.item-meta-right:before {
+				content: none;
+			}
+		}
+	}
+
+	&-image {
+		float: left;
+		display: block;
+		margin-right: 0.75rem;
+		width: 10rem;
+		height: 7rem;
+		object-fit: cover;
+		background: $backgroundColorEmphasize;
+		border: 0.05rem solid $borderColor;
+	}
+
+	&-container.grid {
+		width: 100%;
+		display: grid;
+		grid-template-columns: auto auto auto;
+		grid-column-gap: 1rem;
+		grid-row-gap: 1rem;
+		column-gap: 1rem;
+		row-gap: 1rem;
+
+		.item {
+			margin-bottom: 0;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Argument list
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.arguments {
+	list-style: none;
+	margin: 0;
+	padding: 0.25rem 0.75rem;
+	background: $backgroundColorEmphasize;
+	font-size: $fontSizeSmall;
+	text-align: center;
+	border-top: 0.05rem solid $borderColor;
+
+	li {
+		display: inline;
+
+		> code {
+			font-family: inherit;
+			color: $textColorLight;
+		}
+
+		&:after {
+			content: " · ";
+			font-weight: bold;
+		}
+
+		&:last-child:after {
+			content: none;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Grids
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.form-grid {
+	display: grid;
+	grid-template-columns: 8rem auto 8rem auto;
+
+	border-left: 0.05rem solid $borderColor;
+	border-bottom: 0.05rem solid $borderColor;
+
+	&.two-columns {
+		grid-template-columns: auto auto;
+	}
+
+	&.no-bottom-border {
+		border-bottom: none;
+	}
+
+	> label {
+		display: flex;
+		align-items: center;
+		background: $formBackgroundColorEmphasize;
+
+		.fa {
+			margin-left: 0.5rem;
+			margin-right: 1rem;
+		}
+	}
+
+	&-item,
+	> label {
+		padding: 0.5rem;
+		border-top: 0.05rem solid $borderColor;
+		border-right: 0.05rem solid $borderColor;
+	}
+
+	&-item.first {
+		grid-column-start: 2;
+		grid-column-end: 5;
+	}
+}
+
+.form-border-box {
+	border: 0.05rem solid $borderColor;
+
+	&.padding {
+		padding: 0.5rem;
+	}
+
+	&.background {
+		background: $formBackgroundColorEmphasize;
+	}
+
+	&.nobordertop {
+		border-top: none;
+	}
+
+	+.form-border-box {
+		border-top: none;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form buttons
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#emoticon-list-wrapper {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	box-sizing: border-box;
+}
+
+#button-list-wrapper {
+	border-bottom: 0.05rem solid $borderColor;
+	background: $backgroundColorEmphasize;
+	overflow: hidden;
+}
+
+.button-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.button-list.emoticons > li {
+	font-size: 1.25rem;
+	display: inline-block;
+	padding: 0.2rem;
+	border-bottom: 0.2rem solid transparent;
+	border-radius: 0.1rem;
+	cursor: pointer;
+
+	&:hover, &:active {
+		border-bottom: 0.2rem solid $borderColor;
+	}
+}
+
+.button-list.markdown > li {
+	float: left;
+	padding: 0.25rem;
+	cursor: pointer;
+	width: 1.75rem;
+	box-sizing: border-box;
+	text-align: center;
+
+	&:hover, &:active {
+		color: $textColorStrong;
+	}
+}
+
+#content-editor {
+	border: none;
+	margin: 0;
+
+	&-wrapper {
+		border-top: none;
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form elements
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+input, select, textarea {
+	width: 100%;
+	background: $backgroundColorEmphasize;
+	color: $formElementTextColor;
+	font-family: inherit;
+	font-size: 0.7rem;
+	padding: 0.25rem;
+	border: 0.05rem solid $borderColor;
+	box-sizing: border-box;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+textarea {
+	font-family: $fontFamilyTextarea;
+	box-sizing: border-box;
+	display: block;
+	resize: vertical;
+	min-height: 15rem;
+	line-height: 1.2rem;
+	padding: 0.5rem;
+	-webkit-hyphens: none;
+	hyphens: none;
+}
+
+input {
+	&[type="submit"] {
+		text-transform: uppercase;
+		border-radius: 0.1rem;
+	}
+}
+
+label {
+	text-transform: uppercase;
+	font-weight: normal;
+
+	&:after {
+		content: ":";
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form buttons
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#insert-button, #update-button, #delete-button {
+	color: $formButtonTextColor;
+	border: 0.05rem solid $formButtonBorderColor;
+}
+
+#insert-button {
+	background: $insertButtonBackgroundColor;
+
+	&:active, &:focus {
+		background: darken($insertButtonBackgroundColor, 10%)
+	}
+}
+
+#update-button {
+	background: $updateButtonBackgroundColor;
+
+	&:active, &:focus {
+		background: darken($updateButtonBackgroundColor, 10%)
+	}
+}
+
+#delete-button {
+	background: $deleteButtonBackgroundColor;
+
+	&:active, &:focus {
+		background: darken($deleteButtonBackgroundColor, 10%)
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Form message list
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#message-list {
+	margin: 0;
+	padding: 0.5rem;
+	list-style: none;
+	background: $messageListBackgroundColor;
+	color: $messageListTextColor;
+	font-size: $fontSizeSmall;
+
+	&-wrapper {
+		margin-bottom: 0.5rem;
+		border: 0.1rem solid darken($messageListBackgroundColor, 10%);
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Search form
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#search-form {
+	margin-bottom: 1rem;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Import other files
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+@import "responsive";
+@import "fontello";
+@import "fonts";

@@ -6,7 +6,7 @@
 
 @media only screen and (min-width: 62.5em /*1000px*/) {
 	#main-content {
-		border: 0.05rem solid #AAA;
+		border: 0.05rem solid $borderColor;
 		border-top: none;
 		border-bottom: none;
 	}
@@ -32,13 +32,15 @@
 	#main-navi {
 		font-size: 1rem;
 
-		li {
-			span {
-				display: none;
-			}
+		ul {
+			li {
+				span {
+					display: none;
+				}
 
-			.fa {
-				margin-right: 0;
+				.fa {
+					margin-right: 0;
+				}
 			}
 		}
 
@@ -76,6 +78,10 @@
 		overflow: hidden;
 		box-sizing: border-box;
 
+		&-before {
+			float: none;
+		}
+
 		li {
 			flex-grow: 1;
 
@@ -83,14 +89,5 @@
 				border-left: none;
 			}
 		}
-	}
-
-	.actions-before {
-		float: none;
-	}
-
-	.arguments {
-		font-size: 0.5rem;
-		line-height: 0.75rem;
 	}
 }

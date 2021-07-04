@@ -29,7 +29,7 @@
 	<?php if($USER['ARGV']): ?>
 		<ul class="arguments">
 			<?php foreach($USER['ARGV'] as $argument => $value): ?>
-				<li><strong><?=$argument?>:</strong> <span><?=escapeHTML($value)?></span></li>
+				<li><strong><?=$argument?>:</strong> <code><?=escapeHTML($value)?></code></li>
 			<?php endforeach; ?>
 		</ul>
 	<?php endif; ?>

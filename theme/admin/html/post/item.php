@@ -31,7 +31,7 @@
 	<?php if($POST['ARGV']): ?>
 		<ul class="arguments">
 			<?php foreach($POST['ARGV'] as $argument => $value): ?>
-				<li><strong><?=$argument?>:</strong> <span><?=escapeHTML($value)?></span></li>
+				<li><strong><?=$argument?>:</strong> <code><?=escapeHTML($value)?></code></li>
 			<?php endforeach; ?>
 		</ul>
 	<?php endif; ?>
