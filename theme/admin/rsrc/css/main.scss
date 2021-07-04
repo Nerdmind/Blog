@@ -413,27 +413,6 @@ table, td {
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Brackets
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.brackets {
-	&:after, &:before {
-		color: #222;
-	}
-
-	&:before {
-		content: "[";
-	}
-
-	&:after {
-		content: "]";
-	}
-}
-
-.brackets a, a.brackets {
-	text-decoration: none;
-}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Item Element
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .item {
@@ -512,8 +491,20 @@ table, td {
 		padding: 0;
 		list-style: none;
 
+		&-right {
+			float: right;
+
+			&:before {
+				content: none !important;
+			}
+		}
+
 		li {
 			display: inline-block;
+
+			+li:before {
+				content: " – ";
+			}
 		}
 	}
 

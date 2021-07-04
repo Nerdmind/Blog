@@ -6,10 +6,12 @@
 		</h2>
 		<ul class="item-meta">
 			<li>
-				<a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ATTR']['ID']}")?>" title="<?=$Language->text('update_user')?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
+				<i class="fa fa-clock-o"></i>
+				<time datetime="<?=$PAGE['ATTR']['TIME_INSERT']?>"><?=parseDatetime($PAGE['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
 			</li>
 			<li>
-				<time class="brackets" datetime="<?=$PAGE['ATTR']['TIME_INSERT']?>"><?=parseDatetime($PAGE['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
+				<i class="fa fa-user"></i>
+				<a href="<?=Application::getAdminURL("user/update.php?id={$USER['ATTR']['ID']}")?>" title="<?=$Language->text('update_user')?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
 			</li>
 		</ul>
 	</header>

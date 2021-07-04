@@ -6,16 +6,19 @@
 		</h2>
 		<ul class="item-meta">
 			<li>
-				<a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ATTR']['ID']}")?>" title="<?=$Language->text('update_user')?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
+				<i class="fa fa-clock-o"></i>
+				<time datetime="<?=$POST['ATTR']['TIME_INSERT']?>"><?=parseDatetime($POST['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
+			</li>
+			<li>
+				<i class="fa fa-user"></i>
+				<a href="<?=Application::getAdminURL("user/update.php?id={$USER['ATTR']['ID']}")?>" title="<?=$Language->text('update_user')?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
 			</li>
 			<?php if($CATEGORY): ?>
-			<li>
-				<a class="brackets" href="<?=Application::getAdminURL("category/update.php?id={$CATEGORY['ATTR']['ID']}")?>" title="<?=$Language->text('update_category')?>"><?=escapeHTML($CATEGORY['ATTR']['NAME'])?></a>
+			<li class="item-meta-right">
+				<i class="fa fa-tag"></i>
+				<a href="<?=Application::getAdminURL("category/update.php?id={$CATEGORY['ATTR']['ID']}")?>" title="<?=$Language->text('update_category')?>"><?=escapeHTML($CATEGORY['ATTR']['NAME'])?></a>
 			</li>
 			<?php endif ?>
-			<li>
-				<time class="brackets" datetime="<?=$POST['ATTR']['TIME_INSERT']?>"><?=parseDatetime($POST['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
-			</li>
 		</ul>
 	</header>
 	<blockquote cite="<?=$POST['URL']?>">

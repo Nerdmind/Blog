@@ -6,13 +6,16 @@
 		</h2>
 		<ul class="item-meta">
 			<li>
-				<time class="brackets" datetime="<?=$CATEGORY['ATTR']['TIME_INSERT']?>"><?=parseDatetime($CATEGORY['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
+				<i class="fa fa-newspaper-o"></i>
+				<span><?=$COUNT['POST']?> <?=$Language->text('posts')?></span>
 			</li>
 			<li>
-				<span class="brackets"><?=$Language->text('posts')?>: <?=$COUNT['POST']?></span>
+				<i class="fa fa-tags"></i>
+				<span><?=$COUNT['CHILDREN']?> <?=$Language->text('categories')?></span>
 			</li>
-			<li>
-				<span class="brackets"><?=$Language->text('categories')?>: <?=$COUNT['CHILDREN']?></span>
+			<li class="item-meta-right">
+				<i class="fa fa-clock-o"></i>
+				<time datetime="<?=$CATEGORY['ATTR']['TIME_INSERT']?>"><?=parseDatetime($CATEGORY['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
 			</li>
 		</ul>
 	</header>

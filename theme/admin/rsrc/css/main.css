@@ -379,23 +379,6 @@ table, td {
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Brackets
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-.brackets:after, .brackets:before {
-  color: #222;
-}
-.brackets:before {
-  content: "[";
-}
-.brackets:after {
-  content: "]";
-}
-
-.brackets a, a.brackets {
-  text-decoration: none;
-}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Item Element
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .item {
@@ -462,8 +445,17 @@ table, td {
   padding: 0;
   list-style: none;
 }
+.item-meta-right {
+  float: right;
+}
+.item-meta-right:before {
+  content: none !important;
+}
 .item-meta li {
   display: inline-block;
+}
+.item-meta li + li:before {
+  content: " – ";
 }
 .item-image {
   float: left;

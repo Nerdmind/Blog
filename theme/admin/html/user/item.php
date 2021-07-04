@@ -6,7 +6,16 @@
 		</h2>
 		<ul class="item-meta">
 			<li>
-				<time class="brackets" datetime="<?=$USER['ATTR']['TIME_INSERT']?>"><?=parseDatetime($USER['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
+				<i class="fa fa-clock-o"></i>
+				<time datetime="<?=$USER['ATTR']['TIME_INSERT']?>"><?=parseDatetime($USER['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
+			</li>
+			<li>
+				<i class="fa fa-user-secret"></i>
+				<?=escapeHTML($USER['ATTR']['USERNAME'])?>
+			</li>
+			<li class="item-meta-right">
+				<i class="fa fa-envelope-o"></i>
+				<a href="mailto:<?=escapeHTML($USER['ATTR']['MAILADDR'])?>"><?=escapeHTML($USER['ATTR']['MAILADDR'])?></a>
 			</li>
 		</ul>
 	</header>
