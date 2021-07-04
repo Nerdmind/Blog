@@ -21,14 +21,14 @@ a:focus {
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Headings
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
   margin-bottom: 0;
   text-transform: uppercase;
 }
-h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
+h1 + p, h2 + p, h3 + p {
   margin-top: 0;
 }
-h1 .fa, h2 .fa, h3 .fa, h4 .fa, h5 .fa, h6 .fa {
+h1 .fa, h2 .fa, h3 .fa {
   margin-right: 0.25rem;
 }
 
@@ -43,18 +43,6 @@ h2 {
 
 h3 {
   font-size: 0.65rem;
-}
-
-h4 {
-  font-size: 0.6rem;
-}
-
-h5 {
-  font-size: 0.55rem;
-}
-
-h6 {
-  font-size: 0.5rem;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -125,9 +113,6 @@ body {
   font-size: 0.6rem;
   font-weight: 700;
   line-height: 1rem;
-}
-#header-desc span {
-  color: #CCC;
 }
 
 #header-logo {
@@ -214,9 +199,6 @@ body {
 }
 #main-navi a:hover, #main-navi a:focus {
   text-decoration: none;
-  background: #CCC;
-}
-#main-navi a:focus {
   background: #CCC;
 }
 
@@ -359,23 +341,6 @@ img {
 
 #database-result {
   color: inherit;
-}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Tables
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-table {
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-td {
-  vertical-align: middle;
-}
-
-table, td {
-  padding: 0.5rem;
-  border: 0.05rem solid #AAA;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

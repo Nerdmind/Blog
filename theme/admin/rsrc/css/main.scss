@@ -21,7 +21,7 @@ a {
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Headings
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
 	margin-bottom: 0;
 	text-transform: uppercase;
 
@@ -45,18 +45,6 @@ h2 {
 
 h3 {
 	font-size: 0.65rem;
-}
-
-h4 {
-	font-size: 0.60rem;
-}
-
-h5 {
-	font-size: 0.55rem;
-}
-
-h6 {
-	font-size: 0.50rem;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -129,10 +117,6 @@ body {
 	font-size: 0.6rem;
 	font-weight: 700;
 	line-height: 1rem;
-
-	span {
-		color: #CCC;
-	}
 }
 
 #header-logo {
@@ -233,10 +217,6 @@ body {
 
 		&:hover, &:focus {
 			text-decoration: none;
-			background: #CCC;
-		}
-
-		&:focus {
 			background: #CCC;
 		}
 	}
@@ -393,23 +373,6 @@ img {
 
 #database-result {
 	color: inherit;
-}
-
-/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Tables
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-table {
-	width: 100%;
-	margin-bottom: 1rem;
-}
-
-td {
-	vertical-align: middle;
-}
-
-table, td {
-	padding: 0.5rem;
-	border: 0.05rem solid #AAA;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
