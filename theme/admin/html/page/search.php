@@ -3,8 +3,13 @@
 <p><?=$Language->text('search_page_desc')?></p>
 
 <form id="search-form" method="GET">
-	<div class="form-border-box background padding">
-		<input id="search-text" type="search" name="q" placeholder="<?=$Language->text('placeholder_search')?>" value="<?=escapeHTML($QUERY)?>" />
+	<div class="form-grid no-bottom-border">
+		<label for="form_query">
+			<i class="fa fa-search"></i><?=$Language->text('search')?></label>
+
+		<div class="form-grid-item first">
+			<input id="form_query" type="search" name="q" placeholder="<?=$Language->text('placeholder_search')?>" value="<?=escapeHTML($QUERY)?>" />
+		</div>
 	</div>
 	<div class="form-border-box background padding">
 		<input id="update-button" type="submit" value="<?=$Language->text('search')?>" />

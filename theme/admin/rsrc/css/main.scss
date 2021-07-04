@@ -578,6 +578,10 @@ table, td {
 		grid-template-columns: auto auto;
 	}
 
+	&.no-bottom-border {
+		border-bottom: none;
+	}
+
 	> label {
 		display: flex;
 		align-items: center;

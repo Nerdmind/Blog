@@ -518,6 +518,9 @@ table, td {
 .form-grid.two-columns {
   grid-template-columns: auto auto;
 }
+.form-grid.no-bottom-border {
+  border-bottom: none;
+}
 .form-grid > label {
   display: flex;
   align-items: center;
