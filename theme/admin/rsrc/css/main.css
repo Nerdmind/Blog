@@ -454,6 +454,8 @@ table, td {
 .item-id {
   float: right;
   color: #666;
+  font-size: 0.7rem;
+  font-weight: normal;
 }
 .item-image {
   float: left;

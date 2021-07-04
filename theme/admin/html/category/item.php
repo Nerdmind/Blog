@@ -1,8 +1,10 @@
 <article class="item">
 	<header>
-		<h2><i class="fa fa-tag"></i><?=escapeHTML($CATEGORY['ATTR']['NAME'])?></h2>
+		<h2>
+			<i class="fa fa-tag"></i><?=escapeHTML($CATEGORY['ATTR']['NAME'])?>
+			<span class="item-id">#<?=$CATEGORY['ATTR']['ID']?></span>
+		</h2>
 		<div>
-			<span class="brackets item-id">#<?=$CATEGORY['ATTR']['ID']?></span>
 			<time class="brackets" datetime="<?=$CATEGORY['ATTR']['TIME_INSERT']?>"><?=parseDatetime($CATEGORY['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
 			<span class="brackets"><?=$Language->text('posts')?>: <?=$COUNT['POST']?></span>
 			<span class="brackets"><?=$Language->text('categories')?>: <?=$COUNT['CHILDREN']?></span>

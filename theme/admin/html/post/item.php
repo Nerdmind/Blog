@@ -1,8 +1,10 @@
 <article class="item">
 	<header>
-		<h2><i class="fa fa-newspaper-o"></i><?=escapeHTML($POST['ATTR']['NAME'])?></h2>
+		<h2>
+			<i class="fa fa-newspaper-o"></i><?=escapeHTML($POST['ATTR']['NAME'])?>
+			<span class="item-id">#<?=$POST['ATTR']['ID']?></span>
+		</h2>
 		<div>
-			<span class="brackets item-id">#<?=$POST['ATTR']['ID']?></span>
 			<a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ATTR']['ID']}")?>" title="<?=$Language->text('update_user')?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
 			<?php if($CATEGORY): ?>
 				<a class="brackets" href="<?=Application::getAdminURL("category/update.php?id={$CATEGORY['ATTR']['ID']}")?>" title="<?=$Language->text('update_category')?>"><?=escapeHTML($CATEGORY['ATTR']['NAME'])?></a>
