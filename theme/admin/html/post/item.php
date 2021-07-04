@@ -4,13 +4,19 @@
 			<i class="fa fa-newspaper-o"></i><?=escapeHTML($POST['ATTR']['NAME'])?>
 			<span class="item-id">#<?=$POST['ATTR']['ID']?></span>
 		</h2>
-		<div>
-			<a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ATTR']['ID']}")?>" title="<?=$Language->text('update_user')?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
+		<ul class="item-meta">
+			<li>
+				<a class="brackets" href="<?=Application::getAdminURL("user/update.php?id={$USER['ATTR']['ID']}")?>" title="<?=$Language->text('update_user')?>"><?=escapeHTML($USER['ATTR']['FULLNAME'])?></a>
+			</li>
 			<?php if($CATEGORY): ?>
+			<li>
 				<a class="brackets" href="<?=Application::getAdminURL("category/update.php?id={$CATEGORY['ATTR']['ID']}")?>" title="<?=$Language->text('update_category')?>"><?=escapeHTML($CATEGORY['ATTR']['NAME'])?></a>
+			</li>
 			<?php endif ?>
-			<time class="brackets" datetime="<?=$POST['ATTR']['TIME_INSERT']?>"><?=parseDatetime($POST['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
-		</div>
+			<li>
+				<time class="brackets" datetime="<?=$POST['ATTR']['TIME_INSERT']?>"><?=parseDatetime($POST['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
+			</li>
+		</ul>
 	</header>
 	<blockquote cite="<?=$POST['URL']?>">
 		<?php if(isset($POST['FILE']['LIST'][0])): ?>

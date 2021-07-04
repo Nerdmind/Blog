@@ -507,6 +507,16 @@ table, td {
 		font-weight: normal;
 	}
 
+	&-meta {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		li {
+			display: inline-block;
+		}
+	}
+
 	&-image {
 		float: left;
 		display: block;

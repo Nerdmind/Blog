@@ -4,9 +4,11 @@
 			<i class="fa fa-user"></i><?=escapeHTML($USER['ATTR']['FULLNAME'])?>
 			<span class="item-id">#<?=$USER['ATTR']['ID']?></span>
 		</h2>
-		<div>
-			<time class="brackets" datetime="<?=$USER['ATTR']['TIME_INSERT']?>"><?=parseDatetime($USER['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
-		</div>
+		<ul class="item-meta">
+			<li>
+				<time class="brackets" datetime="<?=$USER['ATTR']['TIME_INSERT']?>"><?=parseDatetime($USER['ATTR']['TIME_INSERT'], $Language->text('date_format'))?></time>
+			</li>
+		</ul>
 	</header>
 	<blockquote cite="<?=$USER['URL']?>">
 		<?php if(isset($USER['FILE']['LIST'][0])): ?>
