@@ -1,10 +1,25 @@
+<?php
+if($toogle = HTTP::GET('colors')) {
+	$options = ['path' => '/', 'samesite' => 'Lax'];
+
+	if($toogle === 'dark') {
+		$_COOKIE['dark_mode'] = TRUE;
+		setcookie('dark_mode', TRUE, $options);
+	} else {
+		unset($_COOKIE['dark_mode']);
+		setcookie('dark_mode', NULL, array_merge($options, ['expires' => -1]));
+	}
+}
+
+$theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'main';
+?>
 <!DOCTYPE html>
 <html lang="<?=$BLOGMETA['LANG']?>">
 <head>
 	<meta charset="UTF-8" />
 	<meta name="referrer" content="origin-when-crossorigin" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/css/main.css')?>" />
+	<link rel="stylesheet" href="<?=Application::getTemplateURL("rsrc/css/$theme.css")?>" />
 	<script defer src="<?=Application::getTemplateURL('rsrc/main.js')?>"></script>
 	<title><?=escapeHTML($NAME)?> | Administration</title>
 </head>
@@ -47,6 +62,14 @@
 			<li><i class="fa fa-github-square"></i><a href="https://github.com/Nerdmind/Blog/releases" target="_blank">Releases</a></li>
 			<li><i class="fa fa-book"></i><a href="https://github.com/Nerdmind/Blog/wiki" target="_blank">Documentation</a></li>
 			<li><i class="fa fa-bug"></i><a href="https://github.com/Nerdmind/Blog/issues">Bugreport</a></li>
+			<li>
+				<span id="theme-toogle-dark">
+					<i class="fa fa-moon"></i><a href="?<?=http_build_query(array_merge($_GET, ['colors' => 'dark']))?>"><?=$Language->text('dark_colors')?></a>
+				</span>
+				<span id="theme-toogle-bright">
+					<i class="fa fa-sun"></i><a href="?<?=http_build_query(array_merge($_GET, ['colors' => 'bright']))?>"><?=$Language->text('bright_colors')?></a>
+				</span>
+			</li>
 		</ul>
 	</footer>
 </body>

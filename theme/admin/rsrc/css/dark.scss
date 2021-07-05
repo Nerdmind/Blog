@@ -1,61 +1,61 @@
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Content background and border color
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-$htmlBackgroundColor: #DDD;
-$backgroundColor: #FFF;
-$backgroundColorEmphasize: #EEE;
-$borderColor: #AAA;
+$htmlBackgroundColor: #4D535B;
+$backgroundColorEmphasize: #32373E;
+$backgroundColor: #3D434B;
+$borderColor: #1D232B;
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Header and navigation
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 $headerBarTextColor: #333;
-$navigationLinkBackgroundColor: #DDD;
-$navigationLinkFocusedBackgroundColor: #CCC;
+$navigationLinkBackgroundColor: #2D333B;
+$navigationLinkFocusedBackgroundColor: #1D232B;
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Text colors
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-$textColor: #333;
-$textColorLight: #444;
-$textColorStrong: #000;
-$formElementTextColor: #404040;
-$codeTextColor: #008B45;
-$linkColor: #0060A0;
-$linkColorFocused: #CCC;
-$warningTextColor: #B03060;
+$textColor: #9DAAB7;
+$textColorLight: #8D9AA7;
+$textColorStrong: #CDDAE7;
+$formElementTextColor: #8D9AA7;
+$codeTextColor: #FFB830;
+$linkColor: #5EA4D3;
+$linkColorFocused: #42474E;
+$warningTextColor: #FFB830;
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Misc
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-$itemLinkHoverBackgroundColor: #DDD;
-$paginationActiveBackgroundColor: #CCC;
+$itemLinkHoverBackgroundColor: #42474E;
+$paginationActiveBackgroundColor: #42474E;
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Forms
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-$formBackgroundColorEmphasize: #DDD;
+$formBackgroundColorEmphasize: #4D535B;
 $formButtonBorderColor: #404040;
-$formButtonTextColor: #EEE;
+$formButtonTextColor: #CCC;
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Form buttons
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-$insertButtonBackgroundColor: #4D8D5D;
-$updateButtonBackgroundColor: #6A8AA5;
-$deleteButtonBackgroundColor: #C45C66;
+$insertButtonBackgroundColor: #396644;
+$updateButtonBackgroundColor: #597186;
+$deleteButtonBackgroundColor: #8F4F55;
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Information message box
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-$messageListTextColor: #EEE;
-$messageListBackgroundColor: #C45C66;
+$messageListTextColor: #BBB;
+$messageListBackgroundColor: #8C434A;
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Import stylesheet
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 @import "import/styles";
 
-#theme-toogle-bright {
+#theme-toogle-dark {
 	display: none;
 }

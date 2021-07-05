@@ -1,10 +1,11 @@
+<?php $theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'main'; ?>
 <!DOCTYPE html>
 <html lang="<?=$BLOGMETA['LANG']?>">
 <head>
 	<meta charset="UTF-8" />
 	<meta name="referrer" content="origin-when-crossorigin" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/css/main.css')?>" />
+	<link rel="stylesheet" href="<?=Application::getTemplateURL("rsrc/css/$theme.css")?>" />
 	<title><?=$Language->text('maintenance_mode')?></title>
 </head>
 <body>

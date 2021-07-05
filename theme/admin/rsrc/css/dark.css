@@ -53,11 +53,11 @@
 # Hyperlinks
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 a {
-  color: #0060A0;
+  color: #5EA4D3;
   text-decoration: none;
 }
 a:focus {
-  background: #CCC;
+  background: #42474E;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -97,8 +97,8 @@ html, body {
 
 html {
   font-size: 1.25rem;
-  color: #333;
-  background: #DDD;
+  color: #9DAAB7;
+  background: #4D535B;
   -webkit-hyphens: auto;
   hyphens: auto;
 }
@@ -118,7 +118,7 @@ body {
 #main-content {
   flex: 1;
   width: 100%;
-  background: #FFF;
+  background: #3D434B;
   box-sizing: border-box;
   padding: 0.75rem;
 }
@@ -163,10 +163,10 @@ body {
 .header-line {
   padding: 0.25rem 0.75rem;
   overflow: hidden;
-  background: #EEE;
+  background: #32373E;
 }
 .header-line + .header-line {
-  border: 0.05rem solid #AAA;
+  border: 0.05rem solid #1D232B;
   border-left: none;
   border-right: none;
 }
@@ -181,8 +181,8 @@ body {
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 #main-footer {
   font-size: 0.6rem;
-  background: #EEE;
-  border-top: 0.05rem solid #AAA;
+  background: #32373E;
+  border-top: 0.05rem solid #1D232B;
   padding: 0.5rem 0.75rem;
   text-align: center;
 }
@@ -227,8 +227,8 @@ body {
 }
 #main-navi a {
   padding: 0.1rem 0.3rem;
-  background: #DDD;
-  border: 0.05rem solid #AAA;
+  background: #2D333B;
+  border: 0.05rem solid #1D232B;
   color: inherit;
   text-decoration: none;
   text-align: center;
@@ -236,7 +236,7 @@ body {
 }
 #main-navi a:hover, #main-navi a:focus {
   text-decoration: none;
-  background: #CCC;
+  background: #1D232B;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -252,15 +252,15 @@ body {
 #site-navi > div {
   display: flex;
   align-items: center;
-  border: 0.05rem solid #AAA;
-  background: #EEE;
+  border: 0.05rem solid #1D232B;
+  background: #32373E;
 }
 #site-navi > div > a {
   display: block;
 }
 #site-navi .disabled {
   pointer-events: none;
-  color: #AAA;
+  color: #1D232B;
 }
 #site-navi ol {
   list-style: none;
@@ -272,10 +272,10 @@ body {
   display: inline-block;
 }
 #site-navi ol li + li {
-  border-left: 0.05rem solid #AAA;
+  border-left: 0.05rem solid #1D232B;
 }
 #site-navi ol li.active a {
-  background: #CCC;
+  background: #42474E;
   font-weight: 600;
   pointer-events: none;
 }
@@ -286,7 +286,7 @@ body {
   display: inline-block;
 }
 #site-navi a:hover, #site-navi a:focus {
-  background: #CCC;
+  background: #1D232B;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -306,8 +306,8 @@ body {
 .actions li {
   display: inline-block;
   font-weight: bold;
-  background: #EEE;
-  border: 0.05rem solid #AAA;
+  background: #32373E;
+  border: 0.05rem solid #1D232B;
 }
 .actions a {
   color: inherit;
@@ -327,9 +327,9 @@ pre {
   overflow: auto;
   -moz-tab-size: 4;
   tab-size: 4;
-  background: #EEE;
+  background: #32373E;
   padding: 0.5rem;
-  border: 0.05rem solid #AAA;
+  border: 0.05rem solid #1D232B;
 }
 
 code, pre {
@@ -337,7 +337,7 @@ code, pre {
 }
 
 code {
-  color: #008B45;
+  color: #FFB830;
 }
 
 p {
@@ -350,7 +350,7 @@ img {
 }
 
 .warning {
-  color: #B03060;
+  color: #FFB830;
 }
 
 .hidden {
@@ -369,13 +369,13 @@ img {
 .item {
   display: flex;
   flex-direction: column;
-  border: 0.05rem solid #AAA;
+  border: 0.05rem solid #1D232B;
   margin-bottom: 0.75rem;
   clear: both;
 }
 .item header {
   padding: 0.5rem 0.75rem;
-  border-bottom: 0.05rem solid #AAA;
+  border-bottom: 0.05rem solid #1D232B;
   position: sticky;
   top: 0;
 }
@@ -383,7 +383,7 @@ img {
   margin-top: 0;
 }
 .item footer {
-  border-top: 0.05rem solid #AAA;
+  border-top: 0.05rem solid #1D232B;
 }
 .item footer ul {
   margin: 0;
@@ -403,10 +403,10 @@ img {
   padding: 0.25rem 2rem;
 }
 .item footer a:hover, .item footer a:active {
-  background: #DDD;
+  background: #42474E;
 }
 .item header, .item footer {
-  background: #EEE;
+  background: #32373E;
   overflow: hidden;
 }
 .item blockquote {
@@ -421,7 +421,7 @@ img {
 }
 .item-id {
   float: right;
-  color: #444;
+  color: #8D9AA7;
   font-size: 0.7rem;
   font-weight: normal;
 }
@@ -449,8 +449,8 @@ img {
   width: 10rem;
   height: 7rem;
   object-fit: cover;
-  background: #EEE;
-  border: 0.05rem solid #AAA;
+  background: #32373E;
+  border: 0.05rem solid #1D232B;
 }
 .item-container.grid {
   width: 100%;
@@ -472,17 +472,17 @@ img {
   list-style: none;
   margin: 0;
   padding: 0.25rem 0.75rem;
-  background: #EEE;
+  background: #32373E;
   font-size: 0.6rem;
   text-align: center;
-  border-top: 0.05rem solid #AAA;
+  border-top: 0.05rem solid #1D232B;
 }
 .arguments li {
   display: inline;
 }
 .arguments li > code {
   font-family: inherit;
-  color: #444;
+  color: #8D9AA7;
 }
 .arguments li:after {
   content: " · ";
@@ -498,8 +498,8 @@ img {
 .form-grid {
   display: grid;
   grid-template-columns: 8rem auto 8rem auto;
-  border-left: 0.05rem solid #AAA;
-  border-bottom: 0.05rem solid #AAA;
+  border-left: 0.05rem solid #1D232B;
+  border-bottom: 0.05rem solid #1D232B;
 }
 .form-grid.two-columns {
   grid-template-columns: auto auto;
@@ -510,7 +510,7 @@ img {
 .form-grid > label {
   display: flex;
   align-items: center;
-  background: #DDD;
+  background: #4D535B;
 }
 .form-grid > label .fa {
   margin-left: 0.5rem;
@@ -519,8 +519,8 @@ img {
 .form-grid-item,
 .form-grid > label {
   padding: 0.5rem;
-  border-top: 0.05rem solid #AAA;
-  border-right: 0.05rem solid #AAA;
+  border-top: 0.05rem solid #1D232B;
+  border-right: 0.05rem solid #1D232B;
 }
 .form-grid-item.first {
   grid-column-start: 2;
@@ -528,13 +528,13 @@ img {
 }
 
 .form-border-box {
-  border: 0.05rem solid #AAA;
+  border: 0.05rem solid #1D232B;
 }
 .form-border-box.padding {
   padding: 0.5rem;
 }
 .form-border-box.background {
-  background: #DDD;
+  background: #4D535B;
 }
 .form-border-box.nobordertop {
   border-top: none;
@@ -554,8 +554,8 @@ img {
 }
 
 #button-list-wrapper {
-  border-bottom: 0.05rem solid #AAA;
-  background: #EEE;
+  border-bottom: 0.05rem solid #1D232B;
+  background: #32373E;
   overflow: hidden;
 }
 
@@ -574,7 +574,7 @@ img {
   cursor: pointer;
 }
 .button-list.emoticons > li:hover, .button-list.emoticons > li:active {
-  border-bottom: 0.2rem solid #AAA;
+  border-bottom: 0.2rem solid #1D232B;
 }
 
 .button-list.markdown > li {
@@ -586,7 +586,7 @@ img {
   text-align: center;
 }
 .button-list.markdown > li:hover, .button-list.markdown > li:active {
-  color: #000;
+  color: #CDDAE7;
 }
 
 #content-editor {
@@ -602,12 +602,12 @@ img {
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 input, select, textarea {
   width: 100%;
-  background: #EEE;
-  color: #444;
+  background: #32373E;
+  color: #8D9AA7;
   font-family: inherit;
   font-size: 0.7rem;
   padding: 0.25rem;
-  border: 0.05rem solid #AAA;
+  border: 0.05rem solid #1D232B;
   box-sizing: border-box;
 }
 input:focus, select:focus, textarea:focus {
@@ -643,29 +643,29 @@ label:after {
 # Form buttons
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 #insert-button, #update-button, #delete-button {
-  color: #EEE;
+  color: #CCC;
   border: 0.05rem solid #404040;
 }
 
 #insert-button {
-  background: #4D8D5D;
+  background: #396644;
 }
 #insert-button:active, #insert-button:focus {
-  background: #3b6c47;
+  background: #27452e;
 }
 
 #update-button {
-  background: #6A8AA5;
+  background: #597186;
 }
 #update-button:active, #update-button:focus {
-  background: #537089;
+  background: #455767;
 }
 
 #delete-button {
-  background: #C45C66;
+  background: #8F4F55;
 }
 #delete-button:active, #delete-button:focus {
-  background: #ae3f4a;
+  background: #6e3d41;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -675,13 +675,13 @@ label:after {
   margin: 0;
   padding: 0.5rem;
   list-style: none;
-  background: #C45C66;
-  color: #EEE;
+  background: #8C434A;
+  color: #BBB;
   font-size: 0.6rem;
 }
 #message-list-wrapper {
   margin-bottom: 0.5rem;
-  border: 0.1rem solid #ae3f4a;
+  border: 0.1rem solid #6a3238;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -701,7 +701,7 @@ label:after {
 }
 @media only screen and (min-width: 62.5em) {
   #main-content {
-    border: 0.05rem solid #AAA;
+    border: 0.05rem solid #1D232B;
     border-top: none;
     border-bottom: none;
   }
@@ -1164,6 +1164,6 @@ label:after {
   font-weight: 700;
   src: url("../font/ruda-n-700.woff2") format("woff2");
 }
-#theme-toogle-bright {
+#theme-toogle-dark {
   display: none;
 }
