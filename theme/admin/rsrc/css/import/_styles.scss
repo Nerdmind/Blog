@@ -65,6 +65,7 @@ html {
 	color: $textColor;
 	background: $htmlBackgroundColor;
 	-webkit-hyphens: auto;
+	word-break: break-word;
 	hyphens: auto;
 }
 

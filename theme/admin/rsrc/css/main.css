@@ -100,6 +100,7 @@ html {
   color: #333;
   background: #DDD;
   -webkit-hyphens: auto;
+  word-break: break-word;
   hyphens: auto;
 }
 
