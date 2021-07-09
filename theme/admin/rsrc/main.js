@@ -158,3 +158,34 @@ if(document.getElementById("delete-button")) {
 		}
 	}
 })();
+
+//==============================================================================
+// Detect unsaved changes in content editor
+//==============================================================================
+(function() {
+	if(document.getElementById("content-editor")) {
+		const editor = document.getElementById("content-editor");
+		const initialValue = editor.value;
+
+		function showConfirmationPrompt(e) {
+			if(editor.value !== initialValue) {
+				e.returnValue = '';
+				e.preventDefault();
+			}
+		}
+
+		window.addEventListener('beforeunload', showConfirmationPrompt);
+
+		const buttons = [];
+		buttons.push(document.getElementById('insert-button'));
+		buttons.push(document.getElementById('update-button'));
+
+		for(let i = 0; i < buttons.length; ++i) {
+			if(buttons[i] !== null) {
+				buttons[i].addEventListener('click', function() {
+					window.removeEventListener('beforeunload', showConfirmationPrompt);
+				});
+			}
+		}
+	}
+})();
