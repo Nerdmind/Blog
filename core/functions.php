@@ -109,7 +109,7 @@ function generateItemTemplateData(EntityInterface $Entity): array {
 		],
 
 		'BODY' => [
-			'TEXT' => function() use($Entity) {
+			'TEXT' => function() use($preparsed) {
 				return $preparsed;
 			},
 			'HTML' => function() use($Entity) {
