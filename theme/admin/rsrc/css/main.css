@@ -456,7 +456,7 @@ img {
 .item-container.grid {
   width: 100%;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   column-gap: 1rem;
@@ -498,12 +498,12 @@ img {
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .form-grid {
   display: grid;
-  grid-template-columns: 8rem auto 8rem auto;
+  grid-template-columns: repeat(2, 7.5rem minmax(0, 1fr));
   border-left: 0.05rem solid #AAA;
   border-bottom: 0.05rem solid #AAA;
 }
 .form-grid.two-columns {
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 2fr;
 }
 .form-grid.no-bottom-border {
   border-bottom: none;
@@ -514,8 +514,7 @@ img {
   background: #DDD;
 }
 .form-grid > label .fa {
-  margin-left: 0.5rem;
-  margin-right: 1rem;
+  margin: 0 0.5rem;
 }
 .form-grid-item,
 .form-grid > label {
@@ -524,8 +523,7 @@ img {
   border-right: 0.05rem solid #AAA;
 }
 .form-grid-item.first {
-  grid-column-start: 2;
-  grid-column-end: 5;
+  grid-column: span 3;
 }
 
 .form-border-box {
@@ -697,7 +695,7 @@ label:after {
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 @media only screen and (max-width: 90em) {
   .item-container.grid {
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
   }
 }
 @media only screen and (min-width: 62.5em) {
@@ -709,7 +707,7 @@ label:after {
 }
 @media only screen and (max-width: 62.5em) {
   .item-container.grid {
-    grid-template-columns: auto;
+    grid-template-columns: 1fr;
   }
 }
 @media only screen and (max-width: 50em) {
@@ -748,11 +746,10 @@ label:after {
   }
 
   .form-grid {
-    grid-template-columns: auto auto;
+    grid-template-columns: 7rem 1fr;
   }
-  .form-grid-item.first {
-    grid-column-start: 2;
-    grid-column-end: 3;
+  .form-grid-item, .form-grid-item.first, .form-grid label {
+    grid-column: unset;
   }
 
   .actions {

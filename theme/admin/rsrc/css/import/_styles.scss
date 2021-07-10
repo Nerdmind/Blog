@@ -472,7 +472,7 @@ img {
 	&-container.grid {
 		width: 100%;
 		display: grid;
-		grid-template-columns: auto auto auto;
+		grid-template-columns: 1fr 1fr 1fr;
 		grid-column-gap: 1rem;
 		grid-row-gap: 1rem;
 		column-gap: 1rem;
@@ -520,13 +520,13 @@ img {
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .form-grid {
 	display: grid;
-	grid-template-columns: 8rem auto 8rem auto;
+	grid-template-columns: repeat(2, 7.5rem minmax(0, 1fr));
 
 	border-left: 0.05rem solid $borderColor;
 	border-bottom: 0.05rem solid $borderColor;
 
 	&.two-columns {
-		grid-template-columns: auto auto;
+		grid-template-columns: 1fr 2fr;
 	}
 
 	&.no-bottom-border {
@@ -539,8 +539,7 @@ img {
 		background: $formBackgroundColorEmphasize;
 
 		.fa {
-			margin-left: 0.5rem;
-			margin-right: 1rem;
+			margin: 0 0.5rem;
 		}
 	}
 
@@ -552,8 +551,7 @@ img {
 	}
 
 	&-item.first {
-		grid-column-start: 2;
-		grid-column-end: 5;
+		grid-column: span 3;
 	}
 }
 

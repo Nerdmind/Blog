@@ -1,6 +1,6 @@
 @media only screen and (max-width: 90em /*1440px*/) {
 	.item-container.grid {
-		grid-template-columns: auto auto;
+		grid-template-columns: 1fr 1fr;
 	}
 }
 
@@ -14,7 +14,7 @@
 
 @media only screen and (max-width: 62.5em /*1000px*/) {
 	.item-container.grid {
-		grid-template-columns: auto;
+		grid-template-columns: 1fr;
 	}
 }
 
@@ -61,11 +61,10 @@
 	}
 
 	.form-grid {
-		grid-template-columns: auto auto;
+		grid-template-columns: 7rem 1fr;
 
-		&-item.first {
-			grid-column-start: 2;
-			grid-column-end: 3;
+		&-item, &-item.first, label {
+			grid-column: unset;
 		}
 	}
 
