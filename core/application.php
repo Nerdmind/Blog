@@ -79,7 +79,6 @@ foreach([
 	'PAGE.LIST_SIZE' => 10,
 	'POST.LIST_SIZE' => 10,
 	'USER.LIST_SIZE' => 10,
-	'PAGE.FEED_SIZE' => 25,
 	'POST.FEED_SIZE' => 25,
 	'CATEGORY.DESCRIPTION_SIZE' => 200,
 	'PAGE.DESCRIPTION_SIZE' => 200,
@@ -93,9 +92,7 @@ foreach([
 	'PAGE.LIST_SORT' => 'time_insert DESC',
 	'POST.LIST_SORT' => 'time_insert DESC',
 	'USER.LIST_SORT' => 'time_insert DESC',
-	'PAGE.FEED_SORT' => 'time_insert DESC',
 	'POST.FEED_SORT' => 'time_insert DESC',
-	'PAGE.FEED_GUID' => ['id', 'time_insert'],
 	'POST.FEED_GUID' => ['id', 'time_insert']
 ] as $name => $value) {
 	Application::set($name, $value);

@@ -142,9 +142,6 @@ function generateCategoryDataTree(array $category_data, $root = 0): array {
 #===============================================================================
 function generatePseudoGUID(EntityInterface $Entity) {
 	switch(get_class($Entity)) {
-		case "ORM\Entities\Page":
-			$attr = Application::get('PAGE.FEED_GUID');
-			break;
 		case "ORM\Entities\Post":
 			$attr = Application::get('POST.FEED_GUID');
 			break;

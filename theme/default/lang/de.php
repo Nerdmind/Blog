@@ -67,6 +67,11 @@ $LANGUAGE['category_empty'] = 'Diese Kategorie ist leer. Es wurden noch keine Be
 $LANGUAGE['search_form_placeholder'] = 'Suchbegriff eingeben …';
 
 #===============================================================================
+# Feed
+#===============================================================================
+$LANGUAGE['feed_subscribe'] = 'Feed abonnieren';
+
+#===============================================================================
 # Error 403
 #===============================================================================
 $LANGUAGE['403_heading_text'] = 'Zugriff verweigert';

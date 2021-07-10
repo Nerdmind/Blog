@@ -67,6 +67,11 @@ $LANGUAGE['category_empty'] = 'This category is empty. There are no published po
 $LANGUAGE['search_form_placeholder'] = 'Enter search term …';
 
 #===============================================================================
+# Feed
+#===============================================================================
+$LANGUAGE['feed_subscribe'] = 'Subscribe feed';
+
+#===============================================================================
 # Error 403
 #===============================================================================
 $LANGUAGE['403_heading_text'] = 'Access denied';

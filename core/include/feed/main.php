@@ -1,56 +1,40 @@
 <?php
 #===============================================================================
-# Get repositories
-#===============================================================================
-$UserRepository = Application::getRepository('User');
-
-#===============================================================================
 # HEADER: Content-Type for XML document
 #===============================================================================
 HTTP::responseHeader(HTTP::HEADER_CONTENT_TYPE, HTTP::CONTENT_TYPE_XML);
 
 #===============================================================================
-# Post feed
+# Get repositories
 #===============================================================================
-if(!isset($param) OR $param !== 'page') {
-	$PostRepository = Application::getRepository('Post');
+$PostRepository = Application::getRepository('Post');
+$UserRepository = Application::getRepository('User');
 
-	$posts = $PostRepository->getPaginated(
-		Application::get('POST.FEED_SORT'),
-		Application::get('POST.FEED_SIZE')
-	);
+#===============================================================================
+# Get list of posts to show in the feed
+#===============================================================================
+$posts = $PostRepository->getPaginated(
+	Application::get('POST.FEED_SORT'),
+	Application::get('POST.FEED_SIZE')
+);
 
-	foreach($posts as $Post) {
-		$User = $UserRepository->find($Post->get('user'));
+#===============================================================================
+# Build item templates
+#===============================================================================
+foreach($posts as $Post) {
+	$User = $UserRepository->find($Post->get('user'));
 
+	try {
+		$ItemTemplate = Template\Factory::build('feed/item');
+	} catch(Template\Exception $Exception) {
+		# Backward compatibility if feed/item.php does not exist.
 		$ItemTemplate = Template\Factory::build('feed/item_post');
-		$ItemTemplate->set('POST', generateItemTemplateData($Post));
-		$ItemTemplate->set('USER', generateItemTemplateData($User));
-
-		$post_templates[] = $ItemTemplate;
 	}
-}
 
-#===============================================================================
-# Page feed
-#===============================================================================
-if(!isset($param) OR $param !== 'post') {
-	$PageRepository = Application::getRepository('Page');
+	$ItemTemplate->set('POST', generateItemTemplateData($Post));
+	$ItemTemplate->set('USER', generateItemTemplateData($User));
 
-	$pages = $PageRepository->getPaginated(
-		Application::get('PAGE.FEED_SORT'),
-		Application::get('PAGE.FEED_SIZE')
-	);
-
-	foreach($pages as $Page) {
-		$User = $UserRepository->find($Page->get('user'));
-
-		$ItemTemplate = Template\Factory::build('feed/item_page');
-		$ItemTemplate->set('PAGE', generateItemTemplateData($Page));
-		$ItemTemplate->set('USER', generateItemTemplateData($User));
-
-		$page_templates[] = $ItemTemplate;
-	}
+	$templates[] = $ItemTemplate;
 }
 
 #===============================================================================
@@ -58,10 +42,10 @@ if(!isset($param) OR $param !== 'post') {
 #===============================================================================
 $FeedTemplate = Template\Factory::build('feed/main');
 $FeedTemplate->set('FEED', [
-	'TYPE' => $param ?? NULL,
+	'TYPE' => 'post',
 	'LIST' => [
-		'POSTS' => $post_templates ?? [],
-		'PAGES' => $page_templates ?? [],
+		'POSTS' => $templates ?? [],
+		'PAGES' => [],
 	]
 ]);
 

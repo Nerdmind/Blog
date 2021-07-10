@@ -54,7 +54,7 @@ Router::add('', function() {
 #===============================================================================
 # ROUTE: Feed
 #===============================================================================
-Router::add('feed/(?:(page|post)/)?', function($param = NULL) {
+Router::add('feed/', function() {
 	require 'core/include/feed/main.php';
 });
 
@@ -68,7 +68,7 @@ Router::add('search/', function() {
 #===============================================================================
 # REDIRECT: Feed (trailing slash)
 #===============================================================================
-Router::addRedirect('feed(/(?:page|post))?', Application::getURL('feed$1/'));
+Router::addRedirect('feed', Application::getURL('feed/'));
 
 #===============================================================================
 # REDIRECT: Search (trailing slash)
@@ -79,6 +79,11 @@ Router::addRedirect('search', Application::getURL('search/'));
 # REDIRECT: Favicon
 #===============================================================================
 Router::addRedirect('favicon.ico', Application::getTemplateURL('rsrc/favicon.ico'));
+
+#===============================================================================
+# BACKWARD COMPATIBILITY: Redirect to the new post feed URL
+#===============================================================================
+Router::addRedirect('feed/post/', Application::getURL('feed/'), 301);
 
 #===============================================================================
 # Execute router and route requests

@@ -42,10 +42,7 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 
 	<link rel="icon" href="<?=Application::getTemplateURL('rsrc/favicon.ico')?>" />
 	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/css/main.css')?>" title="<?=$BLOGMETA_NAME?>" />
-
-	<link rel="alternate" type="application/rss+xml" title="<?=$Language->text('feed_name_items', $BLOGMETA_NAME)?>" href="<?=Application::getURL('feed/')?>" />
-	<link rel="alternate" type="application/rss+xml" title="<?=$Language->text('feed_name_posts', $BLOGMETA_NAME)?>" href="<?=Application::getURL('feed/post/')?>" />
-	<link rel="alternate" type="application/rss+xml" title="<?=$Language->text('feed_name_pages', $BLOGMETA_NAME)?>" href="<?=Application::getURL('feed/page/')?>" />
+	<link rel="alternate" type="application/rss+xml" title="<?=$BLOGMETA_NAME?>" href="<?=Application::getURL('feed/')?>" />
 
 	<script defer src="<?=Application::getTemplateURL('rsrc/main.js')?>"></script>
 
