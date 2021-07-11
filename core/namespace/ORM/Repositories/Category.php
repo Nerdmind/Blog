@@ -109,10 +109,6 @@ class Category extends Repository {
 			return parent::update($Entity);
 		}
 
-		$query = 'SELECT parent FROM %s WHERE id = ?';
-		$query = sprintf($query, static::getTableName());
-
-		$Statement = $this->Database->prepare($query);
 		$_parent = $Entity->get('parent');
 
 		# Fetch the parent of the *new* parent category and let the while loop run through
