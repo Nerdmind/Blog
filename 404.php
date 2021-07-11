@@ -9,6 +9,9 @@ require_once 'core/application.php';
 #===============================================================================
 http_response_code(404);
 
+#===============================================================================
+# Build document
+#===============================================================================
 $MainTemplate = Template\Factory::build('main');
 $MainTemplate->set('NAME', '404 Not Found');
 $MainTemplate->set('HEAD', ['NAME' => $MainTemplate->get('NAME')]);
