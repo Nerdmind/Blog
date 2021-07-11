@@ -90,7 +90,8 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 $posts = $PostRepository->getAll(
 	['category' => $Category->getID()],
 	$site_sort,
-	($currentSite-1) * $site_size.','.$site_size
+	$site_size,
+	($currentSite-1) * $site_size
 );
 
 foreach($posts as $Post) {

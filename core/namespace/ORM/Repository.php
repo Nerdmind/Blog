@@ -213,13 +213,13 @@ abstract class Repository {
 	# Get paginated entity list
 	#===========================================================================
 	public function getPaginated(string $order, int $limit, int $offset = 0): array {
-		return $this->getAll([], $order, "$offset,$limit");
+		return $this->getAll([], $order, $limit, $offset);
 	}
 
 	#===========================================================================
 	# Get all entities
 	#===========================================================================
-	public function getAll(array $filter = [], string $order = null, string $limit = null): array {
+	public function getAll(array $filter = [], string $order = null, int $limit = null, int $offset = 0): array {
 		$select = 'SELECT * FROM '.static::getTableName();
 		$wheres = [];
 		$params = [];
@@ -242,7 +242,7 @@ abstract class Repository {
 		}
 
 		if($limit) {
-			$limit = "LIMIT $limit";
+			$limit = "LIMIT $offset,$limit";
 		}
 
 		$query = "$select %s %s %s";
