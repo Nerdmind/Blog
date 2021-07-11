@@ -433,7 +433,20 @@ function generateSlug($string, $separator = '-') {
 }
 
 #===============================================================================
-# Function to get data from specific page in templates
+# Function for use in templates to get data of a category
+#===============================================================================
+function CATEGORY(int $id): array {
+	$Repository = Application::getRepository('Category');
+
+	if($Category = $Repository->find($id)) {
+		return generateItemTemplateData($Category);
+	}
+
+	return [];
+}
+
+#===============================================================================
+# Function for use in templates to get data of a page
 #===============================================================================
 function PAGE(int $id): array {
 	$Repository = Application::getRepository('Page');
@@ -446,7 +459,7 @@ function PAGE(int $id): array {
 }
 
 #===============================================================================
-# Function to get data from specific post in templates
+# Function for use in templates to get data of a post
 #===============================================================================
 function POST(int $id): array {
 	$Repository = Application::getRepository('Post');
@@ -459,7 +472,7 @@ function POST(int $id): array {
 }
 
 #===============================================================================
-# Function to get data from specific user in templates
+# Function for use in templates to get data of a user
 #===============================================================================
 function USER(int $id): array {
 	$Repository = Application::getRepository('User');
