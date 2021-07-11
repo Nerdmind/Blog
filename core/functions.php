@@ -363,13 +363,6 @@ function escapeHTML($string): string {
 }
 
 #===============================================================================
-# Wrapper function for strip_tags()
-#===============================================================================
-function removeHTML($string): string {
-	return strip_tags($string);
-}
-
-#===============================================================================
 # Remove all double line breaks from string
 #===============================================================================
 function removeDoubleLineBreaks($string): string {
@@ -404,7 +397,7 @@ function truncate($string, $length, $replace = '') {
 # Return excerpt content
 #===============================================================================
 function excerpt($string, $length = 500, $replace = ' […]') {
-	$string = removeHTML($string);
+	$string = strip_tags($string);
 	$string = removeDoubleLineBreaks($string);
 	$string = truncate($string, $length, $replace);
 	$string = nl2br($string);
@@ -416,7 +409,7 @@ function excerpt($string, $length = 500, $replace = ' […]') {
 # Return content for meta description
 #===============================================================================
 function description($string, $length = 200, $replace = ' […]') {
-	$string = removeHTML($string);
+	$string = strip_tags($string);
 	$string = removeWhitespace($string);
 	$string = truncate($string, $length, $replace);
 
