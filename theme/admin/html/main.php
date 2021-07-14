@@ -11,7 +11,7 @@ if($toogle = HTTP::GET('colors')) {
 	}
 }
 
-$theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'main';
+$theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'bright';
 ?>
 <!DOCTYPE html>
 <html lang="<?=$BLOGMETA['LANG']?>">

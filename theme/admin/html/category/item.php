@@ -1,8 +1,8 @@
 <article class="item">
 	<header>
 		<h2>
-			<i class="fa fa-tag"></i><?=escapeHTML($CATEGORY['ATTR']['NAME'])?>
 			<span class="item-id">#<?=$CATEGORY['ATTR']['ID']?></span>
+			<i class="fa fa-tag"></i><?=escapeHTML($CATEGORY['ATTR']['NAME'])?>
 		</h2>
 		<ul class="item-meta">
 			<li>

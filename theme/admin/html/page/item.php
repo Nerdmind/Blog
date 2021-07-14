@@ -1,8 +1,8 @@
 <article class="item">
 	<header>
 		<h2>
-			<i class="fa fa-file-text-o"></i><?=escapeHTML($PAGE['ATTR']['NAME'])?>
 			<span class="item-id">#<?=$PAGE['ATTR']['ID']?></span>
+			<i class="fa fa-file-text-o"></i><?=escapeHTML($PAGE['ATTR']['NAME'])?>
 		</h2>
 		<ul class="item-meta">
 			<li>

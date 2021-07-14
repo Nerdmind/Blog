@@ -1,8 +1,8 @@
 <article class="item">
 	<header>
 		<h2>
-			<i class="fa fa-newspaper-o"></i><?=escapeHTML($POST['ATTR']['NAME'])?>
 			<span class="item-id">#<?=$POST['ATTR']['ID']?></span>
+			<i class="fa fa-newspaper-o"></i><?=escapeHTML($POST['ATTR']['NAME'])?>
 		</h2>
 		<ul class="item-meta">
 			<li>

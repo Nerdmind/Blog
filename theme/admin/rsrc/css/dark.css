@@ -65,7 +65,6 @@ a:focus {
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 h1, h2, h3 {
   margin-bottom: 0;
-  text-transform: uppercase;
 }
 h1 + p, h2 + p, h3 + p {
   margin-top: 0;
@@ -98,7 +97,7 @@ html, body {
 html {
   font-size: 1.25rem;
   color: #9DAAB7;
-  background: #4D535B;
+  background: url("../img/noise-dark.png") #3D434B;
   -webkit-hyphens: auto;
   word-break: break-word;
   hyphens: auto;
@@ -431,14 +430,15 @@ img {
   padding: 0;
   list-style: none;
 }
-.item-meta-right {
-  float: right;
-}
 .item-meta li {
   display: inline-block;
 }
 .item-meta li + li:before {
   content: " – ";
+}
+.item-meta li.item-meta-right {
+  float: right;
+  font-size: 0.6rem;
 }
 .item-meta li.item-meta-right:before {
   content: none;

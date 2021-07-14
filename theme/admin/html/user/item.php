@@ -1,8 +1,8 @@
 <article class="item">
 	<header>
 		<h2>
-			<i class="fa fa-user"></i><?=escapeHTML($USER['ATTR']['FULLNAME'])?>
 			<span class="item-id">#<?=$USER['ATTR']['ID']?></span>
+			<i class="fa fa-user"></i><?=escapeHTML($USER['ATTR']['FULLNAME'])?>
 		</h2>
 		<ul class="item-meta">
 			<li>
