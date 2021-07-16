@@ -306,14 +306,16 @@ function getUnicodeEmoticons(): array {
 # Wrap emoticons in <span> element with "title" attribute for explanation
 #===============================================================================
 function parseUnicodeEmoticons($string): string {
-	foreach(getUnicodeEmoticons() as $emoticon => $explanation) {
-		$pattern = '#(^|\s)'.preg_quote($emoticon).'#';
-		$replace = "\\1<span title=\"{$explanation}\">{$emoticon}</span>";
+	$emoticon_data = getUnicodeEmoticons();
+	$emoticon_list = array_keys($emoticon_data);
+	$emoticon_list = implode('|', $emoticon_list);
 
-		$string = preg_replace($pattern, $replace, $string);
-	}
-
-	return $string;
+	return preg_replace_callback("#($emoticon_list)#", function($matches)
+	use($emoticon_data) {
+		$emoticon = $matches[1];
+		$explanation = $emoticon_data[$emoticon];
+		return sprintf('<span title="%s">%s</span>', $explanation, $emoticon);
+	}, $string);
 }
 
 #===============================================================================
