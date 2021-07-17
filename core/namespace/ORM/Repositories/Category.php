@@ -32,12 +32,7 @@ class Category extends Repository {
 		$Statement->execute([$value]);
 
 		# TODO: Virtual column _depth shall not be fetched into the entity class
-		if($entities = $Statement->fetchAll($this->Database::FETCH_CLASS, static::getClassName())) {
-			$this->storeMultipleInstances($entities);
-			return $entities;
-		}
-
-		return [];
+		return $this->fetchEntities($Statement);
 	}
 
 	#===============================================================================
@@ -61,12 +56,7 @@ class Category extends Repository {
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute();
 
-		if($entities = $Statement->fetchAll($this->Database::FETCH_CLASS, static::getClassName())) {
-			$this->storeMultipleInstances($entities);
-			return $entities;
-		}
-
-		return [];
+		return $this->fetchEntities($Statement);
 	}
 
 	#===============================================================================

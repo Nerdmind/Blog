@@ -1,6 +1,7 @@
 <?php
 namespace ORM;
 use Database;
+use PDOStatement;
 
 abstract class Repository {
 	protected $Database;
@@ -11,6 +12,30 @@ abstract class Repository {
 
 	public function __construct(Database $Database) {
 		$this->Database = $Database;
+	}
+
+	#===============================================================================
+	# Fetch entity from a PDOStatement result
+	#===============================================================================
+	protected function fetchEntity(PDOStatement $Statement): ?EntityInterface {
+		if($Entity = $Statement->fetchObject(static::getClassName())) {
+			$this->storeInstance($Entity->getID(), $Entity);
+			return $Entity;
+		}
+
+		return NULL;
+	}
+
+	#===============================================================================
+	# Fetch multiple entities from a PDOStatement result
+	#===============================================================================
+	protected function fetchEntities(PDOStatement $Statement): array {
+		if($entities = $Statement->fetchAll($this->Database::FETCH_CLASS, static::getClassName())) {
+			$this->storeMultipleInstances($entities);
+			return $entities;
+		}
+
+		return [];
 	}
 
 	#===============================================================================
@@ -119,12 +144,7 @@ abstract class Repository {
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute([$value]);
 
-		if($Entity = $Statement->fetchObject(static::getClassName())) {
-			$this->storeInstance($Entity->getID(), $Entity);
-			return $Entity;
-		}
-
-		return NULL;
+		return $this->fetchEntity($Statement);
 	}
 
 	#===============================================================================
@@ -137,12 +157,7 @@ abstract class Repository {
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute([$Entity->get('time_insert')]);
 
-		if($Entity = $Statement->fetchObject(static::getClassName())) {
-			$this->storeInstance($Entity->getID(), $Entity);
-			return $Entity;
-		}
-
-		return NULL;
+		return $this->fetchEntity($Statement);
 	}
 
 	#===============================================================================
@@ -155,12 +170,7 @@ abstract class Repository {
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute([$Entity->get('time_insert')]);
 
-		if($Entity = $Statement->fetchObject(static::getClassName())) {
-			$this->storeInstance($Entity->getID(), $Entity);
-			return $Entity;
-		}
-
-		return NULL;
+		return $this->fetchEntity($Statement);
 	}
 
 	#===========================================================================
@@ -171,13 +181,7 @@ abstract class Repository {
 		$query = sprintf($query, static::getTableName());
 
 		$Statement = $this->Database->query($query);
-
-		if($Entity = $Statement->fetchObject(static::getClassName())) {
-			$this->storeInstance($Entity->getID(), $Entity);
-			return $Entity;
-		}
-
-		return NULL;
+		return $this->fetchEntity($Statement);
 	}
 
 	#===========================================================================
@@ -251,12 +255,7 @@ abstract class Repository {
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute($params);
 
-		if($entities = $Statement->fetchAll($this->Database::FETCH_CLASS, static::getClassName())) {
-			$this->storeMultipleInstances($entities);
-			return $entities;
-		}
-
-		return [];
+		return $this->fetchEntities($Statement);
 	}
 
 	#===============================================================================
@@ -291,12 +290,7 @@ abstract class Repository {
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute(array_merge($params ?? [], [$search]));
 
-		if($entities = $Statement->fetchAll($this->Database::FETCH_CLASS, static::getClassName())) {
-			$this->storeMultipleInstances($entities);
-			return $entities;
-		}
-
-		return [];
+		return $this->fetchEntities($Statement);
 	}
 
 	#===============================================================================
