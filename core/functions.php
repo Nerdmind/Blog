@@ -8,6 +8,10 @@ use ORM\Entities\User;
 use Template\Template as Template;
 use Template\Factory as TemplateFactory;
 
+use Parsers\ArgumentParser;
+use Parsers\EmoticonParser;
+use Parsers\MarkdownParser;
+
 #===============================================================================
 # Create generic pagination template
 #===============================================================================
@@ -89,28 +93,34 @@ function generateUserItemTemplate(User $User): Template {
 # Helper function to reduce duplicate code
 #===============================================================================
 function generateItemTemplateData(EntityInterface $Entity): array {
-	$ATTR = $Entity->getAll(['password']);
-	$ATTR = array_change_key_case($ATTR, CASE_UPPER);
+	$ArgumentParser = new ArgumentParser;
+	$MarkdownParser = new MarkdownParser;
 
-	$preparsed = parseContentTags($Entity->get('body'));
+	$attribute = $Entity->getAll(['password']);
+	$attribute = array_change_key_case($attribute, CASE_UPPER);
+
+	$text = parseContentTags($Entity->get('body'));
+	$arguments = $ArgumentParser->parse($Entity->get('argv') ?? '');
+
+	$images = $MarkdownParser->parse($text)['img']['src'] ?? [];
+	$images = array_map('htmlentities', $images);
 
 	return [
 		'URL' => Application::getEntityURL($Entity),
 		'GUID' => generatePseudoGUID($Entity),
-		'ARGV' => parseArguments($Entity->get('argv')),
-
-		'ATTR' => $ATTR,
+		'ARGV' => $arguments,
+		'ATTR' => $attribute,
 
 		'PREV' => FALSE,
 		'NEXT' => FALSE,
 
 		'FILE' => [
-			'LIST' => getMarkdownImageURLs($preparsed),
+			'LIST' => $images,
 		],
 
 		'BODY' => [
-			'TEXT' => function() use($preparsed) {
-				return $preparsed;
+			'TEXT' => function() use($text) {
+				return $text;
 			},
 			'HTML' => function() use($Entity) {
 				return parseEntityContent($Entity);
@@ -188,50 +198,15 @@ function parseContentTags(string $text): string {
 # Parse entity content
 #===============================================================================
 function parseEntityContent(EntityInterface $Entity): string {
-	$Parsedown = new Parsedown();
-	$Parsedown->setUrlsLinked(FALSE);
-
 	$text = parseContentTags($Entity->get('body'));
 
 	if(Application::get('WRAP_EMOTICONS')) {
-		$text = parseUnicodeEmoticons($text);
+		$EmoticonParser = new EmoticonParser;
+		$text = $EmoticonParser->transform($text);
 	}
 
-	return $Parsedown->text($text);
-}
-
-#===============================================================================
-# Extract Markdown formatted image URLs
-#===============================================================================
-function getMarkdownImageURLs(string $text): array {
-	$pattern = '#\!\[(.*)\][ ]?(?:\n[ ]*)?\((.*)(\s[\'"](.*)[\'"])?\)#U';
-	$content = parseContentTags($text);
-
-	if(preg_match_all($pattern, $content, $matches)) {
-		return array_map('htmlentities', $matches[2]);
-	}
-
-	return [];
-}
-
-#===============================================================================
-# Parse argument string to array
-#===============================================================================
-function parseArguments(?string $argv): array {
-	if($argv) {
-		foreach(explode('|', $argv) as $delimeter) {
-			$part = explode('=', $delimeter);
-
-			$argumentK = $part[0] ?? NULL;
-			$argumentV = $part[1] ?? TRUE;
-
-			if(preg_match('#^[[:word:]]+$#', $argumentK)) {
-				$arguments[strtoupper($argumentK)] = $argumentV;
-			}
-		}
-	}
-
-	return $arguments ?? [];
+	$MarkdownParser = new MarkdownParser;
+	return $MarkdownParser->transform($text);
 }
 
 #===============================================================================
@@ -261,43 +236,10 @@ function parseDatetime($datetime, $format): string {
 }
 
 #===============================================================================
-# Get unicode emoticons with their corresponding explanation
+# Get emoticons with their explanations
 #===============================================================================
 function getUnicodeEmoticons(): array {
-	$Language = Application::getLanguage();
-
-	return [
-		html_entity_decode('&#x1F60A;') => $Language->text('emoticon_1F60A'),
-		html_entity_decode('&#x1F61E;') => $Language->text('emoticon_1F61E'),
-		html_entity_decode('&#x1F603;') => $Language->text('emoticon_1F603'),
-		html_entity_decode('&#x1F61B;') => $Language->text('emoticon_1F61B'),
-		html_entity_decode('&#x1F632;') => $Language->text('emoticon_1F632'),
-		html_entity_decode('&#x1F609;') => $Language->text('emoticon_1F609'),
-		html_entity_decode('&#x1F622;') => $Language->text('emoticon_1F622'),
-		html_entity_decode('&#x1F610;') => $Language->text('emoticon_1F610'),
-		html_entity_decode('&#x1F635;') => $Language->text('emoticon_1F635'),
-		html_entity_decode('&#x1F612;') => $Language->text('emoticon_1F612'),
-		html_entity_decode('&#x1F60E;') => $Language->text('emoticon_1F60E'),
-		html_entity_decode('&#x1F61F;') => $Language->text('emoticon_1F61F'),
-		html_entity_decode('&#x1F602;') => $Language->text('emoticon_1F602'),
-		html_entity_decode('&#x1F604;') => $Language->text('emoticon_1F604'),
-	];
-}
-
-#===============================================================================
-# Wrap emoticons in <span> element with "title" attribute for explanation
-#===============================================================================
-function parseUnicodeEmoticons($string): string {
-	$emoticon_data = getUnicodeEmoticons();
-	$emoticon_list = array_keys($emoticon_data);
-	$emoticon_list = implode('|', $emoticon_list);
-
-	return preg_replace_callback("#($emoticon_list)#", function($matches)
-	use($emoticon_data) {
-		$emoticon = $matches[1];
-		$explanation = $emoticon_data[$emoticon];
-		return sprintf('<span title="%s">%s</span>', $explanation, $emoticon);
-	}, $string);
+	return (new EmoticonParser)->getEmoticons();
 }
 
 #===============================================================================
