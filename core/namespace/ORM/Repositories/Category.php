@@ -9,6 +9,19 @@ class Category extends Repository {
 	public static function getClassName(): string { return 'ORM\Entities\Category'; }
 
 	#===============================================================================
+	# Get number of *posts* assigned to $Category
+	#===============================================================================
+	public function getNumberOfPosts(CategoryEntity $Category): int {
+		$query = 'SELECT COUNT(id) FROM %s WHERE category = ?';
+		$query = sprintf($query, Post::getTableName());
+
+		$Statement = $this->Database->prepare($query);
+		$Statement->execute([$Category->getID()]);
+
+		return $Statement->fetchColumn();
+	}
+
+	#===============================================================================
 	# Find category with parents based on primary key
 	#===============================================================================
 	public function findWithParents($id): array {
@@ -60,9 +73,9 @@ class Category extends Repository {
 	}
 
 	#===============================================================================
-	# Get children count of $Category
+	# Get number of children categories assigned to $Category
 	#===============================================================================
-	public function getChildrenCount(CategoryEntity $Category): int {
+	public function getNumberOfChildren(CategoryEntity $Category): int {
 		$query = 'WITH RECURSIVE tree AS (
 			SELECT * FROM %s WHERE id = ? UNION
 			SELECT c.* FROM %s c, tree WHERE tree.id = c.parent

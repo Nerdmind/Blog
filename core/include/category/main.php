@@ -74,7 +74,7 @@ foreach($child_categories as $ChildCategory) {
 $site_size = Application::get('POST.LIST_SIZE');
 $site_sort = Application::get('POST.LIST_SORT');
 
-$count = $PostRepository->getCountByCategory($Category);
+$count = $CategoryRepository->getNumberOfPosts($Category);
 $lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
@@ -106,8 +106,8 @@ $CategoryTemplate = Template\Factory::build('category/main');
 $CategoryTemplate->set('CATEGORY', $category_data);
 $CategoryTemplate->set('CATEGORIES', $category_list ?? []);
 $CategoryTemplate->set('COUNT', [
-	'POST' => $PostRepository->getCountByCategory($Category),
-	'CHILDREN' => $CategoryRepository->getChildrenCount($Category)
+	'POST' => $CategoryRepository->getNumberOfPosts($Category),
+	'CHILDREN' => $CategoryRepository->getNumberOfChildren($Category)
 ]);
 $CategoryTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,

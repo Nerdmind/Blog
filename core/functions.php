@@ -29,7 +29,6 @@ function createPaginationTemplate($current, $last, string $location): Template {
 #===============================================================================
 function generateCategoryItemTemplate(Category $Category, bool $is_root = FALSE): Template {
 	$CategoryRepository = Application::getRepository('Category');
-	$PostRepository = Application::getRepository('Post');
 
 	foreach($CategoryRepository->findWithParents($Category->getID()) as $Category) {
 		$category_data = generateItemTemplateData($Category);
@@ -41,8 +40,8 @@ function generateCategoryItemTemplate(Category $Category, bool $is_root = FALSE)
 	$Template->set('CATEGORY', $category_data ?? []);
 	$Template->set('CATEGORIES', $category_list ?? []);
 	$Template->set('COUNT', [
-		'POST' => $PostRepository->getCountByCategory($Category),
-		'CHILDREN' => $CategoryRepository->getChildrenCount($Category)
+		'POST' => $CategoryRepository->getNumberOfPosts($Category),
+		'CHILDREN' => $CategoryRepository->getNumberOfChildren($Category)
 	]);
 
 	return $Template;

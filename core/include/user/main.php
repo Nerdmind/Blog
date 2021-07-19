@@ -2,8 +2,6 @@
 #===============================================================================
 # Get repositories
 #===============================================================================
-$PageRepository = Application::getRepository('Page');
-$PostRepository = Application::getRepository('Post');
 $UserRepository = Application::getRepository('User');
 
 #===============================================================================
@@ -54,8 +52,8 @@ if($NextUser = $UserRepository->findNext($User)) {
 $UserTemplate = Template\Factory::build('user/main');
 $UserTemplate->set('USER', $user_data);
 $UserTemplate->set('COUNT', [
-	'POST' => $PostRepository->getCountByUser($User),
-	'PAGE' => $PageRepository->getCountByUser($User)
+	'PAGE' => $UserRepository->getNumberOfPages($User),
+	'POST' => $UserRepository->getNumberOfPosts($User)
 ]);
 
 $MainTemplate = Template\Factory::build('main');
