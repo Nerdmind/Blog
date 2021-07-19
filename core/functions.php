@@ -188,30 +188,12 @@ function parseContentTags(string $text): string {
 # Parse entity content
 #===============================================================================
 function parseEntityContent(EntityInterface $Entity): string {
-	switch($class = get_class($Entity)) {
-		case 'ORM\Entities\Category':
-			$prefix = 'CATEGORY';
-			break;
-		case 'ORM\Entities\Page':
-			$prefix = 'PAGE';
-			break;
-		case 'ORM\Entities\Post':
-			$prefix = 'POST';
-			break;
-		case 'ORM\Entities\User':
-			$prefix = 'USER';
-			break;
-		default:
-			$error = 'Unknown config prefix for <code>%s</code> entities.';
-			throw new Exception(sprintf($error, $class));
-	}
-
 	$Parsedown = new Parsedown();
 	$Parsedown->setUrlsLinked(FALSE);
 
 	$text = parseContentTags($Entity->get('body'));
 
-	if(Application::get("$prefix.EMOTICONS")) {
+	if(Application::get('WRAP_EMOTICONS')) {
 		$text = parseUnicodeEmoticons($text);
 	}
 
