@@ -1,5 +1,6 @@
 <?php
 use ORM\EntityInterface;
+use Parsers\FunctionParser;
 
 class Application {
 
@@ -211,6 +212,18 @@ class Application {
 				$error = 'Unknown URL handler for <code>%s</code> entities.';
 				throw new Exception(sprintf($error, $class));
 		}
+	}
+
+	#===============================================================================
+	# Add a custom content function
+	#===============================================================================
+	public static function addContentFunction(string $name, callable $callback): void {
+		if(!preg_match('#^([0-9A-Z_]+)$#', $name)) {
+			throw new Exception('The name for adding a content function must
+				contain only numbers, uppercase letters and underscores!');
+		}
+
+		FunctionParser::register($name, $callback);
 	}
 
 	#===============================================================================

@@ -9,6 +9,7 @@ use Template\Template as Template;
 use Template\Factory as TemplateFactory;
 
 use Parsers\ArgumentParser;
+use Parsers\FunctionParser;
 use Parsers\EmoticonParser;
 use Parsers\MarkdownParser;
 
@@ -190,7 +191,8 @@ function parseContentTags(string $text): string {
 	$text = preg_replace($base_tag, \Application::getURL('$1'), $text);
 	$text = preg_replace($file_tag, \Application::getFileURL('$1'), $text);
 
-	return $text;
+	$FunctionParser = new FunctionParser;
+	return $FunctionParser->transform($text);
 }
 
 #===============================================================================
@@ -318,6 +320,23 @@ function generateSlug($string, $separator = '-') {
 	return trim($string, $separator);
 }
 
+#===========================================================================
+# Callback for (CATEGORY|PAGE|POST|USER) content function
+#===========================================================================
+function getEntityMarkdownLink($ns, $id, $text = NULL, $info = NULL): string {
+	if(!$Entity = Application::getRepository($ns)->find($id)) {
+		return sprintf('`{%s: *Reference error*}`', strtoupper($ns));
+	}
+
+	$title = htmlspecialchars($Entity->get('name') ?? $Entity->get('fullname'));
+	$href = Application::getEntityURL($Entity);
+	$text = $text ?: "»{$title}«";
+	$info = $info ?: sprintf('%s »%s«',
+		Application::getLanguage()->text(strtolower($ns)), $title);
+
+	return sprintf('[%s](%s "%s")',	$text, $href, $info);
+}
+
 #===============================================================================
 # Function for use in templates to get data of a category
 #===============================================================================
@@ -369,3 +388,45 @@ function USER(int $id): array {
 
 	return [];
 }
+
+#===========================================================================
+# Get base URL (optionally extended by $extend)
+#===========================================================================
+FunctionParser::register('BASE_URL', function($extend = '') {
+	return Application::getURL($extend);
+});
+
+#===========================================================================
+# Get file URL (optionally extended by $extend)
+#===========================================================================
+FunctionParser::register('FILE_URL', function($extend = '') {
+	return Application::getFileURL($extend);
+});
+
+#===========================================================================
+# Get Markdown formatted *category* link
+#===========================================================================
+FunctionParser::register('CATEGORY', function($id, $text = NULL, $title = NULL) {
+	return getEntityMarkdownLink('Category', $id, $text, $title);
+});
+
+#===========================================================================
+# Get Markdown formatted *page* link
+#===========================================================================
+FunctionParser::register('PAGE', function($id, $text = NULL, $title = NULL) {
+	return getEntityMarkdownLink('Page', $id, $text, $title);
+});
+
+#===========================================================================
+# Get Markdown formatted *post* link
+#===========================================================================
+FunctionParser::register('POST', function($id, $text = NULL, $title = NULL) {
+	return getEntityMarkdownLink('Post', $id, $text, $title);
+});
+
+#===========================================================================
+# Get Markdown formatted *user* link
+#===========================================================================
+FunctionParser::register('USER', function($id, $text = NULL, $title = NULL) {
+	return getEntityMarkdownLink('User', $id, $text, $title);
+});
