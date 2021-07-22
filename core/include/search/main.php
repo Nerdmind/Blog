@@ -10,6 +10,16 @@ $Language = Application::getLanguage();
 $PostRepository = Application::getRepository('Post');
 $UserRepository = Application::getRepository('User');
 
+#===============================================================================
+# Pagination
+#===============================================================================
+$site_size = Application::get('POST.LIST_SIZE');
+$site_sort = Application::get('POST.LIST_SORT');
+
+$currentSite = HTTP::GET('site') ?? 1;
+$currentSite = intval($currentSite);
+$offset = ($currentSite-1) * $site_size;
+
 if($search = HTTP::GET('q')) {
 	$filter = [
 		'day'   => HTTP::GET('d'),
@@ -17,7 +27,7 @@ if($search = HTTP::GET('q')) {
 		'year'  => HTTP::GET('y')
 	];
 
-	if(!$posts = $PostRepository->search($search, $filter)) {
+	if(!$posts = $PostRepository->search($search, $filter, $site_size, $offset)) {
 		$message = $Language->text('search_no_results', escapeHTML($search));
 	}
 }
@@ -49,11 +59,22 @@ if(!empty($posts)) {
 		$templates[] = generatePostItemTemplate($Post, $User);
 	}
 
+	$count = $PostRepository->getLastSearchOverallCount();
+	$last = ceil($count / $site_size);
+
 	$ResultTemplate = Template\Factory::build('search/result');
 	$ResultTemplate->set('FORM', $form_data);
 	$ResultTemplate->set('SEARCH', $search_data);
 	$ResultTemplate->set('RESULT', [
 		'LIST' => $templates ?? []
+	]);
+
+	$ResultTemplate->set('PAGINATION', [
+		'THIS' => $currentSite,
+		'LAST' => $last,
+		'HTML' => createPaginationTemplate(
+			$currentSite, $last, Application::getURL('search/')
+		)
 	]);
 
 	$MainTemplate = Template\Factory::build('main');

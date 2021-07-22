@@ -21,4 +21,8 @@
 		<?php echo $post; ?>
 	<?php endforeach; ?>
 </div>
+
+<?php if($PAGINATION): ?>
+	<?=$PAGINATION['HTML']?>
+<?php endif ?>
 </main>

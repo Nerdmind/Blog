@@ -21,4 +21,8 @@
 		<?php echo $page; ?>
 	<?php endforeach; ?>
 </div>
+
+<?php if($PAGINATION): ?>
+	<?=$PAGINATION['HTML']?>
+<?php endif ?>
 </main>

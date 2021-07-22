@@ -7,6 +7,9 @@ abstract class Repository {
 	protected $Database;
 	protected $entities = [];
 
+	# See "search" method for more details.
+	private $lastSearchOverallCount = 0;
+
 	abstract public static function getTableName(): string;
 	abstract public static function getClassName(): string;
 
@@ -262,10 +265,6 @@ abstract class Repository {
 	# Get entities based on search query
 	#===============================================================================
 	public function search(string $search, array $filter = [], int $limit = NULL, int $offset = 0): array {
-		if($search === '*') {
-			return $this->getAll([], NULL, 20);
-		}
-
 		if(strlen($filter['year'] ?? '') !== 0) {
 			$extend[] = 'YEAR(time_insert) = ? AND';
 			$params[] = $filter['year'];
@@ -287,14 +286,27 @@ abstract class Repository {
 
 		$dateparts = implode(' ', $extend ?? []);
 
-		$query = 'SELECT * FROM %s WHERE %s MATCH(name, body)
+		$query = 'SELECT *, COUNT(*) OVER() AS _count FROM %s WHERE %s MATCH(name, body)
 			AGAINST(? IN BOOLEAN MODE) %s';
 		$query = sprintf($query, static::getTableName(), $dateparts, $limit ?? 'LIMIT 20');
 
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute(array_merge($params ?? [], [$search]));
 
-		return $this->fetchEntities($Statement);
+		if($entities = $this->fetchEntities($Statement)) {
+			# Temporary (maybe crappy) solution to prevent a second count query.
+			# Virtual column "_count" does not belong into the entities.
+			$this->lastSearchOverallCount = $entities[0]->get('_count');
+		}
+
+		return $entities;
+	}
+
+	#===============================================================================
+	# Get the number of overall results for the last performed search
+	#===============================================================================
+	public function getLastSearchOverallCount(): int {
+		return $this->lastSearchOverallCount;
 	}
 
 	#===============================================================================

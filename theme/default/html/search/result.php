@@ -34,3 +34,5 @@
 		<?php echo $post; ?>
 	<?php endforeach; ?>
 </div>
+
+<?=$PAGINATION['HTML']?>

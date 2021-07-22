@@ -11,16 +11,44 @@ const AUTHENTICATION = TRUE;
 require '../../core/application.php';
 
 #===============================================================================
+# Get repositories
+#===============================================================================
+$PostRepository = Application::getRepository('Post');
+$UserRepository = Application::getRepository('User');
+
+#===============================================================================
+# Pagination
+#===============================================================================
+$site_size = Application::get('ADMIN.POST.LIST_SIZE');
+$site_sort = Application::get('ADMIN.POST.LIST_SORT');
+
+$currentSite = HTTP::GET('site') ?? 1;
+$currentSite = intval($currentSite);
+$offset = ($currentSite-1) * $site_size;
+
+#===============================================================================
 # Check for search request
 #===============================================================================
 if($search = HTTP::GET('q')) {
-	$PostRepository = Application::getRepository('Post');
-	$UserRepository = Application::getRepository('User');
-
-	foreach($PostRepository->search($search) as $Post) {
+	foreach($PostRepository->search($search, [], $site_size, $offset) as $Post) {
 		$User = $UserRepository->find($Post->get('user'));
 		$templates[] = generatePostItemTemplate($Post, $User);
 	}
+}
+
+#===============================================================================
+# Create pagination only if there are results
+#===============================================================================
+if($count = $PostRepository->getLastSearchOverallCount()) {
+	$last = ceil($count / $site_size);
+
+	$pagination_data = [
+		'THIS' => $currentSite,
+		'LAST' => $last,
+		'HTML' => createPaginationTemplate(
+			$currentSite, $last, Application::getAdminURL('post/search.php')
+		)
+	];
 }
 
 #===============================================================================
@@ -29,6 +57,7 @@ if($search = HTTP::GET('q')) {
 $SearchTemplate = Template\Factory::build('post/search');
 $SearchTemplate->set('QUERY', $search);
 $SearchTemplate->set('POSTS', $templates ?? []);
+$SearchTemplate->set('PAGINATION', $pagination_data ?? []);
 
 $MainTemplate = Template\Factory::build('main');
 $MainTemplate->set('NAME', $Language->text('title_post_search'));
