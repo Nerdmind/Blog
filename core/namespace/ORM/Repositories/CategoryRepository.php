@@ -2,18 +2,18 @@
 namespace ORM\Repositories;
 use ORM\Repository;
 use ORM\EntityInterface;
-use ORM\Entities\Category as CategoryEntity;
+use ORM\Entities\Category;
 
-class Category extends Repository {
+class CategoryRepository extends Repository {
 	public static function getTableName(): string { return 'category'; }
 	public static function getClassName(): string { return 'ORM\Entities\Category'; }
 
 	#===============================================================================
 	# Get number of *posts* assigned to $Category
 	#===============================================================================
-	public function getNumberOfPosts(CategoryEntity $Category): int {
+	public function getNumberOfPosts(Category $Category): int {
 		$query = 'SELECT COUNT(id) FROM %s WHERE category = ?';
-		$query = sprintf($query, Post::getTableName());
+		$query = sprintf($query, PostRepository::getTableName());
 
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute([$Category->getID()]);
@@ -75,7 +75,7 @@ class Category extends Repository {
 	#===============================================================================
 	# Get number of children categories assigned to $Category
 	#===============================================================================
-	public function getNumberOfChildren(CategoryEntity $Category): int {
+	public function getNumberOfChildren(Category $Category): int {
 		$query = 'WITH RECURSIVE tree AS (
 			SELECT * FROM %s WHERE id = ? UNION
 			SELECT c.* FROM %s c, tree WHERE tree.id = c.parent

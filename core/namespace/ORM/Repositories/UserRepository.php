@@ -1,18 +1,18 @@
 <?php
 namespace ORM\Repositories;
 use ORM\Repository;
-use ORM\Entities\User as UserEntity;
+use ORM\Entities\User;
 
-class User extends Repository {
+class UserRepository extends Repository {
 	public static function getTableName(): string { return 'user'; }
 	public static function getClassName(): string { return 'ORM\Entities\User'; }
 
 	#===============================================================================
 	# Get number of *pages* assigned to $User
 	#===============================================================================
-	public function getNumberOfPages(UserEntity $User): int {
+	public function getNumberOfPages(User $User): int {
 		$query = 'SELECT COUNT(id) FROM %s WHERE user = ?';
-		$query = sprintf($query, Page::getTableName());
+		$query = sprintf($query, PageRepository::getTableName());
 
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute([$User->getID()]);
@@ -23,9 +23,9 @@ class User extends Repository {
 	#===============================================================================
 	# Get number of *posts* assigned to $User
 	#===============================================================================
-	public function getNumberOfPosts(UserEntity $User): int {
+	public function getNumberOfPosts(User $User): int {
 		$query = 'SELECT COUNT(id) FROM %s WHERE user = ?';
-		$query = sprintf($query, Post::getTableName());
+		$query = sprintf($query, PostRepository::getTableName());
 
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute([$User->getID()]);

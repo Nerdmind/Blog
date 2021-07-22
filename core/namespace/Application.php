@@ -102,10 +102,10 @@ class Application {
 	#===============================================================================
 	public static function getRepository(string $entity): ORM\Repository {
 		$identifier = strtolower($entity);
-		$repository = "ORM\Repositories\\$entity";
 
 		if(!isset(self::$repositories[$identifier])) {
-			$Repository = new $repository(self::getDatabase());
+			$className = sprintf('ORM\Repositories\%sRepository', $entity);
+			$Repository = new $className(self::getDatabase());
 			self::$repositories[$identifier] = $Repository;
 		}
 
