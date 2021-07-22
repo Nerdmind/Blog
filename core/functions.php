@@ -17,10 +17,13 @@ use Parsers\MarkdownParser;
 # Create generic pagination template
 #===============================================================================
 function createPaginationTemplate($current, $last, string $location): Template {
+	$params = http_build_query(array_merge($_GET, ['site' => '__SITE__']));
+	$params = str_replace('__SITE__', '%d', $params);
+
 	$Pagination = TemplateFactory::build('pagination');
 	$Pagination->set('THIS', $current);
 	$Pagination->set('LAST', $last);
-	$Pagination->set('HREF', "{$location}?site=%d");
+	$Pagination->set('HREF', "{$location}?{$params}");
 
 	return $Pagination;
 }
