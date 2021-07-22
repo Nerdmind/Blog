@@ -33,7 +33,7 @@ function categorySelectList($category_tree, $selected = NULL, $prefix = '') {
 			<i class="fa fa-search"></i><?=$Language->text('search')?></label>
 
 		<div class="form-grid-item first">
-			<input id="form_query" type="search" name="q" placeholder="<?=$Language->text('placeholder_search')?>" value="<?=escapeHTML($QUERY)?>" />
+			<input id="form_query" type="search" name="q" placeholder="<?=$Language->text('placeholder_search')?>" value="<?=escapeHTML($QUERY)?>" autofocus />
 		</div>
 
 		<label for="form_category">

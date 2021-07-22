@@ -20,7 +20,7 @@
 			<i class="fa fa-user-secret"></i><?=$Language->text('label_username')?></label>
 
 		<div class="form-grid-item">
-			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" />
+			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" autofocus />
 		</div>
 
 		<label for="form_password">

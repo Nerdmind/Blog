@@ -17,7 +17,7 @@
 			<i class="fa fa-user"></i><?=$Language->text('label_fullname')?></label>
 
 		<div class="form-grid-item first">
-			<input id="form_fullname" name="fullname" value="<?=escapeHTML($FORM['DATA']['FULLNAME'])?>" />
+			<input id="form_fullname" name="fullname" value="<?=escapeHTML($FORM['DATA']['FULLNAME'])?>" autofocus />
 		</div>
 
 		<label for="form_username">

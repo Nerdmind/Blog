@@ -33,7 +33,7 @@ function categorySelectList($category_tree, $selected = NULL, $current = NULL, $
 			<i class="fa fa-tag"></i><?=$Language->text('label_name')?></label>
 
 		<div class="form-grid-item first">
-			<input id="form_name" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" />
+			<input id="form_name" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" autofocus />
 		</div>
 
 		<label for="form_slug">
