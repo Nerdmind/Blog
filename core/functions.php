@@ -18,6 +18,7 @@ use Parsers\MarkdownParser;
 #===============================================================================
 function createPaginationTemplate($current, $last, string $location): Template {
 	$params = http_build_query(array_merge($_GET, ['site' => '__SITE__']));
+	$params = str_replace('%', '%%', $params);
 	$params = str_replace('__SITE__', '%d', $params);
 
 	$Pagination = TemplateFactory::build('pagination');
