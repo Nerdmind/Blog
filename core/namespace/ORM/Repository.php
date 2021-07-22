@@ -261,7 +261,7 @@ abstract class Repository {
 	#===============================================================================
 	# Get entities based on search query
 	#===============================================================================
-	public function search(string $search, array $filter = []): array {
+	public function search(string $search, array $filter = [], int $limit = NULL, int $offset = 0): array {
 		if($search === '*') {
 			return $this->getAll([], NULL, 20);
 		}
@@ -281,11 +281,15 @@ abstract class Repository {
 			$params[] = $filter['day'];
 		}
 
+		if($limit) {
+			$limit = "LIMIT $offset,$limit";
+		}
+
 		$dateparts = implode(' ', $extend ?? []);
 
 		$query = 'SELECT * FROM %s WHERE %s MATCH(name, body)
-			AGAINST(? IN BOOLEAN MODE) LIMIT 20';
-		$query = sprintf($query, static::getTableName(), $dateparts);
+			AGAINST(? IN BOOLEAN MODE) %s';
+		$query = sprintf($query, static::getTableName(), $dateparts, $limit ?? 'LIMIT 20');
 
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute(array_merge($params ?? [], [$search]));
