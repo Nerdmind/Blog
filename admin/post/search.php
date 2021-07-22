@@ -13,6 +13,7 @@ require '../../core/application.php';
 #===============================================================================
 # Get repositories
 #===============================================================================
+$CategoryRepository = Application::getRepository('Category');
 $PostRepository = Application::getRepository('Post');
 $UserRepository = Application::getRepository('User');
 
@@ -31,7 +32,12 @@ $offset = ($currentSite-1) * $site_size;
 #===============================================================================
 if($search = HTTP::GET('q')) {
 	try {
-		foreach ($PostRepository->search($search, [], $site_size, $offset) as $Post) {
+		$filter = [
+			'user' => HTTP::GET('user'),
+			'category' => HTTP::GET('category')
+		];
+
+		foreach ($PostRepository->search($search, $filter, $site_size, $offset) as $Post) {
 			$User = $UserRepository->find($Post->get('user'));
 			$templates[] = generatePostItemTemplate($Post, $User);
 		}
@@ -56,13 +62,42 @@ if($count = $PostRepository->getLastSearchOverallCount()) {
 }
 
 #===============================================================================
+# Generate user list
+#===============================================================================
+foreach($UserRepository->getAll([], 'fullname ASC') as $User) {
+	$userList[] = [
+		'ID' => $User->getID(),
+		'FULLNAME' => $User->get('fullname'),
+		'USERNAME' => $User->get('username'),
+	];
+}
+
+#===============================================================================
+# Generate category list
+#===============================================================================
+foreach($CategoryRepository->getAll([], 'name ASC') as $Category) {
+	$categoryList[] = [
+		'ID' => $Category->getID(),
+		'NAME' => $Category->get('name'),
+		'PARENT' => $Category->get('parent'),
+	];
+}
+
+#===============================================================================
 # Build document
 #===============================================================================
 $SearchTemplate = Template\Factory::build('post/search');
 $SearchTemplate->set('QUERY', $search);
 $SearchTemplate->set('POSTS', $templates ?? []);
 $SearchTemplate->set('FORM', [
-	'INFO' => $messages ?? []
+	'INFO' => $messages ?? [],
+	'DATA' => [
+		'USER' => HTTP::GET('user'),
+		'CATEGORY' => HTTP::GET('category')
+	],
+	'USER_LIST' => $userList ??  [],
+	'CATEGORY_LIST' => $categoryList ?? [],
+	'CATEGORY_TREE' => generateCategoryDataTree($categoryList ?? [])
 ]);
 $SearchTemplate->set('PAGINATION', $pagination_data ?? []);
 

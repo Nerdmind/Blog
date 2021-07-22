@@ -24,6 +24,16 @@ trait RepositorySearch {
 			$params[] = $filter['day'];
 		}
 
+		if(is_numeric($filter['user'] ?? NULL)) {
+			$extend[] = 'user = ? AND';
+			$params[] = $filter['user'];
+		}
+
+		if(is_numeric($filter['category'] ?? NULL)) {
+			$extend[] = 'category = ? AND';
+			$params[] = $filter['category'];
+		}
+
 		if($limit) {
 			$limit = "LIMIT $offset,$limit";
 		}
