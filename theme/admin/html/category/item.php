@@ -38,6 +38,7 @@
 		<ul>
 			<li><a href="<?=$CATEGORY['URL']?>" target="_blank" title="<?=$Language->text('select_category')?>"><i class="fa fa-external-link"></i><span class="hidden"><?=$Language->text('select_category')?></span></a></li>
 			<li><a href="<?=Application::getAdminURL("category/update.php?id={$CATEGORY['ATTR']['ID']}")?>" title="<?=$Language->text('update_category')?>"><i class="fa fa-pencil-square-o"></i><span class="hidden"><?=$Language->text('update_category')?></span></a></li>
+			<li><a href="<?=Application::getAdminURL("post/search.php?category={$CATEGORY['ATTR']['ID']}")?>" title="<?=$Language->text('search_post')?>"><i class="fa fa-search"></i><span class="hidden"><?=$Language->text('search_post')?></span></a></li>
 			<li><a href="<?=Application::getAdminURL("category/delete.php?id={$CATEGORY['ATTR']['ID']}")?>" title="<?=$Language->text('delete_category')?>"><i class="fa fa-trash-o"></i><span class="hidden"><?=$Language->text('delete_category')?></span></a></li>
 		</ul>
 	</footer>
