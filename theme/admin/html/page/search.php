@@ -2,6 +2,16 @@
 <h1><i class="fa fa-search"></i><?=$Language->text('title_page_search')?></h1>
 <p><?=$Language->text('search_page_desc')?></p>
 
+<?php if($FORM['INFO']): ?>
+	<div id="message-list-wrapper">
+		<ul id="message-list">
+			<?php foreach($FORM['INFO'] as $message): ?>
+				<li><?=$message?></li>
+			<?php endforeach ?>
+		</ul>
+	</div>
+<?php endif ?>
+
 <form id="search-form" method="GET">
 	<div class="form-grid no-bottom-border">
 		<label for="form_query">

@@ -27,8 +27,12 @@ if($search = HTTP::GET('q')) {
 		'year'  => HTTP::GET('y')
 	];
 
-	if(!$posts = $PostRepository->search($search, $filter, $site_size, $offset)) {
-		$message = $Language->text('search_no_results', escapeHTML($search));
+	try {
+		if (!$posts = $PostRepository->search($search, $filter, $site_size, $offset)) {
+			$message = $Language->text('search_no_results', escapeHTML($search));
+		}
+	} catch(PDOException $Exception) {
+		$message = $Exception->getMessage();
 	}
 }
 

@@ -30,9 +30,13 @@ $offset = ($currentSite-1) * $site_size;
 # Check for search request
 #===============================================================================
 if($search = HTTP::GET('q')) {
-	foreach($PostRepository->search($search, [], $site_size, $offset) as $Post) {
-		$User = $UserRepository->find($Post->get('user'));
-		$templates[] = generatePostItemTemplate($Post, $User);
+	try {
+		foreach ($PostRepository->search($search, [], $site_size, $offset) as $Post) {
+			$User = $UserRepository->find($Post->get('user'));
+			$templates[] = generatePostItemTemplate($Post, $User);
+		}
+	} catch(PDOException $Exception) {
+		$messages[] = $Exception->getMessage();
 	}
 }
 
@@ -57,6 +61,9 @@ if($count = $PostRepository->getLastSearchOverallCount()) {
 $SearchTemplate = Template\Factory::build('post/search');
 $SearchTemplate->set('QUERY', $search);
 $SearchTemplate->set('POSTS', $templates ?? []);
+$SearchTemplate->set('FORM', [
+	'INFO' => $messages ?? []
+]);
 $SearchTemplate->set('PAGINATION', $pagination_data ?? []);
 
 $MainTemplate = Template\Factory::build('main');
