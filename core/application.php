@@ -89,8 +89,7 @@ foreach([
 	'PAGE.LIST_SORT' => 'time_insert DESC',
 	'POST.LIST_SORT' => 'time_insert DESC',
 	'USER.LIST_SORT' => 'time_insert DESC',
-	'POST.FEED_SORT' => 'time_insert DESC',
-	'POST.FEED_GUID' => ['id', 'time_insert']
+	'POST.FEED_SORT' => 'time_insert DESC'
 ] as $name => $value) {
 	Application::set($name, $value);
 }

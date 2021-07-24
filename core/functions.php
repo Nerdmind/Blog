@@ -155,19 +155,10 @@ function generateCategoryDataTree(array $category_data, $root = 0): array {
 # Generate pseudo GUID for entity
 #===============================================================================
 function generatePseudoGUID(EntityInterface $Entity) {
-	switch(get_class($Entity)) {
-		case "ORM\Entities\Post":
-			$attr = Application::get('POST.FEED_GUID');
-			break;
-		default:
-			$attr = ['id', 'time_insert'];
-	}
-
-	foreach($attr as $attribute) {
-		$attributes[] = $Entity->get($attribute);
-	}
-
-	return sha1(implode('', $attributes));
+	return sha1(implode('', [
+		$Entity->getID(),
+		$Entity->get('time_insert')
+	]));
 }
 
 #===============================================================================
