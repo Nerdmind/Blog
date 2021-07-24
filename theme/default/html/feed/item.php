@@ -12,7 +12,7 @@ $HTML = $POST['BODY']['HTML']();
 <item>
 	<title><?=escapeHTML($POST['ATTR']['NAME'])?></title>
 	<link><?=$POST['URL']?></link>
-	<guid isPermaLink="false"><?=$POST['GUID']?></guid>
+	<guid isPermaLink="false"><?=sha1($POST['ATTR']['ID'].$POST['ATTR']['TIME_INSERT']);?></guid>
 	<pubDate><?=parseDatetime($POST['ATTR']['TIME_INSERT'], '[RFC2822]')?></pubDate>
 	<dc:creator><?=escapeHTML($USER['ATTR']['FULLNAME'])?></dc:creator>
 	<description><?=escapeHTML(description($HTML, 400))?></description>

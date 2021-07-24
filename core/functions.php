@@ -111,7 +111,6 @@ function generateItemTemplateData(EntityInterface $Entity): array {
 
 	return [
 		'URL' => Application::getEntityURL($Entity),
-		'GUID' => generatePseudoGUID($Entity),
 		'ARGV' => $arguments,
 		'ATTR' => $attribute,
 
@@ -149,16 +148,6 @@ function generateCategoryDataTree(array $category_data, $root = 0): array {
 	}
 
 	return $tree[$root] ?? [];
-}
-
-#===============================================================================
-# Generate pseudo GUID for entity
-#===============================================================================
-function generatePseudoGUID(EntityInterface $Entity) {
-	return sha1(implode('', [
-		$Entity->getID(),
-		$Entity->get('time_insert')
-	]));
 }
 
 #===============================================================================

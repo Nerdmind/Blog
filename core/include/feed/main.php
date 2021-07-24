@@ -31,7 +31,10 @@ foreach($posts as $Post) {
 		$ItemTemplate = Template\Factory::build('feed/item_post');
 	}
 
-	$ItemTemplate->set('POST', generateItemTemplateData($Post));
+	$post_data = generateItemTemplateData($Post);
+	$post_data['GUID'] = sha1($Post->getID().$Post->get('time_insert'));
+
+	$ItemTemplate->set('POST', $post_data);
 	$ItemTemplate->set('USER', generateItemTemplateData($User));
 
 	$templates[] = $ItemTemplate;
