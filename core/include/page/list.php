@@ -29,7 +29,7 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 #===============================================================================
 # Single redirect
 #===============================================================================
-if(Application::get('PAGE.SINGLE_REDIRECT') === TRUE AND $count === 1) {
+if(Application::get('PAGE.REDIRECT_SINGLE') === TRUE AND $count === 1) {
 	$Page = $PageRepository->getLast();
 	HTTP::redirect(Application::getEntityURL($Page));
 }

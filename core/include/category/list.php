@@ -28,7 +28,7 @@ if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
 #===============================================================================
 # Single redirect
 #===============================================================================
-if(Application::get('CATEGORY.SINGLE_REDIRECT') === TRUE AND $count === 1) {
+if(Application::get('CATEGORY.REDIRECT_SINGLE') === TRUE AND $count === 1) {
 	$Category = $CategoryRepository->getLast();
 	HTTP::redirect(Application::getEntityURL($Category));
 }
