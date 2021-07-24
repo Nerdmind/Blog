@@ -682,6 +682,10 @@ label:after {
   margin-bottom: 0.5rem;
   border: 0.1rem solid #6a3238;
 }
+#message-list code {
+  color: inherit;
+  font-weight: bold;
+}
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Search form

@@ -725,6 +725,11 @@ label {
 		margin-bottom: 0.5rem;
 		border: 0.1rem solid darken($messageListBackgroundColor, 10%);
 	}
+
+	code {
+		color: inherit;
+		font-weight: bold;
+	}
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
