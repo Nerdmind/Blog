@@ -31,7 +31,12 @@ $offset = ($currentSite-1) * $site_size;
 #===============================================================================
 if($search = HTTP::GET('q')) {
 	try {
-		foreach($PageRepository->search($search, [], $site_size, $offset) as $Page) {
+		if(!$pages = $PageRepository->search($search, [], $site_size, $offset)) {
+			$messages[] = Application::getLanguage()->text(
+				'search_no_results', htmlspecialchars($search));
+		}
+
+		foreach($pages as $Page) {
 			$User = $UserRepository->find($Page->get('user'));
 			$templates[] = generatePageItemTemplate($Page, $User);
 		}

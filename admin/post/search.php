@@ -37,7 +37,12 @@ if($search = HTTP::GET('q')) {
 			'category' => HTTP::GET('category')
 		];
 
-		foreach ($PostRepository->search($search, $filter, $site_size, $offset) as $Post) {
+		if(!$posts = $PostRepository->search($search, $filter, $site_size, $offset)) {
+			$messages[] = Application::getLanguage()->text(
+				'search_no_results', htmlspecialchars($search));
+		}
+
+		foreach($posts as $Post) {
 			$User = $UserRepository->find($Post->get('user'));
 			$templates[] = generatePostItemTemplate($Post, $User);
 		}
