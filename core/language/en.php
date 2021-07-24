@@ -78,7 +78,7 @@ $LANGUAGE['error_database_exec'] = 'An unexpected error occurred while communica
 #===============================================================================
 # Fulltext search
 #===============================================================================
-$LANGUAGE['search_no_results'] = 'Sorry, there are no search results for "%s".';
+$LANGUAGE['search_no_results'] = 'Sorry, there are no search results for <code>%s</code>.';
 
 #===============================================================================
 # Authentication

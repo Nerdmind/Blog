@@ -78,7 +78,7 @@ $LANGUAGE['error_database_exec'] = 'Es ist ein unerwarteter Fehler bei der Kommu
 #===============================================================================
 # Fulltext search
 #===============================================================================
-$LANGUAGE['search_no_results'] = 'Entschuldigung, es wurden keine Ergebnisse für "%s" gefunden.';
+$LANGUAGE['search_no_results'] = 'Entschuldigung, es wurden keine Ergebnisse für <code>%s</code> gefunden.';
 
 #===============================================================================
 # Authentication
