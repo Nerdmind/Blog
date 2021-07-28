@@ -5,44 +5,25 @@
 require 'core/application.php';
 
 #===============================================================================
-# Item base directory paths
+# ROUTE: Item controllers
 #===============================================================================
-$CATEGORYPATH = Application::get('CATEGORY.DIRECTORY');
-$PAGEPATH = Application::get('PAGE.DIRECTORY');
-$POSTPATH = Application::get('POST.DIRECTORY');
-$USERPATH = Application::get('USER.DIRECTORY');
+foreach(['category', 'page', 'post', 'user'] as $item) {
+	$slug = Application::get(strtoupper($item).'.DIRECTORY');
 
-#===============================================================================
-# ROUTE: Item
-#===============================================================================
-Router::add("{$CATEGORYPATH}/([^/]+)/", function($param) { require 'core/include/category/main.php'; });
-Router::add("{$PAGEPATH}/([^/]+)/", function($param) { require 'core/include/page/main.php'; });
-Router::add("{$POSTPATH}/([^/]+)/", function($param) { require 'core/include/post/main.php'; });
-Router::add("{$USERPATH}/([^/]+)/", function($param) { require 'core/include/user/main.php'; });
+	# Item list controller
+	Router::add("{$slug}/", function() use($item) {
+		require "core/include/{$item}/list.php";
+	});
 
-#===============================================================================
-# ROUTE: Item overview
-#===============================================================================
-Router::add("{$CATEGORYPATH}/", function() { require 'core/include/category/list.php'; });
-Router::add("{$PAGEPATH}/", function() { require 'core/include/page/list.php'; });
-Router::add("{$POSTPATH}/", function() { require 'core/include/post/list.php'; });
-Router::add("{$USERPATH}/", function() { require 'core/include/user/list.php'; });
+	# Item show controller
+	Router::add("{$slug}/([^/]+)/", function($param) use($item) {
+		require "core/include/{$item}/main.php";
+	});
 
-#===============================================================================
-# REDIRECT: Item (trailing slash)
-#===============================================================================
-Router::addRedirect("{$CATEGORYPATH}/([^/]+)", Application::getCategoryURL('$1/'));
-Router::addRedirect("{$PAGEPATH}/([^/]+)", Application::getPageURL('$1/'));
-Router::addRedirect("{$POSTPATH}/([^/]+)", Application::getPostURL('$1/'));
-Router::addRedirect("{$USERPATH}/([^/]+)", Application::getUserURL('$1/'));
-
-#===============================================================================
-# REDIRECT: Item overview (trailing slash)
-#===============================================================================
-Router::addRedirect("{$CATEGORYPATH}", Application::getCategoryURL());
-Router::addRedirect("{$PAGEPATH}", Application::getPageURL());
-Router::addRedirect("{$POSTPATH}", Application::getPostURL());
-Router::addRedirect("{$USERPATH}", Application::getUserURL());
+	# Item controllers (ensure trailing slashes)
+	Router::addRedirect($slug, Application::getURL("{$slug}/"));
+	Router::addRedirect("{$slug}/([^/]+)", Application::getURL("{$slug}/$1/"));
+}
 
 #===============================================================================
 # ROUTE: Home
