@@ -17,14 +17,14 @@
 			<i class="fa fa-user"></i><?=$Language->text('label_fullname')?></label>
 
 		<div class="form-grid-item first">
-			<input id="form_fullname" name="fullname" value="<?=escapeHTML($FORM['DATA']['FULLNAME'])?>" autofocus />
+			<input id="form_fullname" name="fullname" value="<?=escapeHTML($FORM['DATA']['FULLNAME'])?>" required autofocus />
 		</div>
 
 		<label for="form_username">
 			<i class="fa fa-user-secret"></i><?=$Language->text('label_username')?></label>
 
 		<div class="form-grid-item">
-			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" />
+			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" required />
 		</div>
 
 		<label for="form_password">
@@ -38,7 +38,7 @@
 			<i class="fa fa-envelope-o"></i><?=$Language->text('label_mailaddr')?></label>
 
 		<div class="form-grid-item">
-			<input id="form_mailaddr" name="mailaddr" value="<?=escapeHTML($FORM['DATA']['MAILADDR'])?>" />
+			<input id="form_mailaddr" name="mailaddr" value="<?=escapeHTML($FORM['DATA']['MAILADDR'])?>" required />
 		</div>
 
 		<label for="form_slug">
@@ -77,7 +77,7 @@
 				<li data-markdown="list_ol" class="fa fa-list-ol" title="<?=$Language->text('markdown_list_ol')?>"></li>
 			</ul>
 		</div>
-		<textarea id="content-editor" name="body" placeholder="[…]"><?=escapeHTML($FORM['DATA']['BODY'])?></textarea>
+		<textarea id="content-editor" name="body" placeholder="[…]" required><?=escapeHTML($FORM['DATA']['BODY'])?></textarea>
 	</div>
 	<div id="emoticon-list-wrapper" class="form-border-box background padding">
 		<ul id="emoticon-list" class="button-list emoticons">

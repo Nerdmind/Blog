@@ -20,14 +20,14 @@
 			<i class="fa fa-user-secret"></i><?=$Language->text('label_username')?></label>
 
 		<div class="form-grid-item">
-			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" autofocus />
+			<input id="form_username" name="username" value="<?=escapeHTML($FORM['DATA']['USERNAME'])?>" required autofocus />
 		</div>
 
 		<label for="form_password">
 			<i class="fa fa-key"></i><?=$Language->text('label_password')?></label>
 
 		<div class="form-grid-item">
-			<input type="password" id="form_password" name="password" />
+			<input type="password" id="form_password" name="password" required />
 		</div>
 	</div>
 

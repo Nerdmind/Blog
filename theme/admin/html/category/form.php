@@ -33,7 +33,7 @@ function categorySelectList($category_tree, $selected = NULL, $current = NULL, $
 			<i class="fa fa-tag"></i><?=$Language->text('label_name')?></label>
 
 		<div class="form-grid-item first">
-			<input id="form_name" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" autofocus />
+			<input id="form_name" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" required autofocus />
 		</div>
 
 		<label for="form_slug">
@@ -82,7 +82,7 @@ function categorySelectList($category_tree, $selected = NULL, $current = NULL, $
 				<li data-markdown="list_ol" class="fa fa-list-ol" title="<?=$Language->text('markdown_list_ol')?>"></li>
 			</ul>
 		</div>
-		<textarea id="content-editor" name="body" placeholder="[…]"><?=escapeHTML($FORM['DATA']['BODY'])?></textarea>
+		<textarea id="content-editor" name="body" placeholder="[…]" required><?=escapeHTML($FORM['DATA']['BODY'])?></textarea>
 	</div>
 	<div id="emoticon-list-wrapper" class="form-border-box background padding">
 		<ul id="emoticon-list" class="button-list emoticons">

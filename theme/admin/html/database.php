@@ -16,7 +16,7 @@
 	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
 
 	<div class="form-border-box">
-		<textarea id="content-editor" placeholder="<?=$Language->text('database_warning')?>" name="command" autofocus><?=escapeHTML($FORM['COMMAND'])?></textarea>
+		<textarea id="content-editor" placeholder="<?=$Language->text('database_warning')?>" name="command" required autofocus><?=escapeHTML($FORM['COMMAND'])?></textarea>
 	</div>
 
 <?php if($FORM['RESULT']): ?>
