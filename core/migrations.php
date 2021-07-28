@@ -12,7 +12,6 @@ if($Migrator->isMigrationNeeded()) {
 
 	Application::set('TEMPLATE.NAME', Application::get('ADMIN.TEMPLATE'));
 	Application::set('TEMPLATE.LANG', Application::get('ADMIN.LANGUAGE'));
-	Application::getLanguage(TRUE); // Force recreation of Language object
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'run')) {
 		if(!$migrated = $Migrator->runMigrations()) {
