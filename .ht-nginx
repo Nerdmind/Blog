@@ -1,16 +1,22 @@
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-# nginx configuration rules                  [Thomas Lange <code@nerdmind.de>] #
+# nginx configuration                        [Thomas Lange <code@nerdmind.de>] #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #                                                                              #
 # This file contains the configuration from the Apaches .htaccess file written #
 # for the nginx high performance web server. Put the content of this file into #
 # the "server {}" block of your nginx virtual host configuration file. If your #
-# blog installation is within a sub directory, you need to adjust this values! #
+# blog is installed in a sub directory, you might need to adjust this rules!   #
+#                                                                              #
+# How to setup PHP and passing requests via FastCGI to PHP-FPM is your job. If #
+# you encounter a "403 Forbidden" error on the home page, please make sure you #
+# have configured your nginx virtual host to look for an index.php file:       #
+#                                                                              #
+# index index.php [...];                                                       #
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
 #===============================================================================
-# Error documents
+# Error pages
 #===============================================================================
 error_page 403 /403.php;
 error_page 404 /404.php;
@@ -23,8 +29,6 @@ location ~ ^/(.git|core|theme/([^/]+)/(html|lang)/) {
 }
 
 #===============================================================================
-# Main rules
+# Pass requests to index.php
 #===============================================================================
-if (!-e $request_filename) {
-	rewrite ^(.*)$ /index.php break;
-}
+try_files $uri $uri/ /index.php?$args;

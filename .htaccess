@@ -1,13 +1,23 @@
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-# Apache configuration rules                 [Thomas Lange <code@nerdmind.de>] #
+# Apache configuration                       [Thomas Lange <code@nerdmind.de>] #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #                                                                              #
-# This file contains rewrite rules for Apache. It's recommended to include the #
-# rules directly into your Apache configuration for a better performance. Also #
-# disable the AllowOverride directive within your Apache virtualhost (if it is #
-# not already globally disabled for performance and security reasons both).    #
+# This file contains the configuration rules for the Apache HTTP server. It is #
+# recommended to include these rules directly into the Apache configuration!   #
+#                                                                              #
+# Additionally, it's recommended to ensure that the AllowOverride directive is #
+# disabled if these rules are included in the Apache configuration. Otherwise, #
+# the Apache HTTP server is checking for .htaccess files on every request.     #
+#                                                                              #
+# AllowOverride None                                                           #
 #                                                                              #
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+
+#===============================================================================
+# Error pages
+#===============================================================================
+ErrorDocument 403 /403.php
+ErrorDocument 404 /404.php
 
 #===============================================================================
 # Enable RewriteEngine
@@ -15,20 +25,13 @@
 RewriteEngine On
 
 #===============================================================================
-# ErrorDocument handler
-#===============================================================================
-ErrorDocument 403 /403.php
-ErrorDocument 404 /404.php
-
-#===============================================================================
 # Forbidden directories
 #===============================================================================
 RewriteRule ^(.git|core|theme/([^/]+)/(html|lang)/) - [F]
 
 #===============================================================================
-# Main rules
+# Pass requests to index.php
 #===============================================================================
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule ^(.*)$ index.php [L]
+RewriteRule . index.php [L]
