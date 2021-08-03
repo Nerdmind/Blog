@@ -15,8 +15,8 @@ Easy blogging application written with PHP7! The application comes with a fullte
 
 ## Installation
 1. Clone the repository to the target directory (usually your *document root*). (Alternatively you also can download a specific release as ZIP archive and extract it to the target destination and skip step 2.)
-2. Check out the latest tag (or the tag you wish) by running `git tag -l` and `git checkout <tag>`.
-3. Create your MySQL database and import `core/db/database.sql`.
+2. Check out the latest tag (or the tag you wish) by running `git tag -l` and `git checkout <tag>`. If you wish to get the newest code and features which are not yet included in a release tag, you can use the `master` branch.
+3. Create your MariaDB/MySQL database and import `core/db/database.sql`.
 4. Copy `core/configuration-example.php` to `core/configuration.php` and customize the configuration and set in any case the settings for the database connection.
 5. Navigate your browser to `/admin/auth.php` and authenticate with the default username `ChangeMe` and the password `changeme` (please note that the username is case-sensitive).
 
