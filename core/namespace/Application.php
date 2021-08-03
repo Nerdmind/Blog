@@ -238,15 +238,21 @@ class Application {
 	# Exit application with the 403 error page
 	#===============================================================================
 	public static function error403(): void {
-		require ROOT.'403.php';
-		exit();
+		$Template = Template\Factory::build('main');
+		$Template->set('NAME', '403 Forbidden');
+		$Template->set('HEAD', ['NAME' => $Template->get('NAME')]);
+		$Template->set('HTML', Template\Factory::build('403'));
+		self::exit($Template, 403);
 	}
 
 	#===============================================================================
 	# Exit application with the 404 error page
 	#===============================================================================
 	public static function error404(): void {
-		require ROOT.'404.php';
-		exit();
+		$Template = Template\Factory::build('main');
+		$Template->set('NAME', '404 Not Found');
+		$Template->set('HEAD', ['NAME' => $Template->get('NAME')]);
+		$Template->set('HTML', Template\Factory::build('404'));
+		self::exit($Template, 404);
 	}
 }
