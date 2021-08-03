@@ -229,7 +229,7 @@ class Application {
 	#===============================================================================
 	# Exit application with a custom message and status code
 	#===============================================================================
-	public static function exit($message = '', $code = 503): void {
+	public static function exit(?string $message = NULL, int $code = 503): void {
 		http_response_code($code);
 		exit($message);
 	}
