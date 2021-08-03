@@ -210,6 +210,11 @@ $LANGUAGE['title_post_overview'] = "{$LANGUAGE['post_overview']} [%d]";
 $LANGUAGE['title_user_overview'] = "{$LANGUAGE['user_overview']} [%d]";
 
 #===============================================================================
+# Category title
+#===============================================================================
+$LANGUAGE['title_category'] = '%s [%d]';
+
+#===============================================================================
 # Search titles
 #===============================================================================
 $LANGUAGE['title_search_request'] = 'Volltextsuche';

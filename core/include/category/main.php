@@ -126,7 +126,8 @@ $MainTemplate->set('CATEGORY', $category_data);
 $MainTemplate->set('CATEGORIES', $category_list ?? []);
 $MainTemplate->set('HTML', $CategoryTemplate);
 $MainTemplate->set('HEAD', [
-	'NAME' => $category_data['ATTR']['NAME'],
+	'NAME' => Application::getLanguage()->text('title_category',
+		[$category_data['ATTR']['NAME'], $currentSite]),
 	'DESC' => description($category_data['BODY']['HTML'](),
 		Application::get('CATEGORY.DESCRIPTION_SIZE')),
 	'PERM' => $category_data['URL'],
