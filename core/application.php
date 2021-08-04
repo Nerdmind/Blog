@@ -181,26 +181,17 @@ if(Application::get('CORE.SEND_304') AND !defined('ADMINISTRATION')) {
 	#===========================================================================
 	# Define HTTP ETag header identifier
 	#===========================================================================
-	$HTTP_ETAG_IDENTIFIER = md5(implode($Statement->fetch()));
+	$etag = md5(implode($Statement->fetch()));
 
 	#===========================================================================
 	# Send ETag header within the HTTP response
 	#===========================================================================
-	HTTP::responseHeader(HTTP::HEADER_ETAG, "\"{$HTTP_ETAG_IDENTIFIER}\"");
+	HTTP::responseHeader(HTTP::HEADER_ETAG, "\"{$etag}\"");
 
 	#===========================================================================
-	# Validate ETag header from the HTTP request
+	# Return "304 Not Modified" if the clients ETag value matches
 	#===========================================================================
-	if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
-		$HTTP_IF_NONE_MATCH = $_SERVER['HTTP_IF_NONE_MATCH'];
-		$HTTP_IF_NONE_MATCH = trim($HTTP_IF_NONE_MATCH, '"');
-
-		# If the server adds the extensions to the response header
-		$HTTP_IF_NONE_MATCH = rtrim($HTTP_IF_NONE_MATCH, '-br');
-		$HTTP_IF_NONE_MATCH = rtrim($HTTP_IF_NONE_MATCH, '-gzip');
-
-		if($HTTP_IF_NONE_MATCH === $HTTP_ETAG_IDENTIFIER) {
-			Application::exit(NULL, 304);
-		}
+	if(strpos($_SERVER['HTTP_IF_NONE_MATCH'] ?? '', $etag) !== FALSE) {
+		Application::exit(NULL, 304);
 	}
 }
