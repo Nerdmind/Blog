@@ -28,9 +28,8 @@ if(!$Page = $PageRepository->find(HTTP::GET('id'))) {
 if(HTTP::issetPOST('delete')) {
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			if($PageRepository->delete($Page)) {
-				HTTP::redirect(Application::getAdminURL('page/'));
-			}
+			$PageRepository->delete($Page);
+			HTTP::redirect(Application::getAdminURL('page/'));
 		} catch(PDOException $Exception) {
 			$messages[] = $Exception->getMessage();
 		}

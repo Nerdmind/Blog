@@ -28,9 +28,8 @@ if(!$Category = $CategoryRepository->find(HTTP::GET('id'))) {
 if(HTTP::issetPOST('delete')) {
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			if($CategoryRepository->delete($Category)) {
-				HTTP::redirect(Application::getAdminURL('category/'));
-			}
+			$CategoryRepository->delete($Category);
+			HTTP::redirect(Application::getAdminURL('category/'));
 		} catch(PDOException $Exception) {
 			$messages[] = $Exception->getMessage();
 		}

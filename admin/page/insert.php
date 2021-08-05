@@ -35,9 +35,8 @@ if(HTTP::issetPOST('insert')) {
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			if($PageRepository->insert($Page)) {
-				HTTP::redirect(Application::getAdminURL('page/'));
-			}
+			$PageRepository->insert($Page);
+			HTTP::redirect(Application::getAdminURL('page/'));
 		} catch(PDOException $Exception) {
 			$messages[] = $Exception->getMessage();
 		}

@@ -34,9 +34,8 @@ if(HTTP::issetPOST('insert')) {
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			if($CategoryRepository->insert($Category)) {
-				HTTP::redirect(Application::getAdminURL('category/'));
-			}
+			$CategoryRepository->insert($Category);
+			HTTP::redirect(Application::getAdminURL('category/'));
 		} catch(PDOException $Exception) {
 			$messages[] = $Exception->getMessage();
 		}

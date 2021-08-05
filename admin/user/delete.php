@@ -28,9 +28,8 @@ if(!$User = $UserRepository->find(HTTP::GET('id'))) {
 if(HTTP::issetPOST('delete')) {
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			if($UserRepository->delete($User)) {
-				HTTP::redirect(Application::getAdminURL('user/'));
-			}
+			$UserRepository->delete($User);
+			HTTP::redirect(Application::getAdminURL('user/'));
 		} catch(PDOException $Exception) {
 			$messages[] = $Exception->getMessage();
 		}
