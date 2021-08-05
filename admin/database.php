@@ -13,15 +13,19 @@ require '../core/application.php';
 #===============================================================================
 # Execute database command(s)
 #===============================================================================
-if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'command')) {
-	try {
-		$Statement = $Database->query(HTTP::POST('command'));
+if(HTTP::issetPOST('command')) {
+	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
+		try {
+			$Statement = $Database->query(HTTP::POST('command'));
 
-		do {
-			$result[] = print_r($Statement->fetchAll(), TRUE);
-		} while($Statement->nextRowset());
-	} catch(PDOException $Exception) {
-		$messages[] = $Exception->getMessage();
+			do {
+				$result[] = print_r($Statement->fetchAll(), TRUE);
+			} while($Statement->nextRowset());
+		} catch(PDOException $Exception) {
+			$messages[] = $Exception->getMessage();
+		}
+	} else {
+		$messages[] = $Language->text('error_security_csrf');
 	}
 }
 

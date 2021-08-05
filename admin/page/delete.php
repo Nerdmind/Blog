@@ -25,13 +25,17 @@ if(!$Page = $PageRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 # Check for delete request
 #===============================================================================
-if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'delete')) {
-	try {
-		if($PageRepository->delete($Page)) {
-			HTTP::redirect(Application::getAdminURL('page/'));
+if(HTTP::issetPOST('delete')) {
+	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
+		try {
+			if($PageRepository->delete($Page)) {
+				HTTP::redirect(Application::getAdminURL('page/'));
+			}
+		} catch(PDOException $Exception) {
+			$messages[] = $Exception->getMessage();
 		}
-	} catch(PDOException $Exception) {
-		$messages[] = $Exception->getMessage();
+	} else {
+		$messages[] = $Language->text('error_security_csrf');
 	}
 }
 

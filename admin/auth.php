@@ -27,27 +27,27 @@ if(Application::isAuthenticated()) {
 #===============================================================================
 # IF: Login action
 #===============================================================================
-if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'username', 'password')) {
-	$UserRepository = Application::getRepository('User');
+if(HTTP::issetPOST('username', 'password')) {
+	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
+		$UserRepository = Application::getRepository('User');
 
-	if($User = $UserRepository->findBy('username', HTTP::POST('username'))) {
-		if(password_verify(HTTP::POST('password'), $User->get('password'))) {
-			$_SESSION['auth'] = $User->getID();
-			HTTP::redirect(Application::getAdminURL());
-		}
+		if($User = $UserRepository->findBy('username', HTTP::POST('username'))) {
+			if(password_verify(HTTP::POST('password'), $User->get('password'))) {
+				$_SESSION['auth'] = $User->getID();
+				HTTP::redirect(Application::getAdminURL());
+			} else {
+				$messages[] = $Language->text('authentication_failure');
+			}
+		} else {
+			$fake_hash = '$2y$10$xpnwDU2HumOgGQhVpMOP9uataEF82YXizniFhSUhYjUiXF8aoDk0C';
+			$fake_pass = HTTP::POST('password');
 
-		else {
+			password_verify($fake_pass, $fake_hash);
+
 			$messages[] = $Language->text('authentication_failure');
 		}
-	}
-
-	else {
-		$fake_hash = '$2y$10$xpnwDU2HumOgGQhVpMOP9uataEF82YXizniFhSUhYjUiXF8aoDk0C';
-		$fake_pass = HTTP::POST('password');
-
-		password_verify($fake_pass, $fake_hash);
-
-		$messages[] = $Language->text('authentication_failure');
+	} else {
+		$messages[] = $Language->text('error_security_csrf');
 	}
 }
 

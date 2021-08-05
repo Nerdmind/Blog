@@ -25,13 +25,17 @@ if(!$User = $UserRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 # Check for delete request
 #===============================================================================
-if(HTTP::issetPOST(['token' => Application::getSecurityToken()], 'delete')) {
-	try {
-		if($UserRepository->delete($User)) {
-			HTTP::redirect(Application::getAdminURL('user/'));
+if(HTTP::issetPOST('delete')) {
+	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
+		try {
+			if($UserRepository->delete($User)) {
+				HTTP::redirect(Application::getAdminURL('user/'));
+			}
+		} catch(PDOException $Exception) {
+			$messages[] = $Exception->getMessage();
 		}
-	} catch(PDOException $Exception) {
-		$messages[] = $Exception->getMessage();
+	} else {
+		$messages[] = $Language->text('error_security_csrf');
 	}
 }
 
