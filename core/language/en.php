@@ -72,7 +72,7 @@ $LANGUAGE['emoticon_1F604'] = 'Smiling face with open mouth and smiling eyes';
 #===============================================================================
 # Error messages
 #===============================================================================
-$LANGUAGE['error_security_csrf'] = 'The security token does not matches the security token at server.';
+$LANGUAGE['error_security_csrf'] = 'The security token does not matches the token of the current session.';
 $LANGUAGE['error_database_exec'] = 'An unexpected error occurred while communicating with the database.';
 
 #===============================================================================
