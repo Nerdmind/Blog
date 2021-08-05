@@ -27,7 +27,7 @@ if(!$Post = $PostRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 # Check for update request
 #===============================================================================
-if(HTTP::issetPOST('category', 'user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'update')) {
+if(HTTP::issetPOST('update')) {
 	$Post->set('category', HTTP::POST('category') ?: NULL);
 	$Post->set('user', HTTP::POST('user'));
 	$Post->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));

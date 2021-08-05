@@ -26,7 +26,7 @@ if(!$Page = $PageRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 # Check for update request
 #===============================================================================
-if(HTTP::issetPOST('user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'update')) {
+if(HTTP::issetPOST('update')) {
 	$Page->set('user', HTTP::POST('user'));
 	$Page->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
 	$Page->set('name', HTTP::POST('name') ?: NULL);

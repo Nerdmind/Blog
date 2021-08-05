@@ -25,7 +25,7 @@ if(!$User = $UserRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 # Check for update request
 #===============================================================================
-if(HTTP::issetPOST('slug', 'username', 'password', 'fullname', 'mailaddr', 'body', 'argv', 'time_insert', 'time_update', 'update')) {
+if(HTTP::issetPOST('update')) {
 	$User->set('slug',     HTTP::POST('slug') ?: generateSlug(HTTP::POST('username')));
 	$User->set('username', HTTP::POST('username') ?: NULL);
 	$User->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : FALSE);

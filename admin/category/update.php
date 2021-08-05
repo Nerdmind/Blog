@@ -25,7 +25,7 @@ if(!$Category = $CategoryRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 # Check for update request
 #===============================================================================
-if(HTTP::issetPOST('parent', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'update')) {
+if(HTTP::issetPOST('update')) {
 	$Category->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
 	$Category->set('name', HTTP::POST('name') ?: NULL);
 	$Category->set('body', HTTP::POST('body') ?: NULL);

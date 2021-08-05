@@ -23,7 +23,7 @@ $Category = new ORM\Entities\Category;
 #===============================================================================
 # Check for insert request
 #===============================================================================
-if(HTTP::issetPOST('parent', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
+if(HTTP::issetPOST('insert')) {
 	$Category->set('parent', HTTP::POST('parent') ?: NULL);
 	$Category->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
 	$Category->set('name', HTTP::POST('name') ?: NULL);

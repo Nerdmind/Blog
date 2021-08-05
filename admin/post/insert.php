@@ -25,7 +25,7 @@ $Post = new ORM\Entities\Post;
 #===============================================================================
 # Check for insert request
 #===============================================================================
-if(HTTP::issetPOST('category', 'user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
+if(HTTP::issetPOST('insert')) {
 	$Post->set('category', HTTP::POST('category') ?: NULL);
 	$Post->set('user', HTTP::POST('user'));
 	$Post->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));

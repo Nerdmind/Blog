@@ -23,7 +23,7 @@ $User = new ORM\Entities\User;
 #===============================================================================
 # Check for insert request
 #===============================================================================
-if(HTTP::issetPOST('slug', 'username', 'password', 'fullname', 'mailaddr', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
+if(HTTP::issetPOST('insert')) {
 	$User->set('slug',     HTTP::POST('slug') ?: generateSlug(HTTP::POST('username')));
 	$User->set('username', HTTP::POST('username') ?: NULL);
 	$User->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : FALSE);

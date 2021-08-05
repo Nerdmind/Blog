@@ -24,7 +24,7 @@ $Page = new ORM\Entities\Page;
 #===============================================================================
 # Check for insert request
 #===============================================================================
-if(HTTP::issetPOST('user', 'slug', 'name', 'body', 'argv', 'time_insert', 'time_update', 'insert')) {
+if(HTTP::issetPOST('insert')) {
 	$Page->set('user', HTTP::POST('user'));
 	$Page->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
 	$Page->set('name', HTTP::POST('name') ?: NULL);
