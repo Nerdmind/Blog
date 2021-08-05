@@ -53,8 +53,8 @@ $LANGUAGE['delete_user_desc'] = 'If you do not need this user anymore, you can p
 #===============================================================================
 # Search item description
 #===============================================================================
-$LANGUAGE['search_page_desc'] = 'Here you can search a page with the <em>boolean full-text search</em> (see <a href="https://dev.mysql.com/doc/refman/5.6/en/fulltext-boolean.html">MySQL documentation</a>).';
-$LANGUAGE['search_post_desc'] = 'Here you can search a post with the <em>boolean full-text search</em> (see <a href="https://dev.mysql.com/doc/refman/5.6/en/fulltext-boolean.html">MySQL documentation</a>).';
+$LANGUAGE['search_page_desc'] = 'Here you can search a page with the <em>boolean full-text search</em> (see <a href="https://dev.mysql.com/doc/refman/8.0/en/fulltext-boolean.html">MySQL documentation</a>).';
+$LANGUAGE['search_post_desc'] = 'Here you can search a post with the <em>boolean full-text search</em> (see <a href="https://dev.mysql.com/doc/refman/8.0/en/fulltext-boolean.html">MySQL documentation</a>).';
 
 #===============================================================================
 # Item overview description

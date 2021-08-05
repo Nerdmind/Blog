@@ -45,7 +45,7 @@ $LANGUAGE['user_main_heading_desc'] = 'Bisher wurden von »%s« insgesamt <b>%d<
 # Search request title and description
 #===============================================================================
 $LANGUAGE['search_base_heading_text'] = 'Volltextsuche';
-$LANGUAGE['search_base_heading_desc'] = 'Wenn du einen bestimmten <strong>Beitrag</strong> suchst, dann kann dir die <a href="https://dev.mysql.com/doc/refman/5.5/en/fulltext-boolean.html" target="_blank">Volltext-Suchfunktion</a> der MySQL-Datenbank bestimmt weiterhelfen.';
+$LANGUAGE['search_base_heading_desc'] = 'Wenn du einen bestimmten <strong>Beitrag</strong> suchst, dann kann dir die <a href="https://dev.mysql.com/doc/refman/8.0/en/fulltext-boolean.html" target="_blank">Volltext-Suchfunktion</a> der MySQL-Datenbank bestimmt weiterhelfen.';
 
 #===============================================================================
 # Search result title and description

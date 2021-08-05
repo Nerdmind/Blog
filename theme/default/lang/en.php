@@ -45,7 +45,7 @@ $LANGUAGE['user_main_heading_desc'] = '»%s« has published a total count of <b>
 # Search request title and description
 #===============================================================================
 $LANGUAGE['search_base_heading_text'] = 'Fulltext search';
-$LANGUAGE['search_base_heading_desc'] = 'If you are looking for a specific <strong>post</strong>, then the <a href="https://dev.mysql.com/doc/refman/5.5/en/fulltext-boolean.html" target="_blank">full-text search function</a> of the MySQL database could help you.';
+$LANGUAGE['search_base_heading_desc'] = 'If you are looking for a specific <strong>post</strong>, then the <a href="https://dev.mysql.com/doc/refman/8.0/en/fulltext-boolean.html" target="_blank">full-text search function</a> of the MySQL database could help you.';
 
 #===============================================================================
 # Search result title and description
