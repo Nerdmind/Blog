@@ -1,5 +1,8 @@
 <main id="main-content">
-<h1><i class="fa fa-pencil-square-o"></i><?=$Language->text('update_user')?></h1>
+<h1>
+	<span class="item-id">#<?=$USER['ATTR']['ID']?></span>
+	<i class="fa fa-pencil-square-o"></i><?=$Language->text('update_user')?>
+</h1>
 <p class="actions-before"><?=$Language->text('update_user_desc')?></p>
 <ul class="actions">
 	<li><a href="<?=$USER['URL']?>" title="<?=$Language->text('select_user')?>"><i class="fa fa-external-link"></i><?=$Language->text('select')?></a></li>
