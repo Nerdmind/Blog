@@ -33,28 +33,16 @@ Router::add('', function() {
 });
 
 #===============================================================================
-# ROUTE: Feed
+# ROUTE: Feed and Search
 #===============================================================================
-Router::add('feed/', function() {
-	require 'core/include/feed/main.php';
+Router::add('(feed|search)/', function($slug) {
+	require "core/include/{$slug}/main.php";
 });
 
 #===============================================================================
-# ROUTE: Search
+# REDIRECT: Feed and Search (trailing slash)
 #===============================================================================
-Router::add('search/', function() {
-	require 'core/include/search/main.php';
-});
-
-#===============================================================================
-# REDIRECT: Feed (trailing slash)
-#===============================================================================
-Router::addRedirect('feed', Application::getURL('feed/'));
-
-#===============================================================================
-# REDIRECT: Search (trailing slash)
-#===============================================================================
-Router::addRedirect('search', Application::getURL('search/'));
+Router::addRedirect('(feed|search)', Application::getURL('$1/'));
 
 #===============================================================================
 # REDIRECT: Favicon
