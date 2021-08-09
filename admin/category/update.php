@@ -75,10 +75,10 @@ $FormTemplate->set('FORM', [
 	'TOKEN' => Application::getSecurityToken()
 ]);
 
-$InsertTemplate = Template\Factory::build('category/update');
-$InsertTemplate->set('HTML', $FormTemplate);
+$UpdateTemplate = Template\Factory::build('category/update');
+$UpdateTemplate->set('HTML', $FormTemplate);
 
 $MainTemplate = Template\Factory::build('main');
 $MainTemplate->set('NAME', $Language->text('title_category_update'));
-$MainTemplate->set('HTML', $InsertTemplate);
+$MainTemplate->set('HTML', $UpdateTemplate);
 echo $MainTemplate;

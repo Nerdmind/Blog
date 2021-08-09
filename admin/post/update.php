@@ -86,10 +86,10 @@ $FormTemplate->set('FORM', [
 	'TOKEN' => Application::getSecurityToken()
 ]);
 
-$PostUpdateTemplate = Template\Factory::build('post/update');
-$PostUpdateTemplate->set('HTML', $FormTemplate);
+$UpdateTemplate = Template\Factory::build('post/update');
+$UpdateTemplate->set('HTML', $FormTemplate);
 
 $MainTemplate = Template\Factory::build('main');
 $MainTemplate->set('NAME', $Language->text('title_post_update'));
-$MainTemplate->set('HTML', $PostUpdateTemplate);
+$MainTemplate->set('HTML', $UpdateTemplate);
 echo $MainTemplate;

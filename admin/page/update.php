@@ -71,10 +71,10 @@ $FormTemplate->set('FORM', [
 	'TOKEN' => Application::getSecurityToken()
 ]);
 
-$PageUpdateTemplate = Template\Factory::build('page/update');
-$PageUpdateTemplate->set('HTML', $FormTemplate);
+$UpdateTemplate = Template\Factory::build('page/update');
+$UpdateTemplate->set('HTML', $FormTemplate);
 
 $MainTemplate = Template\Factory::build('main');
 $MainTemplate->set('NAME', $Language->text('title_page_update'));
-$MainTemplate->set('HTML', $PageUpdateTemplate);
+$MainTemplate->set('HTML', $UpdateTemplate);
 echo $MainTemplate;
