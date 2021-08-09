@@ -497,6 +497,7 @@ img {
 # Grids
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .form-grid {
+  clear: both;
   display: grid;
   grid-template-columns: repeat(2, 7.5rem minmax(0, 1fr));
   border-left: 0.05rem solid #1D232B;
