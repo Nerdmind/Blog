@@ -72,6 +72,7 @@ $FormTemplate->set('FORM', [
 ]);
 
 $UpdateTemplate = Template\Factory::build('page/update');
+$UpdateTemplate->set('PAGE', generateItemTemplateData($Page));
 $UpdateTemplate->set('HTML', $FormTemplate);
 
 $MainTemplate = Template\Factory::build('main');

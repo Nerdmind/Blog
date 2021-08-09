@@ -61,6 +61,7 @@ $FormTemplate->set('FORM', [
 ]);
 
 $UpdateTemplate = Template\Factory::build('user/update');
+$UpdateTemplate->set('USER', generateItemTemplateData($User));
 $UpdateTemplate->set('HTML', $FormTemplate);
 
 $MainTemplate = Template\Factory::build('main');

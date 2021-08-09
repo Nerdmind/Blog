@@ -76,6 +76,7 @@ $FormTemplate->set('FORM', [
 ]);
 
 $UpdateTemplate = Template\Factory::build('category/update');
+$UpdateTemplate->set('CATEGORY', generateItemTemplateData($Category));
 $UpdateTemplate->set('HTML', $FormTemplate);
 
 $MainTemplate = Template\Factory::build('main');
