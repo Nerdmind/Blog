@@ -39,6 +39,7 @@ abstract class Entity implements EntityInterface {
 	#===============================================================================
 	public function getAll(array $exclude = []): array {
 		$attributes = get_object_vars($this);
+		$exclude = array_merge($exclude, ['_modified']);
 
 		return array_filter($attributes, function($attribute) use($exclude) {
 			return !in_array($attribute, $exclude);
