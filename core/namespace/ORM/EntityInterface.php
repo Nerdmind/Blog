@@ -7,4 +7,5 @@ interface EntityInterface {
 
 	public function getID(): int;
 	public function getAll(array $exclude = []): array;
+	public function getModifiedKeys(): array;
 }
