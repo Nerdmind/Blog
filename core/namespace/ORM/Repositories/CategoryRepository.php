@@ -96,21 +96,16 @@ class CategoryRepository extends Repository {
 	# Update category (and check for parent/child circular loops)
 	#===============================================================================
 	public function update(EntityInterface $Entity): bool {
-		# Entity parent might have changed *in memory*, so we re-fetch the original
-		# parent of the entity from the database and save it in a variable.
-		# TODO: Repository/Entity class should have a mechanism to detect changes!
+		# Skip circular loop check if parent is unchanged
+		if(!in_array('parent', $Entity->getModifiedKeys())) {
+			return parent::update($Entity);
+		}
+
 		$query = 'SELECT parent FROM %s WHERE id = ?';
 		$query = sprintf($query, static::getTableName());
 
 		$Statement = $this->Database->prepare($query);
 		$Statement->execute([$Entity->getID()]);
-
-		$parent = $Statement->fetchColumn();
-
-		# If parent is unchanged, circular loop check is not needed.
-		if($parent === $Entity->get('parent')) {
-			return parent::update($Entity);
-		}
 
 		$_parent = $Entity->get('parent');
 
@@ -118,14 +113,14 @@ class CategoryRepository extends Repository {
 		# the tree until either a parent of "NULL" was found or if the new parent category
 		# is a *child* of the *current* category which would cause a circular loop.
 		while($Statement->execute([$_parent]) && $_parent = $Statement->fetchColumn()) {
-			if($_parent == $Entity->get('id')) {
+			if($_parent == $Entity->getID()) {
 				# Set parent of the *new* parent category to the *original* parent category
 				# of the *current* category (one level up) to prevent a circular loop.
-				$query = 'UPDATE %s SET parent = ? WHERE id = ?';
-				$query = sprintf($query, static::getTableName());
+				$query = 'UPDATE %s SET parent = (SELECT parent FROM %s WHERE id = ?) WHERE id = ?';
+				$query = sprintf($query, static::getTableName(), static::getTableName());
 
 				$UpdateStatement = $this->Database->prepare($query);
-				$UpdateStatement->execute([$parent, $Entity->get('parent')]);
+				$UpdateStatement->execute([$_parent, $Entity->get('parent')]);
 				break;
 			} else if($_parent === NULL) {
 				break;

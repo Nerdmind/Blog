@@ -76,40 +76,46 @@ abstract class Repository {
 	# Insert entity
 	#===========================================================================
 	public function insert(EntityInterface $Entity): bool {
-		$attributes = $Entity->getFilteredAttributes();
-
-		foreach($attributes as $field => $value) {
-			$fields[] = $field;
+		foreach($Entity->getModifiedKeys() as $attribute) {
+			$params[] = $Entity->get($attribute);
+			$fields[] = $attribute;
 			$values[] = '?';
 		}
 
-		$fields = implode(', ', $fields ?? []);
-		$values = implode(', ', $values ?? []);
+		if(isset($params, $fields, $values)) {
+			$fields = implode(', ', $fields);
+			$values = implode(', ', $values);
 
-		$query = 'INSERT INTO %s (%s) VALUES(%s)';
-		$query = sprintf($query, static::getTableName(), $fields, $values);
+			$query = sprintf('INSERT INTO %s (%s) VALUES(%s)',
+				static::getTableName(), $fields, $values);
 
-		$Statement = $this->Database->prepare($query);
-		return $Statement->execute(array_values($attributes));
+			$Statement = $this->Database->prepare($query);
+			return $Statement->execute($params);
+		}
+
+		return FALSE;
 	}
 
 	#===========================================================================
 	# Update entity
 	#===========================================================================
 	public function update(EntityInterface $Entity): bool {
-		$attributes = $Entity->getFilteredAttributes();
-
-		foreach($attributes as $field => $value) {
-			$params[] = "$field = ?";
+		foreach($Entity->getModifiedKeys() as $attribute) {
+			$params[] = $Entity->get($attribute);
+			$fields[] = "$attribute = ?";
 		}
 
-		$params = implode(', ', $params ?? []);
+		if(isset($params, $fields)) {
+			$fields = implode(', ', $fields);
 
-		$query = 'UPDATE %s SET %s WHERE id = '.intval($Entity->getID());
-		$query = sprintf($query, static::getTableName(), $params);
+			$query = sprintf('UPDATE %s SET %s WHERE id = %d',
+				static::getTableName(), $fields, $Entity->getID());
 
-		$Statement = $this->Database->prepare($query);
-		return $Statement->execute(array_values($attributes));
+			$Statement = $this->Database->prepare($query);
+			return $Statement->execute($params);
+		}
+
+		return FALSE;
 	}
 
 	#===========================================================================

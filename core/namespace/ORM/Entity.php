@@ -6,6 +6,9 @@ abstract class Entity implements EntityInterface {
 	protected $time_insert;
 	protected $time_update;
 
+	# Modified attributes
+	private $_modified = [];
+
 	#===============================================================================
 	# Get attribute
 	#===============================================================================
@@ -17,6 +20,11 @@ abstract class Entity implements EntityInterface {
 	# Set attribute
 	#===============================================================================
 	public function set(string $attribute, $value) {
+		if($this->{$attribute} !== $value) {
+			!in_array($attribute, $this->_modified) &&
+				array_push($this->_modified, $attribute);
+		}
+
 		return $this->{$attribute} = $value;
 	}
 
@@ -39,11 +47,9 @@ abstract class Entity implements EntityInterface {
 	}
 
 	#===============================================================================
-	# Get array with all non-false attributes
+	# Get an array of modified attribute keys
 	#===============================================================================
-	public function getFilteredAttributes(): array {
-		return array_filter(get_object_vars($this), function($value) {
-			return $value !== FALSE;
-		});
+	public function getModifiedKeys(): array {
+		return $this->_modified;
 	}
 }
