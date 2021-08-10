@@ -680,6 +680,7 @@ label:after {
   font-size: 0.6rem;
 }
 #message-list-wrapper {
+  clear: both;
   margin-bottom: 0.5rem;
   border: 0.1rem solid #ae3f4a;
 }

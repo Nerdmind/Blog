@@ -723,6 +723,7 @@ label {
 	font-size: $fontSizeSmall;
 
 	&-wrapper {
+		clear: both;
 		margin-bottom: 0.5rem;
 		border: 0.1rem solid darken($messageListBackgroundColor, 10%);
 	}
