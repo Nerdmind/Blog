@@ -19,13 +19,12 @@ abstract class Entity implements EntityInterface {
 	#===============================================================================
 	# Set attribute
 	#===============================================================================
-	public function set(string $attribute, $value) {
+	public function set(string $attribute, $value): void {
 		if($this->{$attribute} !== $value) {
+			$this->{$attribute} = $value;
 			!in_array($attribute, $this->_modified) &&
 				array_push($this->_modified, $attribute);
 		}
-
-		return $this->{$attribute} = $value;
 	}
 
 	#===============================================================================
