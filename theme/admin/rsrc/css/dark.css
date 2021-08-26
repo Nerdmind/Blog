@@ -93,6 +93,9 @@ a {
   color: #5EA4D3;
   text-decoration: none;
 }
+a:hover {
+  text-decoration: underline;
+}
 a:focus {
   background: #42474E;
 }
@@ -350,6 +353,7 @@ body {
   color: inherit;
   display: block;
   padding: 0 0.25rem;
+  text-decoration: none;
 }
 
 .actions-before {
