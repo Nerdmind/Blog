@@ -21,6 +21,9 @@
 # Information message box
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Scrollbars
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Import stylesheet
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -47,6 +50,32 @@
 ::selection {
   background: #BBB;
   color: #000;
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Scrollbars
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+* {
+  scrollbar-color: #A1A1A1 #E1E1E1;
+}
+*::-webkit-scrollbar {
+  width: 0.75rem;
+}
+*::-webkit-scrollbar-track {
+  background: #E1E1E1;
+}
+*::-webkit-scrollbar-thumb {
+  background: #A1A1A1;
+  background-clip: padding-box;
+  border: 0.15rem solid transparent;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #888888;
+  background-clip: padding-box;
+  border: 0.15rem solid transparent;
+}
+*::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -624,6 +653,7 @@ textarea {
   padding: 0.5rem;
   -webkit-hyphens: none;
   hyphens: none;
+  cursor: auto;
 }
 
 input[type=submit] {

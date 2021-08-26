@@ -12,6 +12,39 @@
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Scrollbars
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+* {
+	// Firefox (TODO: Possibility to add padding?!)
+	scrollbar-color: $scrollbarColor $scrollbarBackground;
+
+	// Chrome, Edge & Safari
+	&::-webkit-scrollbar {
+		width: 0.75rem;
+
+		&-track {
+			background: $scrollbarBackground;
+		}
+
+		&-thumb {
+			background: $scrollbarColor;
+			background-clip: padding-box;
+			border: 0.15rem solid transparent;
+
+			&:hover {
+				background: $scrollbarHoverColor;
+				background-clip: padding-box;
+				border: 0.15rem solid transparent;
+			}
+		}
+
+		&-corner {
+			background: transparent;
+		}
+	}
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Hyperlinks
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 a {
@@ -661,6 +694,7 @@ textarea {
 	padding: 0.5rem;
 	-webkit-hyphens: none;
 	hyphens: none;
+	cursor: auto;
 }
 
 input {
