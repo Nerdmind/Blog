@@ -29,7 +29,7 @@ if($search = HTTP::GET('q')) {
 
 	try {
 		if (!$posts = $PostRepository->search($search, $filter, $site_size, $offset)) {
-			$message = $Language->text('search_no_results', escapeHTML($search));
+			$message = $Language->text('search_no_results', htmlspecialchars($search));
 		}
 	} catch(PDOException $Exception) {
 		$message = $Exception->getMessage();
@@ -84,7 +84,7 @@ if(!empty($posts)) {
 	$MainTemplate = Template\Factory::build('main');
 	$MainTemplate->set('HTML', $ResultTemplate);
 	$MainTemplate->set('HEAD', [
-		'NAME' => $Language->text('title_search_results', escapeHTML($search)),
+		'NAME' => $Language->text('title_search_results', htmlspecialchars($search)),
 		'PERM' => Application::getURL('search/')
 	]);
 }
