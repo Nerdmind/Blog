@@ -21,11 +21,15 @@ if(!version_compare(PHP_VERSION, '7.3', '>=')) {
 define('ROOT', dirname(__DIR__).'/');
 
 #===============================================================================
-# Autoload register for classes
+# Register autoloader for classes
 #===============================================================================
-spl_autoload_register(function($classname) {
-	$classname = str_replace('\\', '/', $classname);
-	require "namespace/{$classname}.php";
+spl_autoload_register(function($className) {
+	$classPath = str_replace('\\', '/', $className);
+	$classPath = ROOT."core/namespace/{$classPath}.php";
+
+	if(is_file($classPath)) {
+		require $classPath;
+	}
 });
 
 #===============================================================================
