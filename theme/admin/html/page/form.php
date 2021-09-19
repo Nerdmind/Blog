@@ -32,8 +32,9 @@
 
 		<div class="form-grid-item">
 			<select id="form_user" name="user">
+				<?php $selected_user_id = $FORM['DATA']['USER'] ?? $_SESSION['USER_ID'] ?>
 				<?php foreach($FORM['USER_LIST'] as $user): ?>
-					<option value="<?=$user['ID']?>"<?=($FORM['DATA']['USER'] == $user['ID']) ? ' selected' : '' ?>><?=escapeHTML($user['FULLNAME'])?> [<?=$user['USERNAME']?>]</option>
+					<option value="<?=$user['ID']?>"<?=($selected_user_id == $user['ID']) ? ' selected' : '' ?>><?=escapeHTML($user['FULLNAME'])?> [<?=$user['USERNAME']?>]</option>
 				<?php endforeach; ?>
 			</select>
 		</div>
