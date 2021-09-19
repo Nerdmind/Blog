@@ -33,7 +33,7 @@ if(HTTP::issetPOST('username', 'password')) {
 
 		if($User = $UserRepository->findBy('username', HTTP::POST('username'))) {
 			if(password_verify(HTTP::POST('password'), $User->get('password'))) {
-				$_SESSION['auth'] = $User->getID();
+				$_SESSION['USER_ID'] = $User->getID();
 				HTTP::redirect(Application::getAdminURL());
 			} else {
 				$messages[] = $Language->text('authentication_failure');

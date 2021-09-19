@@ -116,18 +116,18 @@ class Application {
 	# Return unique CSRF token for the current session
 	#===============================================================================
 	public static function getSecurityToken(): string {
-		if(!isset($_SESSION['token'])) {
-			$_SESSION['token'] = bin2hex(random_bytes(16));
+		if(!isset($_SESSION['CSRF_TOKEN'])) {
+			$_SESSION['CSRF_TOKEN'] = bin2hex(random_bytes(16));
 		}
 
-		return $_SESSION['token'];
+		return $_SESSION['CSRF_TOKEN'];
 	}
 
 	#===============================================================================
 	# Return boolean if successfully authenticated
 	#===============================================================================
 	public static function isAuthenticated(): bool {
-		return isset($_SESSION['auth']);
+		return isset($_SESSION['USER_ID']);
 	}
 
 	#===============================================================================
