@@ -16,7 +16,7 @@ if(Application::isAuthenticated()) {
 	#===============================================================================
 	# IF: Logout action
 	#===============================================================================
-	if(HTTP::issetGET(['token' => Application::getSecurityToken(), ['action' => 'logout']])) {
+	if(HTTP::issetGET(['token' => Application::getSecurityToken()], ['action' => 'logout'])) {
 		session_destroy();
 		HTTP::redirect(Application::getAdminURL('auth.php'));
 	}
