@@ -1,4 +1,4 @@
-<?php $theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'main'; ?>
+<?php $theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'bright'; ?>
 <!DOCTYPE html>
 <html lang="<?=$BLOGMETA['LANG']?>">
 <head>
