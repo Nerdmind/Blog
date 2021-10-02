@@ -8,7 +8,9 @@ $Migrator = Application::getMigrator();
 # Check for outstanding database schema migrations
 #===============================================================================
 if($Migrator->isMigrationNeeded()) {
-	@session_start();
+	if(session_status() !== PHP_SESSION_ACTIVE) {
+		session_start();
+	}
 
 	Application::set('TEMPLATE.NAME', Application::get('ADMIN.TEMPLATE'));
 	Application::set('TEMPLATE.LANG', Application::get('ADMIN.LANGUAGE'));
