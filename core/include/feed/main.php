@@ -7,6 +7,7 @@ HTTP::responseHeader(HTTP::HEADER_CONTENT_TYPE, HTTP::CONTENT_TYPE_XML);
 #===============================================================================
 # Get repositories
 #===============================================================================
+$CategoryRepository = Application::getRepository('Category');
 $PostRepository = Application::getRepository('Post');
 $UserRepository = Application::getRepository('User');
 
@@ -34,8 +35,24 @@ foreach($posts as $Post) {
 	$post_data = generateItemTemplateData($Post);
 	$post_data['GUID'] = sha1($Post->getID().$Post->get('time_insert'));
 
+	#===============================================================================
+	# Generate category template data (including parents)
+	#===============================================================================
+	foreach($CategoryRepository->findWithParents($Post->get('category')) as $Category) {
+		$category_list[] = generateItemTemplateData($Category);
+	}
+
+	#===============================================================================
+	# Define data variable for current category
+	#===============================================================================
+	if(isset($category_list)) {
+		$category_data = $category_list[array_key_last($category_list)];
+	}
+
 	$ItemTemplate->set('POST', $post_data);
 	$ItemTemplate->set('USER', generateItemTemplateData($User));
+	$ItemTemplate->set('CATEGORY', $category_data ?? []);
+	$ItemTemplate->set('CATEGORIES', $category_list ?? []);
 
 	$templates[] = $ItemTemplate;
 }
