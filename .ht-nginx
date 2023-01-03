@@ -31,4 +31,6 @@ location ~ ^/(.git|core|theme/([^/]+)/(html|lang))/ {
 #===============================================================================
 # Pass requests to index.php
 #===============================================================================
-try_files $uri $uri/ /index.php?$args;
+location / {
+	try_files $uri $uri/ /index.php?$args;
+}
