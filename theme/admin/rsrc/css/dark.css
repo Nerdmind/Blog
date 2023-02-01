@@ -163,7 +163,7 @@ body {
 #header-desc {
   line-height: 1rem; }
 #header-text, #header-desc {
-  color: #333;
+  color: #000;
   font-weight: bold; }
 #header-logo {
   display: block;
@@ -180,7 +180,7 @@ body {
     border-left: none;
     border-right: none; }
   .header-line.background {
-    background: #5E819F;
+    background: #3B546A;
     position: sticky;
     top: 0; }
 

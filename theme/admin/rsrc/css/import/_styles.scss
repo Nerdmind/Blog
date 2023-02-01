@@ -187,7 +187,7 @@ body {
 	}
 
 	&.background {
-		background: #5E819F;
+		background: $headerBarBackgroundColor;
 		position: sticky;
 		top: 0;
 	}
