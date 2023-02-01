@@ -2,4 +2,5 @@
 /rsrc/
 *.js.map
 *.css.map
+*.sass-cache
 /core/configuration.php

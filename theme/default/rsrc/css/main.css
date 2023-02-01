@@ -4,92 +4,75 @@
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 a {
   color: #0060A0;
-  text-decoration: none;
-}
-a:focus {
-  background: #CCC;
-}
+  text-decoration: none; }
+  a:focus {
+    background: #CCC; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Headings
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-weight: 600;
-}
-h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
-  margin-top: 0;
-}
+  font-weight: 600; }
+  h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
+    margin-top: 0; }
 
 h1 {
-  font-size: 0.8rem;
-}
+  font-size: 0.80rem; }
 
 h2 {
-  font-size: 0.7rem;
-}
+  font-size: 0.70rem; }
 
 h3 {
-  font-size: 0.65rem;
-}
+  font-size: 0.65rem; }
 
 h4 {
-  font-size: 0.6rem;
-}
+  font-size: 0.60rem; }
 
 h5 {
-  font-size: 0.55rem;
-}
+  font-size: 0.55rem; }
 
 h6 {
-  font-size: 0.5rem;
-}
+  font-size: 0.50rem; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Document
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 html, body {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
 html {
   font-size: 1.25rem;
   color: #333;
   background: #CCC;
   -webkit-hyphens: auto;
-  hyphens: auto;
-}
+  hyphens: auto; }
 
 body {
   font-family: "Ruda", "sans-serif";
   font-size: 0.7rem;
-  line-height: 1.2rem;
-}
+  line-height: 1.2rem; }
 
 #container {
   max-width: 45rem;
   margin: 1rem auto;
   border: 0.05rem solid #AAA;
-  background: #FFF;
-}
+  background: #FFF; }
 
 main, #main-header > div {
   padding: 1rem;
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Header
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 #main-header > div {
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 #main-logo {
   height: 1.75rem;
-  display: block;
-}
+  display: block; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Footer
@@ -99,8 +82,7 @@ main, #main-header > div {
   border-top: 0.05rem solid #AAA;
   padding: 0.25rem 1rem;
   text-align: center;
-  font-size: 0.6rem;
-}
+  font-size: 0.6rem; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Main Navigation
@@ -111,40 +93,33 @@ main, #main-header > div {
   border: 0.05rem solid #AAA;
   border-left: none;
   border-right: none;
-  padding: 0 1rem;
-}
-#main-navi ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#main-navi ul li {
-  display: inline;
-}
-#main-navi ul li:last-child {
-  float: right;
-}
-#main-navi a {
-  padding: 0.25rem 0.3rem;
-  color: inherit;
-  text-decoration: none;
-  text-align: center;
-  display: inline-block;
-  border: 0.05rem solid transparent;
-  border-top: none;
-  border-bottom: none;
-}
-#main-navi a:hover, #main-navi a:focus {
-  text-decoration: none;
-  background: #DDD;
-  border: 0.05rem solid #AAA;
-  border-top: none;
-  border-bottom: none;
-}
+  padding: 0 1rem; }
+  #main-navi ul {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+    #main-navi ul li {
+      display: inline; }
+      #main-navi ul li:last-child {
+        float: right; }
+  #main-navi a {
+    padding: 0.25rem 0.3rem;
+    color: inherit;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    border: 0.05rem solid transparent;
+    border-top: none;
+    border-bottom: none; }
+    #main-navi a:hover, #main-navi a:focus {
+      text-decoration: none;
+      background: #DDD;
+      border: 0.05rem solid #AAA;
+      border-top: none;
+      border-bottom: none; }
 
 #main-navi li .fa, h1 > .fa, h2 > .fa {
-  margin-right: 0.25rem;
-}
+  margin-right: 0.25rem; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Site Navigation
@@ -153,56 +128,44 @@ main, #main-header > div {
   clear: both;
   display: flex;
   box-sizing: border-box;
-  justify-content: space-between;
-}
-#site-navi > div {
-  display: flex;
-  align-items: center;
-  border: 0.05rem solid #AAA;
-  background: #EEE;
-}
-#site-navi > div > a {
-  display: block;
-}
-#site-navi > section {
-  display: flex;
-  overflow: hidden;
-  align-items: center;
-}
-#site-navi > section > div {
-  border: 0.05rem solid #AAA;
-  background: #EEE;
-}
-#site-navi .disabled {
-  pointer-events: none;
-  color: #AAA;
-}
-#site-navi .active a {
-  background: #CCC !important;
-  font-weight: 600;
-  pointer-events: none;
-}
-#site-navi ol {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#site-navi ol li {
-  float: left;
-  display: inline-block;
-}
-#site-navi ol li + li {
-  border-left: 0.05rem solid #AAA;
-}
-#site-navi a {
-  padding: 0 0.5rem;
-  text-decoration: none;
-  color: inherit;
-  display: inline-block;
-}
-#site-navi a:hover, #site-navi a:focus {
-  background: #CCC;
-}
+  justify-content: space-between; }
+  #site-navi > div {
+    display: flex;
+    align-items: center;
+    border: 0.05rem solid #AAA;
+    background: #EEE; }
+    #site-navi > div > a {
+      display: block; }
+  #site-navi > section {
+    display: flex;
+    overflow: hidden;
+    align-items: center; }
+    #site-navi > section > div {
+      border: 0.05rem solid #AAA;
+      background: #EEE; }
+  #site-navi .disabled {
+    pointer-events: none;
+    color: #AAA; }
+  #site-navi .active a {
+    background: #CCC !important;
+    font-weight: 600;
+    pointer-events: none; }
+  #site-navi ol {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+    #site-navi ol li {
+      float: left;
+      display: inline-block; }
+      #site-navi ol li + li {
+        border-left: 0.05rem solid #AAA; }
+  #site-navi a {
+    padding: 0 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: inline-block; }
+    #site-navi a:hover, #site-navi a:focus {
+      background: #CCC; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Elements
@@ -212,65 +175,51 @@ pre {
   margin-bottom: 1rem;
   overflow: auto;
   -moz-tab-size: 4;
-  tab-size: 4;
-}
+  tab-size: 4; }
 
 code, pre {
   font-family: "monospace";
-  color: #008B45;
-}
+  color: #008B45; }
 
 strong, label {
-  font-weight: 600;
-}
+  font-weight: 600; }
 
 img {
   border: none;
-  max-width: 100%;
-}
+  max-width: 100%; }
 
 main img {
   border: 0.05rem solid #000;
-  border-radius: 0.15rem;
-}
+  border-radius: 0.15rem; }
 
 table img {
   border: none;
-  border-radius: 0;
-}
+  border-radius: 0; }
 
 .red {
-  color: #B03060;
-}
+  color: #B03060; }
 
 .head-link {
   font-size: 0.6rem;
-  float: right;
-}
-.head-link .fa {
-  margin-right: 0.125rem;
-}
+  float: right; }
+  .head-link .fa {
+    margin-right: 0.125rem; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Brackets
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .brackets:before {
-  content: "[";
-}
+  content: "["; }
 .brackets:after {
-  content: "]";
-}
+  content: "]"; }
 .brackets:before, .brackets:after {
-  color: #222;
-}
+  color: #222; }
 
 .brackets a, a.brackets {
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 a.brackets:before, a.brackets:after {
-  color: #222;
-}
+  color: #222; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Item Element
@@ -279,37 +228,29 @@ a.brackets:before, a.brackets:after {
   background: #EEE;
   border: 0.05rem solid #AAA;
   overflow: hidden;
-  margin: 0.5rem 0;
-}
-.item-container {
-  clear: both;
-}
-.item header {
-  padding: 0.25rem 1rem;
-  overflow: hidden;
-  text-transform: uppercase;
-}
-.item header h2 {
-  font-size: 0.65rem;
-  float: left;
-}
-.item header .info {
-  float: right;
-  font-size: 0.6rem;
-  font-weight: 400;
-}
-.item header a {
-  color: inherit;
-}
-.item blockquote {
-  margin: 0;
-  padding: 0 1rem;
-  font-family: inherit;
-  border-top: 0.05rem solid #AAA;
-}
-.item blockquote img {
-  display: block;
-}
+  margin: 0.5rem 0; }
+  .item-container {
+    clear: both; }
+  .item header {
+    padding: 0.25rem 1rem;
+    overflow: hidden;
+    text-transform: uppercase; }
+    .item header h2 {
+      font-size: 0.65rem;
+      float: left; }
+    .item header .info {
+      float: right;
+      font-size: 0.6rem;
+      font-weight: 400; }
+    .item header a {
+      color: inherit; }
+  .item blockquote {
+    margin: 0;
+    padding: 0 1rem;
+    font-family: inherit;
+    border-top: 0.05rem solid #AAA; }
+    .item blockquote img {
+      display: block; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Item content on main sites
@@ -318,28 +259,23 @@ a.brackets:before, a.brackets:after {
   background: #EEE;
   border: 0.05rem solid #AAA;
   margin: 0.5rem 0;
-  padding: 0 1rem;
-}
-#content img {
-  display: block;
-}
+  padding: 0 1rem; }
+  #content img {
+    display: block; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Category list
+# Categories
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 #category-heading,
 #category-posts-heading {
-  float: left;
-}
+  float: left; }
 
 #category-posts-page {
   float: right;
-  font-size: 0.6rem;
-}
+  font-size: 0.6rem; }
 
 #category-body {
-  clear: both;
-}
+  clear: both; }
 
 .category-list,
 .category-heading-list {
@@ -347,40 +283,33 @@ a.brackets:before, a.brackets:after {
   padding: 0;
   list-style: none;
   font-size: 0.6rem;
-  text-align: center;
-}
-.category-list li,
-.category-heading-list li {
-  display: inline-block;
-}
-.category-list li + li:before,
-.category-heading-list li + li:before {
-  content: " ➜ ";
-}
-.category-list a,
-.category-heading-list a {
-  text-decoration: underline;
-}
+  text-align: center; }
+  .category-list li,
+  .category-heading-list li {
+    display: inline-block; }
+    .category-list li + li:before,
+    .category-heading-list li + li:before {
+      content: ' ➜ '; }
+  .category-list a,
+  .category-heading-list a {
+    text-decoration: underline; }
 
 .category-heading-list {
   text-align: left;
-  float: right;
-}
+  float: right; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Responsive
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 #toogle-nav {
   display: none;
-  clear: both;
-}
+  clear: both; }
 
 #toogle-nav-label {
   display: none;
   cursor: pointer;
   font-size: 1.25rem;
-  text-align: center;
-}
+  text-align: center; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Form elements
@@ -389,40 +318,33 @@ input, select {
   background: #EEE;
   color: inherit;
   padding: 0.2rem;
-  border: 0.1rem solid #AAA;
-}
+  border: 0.1rem solid #AAA; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Table elements
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 table {
   width: 100%;
-  margin: 0 0 1rem;
-}
+  margin: 0 0 1rem; }
 
 td {
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 
 table, td {
   border-spacing: 0;
   border-collapse: collapse;
   padding: 0.5rem;
-  border: 0.05rem solid #000;
-}
+  border: 0.05rem solid #000; }
 
 thead, tr:nth-child(even) {
-  background: #EEE;
-}
+  background: #EEE; }
 
 thead > tr, th {
   font-weight: 600;
-  font-style: italic;
-}
+  font-style: italic; }
 
 thead > tr > td, th > td {
-  text-align: center;
-}
+  text-align: center; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Responsive Level #1
@@ -431,76 +353,59 @@ thead > tr > td, th > td {
   html {
     font-size: 1.125rem;
     /*18px*/
-    background-image: none !important;
-  }
+    background-image: none !important; }
 
   body {
-    line-height: 1.2rem;
-  }
+    line-height: 1.2rem; }
 
   #container {
     margin: 0;
     border-right: none;
-    border-left: none;
-  }
-}
+    border-left: none; } }
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Responsive Level #2
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 @media only screen and (max-width: 37.5em) {
   main, #main-header > div {
-    padding: 1rem;
-  }
+    padding: 1rem; }
 
   #main-navi {
-    padding: 0.25rem 1rem;
-  }
+    padding: 0.25rem 1rem; }
 
   #main-navi a {
-    border: 0.05rem solid transparent;
-  }
+    border: 0.05rem solid transparent; }
 
   #main-navi a:hover, #main-navi a:focus {
-    border: 0.05rem solid #BBB;
-  }
+    border: 0.05rem solid #BBB; }
 
   #main-navi > ul {
     display: none;
-    float: none;
-  }
+    float: none; }
 
   #main-navi > ul > li a {
     display: block;
     text-align: left;
-    padding: 0 0.25rem;
-  }
+    padding: 0 0.25rem; }
 
   #main-navi {
-    overflow: hidden;
-  }
+    overflow: hidden; }
 
   #toogle-nav-label {
-    display: block;
-  }
+    display: block; }
 
   #toogle-nav:checked + ul {
-    display: block;
-  }
+    display: block; }
 
   #main-navi li:last-child {
-    float: none;
-  }
+    float: none; }
 
   .item > header {
-    text-align: center;
-  }
+    text-align: center; }
 
   .item > header > h2,
-.item > header > .info {
+  .item > header > .info {
     float: none;
-    display: block;
-  }
-}
+    display: block; } }
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Fontello
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -519,8 +424,7 @@ thead > tr > td, th > td {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Uncomment for 3D effect */
-  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-}
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Font Awesome icons
@@ -531,348 +435,262 @@ thead > tr > td, th > td {
 # Homepage: http://fortawesome.github.com/Font-Awesome/
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .fa-pencil:before {
-  content: "";
-}
+  content: '\e800'; }
 
 .fa-comment:before {
-  content: "";
-}
+  content: '\e801'; }
 
 .fa-chat:before {
-  content: "";
-}
+  content: '\e802'; }
 
 .fa-users:before {
-  content: "";
-}
+  content: '\e803'; }
 
 .fa-cancel:before {
-  content: "";
-}
+  content: '\e804'; }
 
 .fa-plus:before {
-  content: "";
-}
+  content: '\e805'; }
 
 .fa-list:before {
-  content: "";
-}
+  content: '\e80b'; }
 
 .fa-arrow-down:before {
-  content: "";
-}
+  content: '\e80e'; }
 
 .fa-arrow-up:before {
-  content: "";
-}
+  content: '\e811'; }
 
 .fa-arrows-cw:before {
-  content: "";
-}
+  content: '\e813'; }
 
 .fa-tag:before {
-  content: "";
-}
+  content: '\e815'; }
 
 .fa-tags:before {
-  content: "";
-}
+  content: '\e816'; }
 
 .fa-star:before {
-  content: "";
-}
+  content: '\e817'; }
 
 .fa-star-empty:before {
-  content: "";
-}
+  content: '\e818'; }
 
 .fa-eye:before {
-  content: "";
-}
+  content: '\e81a'; }
 
 .fa-ok:before {
-  content: "";
-}
+  content: '\e81b'; }
 
 .fa-info-circled:before {
-  content: "";
-}
+  content: '\e81c'; }
 
 .fa-home:before {
-  content: "";
-}
+  content: '\e81d'; }
 
 .fa-attach:before {
-  content: "";
-}
+  content: '\e81e'; }
 
 .fa-cog:before {
-  content: "";
-}
+  content: '\e81f'; }
 
 .fa-check:before {
-  content: "";
-}
+  content: '\e821'; }
 
 .fa-floppy:before {
-  content: "";
-}
+  content: '\e822'; }
 
 .fa-eye-off:before {
-  content: "";
-}
+  content: '\e823'; }
 
 .fa-folder-open:before {
-  content: "";
-}
+  content: '\e824'; }
 
 .fa-wrench:before {
-  content: "";
-}
+  content: '\e825'; }
 
 .fa-search:before {
-  content: "";
-}
+  content: '\f002'; }
 
 .fa-envelope-o:before {
-  content: "";
-}
+  content: '\f003'; }
 
 .fa-user:before {
-  content: "";
-}
+  content: '\f007'; }
 
 .fa-trash-o:before {
-  content: "";
-}
+  content: '\f014'; }
 
 .fa-clock-o:before {
-  content: "";
-}
+  content: '\f017'; }
 
 .fa-book:before {
-  content: "";
-}
+  content: '\f02d'; }
 
 .fa-bold:before {
-  content: "";
-}
+  content: '\f032'; }
 
 .fa-italic:before {
-  content: "";
-}
+  content: '\f033'; }
 
 .fa-picture-o:before {
-  content: "";
-}
+  content: '\f03e'; }
 
 .fa-pencil-square-o:before {
-  content: "";
-}
+  content: '\f044'; }
 
 .fa-arrow-left:before {
-  content: "";
-}
+  content: '\f060'; }
 
 .fa-arrow-right:before {
-  content: "";
-}
+  content: '\f061'; }
 
 .fa-exclamation-triangle:before {
-  content: "";
-}
+  content: '\f071'; }
 
 .fa-key:before {
-  content: "";
-}
+  content: '\f084'; }
 
 .fa-sign-out:before {
-  content: "";
-}
+  content: '\f08b'; }
 
 .fa-external-link:before {
-  content: "";
-}
+  content: '\f08e'; }
 
 .fa-sign-in:before {
-  content: "";
-}
+  content: '\f090'; }
 
 .fa-github-square:before {
-  content: "";
-}
+  content: '\f092'; }
 
 .fa-uncheck:before {
-  content: "";
-}
+  content: '\f096'; }
 
 .fa-rss:before {
-  content: "";
-}
+  content: '\f09e'; }
 
 .fa-link:before {
-  content: "";
-}
+  content: '\f0c1'; }
 
 .fa-menu:before {
-  content: "";
-}
+  content: '\f0c9'; }
 
 .fa-list-ul:before {
-  content: "";
-}
+  content: '\f0ca'; }
 
 .fa-list-ol:before {
-  content: "";
-}
+  content: '\f0cb'; }
 
 .fa-dashboard:before {
-  content: "";
-}
+  content: '\f0e4'; }
 
 .fa-comment-empty:before {
-  content: "";
-}
+  content: '\f0e5'; }
 
 .fa-chat-empty:before {
-  content: "";
-}
+  content: '\f0e6'; }
 
 .fa-file-text-o:before {
-  content: "";
-}
+  content: '\f0f6'; }
 
 .fa-quote-left:before {
-  content: "";
-}
+  content: '\f10d'; }
 
 .fa-quote-right:before {
-  content: "";
-}
+  content: '\f10e'; }
 
 .fa-smile:before {
-  content: "";
-}
+  content: '\f118'; }
 
 .fa-frown:before {
-  content: "";
-}
+  content: '\f119'; }
 
 .fa-meh:before {
-  content: "";
-}
+  content: '\f11a'; }
 
 .fa-keyboard:before {
-  content: "";
-}
+  content: '\f11c'; }
 
 .fa-code:before {
-  content: "";
-}
+  content: '\f121'; }
 
 .fa-attention-alt:before {
-  content: "";
-}
+  content: '\f12a'; }
 
 .fa-rss-squared:before {
-  content: "";
-}
+  content: '\f143'; }
 
 .fa-sort-name-up:before {
-  content: "";
-}
+  content: '\f15d'; }
 
 .fa-sort-name-down:before {
-  content: "";
-}
+  content: '\f15e'; }
 
 .fa-sort-up:before {
-  content: "";
-}
+  content: '\f160'; }
 
 .fa-sort-down:before {
-  content: "";
-}
+  content: '\f161'; }
 
 .fa-sort-number-up:before {
-  content: "";
-}
+  content: '\f162'; }
 
 .fa-sort-number-down:before {
-  content: "";
-}
+  content: '\f163'; }
 
 .fa-sun:before {
-  content: "";
-}
+  content: '\f185'; }
 
 .fa-moon:before {
-  content: "";
-}
+  content: '\f186'; }
 
 .fa-box:before {
-  content: "";
-}
+  content: '\f187'; }
 
 .fa-bug:before {
-  content: "";
-}
+  content: '\f188'; }
 
 .fa-plus-squared-alt:before {
-  content: "";
-}
+  content: '\f196'; }
 
 .fa-language:before {
-  content: "";
-}
+  content: '\f1ab'; }
 
 .fa-database:before {
-  content: "";
-}
+  content: '\f1c0'; }
 
 .fa-file-archive:before {
-  content: "";
-}
+  content: '\f1c6'; }
 
 .fa-header:before {
-  content: "";
-}
+  content: '\f1dc'; }
 
 .fa-newspaper-o:before {
-  content: "";
-}
+  content: '\f1ea'; }
 
 .fa-at:before {
-  content: "";
-}
+  content: '\f1fa'; }
 
 .fa-toggle-off:before {
-  content: "";
-}
+  content: '\f204'; }
 
 .fa-toggle-on:before {
-  content: "";
-}
+  content: '\f205'; }
 
 .fa-user-secret:before {
-  content: "";
-}
+  content: '\f21b'; }
 
 .fa-server:before {
-  content: "";
-}
+  content: '\f233'; }
 
 .fa-commenting:before {
-  content: "";
-}
+  content: '\f27a'; }
 
 .fa-commenting-o:before {
-  content: "";
-}
+  content: '\f27b'; }
 
 .fa-user-circle-o:before {
-  content: "";
-}
+  content: '\f2be'; }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Font "Font Awesome" [4.7.0] (by Fontello): SIL Open Font License (OFL)
@@ -881,18 +699,15 @@ thead > tr > td, th > td {
   font-family: "Fontello";
   font-weight: 400;
   font-style: normal;
-  src: url("../font/fontello.woff2") format("woff2");
-}
+  src: url("../font/fontello.woff2") format("woff2"); }
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Font "Ruda": SIL Open Font License (OFL)
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 @font-face {
   font-family: "Ruda";
   font-weight: 400;
-  src: url("../font/ruda-n-400.woff2") format("woff2");
-}
+  src: url("../font/ruda-n-400.woff2") format("woff2"); }
 @font-face {
   font-family: "Ruda";
   font-weight: 700;
-  src: url("../font/ruda-n-700.woff2") format("woff2");
-}
+  src: url("../font/ruda-n-700.woff2") format("woff2"); }
