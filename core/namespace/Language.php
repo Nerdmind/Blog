@@ -39,6 +39,6 @@ class Language {
 			return "{{$name}}";
 		}
 
-		return vsprintf($this->text[$name], $arguments);
+		return vsprintf($this->text[$name], (array) $arguments);
 	}
 }
