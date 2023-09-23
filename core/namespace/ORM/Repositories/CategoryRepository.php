@@ -42,7 +42,13 @@ class CategoryRepository extends Repository {
 		$query = sprintf($query, $table, $field, $check, $table);
 
 		$Statement = $this->Database->prepare($query);
-		$Statement->execute([$value]);
+		$Statement->execute(
+			# If $value is NULL, pass NULL instead of an array with one NULL
+			# element. PHP >= 8 will throw a PDOException when the number of
+			# bound variables doesn't matches the number of tokens ("?") in
+			# the SQL query, which is the case here if $value is NULL.
+			is_null($value) ? NULL : [$value]
+		);
 
 		# TODO: Virtual column _depth shall not be fetched into the entity class
 		return $this->fetchEntities($Statement);
