@@ -21,7 +21,7 @@
 	</header>
 	<blockquote cite="<?=$USER['URL']?>">
 		<?php if(isset($USER['FILE']['LIST'][0])): ?>
-			<img class="item-image" src="<?=$USER['FILE']['LIST'][0]?>" alt="" />
+			<img class="item-image" src="<?=$USER['FILE']['LIST'][0]?>" alt="">
 		<?php endif; ?>
 		<p><?=excerpt($USER['BODY']['HTML']())?></p>
 	</blockquote>

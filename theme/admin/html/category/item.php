@@ -21,7 +21,7 @@
 	</header>
 	<blockquote cite="<?=$CATEGORY['URL']?>">
 		<?php if(isset($CATEGORY['FILE']['LIST'][0])): ?>
-			<img class="item-image" src="<?=$CATEGORY['FILE']['LIST'][0]?>" alt="" />
+			<img class="item-image" src="<?=$CATEGORY['FILE']['LIST'][0]?>" alt="">
 		<?php endif; ?>
 		<p><?=excerpt($CATEGORY['BODY']['HTML']())?></p>
 	</blockquote>

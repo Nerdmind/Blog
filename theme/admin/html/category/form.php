@@ -25,7 +25,7 @@ function categorySelectList($category_tree, $selected = NULL, $current = NULL, $
 <?php endif ?>
 
 <form action="" method="POST">
-	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
+	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>">
 
 <?php if($FORM['TYPE'] !== 'DELETE'): ?>
 	<div class="form-grid">
@@ -33,14 +33,14 @@ function categorySelectList($category_tree, $selected = NULL, $current = NULL, $
 			<i class="fa fa-tag"></i><?=$Language->text('label_name')?></label>
 
 		<div class="form-grid-item first">
-			<input id="form_name" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" required autofocus />
+			<input id="form_name" name="name" value="<?=escapeHTML($FORM['DATA']['NAME'])?>" required autofocus>
 		</div>
 
 		<label for="form_slug">
 			<i class="fa fa-link"></i><?=$Language->text('label_slug')?></label>
 
 		<div class="form-grid-item">
-			<input id="form_slug" name="slug" value="<?=escapeHTML($FORM['DATA']['SLUG'])?>" />
+			<input id="form_slug" name="slug" value="<?=escapeHTML($FORM['DATA']['SLUG'])?>">
 		</div>
 
 		<label for="form_category_parent">
@@ -57,14 +57,14 @@ function categorySelectList($category_tree, $selected = NULL, $current = NULL, $
 			<i class="fa fa-clock-o"></i><?=$Language->text('label_insert')?></label>
 
 		<div class="form-grid-item">
-			<input id="form_time_insert" name="time_insert" placeholder="YYYY-MM-DD HH:II:SS" value="<?=escapeHTML($FORM['DATA']['TIME_INSERT'])?>" />
+			<input id="form_time_insert" name="time_insert" placeholder="YYYY-MM-DD HH:II:SS" value="<?=escapeHTML($FORM['DATA']['TIME_INSERT'])?>">
 		</div>
 
 		<label for="form_time_update">
 			<i class="fa fa-pencil"></i><?=$Language->text('label_update')?></label>
 
 		<div class="form-grid-item">
-			<input id="form_time_update" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ?: 'CURRENT_TIMESTAMP')?>" value="" />
+			<input id="form_time_update" name="time_update" placeholder="<?=escapeHTML($FORM['DATA']['TIME_UPDATE'] ?: 'CURRENT_TIMESTAMP')?>" value="">
 		</div>
 	</div>
 
@@ -92,7 +92,7 @@ function categorySelectList($category_tree, $selected = NULL, $current = NULL, $
 		</ul>
 	</div>
 	<div class="form-border-box background padding">
-		<input id="form_argv" name="argv" maxlength="250" placeholder="[ARGUMENT_ONE=foo|ARGUMENT_TWO=bar …]" value="<?=escapeHTML($FORM['DATA']['ARGV'])?>" />
+		<input id="form_argv" name="argv" maxlength="250" placeholder="[ARGUMENT_ONE=foo|ARGUMENT_TWO=bar …]" value="<?=escapeHTML($FORM['DATA']['ARGV'])?>">
 	</div>
 <?php else: ?>
 	<div class="form-border-box background padding">
@@ -102,11 +102,11 @@ function categorySelectList($category_tree, $selected = NULL, $current = NULL, $
 
 	<div class="form-border-box background padding">
 		<?php if($FORM['TYPE'] === 'INSERT'): ?>
-			<input id="insert-button" type="submit" name="insert" value="<?=$Language->text('insert')?>" />
+			<input id="insert-button" type="submit" name="insert" value="<?=$Language->text('insert')?>">
 		<?php elseif($FORM['TYPE'] === 'UPDATE'): ?>
-			<input id="update-button" type="submit" name="update" value="<?=$Language->text('update')?>" />
+			<input id="update-button" type="submit" name="update" value="<?=$Language->text('update')?>">
 		<?php elseif($FORM['TYPE'] === 'DELETE'): ?>
-			<input id="delete-button" type="submit" name="delete" value="<?=$Language->text('delete')?>" data-text="<?=$Language->text('sure')?>" />
+			<input id="delete-button" type="submit" name="delete" value="<?=$Language->text('delete')?>" data-text="<?=$Language->text('sure')?>">
 		<?php endif; ?>
 	</div>
 </form>

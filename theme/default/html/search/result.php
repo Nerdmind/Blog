@@ -2,7 +2,7 @@
 <p><?=$Language->text('search_result_heading_desc')?></p>
 
 <form action="" method="GET">
-	<input autofocus type="search" name="q" placeholder="<?=$Language->text('search_form_placeholder')?>" value="<?=escapeHTML($SEARCH['TEXT'])?>" />
+	<input autofocus type="search" name="q" placeholder="<?=$Language->text('search_form_placeholder')?>" value="<?=escapeHTML($SEARCH['TEXT'])?>">
 
 	<select name="d">
 		<option value=""><?=$Language->text('date_d')?></option>
@@ -26,7 +26,7 @@
 		<?php endforeach; ?>
 	</select>
 
-	<input type="submit" value="<?=$Language->text('search')?>" />
+	<input type="submit" value="<?=$Language->text('search')?>">
 </form>
 
 <div class="item-container post">

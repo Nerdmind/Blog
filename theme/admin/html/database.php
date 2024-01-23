@@ -13,7 +13,7 @@
 <?php endif ?>
 
 <form action="" method="POST">
-	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>" />
+	<input type="hidden" name="token" value="<?=$FORM['TOKEN']?>">
 
 	<div class="form-border-box">
 		<textarea id="content-editor" placeholder="<?=$Language->text('database_warning')?>" name="command" required autofocus><?=escapeHTML($FORM['COMMAND'])?></textarea>
@@ -26,7 +26,7 @@
 <?php endif; ?>
 
 	<div class="form-border-box background padding">
-		<input id="insert-button" type="submit" name="execute" value="Execute" />
+		<input id="insert-button" type="submit" name="execute" value="Execute">
 	</div>
 </form>
 </main>

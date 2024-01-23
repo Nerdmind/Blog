@@ -18,31 +18,31 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 <!DOCTYPE html>
 <html lang="<?=$BLOGMETA['LANG']?>">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="referrer" content="origin-when-crossorigin" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8">
+	<meta name="referrer" content="origin-when-crossorigin">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <?php if(isset($HEAD_DESC)): ?>
-	<meta name="description" content="<?=$HEAD_DESC?>" />
+	<meta name="description" content="<?=$HEAD_DESC?>">
 <?php endif; ?>
 
 <?php if(isset($HEAD['PERM'])): ?>
-	<link rel="canonical" href="<?=$HEAD['PERM']?>" />
+	<link rel="canonical" href="<?=$HEAD['PERM']?>">
 <?php endif; ?>
 
-	<meta property="og:site_name" content="<?=$BLOGMETA_NAME?>" />
-	<meta property="og:title" content="<?=$HEAD_NAME?>" />
-	<meta property="og:image" content="<?=Application::getTemplateURL('rsrc/logo.png')?>" />
+	<meta property="og:site_name" content="<?=$BLOGMETA_NAME?>">
+	<meta property="og:title" content="<?=$HEAD_NAME?>">
+	<meta property="og:image" content="<?=Application::getTemplateURL('rsrc/logo.png')?>">
 
 <?php if(isset($HEAD['OG_IMAGES'])): ?>
 	<?php foreach($HEAD['OG_IMAGES'] as $imageURL): ?>
-		<meta property="og:image" content="<?=$imageURL?>" />
+		<meta property="og:image" content="<?=$imageURL?>">
 	<?php endforeach; ?>
 <?php endif; ?>
 
-	<link rel="icon" href="<?=Application::getTemplateURL('rsrc/favicon.ico')?>" />
-	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/css/main.css')?>" title="<?=$BLOGMETA_NAME?>" />
-	<link rel="alternate" type="application/rss+xml" title="<?=$BLOGMETA_NAME?>" href="<?=Application::getURL('feed/')?>" />
+	<link rel="icon" href="<?=Application::getTemplateURL('rsrc/favicon.ico')?>">
+	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/css/main.css')?>" title="<?=$BLOGMETA_NAME?>">
+	<link rel="alternate" type="application/rss+xml" title="<?=$BLOGMETA_NAME?>" href="<?=Application::getURL('feed/')?>">
 
 	<script defer src="<?=Application::getTemplateURL('rsrc/main.js')?>"></script>
 
@@ -53,12 +53,12 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 		<header id="main-header">
 			<div>
 				<a href="<?=Application::getURL()?>" title="<?="{$BLOGMETA_NAME} {$BLOGMETA_DESC}"?>">
-					<img id="main-logo" src="<?=Application::getTemplateURL('rsrc/logo.png')?>" alt="<?=$BLOGMETA_NAME?>" />
+					<img id="main-logo" src="<?=Application::getTemplateURL('rsrc/logo.png')?>" alt="<?=$BLOGMETA_NAME?>">
 				</a>
 			</div>
 			<nav id="main-navi">
 				<label for="toogle-nav" id="toogle-nav-label" class="fa fa-bars"></label>
-				<input type="checkbox" id="toogle-nav" />
+				<input type="checkbox" id="toogle-nav">
 				<ul>
 					<li>
 						<a href="<?=Application::getURL()?>" title="<?=$Language->text('navigation_home_desc', $BLOGMETA_NAME)?>">

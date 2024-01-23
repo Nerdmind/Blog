@@ -23,7 +23,7 @@
 	</header>
 	<blockquote cite="<?=$POST['URL']?>">
 		<?php if(isset($POST['FILE']['LIST'][0])): ?>
-			<img class="item-image" src="<?=$POST['FILE']['LIST'][0]?>" alt="" />
+			<img class="item-image" src="<?=$POST['FILE']['LIST'][0]?>" alt="">
 		<?php endif; ?>
 		<p><?=excerpt($POST['BODY']['HTML']())?></p>
 	</blockquote>

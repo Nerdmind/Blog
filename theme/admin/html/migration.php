@@ -2,17 +2,17 @@
 <!DOCTYPE html>
 <html lang="<?=$BLOGMETA['LANG']?>">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="referrer" content="origin-when-crossorigin" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="<?=Application::getTemplateURL("rsrc/css/$theme.css")?>" />
+	<meta charset="UTF-8">
+	<meta name="referrer" content="origin-when-crossorigin">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="<?=Application::getTemplateURL("rsrc/css/$theme.css")?>">
 	<title><?=$Language->text('maintenance_mode')?></title>
 </head>
 <body>
 <header id="main-header">
 	<div class="header-line background">
 		<div class="header-content">
-			<img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration" />
+			<img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration">
 			<div id="header-text"><?=escapeHTML($BLOGMETA['NAME'])?></div>
 			<div id="header-desc"><?=$Language->text('maintenance_mode')?></div>
 		</div>
@@ -45,7 +45,7 @@ $codebase_schema = $MIGRATION['SCHEMA_VERSION']['CODEBASE'];
 			<?php endforeach ?>
 			</ul>
 			<input type="hidden" name="token" value="<?=Application::getSecurityToken()?>" ?>
-			<input type="submit" name="run" value="<?=$Language->text('migration_submit')?>" id="delete-button" />
+			<input type="submit" name="run" value="<?=$Language->text('migration_submit')?>" id="delete-button">
 		</form>
 	<?php endif ?>
 </main>

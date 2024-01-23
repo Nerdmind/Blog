@@ -16,10 +16,10 @@ $theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'bright';
 <!DOCTYPE html>
 <html lang="<?=$BLOGMETA['LANG']?>">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="referrer" content="origin-when-crossorigin" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="<?=Application::getTemplateURL("rsrc/css/$theme.css")?>" />
+	<meta charset="UTF-8">
+	<meta name="referrer" content="origin-when-crossorigin">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="<?=Application::getTemplateURL("rsrc/css/$theme.css")?>">
 	<script defer src="<?=Application::getTemplateURL('rsrc/main.js')?>"></script>
 	<title><?=escapeHTML($NAME)?> | Administration</title>
 </head>
@@ -28,7 +28,7 @@ $theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'bright';
 		<div class="header-line background">
 			<div class="header-content">
 				<a href="<?=Application::getURL()?>">
-					<img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration" />
+					<img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration">
 				</a>
 				<div id="header-text"><?=escapeHTML($BLOGMETA['NAME'])?></div>
 				<div id="header-desc"><?=escapeHTML($BLOGMETA['DESC'])?></div>
