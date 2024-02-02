@@ -26,8 +26,8 @@ class FunctionParser implements ParserInterface {
 	private const ARGUMENT_PATTERN_PARTIAL =
 	'(?<arg>                      # Either a quoted string or a plain number
 		(?<qmark>["\'])           # Either a single or double quote
-		(?>[^"\'\\\]++            # String between the quotes
-		|    [\\\].               # A `\` followed by anything but literal newline
+		(?>[^"\'\\\\]++           # String between the quotes
+		|    [\\\\].              # A `\` followed by anything but literal newline
 		|    (?!\k<qmark>)["\']   # A quote, but not our opening quote
 		)*+
 		\k<qmark>                 # Closing quote (same as opening quote)
