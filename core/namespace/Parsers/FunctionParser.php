@@ -6,11 +6,35 @@ class FunctionParser implements ParserInterface {
 	private static $functions = [];
 
 	#===============================================================================
-	# Regular expressions
+	# Main regex for matching the whole function call
 	#===============================================================================
-	private const FUNCTION_SHELL_REGEX = '#\{\s?(%s)%s\s?\}#';
-	private const ARGUMENT_PARTS_REGEX = '(?:\:( (?:(?:"[^"]*"|[0-9]+)(?:,[\s]*)?)+))?';
-	private const ARGUMENT_SPLIT_REGEX = '#("[^"]*"|[0-9]+)(?:,[\s]*)?#';
+	private const FUNCTION_PATTERN = '/
+	\{\s?                         # Opening curly brace `{`
+		(?<func>%s)               # The function name in uppercase letters
+		(?:\:\s                   # A colon `:` followed by a required blank
+			(?<arg_list>          # Capture group for the whole argument list
+				(?:%s)+           # One or more arguments (ARGUMENT_PATTERN_PARTIAL)
+			)
+		)?
+	\s?\}                         # Closing curly brace `}`
+	/x';
+
+	#===============================================================================
+	# Partial regex for matching/splitting the argument list
+	# - Thanks to @OnlineCop from the #regex community of the Libera IRC network! <3
+	#===============================================================================
+	private const ARGUMENT_PATTERN_PARTIAL =
+	'(?<arg>                      # Either a quoted string or a plain number
+		(?<qmark>["\'])           # Either a single or double quote
+		(?>[^"\'\\\]++            # String between the quotes
+		|    [\\\].               # A `\` followed by anything but literal newline
+		|    (?!\k<qmark>)["\']   # A quote, but not our opening quote
+		)*+
+		\k<qmark>                 # Closing quote (same as opening quote)
+		|
+		[0-9]+                    # ... or just a plain number
+	)
+	(?:,\s*)?';
 
 	#===============================================================================
 	# Register function
@@ -30,14 +54,14 @@ class FunctionParser implements ParserInterface {
 		$functionNames = array_keys(self::$functions);
 		$functionNames = implode('|', $functionNames);
 
-		$pattern = self::FUNCTION_SHELL_REGEX;
-		$options = self::ARGUMENT_PARTS_REGEX;
+		$pattern = self::FUNCTION_PATTERN;
+		$options = self::ARGUMENT_PATTERN_PARTIAL;
 
 		preg_match_all(sprintf($pattern, $functionNames, $options), $text, $matches);
 
 		foreach(array_map(function($name, $parameters) {
 			return [$name , $this->parseParameterString($parameters)];
-		}, $matches[1], $matches[2]) as $match) {
+		}, $matches['func'], $matches['arg_list']) as $match) {
 			$functions[$match[0]][] = $match[1];
 		}
 
@@ -52,16 +76,16 @@ class FunctionParser implements ParserInterface {
 		$functionNames = array_keys($functionData);
 		$functionNames = implode('|', $functionNames);
 
-		$pattern = self::FUNCTION_SHELL_REGEX;
-		$options = self::ARGUMENT_PARTS_REGEX;
+		$pattern = self::FUNCTION_PATTERN;
+		$options = self::ARGUMENT_PATTERN_PARTIAL;
 
 		return preg_replace_callback(sprintf($pattern, $functionNames, $options),
 		function($matches) use($functionData) {
-			$function = $matches[1];
+			$function = $matches['func'];
 			$callback = $functionData[$function]['callback'];
 			$required = $functionData[$function]['required'];
 
-			$arguments = $this->parseParameterString($matches[2] ?? '');
+			$arguments = $this->parseParameterString($matches['arg_list'] ?? '');
 
 			if(count($arguments) < $required) {
 				return sprintf('`{%s: *Missing arguments*}`', $function);
@@ -75,10 +99,25 @@ class FunctionParser implements ParserInterface {
 	# Parse the parameter string found within the function shell
 	#===============================================================================
 	private function parseParameterString(string $parameters): array {
-		preg_match_all(self::ARGUMENT_SPLIT_REGEX, $parameters, $matches);
+		$pattern = sprintf('/%s/x', self::ARGUMENT_PATTERN_PARTIAL);
+		preg_match_all($pattern, $parameters, $matches);
 
-		return array_map(function($argument) {
-			return trim($argument, '"');
-		}, $matches[1]);
+		return array_map(function($arg, $qmark) {
+			if(!$qmark) {
+				return $arg;
+			}
+
+			# If a quotation mark is matched, the argument has been enclosed
+			# between quotation marks when passed to the content function in
+			# the editor. Therefore, the quotation marks must be removed and
+			# we also need to take care of the backslash-escaped occurrences
+			# of the quotation marks inside the argument string.
+
+			$arg = substr($arg, 1);
+			$arg = substr($arg, 0, strlen($arg)-1);
+			$arg = str_replace('\\'.$qmark, $qmark, $arg);
+
+			return $arg;
+		}, $matches['arg'], $matches['qmark']);
 	}
 }
