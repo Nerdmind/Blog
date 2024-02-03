@@ -57,7 +57,7 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 				</a>
 			</div>
 			<nav id="main-navi">
-				<label for="toogle-nav" id="toogle-nav-label" class="fa fa-bars"></label>
+				<label for="toogle-nav" id="toogle-nav-label" class="fa fa-menu"></label>
 				<input type="checkbox" id="toogle-nav">
 				<ul>
 					<li>
