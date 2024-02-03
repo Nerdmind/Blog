@@ -312,11 +312,20 @@ function getEntityMarkdownLink($ns, $id, $text = NULL, $info = NULL): string {
 		return sprintf('`{%s: *Reference error*}`', strtoupper($ns));
 	}
 
-	$title = htmlspecialchars($Entity->get('name') ?? $Entity->get('fullname'));
+	$title = $Entity->get('name') ?? $Entity->get('fullname');
 	$href = Application::getEntityURL($Entity);
 	$text = $text ?: "»{$title}«";
-	$info = $info ?: sprintf('%s »%s«',
-		Application::getLanguage()->text(strtolower($ns)), $title);
+
+	if($info === NULL) {
+		$info = sprintf('%s »%s«',
+			Application::getLanguage()->text(strtolower($ns)),
+			$title);
+	}
+
+	# Hotfix: Replace double quotes with single quotes because currently we
+	# have no sane way to escape double quotes in a string intended to be
+	# used as the title for a Markdown formatted link.
+	$info = str_replace('"', "'", $info);
 
 	return sprintf('[%s](%s "%s")',	$text, $href, $info);
 }
