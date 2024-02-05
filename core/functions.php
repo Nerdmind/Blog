@@ -330,6 +330,17 @@ function getEntityMarkdownLink($ns, $id, $text = NULL, $info = NULL): string {
 	return sprintf('[%s](%s "%s")',	$text, $href, $info);
 }
 
+#===========================================================================
+# Callback for (CATEGORY|PAGE|POST|USER)_URL content function
+#===========================================================================
+function getEntityURL($ns, $id): string {
+	if(!$Entity = Application::getRepository($ns)->find($id)) {
+		return sprintf('`{%s_URL: *Reference error*}`', strtoupper($ns));
+	}
+
+	return Application::getEntityURL($Entity);
+}
+
 #===============================================================================
 # Function for use in templates to get data of a category
 #===============================================================================
@@ -422,4 +433,32 @@ FunctionParser::register('POST', function($id, $text = NULL, $title = NULL) {
 #===========================================================================
 FunctionParser::register('USER', function($id, $text = NULL, $title = NULL) {
 	return getEntityMarkdownLink('User', $id, $text, $title);
+});
+
+#===========================================================================
+# Get URL to a category entity
+#===========================================================================
+FunctionParser::register('CATEGORY_URL', function($id) {
+	return getEntityURL('Category', $id);
+});
+
+#===========================================================================
+# Get URL to a page entity
+#===========================================================================
+FunctionParser::register('PAGE_URL', function($id) {
+	return getEntityURL('Page', $id);
+});
+
+#===========================================================================
+# Get URL to a post entity
+#===========================================================================
+FunctionParser::register('POST_URL', function($id) {
+	return getEntityURL('Post', $id);
+});
+
+#===========================================================================
+# Get URL to a user entity
+#===========================================================================
+FunctionParser::register('USER_URL', function($id) {
+	return getEntityURL('User', $id);
 });
