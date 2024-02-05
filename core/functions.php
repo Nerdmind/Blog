@@ -98,12 +98,15 @@ function generateUserItemTemplate(User $User): Template {
 #===============================================================================
 function generateItemTemplateData(EntityInterface $Entity): array {
 	$ArgumentParser = new ArgumentParser;
+	$FunctionParser = new FunctionParser;
 	$MarkdownParser = new MarkdownParser;
 
 	$attribute = $Entity->getAll(['password']);
 	$attribute = array_change_key_case($attribute, CASE_UPPER);
 
-	$text = parseContentTags($Entity->get('body'));
+	$text = $Entity->get('body');
+	$text = $FunctionParser->transform($text);
+
 	$arguments = $ArgumentParser->parse($Entity->get('argv') ?? '');
 
 	$images = $MarkdownParser->parse($text)['img']['src'] ?? [];
@@ -151,39 +154,13 @@ function generateCategoryDataTree(array $category_data, $root = 0): array {
 }
 
 #===============================================================================
-# Parse content tags
-#===============================================================================
-function parseContentTags(string $text): string {
-	$entity_tags = '#\{(POST|PAGE|USER)\[([0-9]+)\]\}#';
-
-	$text = preg_replace_callback($entity_tags, function($matches) {
-		$namespace = ucfirst(strtolower($matches[1]));
-		$Repository = Application::getRepository($namespace);
-
-		if($Entity = $Repository->find($matches[2])) {
-			return Application::getEntityURL($Entity);
-		}
-
-		else {
-			return '{undefined}';
-		}
-	}, $text);
-
-	$base_tag = '#\{BASE\[\"([^"]+)\"\]\}#';
-	$file_tag = '#\{FILE\[\"([^"]+)\"\]\}#';
-
-	$text = preg_replace($base_tag, \Application::getURL('$1'), $text);
-	$text = preg_replace($file_tag, \Application::getFileURL('$1'), $text);
-
-	$FunctionParser = new FunctionParser;
-	return $FunctionParser->transform($text);
-}
-
-#===============================================================================
 # Parse entity content
 #===============================================================================
 function parseEntityContent(EntityInterface $Entity): string {
-	$text = parseContentTags($Entity->get('body'));
+	$text = $Entity->get('body');
+
+	$FunctionParser = new FunctionParser();
+	$text = $FunctionParser->transform($text);
 
 	if(Application::get('WRAP_EMOTICONS')) {
 		$EmoticonParser = new EmoticonParser;
