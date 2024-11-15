@@ -101,6 +101,10 @@ function generateItemTemplateData(EntityInterface $Entity): array {
 	$FunctionParser = new FunctionParser;
 	$MarkdownParser = new MarkdownParser;
 
+	$FunctionParser->registerFromArray(
+		Application::getContentFunctions()
+	);
+
 	$attribute = $Entity->getAll(['password']);
 	$attribute = array_change_key_case($attribute, CASE_UPPER);
 
@@ -159,7 +163,11 @@ function generateCategoryDataTree(array $category_data, $root = 0): array {
 function parseEntityContent(EntityInterface $Entity): string {
 	$text = $Entity->get('body');
 
-	$FunctionParser = new FunctionParser();
+	$FunctionParser = new FunctionParser;
+	$FunctionParser->registerFromArray(
+		Application::getContentFunctions()
+	);
+
 	$text = $FunctionParser->transform($text);
 
 	if(Application::get('WRAP_EMOTICONS')) {

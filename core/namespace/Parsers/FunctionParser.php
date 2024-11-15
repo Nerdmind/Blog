@@ -3,7 +3,7 @@ namespace Parsers;
 use ReflectionFunction;
 
 class FunctionParser implements ParserInterface {
-	private static $functions = [];
+	private $functions = [];
 
 	#===============================================================================
 	# Main regex for matching the whole function call
@@ -39,19 +39,28 @@ class FunctionParser implements ParserInterface {
 	#===============================================================================
 	# Register function
 	#===============================================================================
-	public static function register(string $name, callable $callback): void {
+	public function register(string $name, callable $callback): void {
 		$Function = new ReflectionFunction($callback);
-		self::$functions[$name] = [
+		$this->functions[$name] = [
 			'callback' => $callback,
 			'required' => $Function->getNumberOfRequiredParameters()
 		];
 	}
 
 	#===============================================================================
+	# Register multiple functions from array
+	#===============================================================================
+	public function registerFromArray(array $functions): void {
+		foreach($functions as $name => $callback) {
+			$this->register($name, $callback);
+		}
+	}
+
+	#===============================================================================
 	# Parse functions
 	#===============================================================================
 	public function parse(string $text): array {
-		$functionNames = array_keys(self::$functions);
+		$functionNames = array_keys($this->functions);
 		$functionNames = implode('|', $functionNames);
 
 		$pattern = self::FUNCTION_PATTERN;
@@ -72,7 +81,7 @@ class FunctionParser implements ParserInterface {
 	# Transform functions
 	#===============================================================================
 	public function transform(string $text): string {
-		$functionData = self::$functions;
+		$functionData = $this->functions;
 		$functionNames = array_keys($functionData);
 		$functionNames = implode('|', $functionNames);
 

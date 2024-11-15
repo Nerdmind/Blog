@@ -224,7 +224,6 @@ class Application {
 				contain only numbers, uppercase letters and underscores!');
 		}
 
-		FunctionParser::register($name, $callback);
 		self::$contentFunctions[$name] = $callback;
 	}
 
