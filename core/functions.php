@@ -373,69 +373,79 @@ function USER(int $id): array {
 #===========================================================================
 # Get base URL (optionally extended by $extend)
 #===========================================================================
-FunctionParser::register('BASE_URL', function($extend = '') {
+Application::addContentFunction('BASE_URL',
+function($extend = '') {
 	return Application::getURL($extend);
 });
 
 #===========================================================================
 # Get file URL (optionally extended by $extend)
 #===========================================================================
-FunctionParser::register('FILE_URL', function($extend = '') {
+Application::addContentFunction('FILE_URL',
+function($extend = '') {
 	return Application::getFileURL($extend);
 });
 
 #===========================================================================
 # Get Markdown formatted *category* link
 #===========================================================================
-FunctionParser::register('CATEGORY', function($id, $text = NULL, $title = NULL) {
+Application::addContentFunction('CATEGORY',
+function($id, $text = NULL, $title = NULL) {
 	return getEntityMarkdownLink('Category', $id, $text, $title);
 });
 
 #===========================================================================
 # Get Markdown formatted *page* link
 #===========================================================================
-FunctionParser::register('PAGE', function($id, $text = NULL, $title = NULL) {
+Application::addContentFunction('PAGE',
+function($id, $text = NULL, $title = NULL) {
 	return getEntityMarkdownLink('Page', $id, $text, $title);
 });
 
 #===========================================================================
 # Get Markdown formatted *post* link
 #===========================================================================
-FunctionParser::register('POST', function($id, $text = NULL, $title = NULL) {
+Application::addContentFunction('POST',
+function($id, $text = NULL, $title = NULL) {
 	return getEntityMarkdownLink('Post', $id, $text, $title);
 });
 
 #===========================================================================
 # Get Markdown formatted *user* link
 #===========================================================================
-FunctionParser::register('USER', function($id, $text = NULL, $title = NULL) {
+Application::addContentFunction('USER',
+function($id, $text = NULL, $title = NULL) {
 	return getEntityMarkdownLink('User', $id, $text, $title);
 });
 
 #===========================================================================
 # Get URL to a category entity
 #===========================================================================
-FunctionParser::register('CATEGORY_URL', function($id) {
+Application::addContentFunction('CATEGORY_URL',
+function($id) {
 	return getEntityURL('Category', $id);
 });
 
 #===========================================================================
 # Get URL to a page entity
 #===========================================================================
-FunctionParser::register('PAGE_URL', function($id) {
+Application::addContentFunction('PAGE_URL',
+function($id) {
 	return getEntityURL('Page', $id);
 });
 
 #===========================================================================
 # Get URL to a post entity
 #===========================================================================
-FunctionParser::register('POST_URL', function($id) {
+Application::addContentFunction('POST_URL',
+function($id) {
 	return getEntityURL('Post', $id);
 });
 
 #===========================================================================
 # Get URL to a user entity
 #===========================================================================
-FunctionParser::register('USER_URL', function($id) {
+Application::addContentFunction('USER_URL',
+function($id) {
 	return getEntityURL('User', $id);
 });
