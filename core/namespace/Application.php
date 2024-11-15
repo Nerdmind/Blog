@@ -11,6 +11,7 @@ class Application {
 	private static $Language;
 	private static $Migrator;
 	private static $repositories = [];
+	private static $contentFunctions = [];
 
 	#===============================================================================
 	# Configuration array
@@ -224,6 +225,14 @@ class Application {
 		}
 
 		FunctionParser::register($name, $callback);
+		self::$contentFunctions[$name] = $callback;
+	}
+
+	#===============================================================================
+	# Return all known content functions
+	#===============================================================================
+	public static function getContentFunctions(): array {
+		return self::$contentFunctions;
 	}
 
 	#===============================================================================
