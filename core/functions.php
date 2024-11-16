@@ -379,81 +379,33 @@ function USER(int $id): array {
 }
 
 #===========================================================================
-# Get base URL (optionally extended by $extend)
+# Register (BAS|FIL)E_URL content functions
 #===========================================================================
 Application::addContentFunction('BASE_URL',
 function($extend = '') {
 	return Application::getURL($extend);
 });
 
-#===========================================================================
-# Get file URL (optionally extended by $extend)
-#===========================================================================
 Application::addContentFunction('FILE_URL',
 function($extend = '') {
 	return Application::getFileURL($extend);
 });
 
 #===========================================================================
-# Get Markdown formatted *category* link
+# Register (CATEGORY|PAGE|POST|USER)(_URL)? content functions
 #===========================================================================
-Application::addContentFunction('CATEGORY',
-function($id, $text = NULL, $title = NULL) {
-	return getEntityMarkdownLink('Category', $id, $text, $title);
-});
+foreach(['CATEGORY', 'PAGE', 'POST', 'USER'] as $function) {
+	$entity = ucfirst(strtolower($function));
 
-#===========================================================================
-# Get Markdown formatted *page* link
-#===========================================================================
-Application::addContentFunction('PAGE',
-function($id, $text = NULL, $title = NULL) {
-	return getEntityMarkdownLink('Page', $id, $text, $title);
-});
+	// Get Markdown formatted entity link
+	Application::addContentFunction($function,
+	function($id, $text = NULL, $title = NULL) use($entity) {
+		return getEntityMarkdownLink($entity, $id, $text, $title);
+	});
 
-#===========================================================================
-# Get Markdown formatted *post* link
-#===========================================================================
-Application::addContentFunction('POST',
-function($id, $text = NULL, $title = NULL) {
-	return getEntityMarkdownLink('Post', $id, $text, $title);
-});
-
-#===========================================================================
-# Get Markdown formatted *user* link
-#===========================================================================
-Application::addContentFunction('USER',
-function($id, $text = NULL, $title = NULL) {
-	return getEntityMarkdownLink('User', $id, $text, $title);
-});
-
-#===========================================================================
-# Get URL to a category entity
-#===========================================================================
-Application::addContentFunction('CATEGORY_URL',
-function($id) {
-	return getEntityURL('Category', $id);
-});
-
-#===========================================================================
-# Get URL to a page entity
-#===========================================================================
-Application::addContentFunction('PAGE_URL',
-function($id) {
-	return getEntityURL('Page', $id);
-});
-
-#===========================================================================
-# Get URL to a post entity
-#===========================================================================
-Application::addContentFunction('POST_URL',
-function($id) {
-	return getEntityURL('Post', $id);
-});
-
-#===========================================================================
-# Get URL to a user entity
-#===========================================================================
-Application::addContentFunction('USER_URL',
-function($id) {
-	return getEntityURL('User', $id);
-});
+	// Get URL to entity
+	Application::addContentFunction(sprintf('%s_URL', $function),
+	function($id) use($entity) {
+		return getEntityURL($entity, $id);
+	});
+}
