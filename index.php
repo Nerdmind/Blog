@@ -47,7 +47,7 @@ Router::addRedirect('(feed|search)', Application::getURL('$1/'));
 #===============================================================================
 # REDIRECT: Favicon
 #===============================================================================
-Router::addRedirect('favicon.ico', Application::getTemplateURL('rsrc/favicon.ico'));
+Router::addRedirect('favicon.ico', Application::getTemplateURL('static/favicon.ico'));
 
 #===============================================================================
 # BACKWARD COMPATIBILITY: Redirect to the new post feed URL

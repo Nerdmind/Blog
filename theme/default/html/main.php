@@ -32,7 +32,7 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 
 	<meta property="og:site_name" content="<?=$BLOGMETA_NAME?>">
 	<meta property="og:title" content="<?=$HEAD_NAME?>">
-	<meta property="og:image" content="<?=Application::getTemplateURL('rsrc/logo.png')?>">
+	<meta property="og:image" content="<?=Application::getTemplateURL('static/logo.png')?>">
 
 <?php if(isset($HEAD['OG_IMAGES'])): ?>
 	<?php foreach($HEAD['OG_IMAGES'] as $imageURL): ?>
@@ -40,11 +40,11 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 	<?php endforeach; ?>
 <?php endif; ?>
 
-	<link rel="icon" href="<?=Application::getTemplateURL('rsrc/favicon.ico')?>">
-	<link rel="stylesheet" href="<?=Application::getTemplateURL('rsrc/css/main.css')?>" title="<?=$BLOGMETA_NAME?>">
+	<link rel="icon" href="<?=Application::getTemplateURL('static/favicon.ico')?>">
+	<link rel="stylesheet" href="<?=Application::getTemplateURL('static/css/main.css')?>" title="<?=$BLOGMETA_NAME?>">
 	<link rel="alternate" type="application/rss+xml" title="<?=$BLOGMETA_NAME?>" href="<?=Application::getURL('feed/')?>">
 
-	<script defer src="<?=Application::getTemplateURL('rsrc/main.js')?>"></script>
+	<script defer src="<?=Application::getTemplateURL('static/main.js')?>"></script>
 
 	<title><?="{$HEAD_NAME} | {$BLOGMETA_NAME} {$BLOGMETA_DESC}"?></title>
 </head>
@@ -53,7 +53,7 @@ $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 		<header id="main-header">
 			<div>
 				<a href="<?=Application::getURL()?>" title="<?="{$BLOGMETA_NAME} {$BLOGMETA_DESC}"?>">
-					<img id="main-logo" src="<?=Application::getTemplateURL('rsrc/logo.png')?>" alt="<?=$BLOGMETA_NAME?>">
+					<img id="main-logo" src="<?=Application::getTemplateURL('static/logo.png')?>" alt="<?=$BLOGMETA_NAME?>">
 				</a>
 			</div>
 			<nav id="main-navi">

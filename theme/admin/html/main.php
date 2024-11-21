@@ -19,8 +19,8 @@ $theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'bright';
 	<meta charset="UTF-8">
 	<meta name="referrer" content="origin-when-crossorigin">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="<?=Application::getTemplateURL("rsrc/css/$theme.css")?>">
-	<script defer src="<?=Application::getTemplateURL('rsrc/main.js')?>"></script>
+	<link rel="stylesheet" href="<?=Application::getTemplateURL("static/css/$theme.css")?>">
+	<script defer src="<?=Application::getTemplateURL('static/main.js')?>"></script>
 	<title><?=escapeHTML($NAME)?> | Administration</title>
 </head>
 <body>
@@ -28,7 +28,7 @@ $theme = isset($_COOKIE['dark_mode']) ? 'dark' : 'bright';
 		<div class="header-line background">
 			<div class="header-content">
 				<a href="<?=Application::getURL()?>">
-					<img id="header-logo" src="<?=Application::getTemplateURL('rsrc/icon-public-domain.svg')?>" alt="Administration">
+					<img id="header-logo" src="<?=Application::getTemplateURL('static/icon-public-domain.svg')?>" alt="Administration">
 				</a>
 				<div id="header-text"><?=escapeHTML($BLOGMETA['NAME'])?></div>
 				<div id="header-desc"><?=escapeHTML($BLOGMETA['DESC'])?></div>

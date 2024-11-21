@@ -1,5 +1,5 @@
 /.idea/
-/rsrc/
+/static/
 *.js.map
 *.css.map
 *.sass-cache

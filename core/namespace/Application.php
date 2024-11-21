@@ -174,7 +174,7 @@ class Application {
 	# Return absolute file URL
 	#===============================================================================
 	public static function getFileURL($more = ''): string {
-		return self::getURL("rsrc/{$more}");
+		return self::getURL("static/{$more}");
 	}
 
 	#===============================================================================

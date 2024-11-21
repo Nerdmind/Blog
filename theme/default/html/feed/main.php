@@ -23,7 +23,7 @@ $self = Application::getURL('feed/');
 
 		<image>
 			<title><?=$title?></title>
-			<url><?=Application::getTemplateURL('rsrc/logo.png')?></url>
+			<url><?=Application::getTemplateURL('static/logo.png')?></url>
 			<link><?=Application::getURL()?></link>
 		</image>
 
