@@ -34,7 +34,7 @@ class Router {
 	#===============================================================================
 	public static function execute($path) {
 		$path = ltrim($path, '/');
-		$route_found = FALSE;
+		$route_found = false;
 
 		foreach(self::$routes as $route) {
 			if($route['type'] === 'redirect') {
@@ -50,13 +50,13 @@ class Router {
 					# Remove the first element from matches which contains the whole string.
 					array_shift($matches);
 
-					$route_found = TRUE;
+					$route_found = true;
 					call_user_func_array($route['callback'], $matches);
 				}
 			}
 		}
 
-		if($route_found === FALSE) {
+		if($route_found === false) {
 			Application::error404();
 		}
 	}

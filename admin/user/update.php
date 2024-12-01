@@ -2,8 +2,8 @@
 #===============================================================================
 # DEFINE: Administration
 #===============================================================================
-const ADMINISTRATION = TRUE;
-const AUTHENTICATION = TRUE;
+const ADMINISTRATION = true;
+const AUTHENTICATION = true;
 
 #===============================================================================
 # INCLUDE: Initialization
@@ -27,12 +27,12 @@ if(!$User = $UserRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 if(HTTP::issetPOST('update')) {
 	$User->set('slug',     HTTP::POST('slug') ?: generateSlug(HTTP::POST('username')));
-	$User->set('username', HTTP::POST('username') ?: NULL);
-	$User->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : FALSE);
-	$User->set('fullname', HTTP::POST('fullname') ?: NULL);
-	$User->set('mailaddr', HTTP::POST('mailaddr') ?: NULL);
-	$User->set('body',     HTTP::POST('body') ?: NULL);
-	$User->set('argv',     HTTP::POST('argv') ?: NULL);
+	$User->set('username', HTTP::POST('username') ?: null);
+	$User->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : false);
+	$User->set('fullname', HTTP::POST('fullname') ?: null);
+	$User->set('mailaddr', HTTP::POST('mailaddr') ?: null);
+	$User->set('body',     HTTP::POST('body') ?: null);
+	$User->set('argv',     HTTP::POST('argv') ?: null);
 	$User->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
 	$User->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 

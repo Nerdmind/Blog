@@ -10,7 +10,7 @@ class MarkdownParser implements ParserInterface {
 	#===========================================================================
 	public function __construct() {
 		$this->Parsedown = new Parsedown();
-		$this->Parsedown->setUrlsLinked(FALSE);
+		$this->Parsedown->setUrlsLinked(false);
 	}
 
 	#===========================================================================

@@ -10,8 +10,8 @@ class ArgumentParser implements ParserInterface {
 		foreach(explode('|', $text) as $delimiter) {
 			$part = explode('=', $delimiter);
 
-			$argumentK = $part[0] ?? NULL;
-			$argumentV = $part[1] ?? TRUE;
+			$argumentK = $part[0] ?? null;
+			$argumentV = $part[1] ?? true;
 
 			if(preg_match('#^[[:word:]]+$#', $argumentK)) {
 				$arguments[strtoupper($argumentK)] = $argumentV;

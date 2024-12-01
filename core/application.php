@@ -42,14 +42,14 @@ set_exception_handler(function(Throwable $Exception) {
 #===============================================================================
 # Initialize HTTP class and remove all arrays from $_GET and $_POST
 #===============================================================================
-HTTP::init($_GET, $_POST, $_FILES, TRUE);
+HTTP::init($_GET, $_POST, $_FILES, true);
 
 #===============================================================================
 # Set default configuration
 #===============================================================================
 foreach([
 	'CORE.LANGUAGE' => 'en',
-	'CORE.SEND_304' => FALSE,
+	'CORE.SEND_304' => false,
 	'BLOGMETA.NAME' => 'Example blog',
 	'BLOGMETA.DESC' => 'This is an example blog.',
 	'BLOGMETA.HOME' => 'Home',
@@ -59,7 +59,7 @@ foreach([
 	'DATABASE.BASENAME' => 'blog',
 	'DATABASE.USERNAME' => 'blog',
 	'DATABASE.PASSWORD' => '',
-	'MIGRATOR.ENABLED' => TRUE,
+	'MIGRATOR.ENABLED' => true,
 	'TEMPLATE.NAME' => 'default',
 	'TEMPLATE.LANG' => 'en',
 	'ADMIN.TEMPLATE' => 'admin',
@@ -67,15 +67,15 @@ foreach([
 	'PATHINFO.PROT' => $_SERVER['REQUEST_SCHEME'] ?? 'https',
 	'PATHINFO.HOST' => $_SERVER['HTTP_HOST'] ?? 'localhost',
 	'PATHINFO.BASE' => '',
-	'WRAP_EMOTICONS' => TRUE,
+	'WRAP_EMOTICONS' => true,
 	'CATEGORY.DIRECTORY' => 'category',
 	'PAGE.DIRECTORY' => 'page',
 	'POST.DIRECTORY' => 'post',
 	'USER.DIRECTORY' => 'user',
-	'CATEGORY.SLUG_URLS' => TRUE,
-	'PAGE.SLUG_URLS' => TRUE,
-	'POST.SLUG_URLS' => TRUE,
-	'USER.SLUG_URLS' => TRUE,
+	'CATEGORY.SLUG_URLS' => true,
+	'PAGE.SLUG_URLS' => true,
+	'POST.SLUG_URLS' => true,
+	'USER.SLUG_URLS' => true,
 	'CATEGORY.LIST_SIZE' => 10,
 	'PAGE.LIST_SIZE' => 10,
 	'POST.LIST_SIZE' => 10,
@@ -85,10 +85,10 @@ foreach([
 	'PAGE.DESCRIPTION_SIZE' => 200,
 	'POST.DESCRIPTION_SIZE' => 200,
 	'USER.DESCRIPTION_SIZE' => 200,
-	'CATEGORY.REDIRECT_SINGLE' => FALSE,
-	'PAGE.REDIRECT_SINGLE' => FALSE,
-	'POST.REDIRECT_SINGLE' => FALSE,
-	'USER.REDIRECT_SINGLE' => FALSE,
+	'CATEGORY.REDIRECT_SINGLE' => false,
+	'PAGE.REDIRECT_SINGLE' => false,
+	'POST.REDIRECT_SINGLE' => false,
+	'USER.REDIRECT_SINGLE' => false,
 	'CATEGORY.LIST_SORT' => 'name ASC',
 	'PAGE.LIST_SORT' => 'time_insert DESC',
 	'POST.LIST_SORT' => 'time_insert DESC',
@@ -133,7 +133,7 @@ if(Application::get('MIGRATOR.ENABLED')) {
 #===============================================================================
 # Override configuration if admin
 #===============================================================================
-if(defined('ADMINISTRATION') AND ADMINISTRATION === TRUE) {
+if(defined('ADMINISTRATION') and ADMINISTRATION === true) {
 
 	#===========================================================================
 	# Enable sessions
@@ -143,7 +143,7 @@ if(defined('ADMINISTRATION') AND ADMINISTRATION === TRUE) {
 	#===========================================================================
 	# Authentication check
 	#===========================================================================
-	if(defined('AUTHENTICATION') AND !Application::isAuthenticated()) {
+	if(defined('AUTHENTICATION') and !Application::isAuthenticated()) {
 		HTTP::redirect(Application::getAdminURL('auth.php'));
 	}
 
@@ -164,7 +164,7 @@ $Database = Application::getDatabase();
 #===============================================================================
 # Check if "304 Not Modified" and ETag header should be sent
 #===============================================================================
-if(Application::get('CORE.SEND_304') AND !defined('ADMINISTRATION')) {
+if(Application::get('CORE.SEND_304') and !defined('ADMINISTRATION')) {
 
 	#===========================================================================
 	# Fetch timestamps of the last modified entities
@@ -195,7 +195,7 @@ if(Application::get('CORE.SEND_304') AND !defined('ADMINISTRATION')) {
 	#===========================================================================
 	# Return "304 Not Modified" if the clients ETag value matches
 	#===========================================================================
-	if(strpos($_SERVER['HTTP_IF_NONE_MATCH'] ?? '', $etag) !== FALSE) {
-		Application::exit(NULL, 304);
+	if(strpos($_SERVER['HTTP_IF_NONE_MATCH'] ?? '', $etag) !== false) {
+		Application::exit(null, 304);
 	}
 }

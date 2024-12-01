@@ -2,8 +2,8 @@
 #===============================================================================
 # DEFINE: Administration
 #===============================================================================
-const ADMINISTRATION = TRUE;
-const AUTHENTICATION = TRUE;
+const ADMINISTRATION = true;
+const AUTHENTICATION = true;
 
 #===============================================================================
 # INCLUDE: Initialization

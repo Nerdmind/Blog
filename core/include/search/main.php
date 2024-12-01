@@ -51,7 +51,7 @@ $form_data = [
 
 $search_data = [
 	'TEXT' => $search,
-	'INFO' => isset($message) ? $message : FALSE,
+	'INFO' => isset($message) ? $message : false,
 ];
 
 #===============================================================================

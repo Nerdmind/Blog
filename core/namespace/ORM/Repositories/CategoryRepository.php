@@ -47,7 +47,7 @@ class CategoryRepository extends Repository {
 			# element. PHP >= 8 will throw a PDOException when the number of
 			# bound variables doesn't matches the number of tokens ("?") in
 			# the SQL query, which is the case here if $value is NULL.
-			is_null($value) ? NULL : [$value]
+			is_null($value) ? null : [$value]
 		);
 
 		# TODO: Virtual column _depth shall not be fetched into the entity class
@@ -128,7 +128,7 @@ class CategoryRepository extends Repository {
 				$UpdateStatement = $this->Database->prepare($query);
 				$UpdateStatement->execute([$_parent, $Entity->get('parent')]);
 				break;
-			} else if($_parent === NULL) {
+			} else if($_parent === null) {
 				break;
 			}
 		}

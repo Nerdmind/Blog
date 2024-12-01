@@ -2,8 +2,8 @@
 #===============================================================================
 # DEFINE: Administration
 #===============================================================================
-const ADMINISTRATION = TRUE;
-const AUTHENTICATION = TRUE;
+const ADMINISTRATION = true;
+const AUTHENTICATION = true;
 
 #===============================================================================
 # INCLUDE: Initialization
@@ -33,7 +33,7 @@ if($count === 0) {
 	HTTP::redirect(Application::getAdminURL('category/insert.php'));
 }
 
-if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
+if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 	Application::error404();
 }
 
@@ -44,7 +44,7 @@ $categories = $CategoryRepository->getPaginatedTree(
 	$site_size, ($currentSite-1) * $site_size);
 
 foreach($categories as $Category) {
-	$templates[] = generateCategoryItemTemplate($Category, TRUE);
+	$templates[] = generateCategoryItemTemplate($Category, true);
 }
 
 #===============================================================================

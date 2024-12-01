@@ -22,14 +22,14 @@ $lastSite = ceil($count / $site_size);
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
 
-if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
+if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 	Application::error404();
 }
 
 #===============================================================================
 # Single redirect
 #===============================================================================
-if(Application::get('PAGE.REDIRECT_SINGLE') === TRUE AND $count === 1) {
+if(Application::get('PAGE.REDIRECT_SINGLE') === true and $count === 1) {
 	$Page = $PageRepository->getLast();
 	HTTP::redirect(Application::getEntityURL($Page));
 }

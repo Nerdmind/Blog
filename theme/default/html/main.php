@@ -10,8 +10,8 @@
 #===============================================================================
 # Escape parameters which are used several times here to reduce escapeHTML calls
 #===============================================================================
-$HEAD_NAME = isset($HEAD['NAME']) ? escapeHTML($HEAD['NAME']) : NULL;
-$HEAD_DESC = isset($HEAD['DESC']) ? escapeHTML($HEAD['DESC']) : NULL;
+$HEAD_NAME = isset($HEAD['NAME']) ? escapeHTML($HEAD['NAME']) : null;
+$HEAD_DESC = isset($HEAD['DESC']) ? escapeHTML($HEAD['DESC']) : null;
 $BLOGMETA_NAME = escapeHTML($BLOGMETA['NAME']);
 $BLOGMETA_DESC = escapeHTML($BLOGMETA['DESC']);
 ?>

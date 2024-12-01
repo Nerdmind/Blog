@@ -13,7 +13,7 @@ abstract class Entity implements EntityInterface {
 	# Get attribute
 	#===============================================================================
 	public function get(string $attribute) {
-		return $this->{$attribute} ?? NULL;
+		return $this->{$attribute} ?? null;
 	}
 
 	#===============================================================================

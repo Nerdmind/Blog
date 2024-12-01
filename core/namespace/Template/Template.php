@@ -27,7 +27,7 @@ class Template {
 	# Get parameter
 	#===============================================================================
 	public function get($name) {
-		return $this->parameters[$name] ?? NULL;
+		return $this->parameters[$name] ?? null;
 	}
 
 	#===============================================================================

@@ -1,5 +1,5 @@
 <?php
-function categorySelectList($category_tree, $selected = NULL, $prefix = '') {
+function categorySelectList($category_tree, $selected = null, $prefix = '') {
 	foreach($category_tree as $category) {
 		$option = '<option value="%s"%s>%s%s [%d]</option>';
 		$select = ($category['ID'] == $selected) ? ' selected' : '';

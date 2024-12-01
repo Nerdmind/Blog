@@ -23,7 +23,7 @@ abstract class Repository {
 			return $Entity;
 		}
 
-		return NULL;
+		return null;
 	}
 
 	#===============================================================================
@@ -60,7 +60,7 @@ abstract class Repository {
 	# Gets an entity from the runtime cache
 	#===============================================================================
 	protected function fetchInstance($identifier) {
-		return $this->entities[$identifier] ?? FALSE;
+		return $this->entities[$identifier] ?? false;
 	}
 
 	#===============================================================================
@@ -93,7 +93,7 @@ abstract class Repository {
 			return $Statement->execute($params);
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	#===========================================================================
@@ -115,7 +115,7 @@ abstract class Repository {
 			return $Statement->execute($params);
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	#===========================================================================
@@ -199,7 +199,7 @@ abstract class Repository {
 
 		if(!empty($filter)) {
 			foreach($filter as $column => $value) {
-				if($value === NULL) {
+				if($value === null) {
 					$wheres[] = "$column IS NULL";
 				} else {
 					$wheres[] = "$column = ?";

@@ -1,8 +1,8 @@
 <?php
 class HTTP {
-	private static $GET  = NULL;
-	private static $POST = NULL;
-	private static $FILE = NULL;
+	private static $GET  = null;
+	private static $POST = null;
+	private static $FILE = null;
 
 	#===============================================================================
 	# HTTP protocol versions
@@ -76,7 +76,7 @@ class HTTP {
 	#===============================================================================
 	# Initialize $GET, $POST and $FILE
 	#===============================================================================
-	public static function init($GET, $POST, $FILE, $removeArrays = FALSE, $trimValues = TRUE) {
+	public static function init($GET, $POST, $FILE, $removeArrays = false, $trimValues = true) {
 		self::$GET  = $GET;
 		self::$POST = $POST;
 		self::$FILE = $FILE;
@@ -86,8 +86,8 @@ class HTTP {
 			self::$POST = self::removeArrayValues(self::$POST);
 		}
 
-		self::$GET  = ($trimValues === TRUE ? self::trim(self::$GET)  : self::$GET );
-		self::$POST = ($trimValues === TRUE ? self::trim(self::$POST) : self::$POST);
+		self::$GET  = ($trimValues === true ? self::trim(self::$GET)  : self::$GET );
+		self::$POST = ($trimValues === true ? self::trim(self::$POST) : self::$POST);
 	}
 
 	#===============================================================================
@@ -116,38 +116,38 @@ class HTTP {
 	private static function issetData($data, $arguments): bool {
 		foreach($arguments as $key) {
 			if(is_array($key)) {
-				if(!isset($data[key($key)]) OR $data[key($key)] !== $key[key($key)]) {
-					return FALSE;
+				if(!isset($data[key($key)]) or $data[key($key)] !== $key[key($key)]) {
+					return false;
 				}
 			}
 
-			else if(!isset($data[$key]) OR !is_string($data[$key])) {
-				return FALSE;
+			else if(!isset($data[$key]) or !is_string($data[$key])) {
+				return false;
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	#===============================================================================
 	# Return GET value
 	#===============================================================================
 	public static function GET($parameter) {
-		return self::$GET[$parameter] ?? NULL;
+		return self::$GET[$parameter] ?? null;
 	}
 
 	#===============================================================================
 	# Return POST value
 	#===============================================================================
 	public static function POST($parameter) {
-		return self::$POST[$parameter] ?? NULL;
+		return self::$POST[$parameter] ?? null;
 	}
 
 	#===============================================================================
 	# Return FILE value
 	#===============================================================================
 	public static function FILE($parameter) {
-		return self::$FILE[$parameter] ?? NULL;
+		return self::$FILE[$parameter] ?? null;
 	}
 
 	#===============================================================================
@@ -182,13 +182,13 @@ class HTTP {
 	# Get cookie
 	#===============================================================================
 	public static function getCookie($name) {
-		return $_COOKIE[$name] ?? NULL;
+		return $_COOKIE[$name] ?? null;
 	}
 
 	#===============================================================================
 	# Return HTTP request method or check if request method equals with $method
 	#===============================================================================
-	public static function requestMethod($method = NULL) {
+	public static function requestMethod($method = null) {
 		if(!empty($method)) {
 			return ($_SERVER['REQUEST_METHOD'] === $method);
 		}
@@ -200,7 +200,7 @@ class HTTP {
 	# Return REQUEST_URI
 	#===============================================================================
 	public static function requestURI() {
-		return $_SERVER['REQUEST_URI'] ?? FALSE;
+		return $_SERVER['REQUEST_URI'] ?? false;
 	}
 
 	#===============================================================================
@@ -213,10 +213,10 @@ class HTTP {
 	#===============================================================================
 	# Sends a HTTP redirect to the client
 	#===============================================================================
-	public static function redirect($location, $code = 303, $exit = TRUE) {
+	public static function redirect($location, $code = 303, $exit = true) {
 		http_response_code($code);
 		self::sendHeader("Location: {$location}");
-		$exit AND exit();
+		$exit and exit();
 	}
 
 	#===============================================================================

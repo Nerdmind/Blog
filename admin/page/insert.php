@@ -2,8 +2,8 @@
 #===============================================================================
 # DEFINE: Administration
 #===============================================================================
-const ADMINISTRATION = TRUE;
-const AUTHENTICATION = TRUE;
+const ADMINISTRATION = true;
+const AUTHENTICATION = true;
 
 #===============================================================================
 # INCLUDE: Initialization
@@ -27,9 +27,9 @@ $Page = new ORM\Entities\Page;
 if(HTTP::issetPOST('insert')) {
 	$Page->set('user', HTTP::POST('user'));
 	$Page->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
-	$Page->set('name', HTTP::POST('name') ?: NULL);
-	$Page->set('body', HTTP::POST('body') ?: NULL);
-	$Page->set('argv', HTTP::POST('argv') ?: NULL);
+	$Page->set('name', HTTP::POST('name') ?: null);
+	$Page->set('body', HTTP::POST('body') ?: null);
+	$Page->set('argv', HTTP::POST('argv') ?: null);
 	$Page->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
 	$Page->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 

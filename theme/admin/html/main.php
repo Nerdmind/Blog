@@ -3,11 +3,11 @@ if($toogle = HTTP::GET('colors')) {
 	$options = ['path' => '/', 'samesite' => 'Lax'];
 
 	if($toogle === 'dark') {
-		$_COOKIE['dark_mode'] = TRUE;
-		setcookie('dark_mode', TRUE, $options);
+		$_COOKIE['dark_mode'] = true;
+		setcookie('dark_mode', true, $options);
 	} else {
 		unset($_COOKIE['dark_mode']);
-		setcookie('dark_mode', NULL, array_merge($options, ['expires' => -1]));
+		setcookie('dark_mode', null, array_merge($options, ['expires' => -1]));
 	}
 }
 

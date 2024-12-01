@@ -2,8 +2,8 @@
 #===============================================================================
 # DEFINE: Administration
 #===============================================================================
-const ADMINISTRATION = TRUE;
-const AUTHENTICATION = TRUE;
+const ADMINISTRATION = true;
+const AUTHENTICATION = true;
 
 #===============================================================================
 # INCLUDE: Initialization
@@ -39,9 +39,9 @@ if($User = $UserRepository->getLast()) {
 #===============================================================================
 $HomeTemplate = Template\Factory::build('home');
 $HomeTemplate->set('LAST', [
-	'PAGE' => $PageItemTemplate ?? FALSE,
-	'POST' => $PostItemTemplate ?? FALSE,
-	'USER' => $UserItemTemplate ?? FALSE
+	'PAGE' => $PageItemTemplate ?? false,
+	'POST' => $PostItemTemplate ?? false,
+	'USER' => $UserItemTemplate ?? false
 ]);
 
 $HomeTemplate->set('COUNT', [

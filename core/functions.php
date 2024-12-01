@@ -32,7 +32,7 @@ function createPaginationTemplate($current, $last, string $location): Template {
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generateCategoryItemTemplate(Category $Category, bool $is_root = FALSE): Template {
+function generateCategoryItemTemplate(Category $Category, bool $is_root = false): Template {
 	$CategoryRepository = Application::getRepository('Category');
 
 	foreach($CategoryRepository->findWithParents($Category->getID()) as $Category) {
@@ -121,8 +121,8 @@ function generateItemTemplateData(EntityInterface $Entity): array {
 		'ARGV' => $arguments,
 		'ATTR' => $attribute,
 
-		'PREV' => FALSE,
-		'NEXT' => FALSE,
+		'PREV' => false,
+		'NEXT' => false,
 
 		'FILE' => [
 			'LIST' => $images,
@@ -292,7 +292,7 @@ function generateSlug($string, $separator = '-') {
 #===========================================================================
 # Callback for (CATEGORY|PAGE|POST|USER) content function
 #===========================================================================
-function getEntityMarkdownLink($ns, $id, $text = NULL, $info = NULL): string {
+function getEntityMarkdownLink($ns, $id, $text = null, $info = null): string {
 	if(!$Entity = Application::getRepository($ns)->find($id)) {
 		return sprintf('`{%s: *Reference error*}`', strtoupper($ns));
 	}
@@ -301,7 +301,7 @@ function getEntityMarkdownLink($ns, $id, $text = NULL, $info = NULL): string {
 	$href = Application::getEntityURL($Entity);
 	$text = $text ?: "»{$title}«";
 
-	if($info === NULL) {
+	if($info === null) {
 		$info = sprintf('%s »%s«',
 			Application::getLanguage()->text(strtolower($ns)),
 			$title);
@@ -399,7 +399,7 @@ foreach(['CATEGORY', 'PAGE', 'POST', 'USER'] as $function) {
 
 	// Get Markdown formatted entity link
 	Application::addContentFunction($function,
-	function($id, $text = NULL, $title = NULL) use($entity) {
+	function($id, $text = null, $title = null) use($entity) {
 		return getEntityMarkdownLink($entity, $id, $text, $title);
 	});
 

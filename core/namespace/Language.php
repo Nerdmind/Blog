@@ -18,7 +18,7 @@ class Language {
 	# Load another language file
 	#===============================================================================
 	public function load($filename) {
-		if(file_exists($filename) AND is_readable($filename)) {
+		if(file_exists($filename) and is_readable($filename)) {
 			require $filename;
 			$this->text = array_merge($this->text, $LANGUAGE ?? []);
 		}
@@ -34,7 +34,7 @@ class Language {
 	#===============================================================================
 	# Return language string with included arguments
 	#===============================================================================
-	public function text($name, $arguments = NULL): string {
+	public function text($name, $arguments = null): string {
 		if(!isset($this->text[$name])) {
 			return "{{$name}}";
 		}

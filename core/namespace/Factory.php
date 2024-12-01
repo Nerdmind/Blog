@@ -13,6 +13,6 @@ abstract class Factory implements FactoryInterface {
 	# Gets an instance of a class from the runtime instance cache
 	#===============================================================================
 	protected static function fetchInstance($identifier) {
-		return self::$storage[get_called_class()][$identifier] ?? FALSE;
+		return self::$storage[get_called_class()][$identifier] ?? false;
 	}
 }

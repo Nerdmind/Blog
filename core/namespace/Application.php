@@ -29,7 +29,7 @@ class Application {
 	# Get configuration value
 	#===============================================================================
 	public static function get($config) {
-		return self::$configuration[$config] ?? NULL;
+		return self::$configuration[$config] ?? null;
 	}
 
 	#===============================================================================
@@ -42,8 +42,8 @@ class Application {
 	#===============================================================================
 	# Return singleton Database instance
 	#===============================================================================
-	public static function getDatabase($force = FALSE): Database {
-		if(!self::$Database instanceof Database OR $force === TRUE) {
+	public static function getDatabase($force = false): Database {
+		if(!self::$Database instanceof Database or $force === true) {
 			$hostname = self::get('DATABASE.HOSTNAME');
 			$basename = self::get('DATABASE.BASENAME');
 			$username = self::get('DATABASE.USERNAME');
@@ -70,8 +70,8 @@ class Application {
 	#===============================================================================
 	# Return singleton Language instance
 	#===============================================================================
-	public static function getLanguage($force = FALSE): Language {
-		if(!self::$Language instanceof Language OR $force === TRUE) {
+	public static function getLanguage($force = false): Language {
+		if(!self::$Language instanceof Language or $force === true) {
 			$template_name = self::get('TEMPLATE.NAME');
 			$template_lang = self::get('TEMPLATE.LANG');
 
@@ -237,7 +237,7 @@ class Application {
 	#===============================================================================
 	# Exit application with a custom message and status code
 	#===============================================================================
-	public static function exit(?string $message = NULL, int $code = 503): void {
+	public static function exit(?string $message = null, int $code = 503): void {
 		http_response_code($code);
 		exit($message);
 	}

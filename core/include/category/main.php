@@ -12,7 +12,7 @@ $UserRepository = Application::getRepository('User');
 if(Application::get('CATEGORY.SLUG_URLS')) {
 	if(!$categories = $CategoryRepository->findWithParentsBy('slug', $param)) {
 		if($categories = $CategoryRepository->findWithParents($param)) {
-			$redirect_scheduled = TRUE;
+			$redirect_scheduled = true;
 		}
 	}
 }
@@ -20,7 +20,7 @@ if(Application::get('CATEGORY.SLUG_URLS')) {
 else {
 	if(!$categories = $CategoryRepository->findWithParents($param)) {
 		if($categories = $CategoryRepository->findWithParentsBy('slug', $param)) {
-			$redirect_scheduled = TRUE;
+			$redirect_scheduled = true;
 		}
 	}
 }
@@ -80,7 +80,7 @@ $lastSite = ceil($count / $site_size);
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
 
-if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
+if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 	Application::error404();
 }
 

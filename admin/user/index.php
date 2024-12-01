@@ -2,8 +2,8 @@
 #===============================================================================
 # DEFINE: Administration
 #===============================================================================
-const ADMINISTRATION = TRUE;
-const AUTHENTICATION = TRUE;
+const ADMINISTRATION = true;
+const AUTHENTICATION = true;
 
 #===============================================================================
 # INCLUDE: Initialization
@@ -34,7 +34,7 @@ if(!$count) {
 	HTTP::redirect(Application::getAdminURL('user/insert.php'));
 }
 
-if($currentSite < 1 OR ($currentSite > $lastSite AND $lastSite > 0)) {
+if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 	Application::error404();
 }
 

@@ -8,7 +8,7 @@ trait RepositorySearch {
 	#===============================================================================
 	# Get entities based on search query
 	#===============================================================================
-	public function search(string $search, array $filter = [], int $limit = NULL, int $offset = 0): array {
+	public function search(string $search, array $filter = [], int $limit = null, int $offset = 0): array {
 		if(strlen($filter['year'] ?? '') !== 0) {
 			$extend[] = 'YEAR(time_insert) = ? AND';
 			$params[] = $filter['year'];
@@ -24,12 +24,12 @@ trait RepositorySearch {
 			$params[] = $filter['day'];
 		}
 
-		if(is_numeric($filter['user'] ?? NULL)) {
+		if(is_numeric($filter['user'] ?? null)) {
 			$extend[] = 'user = ? AND';
 			$params[] = $filter['user'];
 		}
 
-		if(is_numeric($filter['category'] ?? NULL)) {
+		if(is_numeric($filter['category'] ?? null)) {
 			$extend[] = 'category = ? AND';
 			$params[] = $filter['category'];
 		}

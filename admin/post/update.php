@@ -2,8 +2,8 @@
 #===============================================================================
 # DEFINE: Administration
 #===============================================================================
-const ADMINISTRATION = TRUE;
-const AUTHENTICATION = TRUE;
+const ADMINISTRATION = true;
+const AUTHENTICATION = true;
 
 #===============================================================================
 # INCLUDE: Initialization
@@ -28,12 +28,12 @@ if(!$Post = $PostRepository->find(HTTP::GET('id'))) {
 # Check for update request
 #===============================================================================
 if(HTTP::issetPOST('update')) {
-	$Post->set('category', HTTP::POST('category') ?: NULL);
+	$Post->set('category', HTTP::POST('category') ?: null);
 	$Post->set('user', HTTP::POST('user'));
 	$Post->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
-	$Post->set('name', HTTP::POST('name') ?: NULL);
-	$Post->set('body', HTTP::POST('body') ?: NULL);
-	$Post->set('argv', HTTP::POST('argv') ?: NULL);
+	$Post->set('name', HTTP::POST('name') ?: null);
+	$Post->set('body', HTTP::POST('body') ?: null);
+	$Post->set('argv', HTTP::POST('argv') ?: null);
 	$Post->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
 	$Post->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 

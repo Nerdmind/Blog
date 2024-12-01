@@ -2,8 +2,8 @@
 #===============================================================================
 # DEFINE: Administration
 #===============================================================================
-const ADMINISTRATION = TRUE;
-const AUTHENTICATION = TRUE;
+const ADMINISTRATION = true;
+const AUTHENTICATION = true;
 
 #===============================================================================
 # INCLUDE: Initialization
@@ -19,7 +19,7 @@ if(HTTP::issetPOST('command')) {
 			$Statement = $Database->query(HTTP::POST('command'));
 
 			do {
-				$result[] = print_r($Statement->fetchAll(), TRUE);
+				$result[] = print_r($Statement->fetchAll(), true);
 			} while($Statement->nextRowset());
 		} catch(PDOException $Exception) {
 			$messages[] = $Exception->getMessage();
@@ -36,7 +36,7 @@ $DatabaseTemplate = Template\Factory::build('database');
 $DatabaseTemplate->set('FORM', [
 	'INFO' => $messages ?? [],
 	'TOKEN' => Application::getSecurityToken(),
-	'RESULT' => implode(NULL, $result ?? []),
+	'RESULT' => implode(null, $result ?? []),
 	'COMMAND' => HTTP::POST('command'),
 ]);
 

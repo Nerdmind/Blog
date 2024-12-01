@@ -42,7 +42,7 @@ function convertContentTags(string $text, &$globalMatches): string {
 				str_replace('"', '\\"', $matches['text'])
 			];
 
-			if($linkTitle = $matches['title'] ?? FALSE) {
+			if($linkTitle = $matches['title'] ?? false) {
 				$q = $matches['qmark'];
 				$format = '{%s: %d, "%s", '.$q.'%s'.$q.'}';
 				$params[] = $linkTitle;
@@ -95,10 +95,10 @@ HTTP::responseHeader(HTTP::HEADER_CONTENT_TYPE, HTTP::CONTENT_TYPE_TEXT);
 #===========================================================================
 # Set "commit" variable based on GET parameter or CLI argument
 #===========================================================================
-$commit = FALSE;
+$commit = false;
 if(isset($_GET['commit']) OR
-	(isset($argv[1]) AND $argv[1] === 'commit')) {
-	$commit = TRUE;
+	(isset($argv[1]) and $argv[1] === 'commit')) {
+	$commit = true;
 }
 
 #===========================================================================
@@ -121,7 +121,7 @@ foreach(['Category', 'Page', 'Post', 'User'] as $entityName) {
 		$content = convertContentTags($content, $matches);
 
 		if($matches) {
-			$foundMatches = TRUE;
+			$foundMatches = true;
 
 			if($commit) {
 				$Entity->set('body', $content);

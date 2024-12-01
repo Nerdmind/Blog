@@ -2,8 +2,8 @@
 #===============================================================================
 # DEFINE: Administration
 #===============================================================================
-const ADMINISTRATION = TRUE;
-const AUTHENTICATION = TRUE;
+const ADMINISTRATION = true;
+const AUTHENTICATION = true;
 
 #===============================================================================
 # INCLUDE: Initialization
@@ -27,15 +27,15 @@ if(!$Category = $CategoryRepository->find(HTTP::GET('id'))) {
 #===============================================================================
 if(HTTP::issetPOST('update')) {
 	$Category->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST('name')));
-	$Category->set('name', HTTP::POST('name') ?: NULL);
-	$Category->set('body', HTTP::POST('body') ?: NULL);
-	$Category->set('argv', HTTP::POST('argv') ?: NULL);
+	$Category->set('name', HTTP::POST('name') ?: null);
+	$Category->set('body', HTTP::POST('body') ?: null);
+	$Category->set('argv', HTTP::POST('argv') ?: null);
 	$Category->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
 	$Category->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 
 	# Modify parent field only if it is not a self-reference
 	if(HTTP::POST('parent') != $Category->getID()) {
-		$Category->set('parent', HTTP::POST('parent') ?: NULL);
+		$Category->set('parent', HTTP::POST('parent') ?: null);
 	}
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
