@@ -18,7 +18,8 @@ Easy blogging application written with PHP7! The application comes with a fullte
 2. Check out the latest tag (or the tag you wish) by running `git tag -l` and `git checkout <tag>`. If you wish to get the newest code and features which are not yet included in a release tag, you can use the `master` branch.
 3. Create your MariaDB/MySQL database and import `core/db/database.sql`.
 4. Copy `core/configuration-example.php` to `core/configuration.php` and customize the configuration and set in any case the settings for the database connection.
-5. Navigate your browser to `/admin/auth.php` and authenticate with the default username `ChangeMe` and the password `changeme` (please note that the username is case-sensitive).
+5. Configure your web server. **For nginx**, look at `core/ws-nginx.conf`; **for Apache**, look at `core/ws-apache.conf`. (You can copy `core/ws-apache.conf` to `.htaccess` if you want to.)
+6. Navigate your browser to `/admin/auth.php` and authenticate with the default username `ChangeMe` and the password `changeme` (please note that the username is case-sensitive).
 
 ## Documentation
 You can find more information about the configuration and customization in the wiki:
