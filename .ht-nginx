@@ -34,3 +34,8 @@ location ~ ^/(.git|core|theme/([^/]+)/(html|lang))/ {
 location / {
 	try_files $uri $uri/ /index.php?$args;
 }
+
+#===============================================================================
+# Redirect from old to new global static dir
+#===============================================================================
+#rewrite ^/rsrc/(.*)$ /static/$1 permanent;

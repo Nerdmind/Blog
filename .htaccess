@@ -41,3 +41,8 @@ RewriteRule ^(.git|core|theme/([^/]+)/(html|lang))/ - [F]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php [L]
+
+#===============================================================================
+# Redirect from old to new global static dir
+#===============================================================================
+#Redirect 301 /rsrc/ /static/
