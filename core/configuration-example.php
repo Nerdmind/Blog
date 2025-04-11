@@ -14,6 +14,7 @@
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
 # setlocale(LC_TIME, ['en_US.utf8', 'en_US']);
+# date_default_timezone_set('America/New_York');
 
 Application::set('CORE.LANGUAGE', 'en');
 Application::set('BLOGMETA.NAME', 'My Techblog');
