@@ -130,41 +130,17 @@ if(Application::get('MIGRATOR.ENABLED')) {
 	require 'migrations.php';
 }
 
-#===============================================================================
-# Override configuration if admin
-#===============================================================================
-if(defined('ADMINISTRATION') and ADMINISTRATION === true) {
-
-	#===========================================================================
-	# Enable sessions
-	#===========================================================================
-	session_start();
-
-	#===========================================================================
-	# Authentication check
-	#===========================================================================
-	if(defined('AUTHENTICATION') and !Application::isAuthenticated()) {
-		HTTP::redirect(Application::getAdminURL('auth.php'));
-	}
-
-	#===========================================================================
-	# Override configuration
-	#===========================================================================
-	Application::set('CORE.LANGUAGE', Application::get('ADMIN.LANGUAGE'));
-	Application::set('TEMPLATE.NAME', Application::get('ADMIN.TEMPLATE'));
-	Application::set('TEMPLATE.LANG', Application::get('ADMIN.LANGUAGE'));
-}
-
-#===============================================================================
-# Get Language and Database singletons
-#===============================================================================
-$Language = Application::getLanguage();
-$Database = Application::getDatabase();
-
-#===============================================================================
-# Check if "304 Not Modified" and ETag header should be sent
-#===============================================================================
-if(Application::get('CORE.SEND_304') and !defined('ADMINISTRATION')) {
+/*
+ * Send ETag header for 304 caching (if enabled)
+ *
+ * TODO: The HTTP ETag header will be sent for every request. However, on pages
+ * where a session has been started (like in the admin area) PHP will also send
+ * a "Cache-Control: no-store, no-cache, must-revalidate" header which causes
+ * web browsers to NOT send the "If-None-Match" header on the next request.
+ * This makes the ETag generation for those pages pointless.
+ */
+if(Application::get('CORE.SEND_304')) {
+	$Database = Application::getDatabase();
 
 	#===========================================================================
 	# Fetch timestamps of the last modified entities
