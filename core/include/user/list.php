@@ -43,7 +43,7 @@ $users = $UserRepository->getPaginated(
 );
 
 foreach($users as $User) {
-	$templates[] = generateUserItemTemplate($User);
+	$templates[] = createEntityItemTemplate($User);
 }
 
 #===============================================================================

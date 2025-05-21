@@ -42,7 +42,7 @@ $categories = $CategoryRepository->getPaginatedTree(
 );
 
 foreach($categories as $Category) {
-	$templates[] = generateCategoryItemTemplate($Category, true);
+	$templates[] = createEntityItemTemplate($Category, ['is_root' => true]);
 }
 
 #===============================================================================

@@ -3,7 +3,6 @@
 $Language = Application::getLanguage();
 
 $Repository = Application::getRepository($entity_ns);
-$UserRepository = Application::getRepository('User');
 
 $site_size = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entity_ns)));
 $site_sort = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entity_ns)));
@@ -27,19 +26,7 @@ if($search = HTTP::GET('q')) {
 		}
 
 		foreach($entities as $Entity) {
-			switch($entity_ns) {
-				case 'Page':
-					$User = $UserRepository->find($Entity->get('user'));
-					$templates[] = generatePageItemTemplate($Entity, $User);
-					break;
-				case 'Post':
-					$User = $UserRepository->find($Entity->get('user'));
-					$templates[] = generatePostItemTemplate($Entity, $User);
-					break;
-				default:
-					$error = 'Unknown entity type <code>%s</code> in entity search controller.';
-					throw new Exception(sprintf($error, $entity_ns));
-			}
+			$templates[] = createEntityItemTemplate($Entity);
 		}
 	} catch(PDOException $Exception) {
 		$messages[] = $Exception->getMessage();
@@ -66,6 +53,8 @@ $form_data = [
 
 // For pages and posts we have a user
 if(in_array($entity_ns, ['Page', 'Post'])) {
+	$UserRepository = Application::getRepository('User');
+
 	foreach($UserRepository->getAll([], 'fullname ASC') as $User) {
 		$userList[] = [
 			'ID' => $User->getID(),

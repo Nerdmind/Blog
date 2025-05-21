@@ -4,7 +4,6 @@
 #===============================================================================
 $CategoryRepository = Application::getRepository('Category');
 $PostRepository = Application::getRepository('Post');
-$UserRepository = Application::getRepository('User');
 
 #===============================================================================
 # Try to find category (with parents) by slug URL or unique ID
@@ -65,7 +64,7 @@ $child_categories = $CategoryRepository->getAll(
 );
 
 foreach($child_categories as $ChildCategory) {
-	$child_templates[] = generateCategoryItemTemplate($ChildCategory);
+	$child_templates[] = createEntityItemTemplate($ChildCategory);
 }
 
 #===============================================================================
@@ -95,8 +94,7 @@ $posts = $PostRepository->getAll(
 );
 
 foreach($posts as $Post) {
-	$User = $UserRepository->find($Post->get('user'));
-	$post_templates[] = generatePostItemTemplate($Post, $User);
+	$post_templates[] = createEntityItemTemplate($Post);
 }
 
 #===============================================================================

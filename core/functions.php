@@ -29,66 +29,50 @@ function createPaginationTemplate($current, $last, string $location): Template {
 	return $Pagination;
 }
 
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generateCategoryItemTemplate(Category $Category, bool $is_root = false): Template {
-	$CategoryRepository = Application::getRepository('Category');
+function createEntityItemTemplate(EntityInterface $Entity, array $params = []): Template {
+	$entity_ns = explode('\\', get_class($Entity));
+	$entity_ns = end($entity_ns);
+	$entity_str = strtolower($entity_ns);
 
-	foreach($CategoryRepository->findWithParents($Category->getID()) as $Category) {
-		$category_data = generateItemTemplateData($Category);
-		$category_list[] = $category_data;
+	$Template = TemplateFactory::build(sprintf('%s/item', $entity_str));
+
+	if(in_array($entity_ns, ['Category', 'Post'])) {
+		$CategoryRepository = Application::getRepository('Category');
 	}
 
-	$Template = TemplateFactory::build('category/item');
-	$Template->set('IS_ROOT', $is_root);
-	$Template->set('CATEGORY', $category_data ?? []);
-	$Template->set('CATEGORIES', $category_list ?? []);
-	$Template->set('COUNT', [
-		'POST' => $CategoryRepository->getNumberOfPosts($Category),
-		'CHILDREN' => $CategoryRepository->getNumberOfChildren($Category)
-	]);
+	if($entity_ns === 'Category') {
+		foreach($CategoryRepository->findWithParents($Entity->getID()) as $Category) {
+			$category_data = generateItemTemplateData($Category);
+			$category_list[] = $category_data;
+		}
 
-	return $Template;
-}
-
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generatePageItemTemplate(Page $Page, User $User): Template {
-	$Template = TemplateFactory::build('page/item');
-	$Template->set('PAGE', generateItemTemplateData($Page));
-	$Template->set('USER', generateItemTemplateData($User));
-
-	return $Template;
-}
-
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generatePostItemTemplate(Post $Post, User $User): Template {
-	$CategoryRepository = Application::getRepository('Category');
-
-	foreach($CategoryRepository->findWithParents($Post->get('category')) as $Category) {
-		$category_data = generateItemTemplateData($Category);
-		$categories[] = $category_data;
+		$Template->set('IS_ROOT', $params['is_root'] ?? false);
+		$Template->set('CATEGORY', $category_data ?? []);
+		$Template->set('CATEGORIES', $categories ?? []);
+		$Template->set('COUNT', [
+			'POST' => $CategoryRepository->getNumberOfPosts($Entity),
+			'CHILDREN' => $CategoryRepository->getNumberOfChildren($Entity)
+		]);
 	}
 
-	$Template = TemplateFactory::build('post/item');
-	$Template->set('POST', generateItemTemplateData($Post));
-	$Template->set('USER', generateItemTemplateData($User));
-	$Template->set('CATEGORY', $category_data ?? []);
-	$Template->set('CATEGORIES', $categories ?? []);
+	else if($entity_ns === 'Post') {
+		foreach($CategoryRepository->findWithParents($Entity->get('category')) as $Category) {
+			$category_data = generateItemTemplateData($Category);
+			$categories[] = $category_data;
+		}
 
-	return $Template;
-}
+		$Template->set('CATEGORY', $category_data ?? []);
+		$Template->set('CATEGORIES', $categories ?? []);
+	}
 
-#===============================================================================
-# Helper function to reduce duplicate code
-#===============================================================================
-function generateUserItemTemplate(User $User): Template {
-	$Template = TemplateFactory::build('user/item');
-	$Template->set('USER', generateItemTemplateData($User));
+	// For pages and posts we have a user relation
+	if(in_array($entity_ns, ['Page', 'Post'])) {
+		$UserRepository = Application::getRepository('User');
+		$User = $UserRepository->find($Entity->get('user'));
+		$Template->set('USER', generateItemTemplateData($User));
+	}
+
+	$Template->set(strtoupper($entity_ns), generateItemTemplateData($Entity));
 
 	return $Template;
 }

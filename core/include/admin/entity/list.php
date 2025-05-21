@@ -4,11 +4,6 @@ $Language = Application::getLanguage();
 
 $Repository = Application::getRepository($entity_ns);
 
-// For pages and posts we have a user
-if(in_array($entity_ns, ['Page', 'Post'])) {
-	$UserRepository = Application::getRepository('User');
-}
-
 $site_size = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entity_ns)));
 $site_sort = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entity_ns)));
 
@@ -36,24 +31,10 @@ if($entity_ns === 'Category') {
 }
 
 foreach($entities as $Entity) {
-	switch($entity_ns) {
-		case 'Category':
-			$templates[] = generateCategoryItemTemplate($Entity, true);
-			break;
-		case 'Page':
-			$User = $UserRepository->find($Entity->get('user'));
-			$templates[] = generatePageItemTemplate($Entity, $User);
-			break;
-		case 'Post':
-			$User = $UserRepository->find($Entity->get('user'));
-			$templates[] = generatePostItemTemplate($Entity, $User);
-			break;
-		case 'User':
-			$templates[] = generateUserItemTemplate($Entity);
-			break;
-		default:
-			$error = 'Unknown entity type <code>%s</code> in entity list controller.';
-			throw new Exception(sprintf($error, $entity_ns));
+	if($entity_ns === 'Category') {
+		$templates[] = createEntityItemTemplate($Entity, ['is_root' => true]);
+	} else {
+		$templates[] = createEntityItemTemplate($Entity);
 	}
 }
 

@@ -3,7 +3,6 @@
 # Get repositories
 #===============================================================================
 $PostRepository = Application::getRepository('Post');
-$UserRepository = Application::getRepository('User');
 
 #===============================================================================
 # Get paginated post list
@@ -14,8 +13,7 @@ $posts = $PostRepository->getPaginated(
 );
 
 foreach($posts as $Post) {
-	$User = $UserRepository->find($Post->get('user'));
-	$templates[] = generatePostItemTemplate($Post, $User);
+	$templates[] = createEntityItemTemplate($Post);
 }
 
 #===============================================================================

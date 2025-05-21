@@ -5,17 +5,15 @@ $PostRepository = Application::getRepository('Post');
 $UserRepository = Application::getRepository('User');
 
 if($Page = $PageRepository->getLast()) {
-	$User = $UserRepository->find($Page->get('user'));
-	$PageItemTemplate = generatePageItemTemplate($Page, $User);
+	$PageItemTemplate = createEntityItemTemplate($Page);
 }
 
 if($Post = $PostRepository->getLast()) {
-	$User = $UserRepository->find($Post->get('user'));
-	$PostItemTemplate = generatePostItemTemplate($Post, $User);
+	$PostItemTemplate = createEntityItemTemplate($Post);
 }
 
 if($User = $UserRepository->getLast()) {
-	$UserItemTemplate = generateUserItemTemplate($User);
+	$UserItemTemplate = createEntityItemTemplate($User);
 }
 
 $AdminIndexTemplate = Template\Factory::build('home');

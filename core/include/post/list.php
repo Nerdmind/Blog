@@ -8,7 +8,6 @@ $Language = Application::getLanguage();
 # Get repositories
 #===============================================================================
 $PostRepository = Application::getRepository('Post');
-$UserRepository = Application::getRepository('User');
 
 #===============================================================================
 # Pagination
@@ -44,8 +43,7 @@ $posts = $PostRepository->getPaginated(
 );
 
 foreach($posts as $Post) {
-	$User = $UserRepository->find($Post->get('user'));
-	$templates[] = generatePostItemTemplate($Post, $User);
+	$templates[] = createEntityItemTemplate($Post);
 }
 
 #===============================================================================
