@@ -1,5 +1,5 @@
 <?php
-namespace Parsers;
+namespace Parser;
 
 class ArgumentParser implements ParserInterface {
 

@@ -1,11 +1,11 @@
 <?php
-namespace ORM\Repositories;
+namespace ORM\Repository;
 use ORM\Repository;
-use ORM\Entities\User;
+use ORM\Entity\User;
 
 class UserRepository extends Repository {
 	public static function getTableName(): string { return 'user'; }
-	public static function getClassName(): string { return 'ORM\Entities\User'; }
+	public static function getClassName(): string { return 'ORM\Entity\User'; }
 
 	#===============================================================================
 	# Get number of *pages* assigned to $User

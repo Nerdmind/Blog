@@ -1,5 +1,5 @@
 <?php
-namespace Parsers;
+namespace Parser;
 use Application;
 
 class EmoticonParser implements ParserInterface {

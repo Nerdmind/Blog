@@ -1,5 +1,5 @@
 <?php
-namespace ORM\Repositories;
+namespace ORM\Repository;
 use ORM\Repository;
 use ORM\RepositorySearch;
 
@@ -7,5 +7,5 @@ class PostRepository extends Repository {
 	use RepositorySearch;
 
 	public static function getTableName(): string { return 'post'; }
-	public static function getClassName(): string { return 'ORM\Entities\Post'; }
+	public static function getClassName(): string { return 'ORM\Entity\Post'; }
 }

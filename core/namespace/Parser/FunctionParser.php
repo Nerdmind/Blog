@@ -1,5 +1,5 @@
 <?php
-namespace Parsers;
+namespace Parser;
 use ReflectionFunction;
 
 class FunctionParser implements ParserInterface {

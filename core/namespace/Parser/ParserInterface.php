@@ -1,5 +1,5 @@
 <?php
-namespace Parsers;
+namespace Parser;
 
 interface ParserInterface {
 	public function parse(string $text): array;

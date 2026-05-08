@@ -2,7 +2,7 @@
 
 $Language = Application::getLanguage();
 
-$Entity = new (sprintf('ORM\\Entities\\%s', $entity_ns));
+$Entity = new (sprintf('ORM\\Entity\\%s', $entity_ns));
 
 if(HTTP::issetPOST('insert')) {
 	$slug_from = 'name';

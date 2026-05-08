@@ -1,5 +1,5 @@
 <?php
-namespace Parsers;
+namespace Parser;
 use Parsedown;
 
 class MarkdownParser implements ParserInterface {

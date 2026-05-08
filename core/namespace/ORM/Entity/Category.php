@@ -1,5 +1,5 @@
 <?php
-namespace ORM\Entities;
+namespace ORM\Entity;
 use ORM\Entity;
 
 class Category extends Entity {

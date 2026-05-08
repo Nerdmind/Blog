@@ -148,10 +148,10 @@ if(Application::get('CORE.SEND_304')) {
 	$query = '(SELECT time_update FROM %s ORDER BY time_update DESC LIMIT 1) AS %s';
 
 	foreach([
-		ORM\Repositories\CategoryRepository::getTableName(),
-		ORM\Repositories\PageRepository::getTableName(),
-		ORM\Repositories\PostRepository::getTableName(),
-		ORM\Repositories\UserRepository::getTableName()
+		ORM\Repository\CategoryRepository::getTableName(),
+		ORM\Repository\PageRepository::getTableName(),
+		ORM\Repository\PostRepository::getTableName(),
+		ORM\Repository\UserRepository::getTableName()
     ] as $table) {
 		$parts[] = sprintf($query, $table, $table);
 	}

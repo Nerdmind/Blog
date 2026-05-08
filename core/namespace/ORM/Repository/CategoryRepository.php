@@ -1,12 +1,12 @@
 <?php
-namespace ORM\Repositories;
+namespace ORM\Repository;
 use ORM\Repository;
 use ORM\EntityInterface;
-use ORM\Entities\Category;
+use ORM\Entity\Category;
 
 class CategoryRepository extends Repository {
 	public static function getTableName(): string { return 'category'; }
-	public static function getClassName(): string { return 'ORM\Entities\Category'; }
+	public static function getClassName(): string { return 'ORM\Entity\Category'; }
 
 	#===============================================================================
 	# Get number of *posts* assigned to $Category

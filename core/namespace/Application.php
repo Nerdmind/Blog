@@ -1,6 +1,5 @@
 <?php
 use ORM\EntityInterface;
-use Parsers\FunctionParser;
 
 class Application {
 
@@ -105,7 +104,7 @@ class Application {
 		$identifier = strtolower($entity);
 
 		if(!isset(self::$repositories[$identifier])) {
-			$className = sprintf('ORM\Repositories\%sRepository', $entity);
+			$className = sprintf('ORM\Repository\%sRepository', $entity);
 			$Repository = new $className(self::getDatabase());
 			self::$repositories[$identifier] = $Repository;
 		}
@@ -197,16 +196,16 @@ class Application {
 	#===============================================================================
 	public static function getEntityURL(EntityInterface $Entity) {
 		switch($class = get_class($Entity)) {
-			case 'ORM\Entities\Category':
+			case 'ORM\Entity\Category':
 				$attr = self::get('CATEGORY.SLUG_URLS') ? 'slug' : 'id';
 				return self::getCategoryURL($Entity->get($attr).'/');
-			case 'ORM\Entities\Page':
+			case 'ORM\Entity\Page':
 				$attr = self::get('PAGE.SLUG_URLS') ? 'slug' : 'id';
 				return self::getPageURL($Entity->get($attr).'/');
-			case 'ORM\Entities\Post':
+			case 'ORM\Entity\Post':
 				$attr = self::get('POST.SLUG_URLS') ? 'slug' : 'id';
 				return self::getPostURL($Entity->get($attr).'/');
-			case 'ORM\Entities\User':
+			case 'ORM\Entity\User':
 				$attr = self::get('USER.SLUG_URLS') ? 'slug' : 'id';
 				return self::getUserURL($Entity->get($attr).'/');
 			default:

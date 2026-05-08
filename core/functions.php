@@ -1,17 +1,17 @@
 <?php
 use ORM\EntityInterface;
-use ORM\Entities\Category;
-use ORM\Entities\Page;
-use ORM\Entities\Post;
-use ORM\Entities\User;
+use ORM\Entity\Category;
+use ORM\Entity\Page;
+use ORM\Entity\Post;
+use ORM\Entity\User;
 
 use Template\Template as Template;
 use Template\Factory as TemplateFactory;
 
-use Parsers\ArgumentParser;
-use Parsers\FunctionParser;
-use Parsers\EmoticonParser;
-use Parsers\MarkdownParser;
+use Parser\ArgumentParser;
+use Parser\FunctionParser;
+use Parser\EmoticonParser;
+use Parser\MarkdownParser;
 
 #===============================================================================
 # Create generic pagination template
