@@ -4,7 +4,7 @@ use Database;
 use PDOStatement;
 use ORM\Entity\EntityInterface;
 
-abstract class Repository {
+abstract class Repository implements RepositoryInterface {
 	protected $Database;
 	protected $entities = [];
 

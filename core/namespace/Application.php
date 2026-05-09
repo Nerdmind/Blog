@@ -1,5 +1,6 @@
 <?php
 use ORM\Entity\EntityInterface;
+use ORM\Repository\RepositoryInterface;
 
 class Application {
 
@@ -100,7 +101,7 @@ class Application {
 	#===============================================================================
 	# Return singleton repository instance
 	#===============================================================================
-	public static function getRepository(string $entity): ORM\Repository\Repository {
+	public static function getRepository(string $entity): RepositoryInterface {
 		$identifier = strtolower($entity);
 
 		if(!isset(self::$repositories[$identifier])) {
