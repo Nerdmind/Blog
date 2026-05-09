@@ -1,7 +1,8 @@
 <?php
-namespace ORM;
+namespace ORM\Repository;
 use Database;
 use PDOStatement;
+use ORM\Entity\EntityInterface;
 
 abstract class Repository {
 	protected $Database;

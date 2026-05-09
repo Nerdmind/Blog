@@ -1,6 +1,5 @@
 <?php
 namespace ORM\Entity;
-use ORM\Entity;
 
 class User extends Entity {
 	protected $slug;

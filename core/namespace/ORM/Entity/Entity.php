@@ -1,5 +1,5 @@
 <?php
-namespace ORM;
+namespace ORM\Entity;
 
 abstract class Entity implements EntityInterface {
 	protected $id;

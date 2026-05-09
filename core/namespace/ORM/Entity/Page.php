@@ -1,6 +1,5 @@
 <?php
 namespace ORM\Entity;
-use ORM\Entity;
 
 class Page extends Entity {
 	protected $user;

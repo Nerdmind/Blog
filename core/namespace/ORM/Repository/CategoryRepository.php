@@ -1,7 +1,6 @@
 <?php
 namespace ORM\Repository;
-use ORM\Repository;
-use ORM\EntityInterface;
+use ORM\Entity\EntityInterface;
 use ORM\Entity\Category;
 
 class CategoryRepository extends Repository {

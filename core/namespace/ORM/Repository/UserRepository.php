@@ -1,6 +1,5 @@
 <?php
 namespace ORM\Repository;
-use ORM\Repository;
 use ORM\Entity\User;
 
 class UserRepository extends Repository {

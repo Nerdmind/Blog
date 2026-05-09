@@ -1,5 +1,5 @@
 <?php
-use ORM\EntityInterface;
+use ORM\Entity\EntityInterface;
 use ORM\Entity\Category;
 use ORM\Entity\Page;
 use ORM\Entity\Post;

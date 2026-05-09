@@ -1,5 +1,5 @@
 <?php
-namespace ORM;
+namespace ORM\Repository;
 
 trait RepositorySearch {
 	# See "search" method for more details.

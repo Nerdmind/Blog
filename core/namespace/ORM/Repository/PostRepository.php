@@ -1,7 +1,5 @@
 <?php
 namespace ORM\Repository;
-use ORM\Repository;
-use ORM\RepositorySearch;
 
 class PostRepository extends Repository {
 	use RepositorySearch;

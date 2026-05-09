@@ -1,6 +1,5 @@
 <?php
 namespace ORM\Entity;
-use ORM\Entity;
 
 class Post extends Entity {
 	protected $user;
