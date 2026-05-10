@@ -12,11 +12,11 @@ $postRepository = Application::getRepository('Post');
 #===============================================================================
 # Pagination
 #===============================================================================
-$site_size = Application::get('POST.LIST_SIZE');
-$site_sort = Application::get('POST.LIST_SORT');
+$siteSize = Application::get('POST.LIST_SIZE');
+$siteSort = Application::get('POST.LIST_SORT');
 
 $count = $postRepository->getCount();
-$lastSite = ceil($count / $site_size);
+$lastSite = ceil($count / $siteSize);
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
@@ -37,9 +37,9 @@ if(Application::get('POST.REDIRECT_SINGLE') === true and $count === 1) {
 # Get paginated post list
 #===============================================================================
 $posts = $postRepository->getPaginated(
-	$site_sort,
-	$site_size,
-	($currentSite-1) * $site_size
+	$siteSort,
+	$siteSize,
+	($currentSite-1) * $siteSize
 );
 
 foreach($posts as $post) {

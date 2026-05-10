@@ -40,14 +40,14 @@ class EmoticonParser implements ParserInterface {
 	# Parse occurring emoticons (*without* duplicates)
 	#===========================================================================
 	public function parse(string $text): array {
-		$emoticon_data = $this->getEmoticons();
-		$emoticon_list = array_keys($emoticon_data);
-		$emoticon_list = implode('|', $emoticon_list);
+		$emoticonData = $this->getEmoticons();
+		$emoticonList = array_keys($emoticonData);
+		$emoticonList = implode('|', $emoticonList);
 
-		preg_match_all("#($emoticon_list)#", $text, $matches);
+		preg_match_all("#($emoticonList)#", $text, $matches);
 
 		foreach($matches[1] as $emoticon) {
-			$emoticons[$emoticon] = $emoticon_data[$emoticon];
+			$emoticons[$emoticon] = $emoticonData[$emoticon];
 		}
 
 		return $emoticons ?? [];
@@ -57,15 +57,15 @@ class EmoticonParser implements ParserInterface {
 	# Wrap emoticons inside a titled span element
 	#===========================================================================
 	public function transform(string $text): string {
-		$emoticon_data = $this->getEmoticons();
-		$emoticon_list = array_keys($emoticon_data);
-		$emoticon_list = implode('|', $emoticon_list);
+		$emoticonData = $this->getEmoticons();
+		$emoticonList = array_keys($emoticonData);
+		$emoticonList = implode('|', $emoticonList);
 
 		# TODO: Do not wrap emoticons if they occur inside a code block
-		return preg_replace_callback("#($emoticon_list)#", function($matches)
-		use($emoticon_data) {
+		return preg_replace_callback("#($emoticonList)#", function($matches)
+		use($emoticonData) {
 			$emoticon = $matches[1];
-			$explanation = $emoticon_data[$emoticon];
+			$explanation = $emoticonData[$emoticon];
 			return sprintf('<span title="%s">%s</span>', $explanation, $emoticon);
 		}, $text);
 	}

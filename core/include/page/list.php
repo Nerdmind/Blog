@@ -12,11 +12,11 @@ $pageRepository = Application::getRepository('Page');
 #===============================================================================
 # Pagination
 #===============================================================================
-$site_size = Application::get('PAGE.LIST_SIZE');
-$site_sort = Application::get('PAGE.LIST_SORT');
+$siteSize = Application::get('PAGE.LIST_SIZE');
+$siteSort = Application::get('PAGE.LIST_SORT');
 
 $count = $pageRepository->getCount();
-$lastSite = ceil($count / $site_size);
+$lastSite = ceil($count / $siteSize);
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
@@ -37,9 +37,9 @@ if(Application::get('PAGE.REDIRECT_SINGLE') === true and $count === 1) {
 # Get paginated page list
 #===============================================================================
 $pages = $pageRepository->getPaginated(
-	$site_sort,
-	$site_size,
-	($currentSite-1) * $site_size
+	$siteSort,
+	$siteSize,
+	($currentSite-1) * $siteSize
 );
 
 foreach($pages as $page) {

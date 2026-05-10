@@ -35,38 +35,38 @@ if(!isset($page)) {
 # Generate template data
 #===============================================================================
 $user = $userRepository->find($page->get('user'));
-$page_data = generateItemTemplateData($page);
-$user_data = generateItemTemplateData($user);
+$pageData = generateItemTemplateData($page);
+$userData = generateItemTemplateData($user);
 
 #===============================================================================
 # Add template data for previous and next page
 #===============================================================================
 if($prevPage = $pageRepository->findPrev($page)) {
-	$page_data['PREV'] = generateItemTemplateData($prevPage);
+	$pageData['PREV'] = generateItemTemplateData($prevPage);
 }
 
 if($nextPage = $pageRepository->findNext($page)) {
-	$page_data['NEXT'] = generateItemTemplateData($nextPage);
+	$pageData['NEXT'] = generateItemTemplateData($nextPage);
 }
 
 #===============================================================================
 # Build document
 #===============================================================================
 $pageTemplate = Template\Factory::build('page/main');
-$pageTemplate->set('PAGE', $page_data);
-$pageTemplate->set('USER', $user_data);
+$pageTemplate->set('PAGE', $pageData);
+$pageTemplate->set('USER', $userData);
 
 $mainTemplate = Template\Factory::build('main');
 $mainTemplate->set('TYPE', 'PAGE');
-$mainTemplate->set('PAGE', $page_data);
-$mainTemplate->set('USER', $user_data);
+$mainTemplate->set('PAGE', $pageData);
+$mainTemplate->set('USER', $userData);
 $mainTemplate->set('HTML', $pageTemplate);
 $mainTemplate->set('HEAD', [
-	'NAME' => $page_data['ATTR']['NAME'],
-	'DESC' => description($page_data['BODY']['HTML'](),
+	'NAME' => $pageData['ATTR']['NAME'],
+	'DESC' => description($pageData['BODY']['HTML'](),
 		Application::get('PAGE.DESCRIPTION_SIZE')),
-	'PERM' => $page_data['URL'],
-	'OG_IMAGES' => $page_data['FILE']['LIST']
+	'PERM' => $pageData['URL'],
+	'OG_IMAGES' => $pageData['FILE']['LIST']
 ]);
 
 echo $mainTemplate;

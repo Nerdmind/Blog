@@ -6,12 +6,12 @@ require '../application.php';
 # Convert old *content tags* to new *content functions* syntax
 #===========================================================================
 function convertContentTags(string $text, &$globalMatches): string {
-	$url_tags_pattern = '/\{(?<tag>BASE|FILE)\[\"(?<arg>[^"]+)\"\]\}/';
-	$entity_tags_pattern_partial = '\{(?<tag>POST|PAGE|USER)\[(?<arg>[0-9]+)\]\}';
-	$entity_tags_mdlinks_pattern = '/
+	$urlTagsPattern = '/\{(?<tag>BASE|FILE)\[\"(?<arg>[^"]+)\"\]\}/';
+	$entityTagsPatternPartial = '\{(?<tag>POST|PAGE|USER)\[(?<arg>[0-9]+)\]\}';
+	$entityTagsMdlinksPattern = '/
 		\[(?<text>[^\]]+)\]
 		\(
-			\s*'.$entity_tags_pattern_partial.'\s*
+			\s*'.$entityTagsPatternPartial.'\s*
 			(?:\s
 				(?<qmark>["\'])
 					(?<title>(?:(?:(?!\k<qmark>)).)*)
@@ -21,7 +21,7 @@ function convertContentTags(string $text, &$globalMatches): string {
 	/x';
 
 	// Convert (BASE|FILE) tags
-	$text = preg_replace_callback($url_tags_pattern,
+	$text = preg_replace_callback($urlTagsPattern,
 		function($matches) use(&$globalMatches) {
 			$formatted = sprintf('{%s_URL: "%s"}',
 				$matches['tag'], $matches['arg']);
@@ -33,7 +33,7 @@ function convertContentTags(string $text, &$globalMatches): string {
 		}, $text);
 
 	// Convert (POST|PAGE|USER) tags found inside Markdown syntax
-	$text = preg_replace_callback($entity_tags_mdlinks_pattern,
+	$text = preg_replace_callback($entityTagsMdlinksPattern,
 		function($matches) use(&$globalMatches) {
 			$format = '{%s: %d, "%s"}';
 			$params = [
@@ -57,7 +57,7 @@ function convertContentTags(string $text, &$globalMatches): string {
 		}, $text);
 
 	// Convert (POST|PAGE|USER) tags found anywhere else
-	$text = preg_replace_callback(sprintf('/%s/x', $entity_tags_pattern_partial),
+	$text = preg_replace_callback(sprintf('/%s/x', $entityTagsPatternPartial),
 		function($matches) use(&$globalMatches) {
 			$formatted = sprintf('{%s_URL: %s}',
 				$matches['tag'], $matches['arg']);

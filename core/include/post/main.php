@@ -36,54 +36,54 @@ if(!isset($post)) {
 # Generate template data
 #===============================================================================
 $user = $userRepository->find($post->get('user'));
-$post_data = generateItemTemplateData($post);
-$user_data = generateItemTemplateData($user);
+$postData = generateItemTemplateData($post);
+$userData = generateItemTemplateData($user);
 
 #===============================================================================
 # Add template data for previous and next post
 #===============================================================================
 if($prevPost = $postRepository->findPrev($post)) {
-	$post_data['PREV'] = generateItemTemplateData($prevPost);
+	$postData['PREV'] = generateItemTemplateData($prevPost);
 }
 
 if($nextPost = $postRepository->findNext($post)) {
-	$post_data['NEXT'] = generateItemTemplateData($nextPost);
+	$postData['NEXT'] = generateItemTemplateData($nextPost);
 }
 
 #===============================================================================
 # Generate category template data (including parents)
 #===============================================================================
 foreach($categoryRepository->findWithParents($post->get('category')) as $category) {
-	$category_list[] = generateItemTemplateData($category);
+	$categoryList[] = generateItemTemplateData($category);
 }
 
 #===============================================================================
 # Define data variable for current category
 #===============================================================================
-if(isset($category_list)) {
-	$category_data = $category_list[array_key_last($category_list)];
+if(isset($categoryList)) {
+	$categoryData = $categoryList[array_key_last($categoryList)];
 }
 
 #===============================================================================
 # Build document
 #===============================================================================
 $postTemplate = Template\Factory::build('post/main');
-$postTemplate->set('POST', $post_data);
-$postTemplate->set('USER', $user_data);
-$postTemplate->set('CATEGORY', $category_data ?? []);
-$postTemplate->set('CATEGORIES', $category_list ?? []);
+$postTemplate->set('POST', $postData);
+$postTemplate->set('USER', $userData);
+$postTemplate->set('CATEGORY', $categoryData ?? []);
+$postTemplate->set('CATEGORIES', $categoryList ?? []);
 
 $mainTemplate = Template\Factory::build('main');
 $mainTemplate->set('TYPE', 'POST');
-$mainTemplate->set('POST', $post_data);
-$mainTemplate->set('USER', $user_data);
+$mainTemplate->set('POST', $postData);
+$mainTemplate->set('USER', $userData);
 $mainTemplate->set('HTML', $postTemplate);
 $mainTemplate->set('HEAD', [
-	'NAME' => $post_data['ATTR']['NAME'],
-	'DESC' => description($post_data['BODY']['HTML'](),
+	'NAME' => $postData['ATTR']['NAME'],
+	'DESC' => description($postData['BODY']['HTML'](),
 		Application::get('POST.DESCRIPTION_SIZE')),
-	'PERM' => $post_data['URL'],
-	'OG_IMAGES' => $post_data['FILE']['LIST']
+	'PERM' => $postData['URL'],
+	'OG_IMAGES' => $postData['FILE']['LIST']
 ]);
 
 echo $mainTemplate;

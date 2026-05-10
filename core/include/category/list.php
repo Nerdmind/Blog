@@ -13,10 +13,10 @@ $postRepository = Application::getRepository('Post');
 #===============================================================================
 # Pagination
 #===============================================================================
-$site_size = Application::get('CATEGORY.LIST_SIZE');
+$siteSize = Application::get('CATEGORY.LIST_SIZE');
 
 $count = $categoryRepository->getCount();
-$lastSite = ceil($count / $site_size);
+$lastSite = ceil($count / $siteSize);
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
@@ -37,8 +37,8 @@ if(Application::get('CATEGORY.REDIRECT_SINGLE') === true and $count === 1) {
 # Get paginated category list
 #===============================================================================
 $categories = $categoryRepository->getPaginatedTree(
-	$site_size,
-	($currentSite-1) * $site_size
+	$siteSize,
+	($currentSite-1) * $siteSize
 );
 
 foreach($categories as $category) {

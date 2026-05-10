@@ -12,12 +12,12 @@ $postRepository = Application::getRepository('Post');
 #===============================================================================
 # Pagination
 #===============================================================================
-$site_size = Application::get('POST.LIST_SIZE');
-$site_sort = Application::get('POST.LIST_SORT');
+$siteSize = Application::get('POST.LIST_SIZE');
+$siteSort = Application::get('POST.LIST_SORT');
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
-$offset = ($currentSite-1) * $site_size;
+$offset = ($currentSite-1) * $siteSize;
 
 if($search = HTTP::GET('q')) {
 	$filter = [
@@ -27,7 +27,7 @@ if($search = HTTP::GET('q')) {
 	];
 
 	try {
-		if (!$posts = $postRepository->search($search, $filter, $site_size, $offset)) {
+		if (!$posts = $postRepository->search($search, $filter, $siteSize, $offset)) {
 			$message = $language->text('search_no_results', htmlspecialchars($search));
 		}
 	} catch(PDOException $exception) {
@@ -35,7 +35,7 @@ if($search = HTTP::GET('q')) {
 	}
 }
 
-$form_data = [
+$formData = [
 	'SELECT' => [
 		'D' => HTTP::GET('d'),
 		'M' => HTTP::GET('m'),
@@ -48,7 +48,7 @@ $form_data = [
 	]
 ];
 
-$search_data = [
+$searchData = [
 	'TEXT' => $search,
 	'INFO' => isset($message) ? $message : false,
 ];
@@ -62,11 +62,11 @@ if(!empty($posts)) {
 	}
 
 	$count = $postRepository->getLastSearchOverallCount();
-	$last = ceil($count / $site_size);
+	$last = ceil($count / $siteSize);
 
 	$resultTemplate = Template\Factory::build('search/result');
-	$resultTemplate->set('FORM', $form_data);
-	$resultTemplate->set('SEARCH', $search_data);
+	$resultTemplate->set('FORM', $formData);
+	$resultTemplate->set('SEARCH', $searchData);
 	$resultTemplate->set('RESULT', [
 		'LIST' => $templates ?? []
 	]);
@@ -89,8 +89,8 @@ if(!empty($posts)) {
 
 else {
 	$searchTemplate = Template\Factory::build('search/main');
-	$searchTemplate->set('FORM', $form_data);
-	$searchTemplate->set('SEARCH', $search_data);
+	$searchTemplate->set('FORM', $formData);
+	$searchTemplate->set('SEARCH', $searchData);
 
 	$mainTemplate = Template\Factory::build('main');
 	$mainTemplate->set('HTML', $searchTemplate);

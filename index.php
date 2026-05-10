@@ -4,10 +4,10 @@
 #===============================================================================
 require 'core/application.php';
 
-function setupAdminEnv(bool $auth_required = true) {
+function setupAdminEnv(bool $authRequired = true) {
 	session_start();
 
-	if($auth_required and !Application::isAuthenticated()) {
+	if($authRequired and !Application::isAuthenticated()) {
 		HTTP::redirect(Application::getAdminURL('auth.php'));
 	}
 
@@ -31,34 +31,34 @@ Router::add('admin/auth.php', function() {
 	require 'core/include/admin/login.php';
 });
 
-foreach(['Category', 'Page', 'Post', 'User'] as $entity_ns) {
-	$entity_str = strtolower($entity_ns);
-	$plural_map = [
+foreach(['Category', 'Page', 'Post', 'User'] as $entityNs) {
+	$entityStr = strtolower($entityNs);
+	$pluralMap = [
 		'category' => 'categories',
 		'page' => 'pages',
 		'post' => 'posts',
 		'user' => 'users'
 	];
 
-	$list_key_plural = strtoupper($plural_map[$entity_str]);
+	$listKeyPlural = strtoupper($pluralMap[$entityStr]);
 
-	Router::add(sprintf('admin/%s/', $entity_str),
-		function() use($entity_ns, $entity_str, $list_key_plural) {
+	Router::add(sprintf('admin/%s/', $entityStr),
+		function() use($entityNs, $entityStr, $listKeyPlural) {
 			setupAdminEnv();
 			require 'core/include/admin/entity/list.php';
 		}
 	);
 
 	// Ensure trailing slash for list controllers
-	Router::addRedirect(sprintf('admin/%s', $entity_str),
-		Application::getURL(sprintf('admin/%s/', $entity_str)));
+	Router::addRedirect(sprintf('admin/%s', $entityStr),
+		Application::getURL(sprintf('admin/%s/', $entityStr)));
 
-	$route_template = sprintf('admin/%s/%%s.php', $entity_str);
+	$routeTemplate = sprintf('admin/%s/%%s.php', $entityStr);
 
 	// Routes for create/update/delete
 	foreach(['insert', 'update', 'delete'] as $action) {
-		Router::add(sprintf($route_template, $action),
-			function() use($entity_ns, $entity_str, $list_key_plural, $action) {
+		Router::add(sprintf($routeTemplate, $action),
+			function() use($entityNs, $entityStr, $listKeyPlural, $action) {
 				setupAdminEnv();
 				require sprintf('core/include/admin/entity/%s.php', $action);
 			}
@@ -66,9 +66,9 @@ foreach(['Category', 'Page', 'Post', 'User'] as $entity_ns) {
 	}
 
 	// Routes for post and page search
-	if(in_array($entity_ns, ['Page', 'Post'])) {
-		Router::add(sprintf($route_template, 'search'),
-			function() use($entity_ns, $entity_str, $list_key_plural) {
+	if(in_array($entityNs, ['Page', 'Post'])) {
+		Router::add(sprintf($routeTemplate, 'search'),
+			function() use($entityNs, $entityStr, $listKeyPlural) {
 				setupAdminEnv();
 				require 'core/include/admin/entity/search.php';
 			}

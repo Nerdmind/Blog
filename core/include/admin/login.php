@@ -23,10 +23,10 @@ if(HTTP::issetPOST('username', 'password')) {
 				$messages[] = $language->text('authentication_failure');
 			}
 		} else {
-			$fake_hash = '$2y$10$xpnwDU2HumOgGQhVpMOP9uataEF82YXizniFhSUhYjUiXF8aoDk0C';
-			$fake_pass = HTTP::POST('password');
+			$fakeHash = '$2y$10$xpnwDU2HumOgGQhVpMOP9uataEF82YXizniFhSUhYjUiXF8aoDk0C';
+			$fakePass = HTTP::POST('password');
 
-			password_verify($fake_pass, $fake_hash);
+			password_verify($fakePass, $fakeHash);
 
 			$messages[] = $language->text('authentication_failure');
 		}

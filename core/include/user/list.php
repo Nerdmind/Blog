@@ -12,11 +12,11 @@ $userRepository = Application::getRepository('User');
 #===============================================================================
 # Pagination
 #===============================================================================
-$site_size = Application::get('USER.LIST_SIZE');
-$site_sort = Application::get('USER.LIST_SORT');
+$siteSize = Application::get('USER.LIST_SIZE');
+$siteSort = Application::get('USER.LIST_SORT');
 
 $count = $userRepository->getCount();
-$lastSite = ceil($count / $site_size);
+$lastSite = ceil($count / $siteSize);
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
@@ -37,9 +37,9 @@ if(Application::get('USER.REDIRECT_SINGLE') === true and $count === 1) {
 # Get paginated user list
 #===============================================================================
 $users = $userRepository->getPaginated(
-	$site_sort,
-	$site_size,
-	($currentSite-1) * $site_size
+	$siteSort,
+	$siteSize,
+	($currentSite-1) * $siteSize
 );
 
 foreach($users as $user) {

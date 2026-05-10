@@ -33,24 +33,24 @@ if(!isset($user)) {
 #===============================================================================
 # Generate template data
 #===============================================================================
-$user_data = generateItemTemplateData($user);
+$userData = generateItemTemplateData($user);
 
 #===============================================================================
 # Add template data for previous and next user
 #===============================================================================
 if($prevUser = $userRepository->findPrev($user)) {
-	$user_data['PREV'] = generateItemTemplateData($prevUser);
+	$userData['PREV'] = generateItemTemplateData($prevUser);
 }
 
 if($nextUser = $userRepository->findNext($user)) {
-	$user_data['NEXT'] = generateItemTemplateData($nextUser);
+	$userData['NEXT'] = generateItemTemplateData($nextUser);
 }
 
 #===============================================================================
 # Build document
 #===============================================================================
 $userTemplate = Template\Factory::build('user/main');
-$userTemplate->set('USER', $user_data);
+$userTemplate->set('USER', $userData);
 $userTemplate->set('COUNT', [
 	'PAGE' => $userRepository->getNumberOfPages($user),
 	'POST' => $userRepository->getNumberOfPosts($user)
@@ -58,14 +58,14 @@ $userTemplate->set('COUNT', [
 
 $mainTemplate = Template\Factory::build('main');
 $mainTemplate->set('TYPE', 'USER');
-$mainTemplate->set('USER', $user_data);
+$mainTemplate->set('USER', $userData);
 $mainTemplate->set('HTML', $userTemplate);
 $mainTemplate->set('HEAD', [
-	'NAME' => $user_data['ATTR']['FULLNAME'],
-	'DESC' => description($user_data['BODY']['HTML'](),
+	'NAME' => $userData['ATTR']['FULLNAME'],
+	'DESC' => description($userData['BODY']['HTML'](),
 		Application::get('USER.DESCRIPTION_SIZE')),
-	'PERM' => $user_data['URL'],
-	'OG_IMAGES' => $user_data['FILE']['LIST']
+	'PERM' => $userData['URL'],
+	'OG_IMAGES' => $userData['FILE']['LIST']
 ]);
 
 echo $mainTemplate;

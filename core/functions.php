@@ -30,24 +30,24 @@ function createPaginationTemplate($current, $last, string $location): Template {
 }
 
 function createEntityItemTemplate(EntityInterface $entity, array $params = []): Template {
-	$entity_ns = explode('\\', get_class($entity));
-	$entity_ns = end($entity_ns);
-	$entity_str = strtolower($entity_ns);
+	$entityNs = explode('\\', get_class($entity));
+	$entityNs = end($entityNs);
+	$entityStr = strtolower($entityNs);
 
-	$template = TemplateFactory::build(sprintf('%s/item', $entity_str));
+	$template = TemplateFactory::build(sprintf('%s/item', $entityStr));
 
-	if(in_array($entity_ns, ['Category', 'Post'])) {
+	if(in_array($entityNs, ['Category', 'Post'])) {
 		$categoryRepository = Application::getRepository('Category');
 	}
 
-	if($entity_ns === 'Category') {
+	if($entityNs === 'Category') {
 		foreach($categoryRepository->findWithParents($entity->getID()) as $category) {
-			$category_data = generateItemTemplateData($category);
-			$category_list[] = $category_data;
+			$categoryData = generateItemTemplateData($category);
+			$categoryList[] = $categoryData;
 		}
 
 		$template->set('IS_ROOT', $params['is_root'] ?? false);
-		$template->set('CATEGORY', $category_data ?? []);
+		$template->set('CATEGORY', $categoryData ?? []);
 		$template->set('CATEGORIES', $categories ?? []);
 		$template->set('COUNT', [
 			'POST' => $categoryRepository->getNumberOfPosts($entity),
@@ -55,24 +55,24 @@ function createEntityItemTemplate(EntityInterface $entity, array $params = []): 
 		]);
 	}
 
-	else if($entity_ns === 'Post') {
+	else if($entityNs === 'Post') {
 		foreach($categoryRepository->findWithParents($entity->get('category')) as $category) {
-			$category_data = generateItemTemplateData($category);
-			$categories[] = $category_data;
+			$categoryData = generateItemTemplateData($category);
+			$categories[] = $categoryData;
 		}
 
-		$template->set('CATEGORY', $category_data ?? []);
+		$template->set('CATEGORY', $categoryData ?? []);
 		$template->set('CATEGORIES', $categories ?? []);
 	}
 
 	// For pages and posts we have a user relation
-	if(in_array($entity_ns, ['Page', 'Post'])) {
+	if(in_array($entityNs, ['Page', 'Post'])) {
 		$userRepository = Application::getRepository('User');
 		$user = $userRepository->find($entity->get('user'));
 		$template->set('USER', generateItemTemplateData($user));
 	}
 
-	$template->set(strtoupper($entity_ns), generateItemTemplateData($entity));
+	$template->set(strtoupper($entityNs), generateItemTemplateData($entity));
 
 	return $template;
 }
@@ -126,13 +126,13 @@ function generateItemTemplateData(EntityInterface $entity): array {
 #===============================================================================
 # Generate a nested tree from a category data array
 #===============================================================================
-function generateCategoryDataTree(array $category_data, $root = 0): array {
-	foreach($category_data as &$category){
+function generateCategoryDataTree(array $categoryData, $root = 0): array {
+	foreach($categoryData as &$category){
 		$tree[intval($category['PARENT'])][] = &$category;
 		unset($category['PARENT']);
 	}
 
-	foreach($category_data as &$category){
+	foreach($categoryData as &$category){
 		if (isset($tree[$category['ID']])){
 			$category['CHILDS'] = $tree[$category['ID']];
 		}

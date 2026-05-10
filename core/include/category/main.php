@@ -11,7 +11,7 @@ $postRepository = Application::getRepository('Post');
 if(Application::get('CATEGORY.SLUG_URLS')) {
 	if(!$categories = $categoryRepository->findWithParentsBy('slug', $param)) {
 		if($categories = $categoryRepository->findWithParents($param)) {
-			$redirect_scheduled = true;
+			$redirectScheduled = true;
 		}
 	}
 }
@@ -19,7 +19,7 @@ if(Application::get('CATEGORY.SLUG_URLS')) {
 else {
 	if(!$categories = $categoryRepository->findWithParents($param)) {
 		if($categories = $categoryRepository->findWithParentsBy('slug', $param)) {
-			$redirect_scheduled = true;
+			$redirectScheduled = true;
 		}
 	}
 }
@@ -39,7 +39,7 @@ $category = $categories[array_key_last($categories)];
 #===============================================================================
 # If category with parents was found by alternative, redirect to correct URL
 #===============================================================================
-if(isset($redirect_scheduled)) {
+if(isset($redirectScheduled)) {
 	HTTP::redirect(Application::getEntityURL($category));
 }
 
@@ -47,34 +47,34 @@ if(isset($redirect_scheduled)) {
 # Generate category template data (including parents)
 #===============================================================================
 foreach($categories as $_Category) {
-	$category_list[] = generateItemTemplateData($_Category);
+	$categoryList[] = generateItemTemplateData($_Category);
 }
 
 #===============================================================================
 # Define data variable for current category
 #===============================================================================
-$category_data = $category_list[array_key_last($category_list)];
+$categoryData = $categoryList[array_key_last($categoryList)];
 
 #===============================================================================
 # Generate category children list
 #===============================================================================
-$child_categories = $categoryRepository->getAll(
+$childCategories = $categoryRepository->getAll(
 	['parent' => $category->getID()],
 	Application::get('CATEGORY.LIST_SORT')
 );
 
-foreach($child_categories as $childCategory) {
-	$child_templates[] = createEntityItemTemplate($childCategory);
+foreach($childCategories as $childCategory) {
+	$childTemplates[] = createEntityItemTemplate($childCategory);
 }
 
 #===============================================================================
 # Pagination (for posts in this category)
 #===============================================================================
-$site_size = Application::get('POST.LIST_SIZE');
-$site_sort = Application::get('POST.LIST_SORT');
+$siteSize = Application::get('POST.LIST_SIZE');
+$siteSort = Application::get('POST.LIST_SORT');
 
 $count = $categoryRepository->getNumberOfPosts($category);
-$lastSite = ceil($count / $site_size);
+$lastSite = ceil($count / $siteSize);
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
@@ -88,21 +88,21 @@ if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 #===============================================================================
 $posts = $postRepository->getAll(
 	['category' => $category->getID()],
-	$site_sort,
-	$site_size,
-	($currentSite-1) * $site_size
+	$siteSort,
+	$siteSize,
+	($currentSite-1) * $siteSize
 );
 
 foreach($posts as $post) {
-	$post_templates[] = createEntityItemTemplate($post);
+	$postTemplates[] = createEntityItemTemplate($post);
 }
 
 #===============================================================================
 # Build document
 #===============================================================================
 $categoryTemplate = Template\Factory::build('category/main');
-$categoryTemplate->set('CATEGORY', $category_data);
-$categoryTemplate->set('CATEGORIES', $category_list ?? []);
+$categoryTemplate->set('CATEGORY', $categoryData);
+$categoryTemplate->set('CATEGORIES', $categoryList ?? []);
 $categoryTemplate->set('COUNT', [
 	'POST' => $categoryRepository->getNumberOfPosts($category),
 	'CHILDREN' => $categoryRepository->getNumberOfChildren($category)
@@ -114,22 +114,22 @@ $categoryTemplate->set('PAGINATION', [
 		$currentSite, $lastSite, Application::getEntityURL($category))
 ]);
 $categoryTemplate->set('LIST', [
-	'POSTS' => $post_templates ?? [],
-	'CATEGORIES' => $child_templates ?? []
+	'POSTS' => $postTemplates ?? [],
+	'CATEGORIES' => $childTemplates ?? []
 ]);
 
 $mainTemplate = Template\Factory::build('main');
 $mainTemplate->set('TYPE', 'CATEGORY');
-$mainTemplate->set('CATEGORY', $category_data);
-$mainTemplate->set('CATEGORIES', $category_list ?? []);
+$mainTemplate->set('CATEGORY', $categoryData);
+$mainTemplate->set('CATEGORIES', $categoryList ?? []);
 $mainTemplate->set('HTML', $categoryTemplate);
 $mainTemplate->set('HEAD', [
 	'NAME' => Application::getLanguage()->text('title_category',
-		[$category_data['ATTR']['NAME'], $currentSite]),
-	'DESC' => description($category_data['BODY']['HTML'](),
+		[$categoryData['ATTR']['NAME'], $currentSite]),
+	'DESC' => description($categoryData['BODY']['HTML'](),
 		Application::get('CATEGORY.DESCRIPTION_SIZE')),
-	'PERM' => $category_data['URL'],
-	'OG_IMAGES' => $category_data['FILE']['LIST']
+	'PERM' => $categoryData['URL'],
+	'OG_IMAGES' => $categoryData['FILE']['LIST']
 ]);
 
 echo $mainTemplate;

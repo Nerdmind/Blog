@@ -32,27 +32,27 @@ foreach($posts as $post) {
 		$itemTemplate = Template\Factory::build('feed/item_post');
 	}
 
-	$post_data = generateItemTemplateData($post);
-	$post_data['GUID'] = sha1($post->getID().$post->get('time_insert'));
+	$postData = generateItemTemplateData($post);
+	$postData['GUID'] = sha1($post->getID().$post->get('time_insert'));
 
 	#===============================================================================
 	# Generate category template data (including parents)
 	#===============================================================================
 	foreach($categoryRepository->findWithParents($post->get('category')) as $category) {
-		$category_list[] = generateItemTemplateData($category);
+		$categoryList[] = generateItemTemplateData($category);
 	}
 
 	#===============================================================================
 	# Define data variable for current category
 	#===============================================================================
-	if(isset($category_list)) {
-		$category_data = $category_list[array_key_last($category_list)];
+	if(isset($categoryList)) {
+		$categoryData = $categoryList[array_key_last($categoryList)];
 	}
 
-	$itemTemplate->set('POST', $post_data);
+	$itemTemplate->set('POST', $postData);
 	$itemTemplate->set('USER', generateItemTemplateData($user));
-	$itemTemplate->set('CATEGORY', $category_data ?? []);
-	$itemTemplate->set('CATEGORIES', $category_list ?? []);
+	$itemTemplate->set('CATEGORY', $categoryData ?? []);
+	$itemTemplate->set('CATEGORIES', $categoryList ?? []);
 
 	$templates[] = $itemTemplate;
 }

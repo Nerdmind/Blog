@@ -72,12 +72,12 @@ class Application {
 	#===============================================================================
 	public static function getLanguage($force = false): Language {
 		if(!self::$language instanceof Language or $force === true) {
-			$template_name = self::get('TEMPLATE.NAME');
-			$template_lang = self::get('TEMPLATE.LANG');
+			$templateName = self::get('TEMPLATE.NAME');
+			$templateLang = self::get('TEMPLATE.LANG');
 
 			$language = new Language(self::get('CORE.LANGUAGE'));
 			$language->load(sprintf(ROOT.'core/language/%s.php', Application::get('CORE.LANGUAGE')));
-			$language->load(sprintf(ROOT.'theme/%s/lang/%s.php', $template_name, $template_lang));
+			$language->load(sprintf(ROOT.'theme/%s/lang/%s.php', $templateName, $templateLang));
 
 			self::$language = $language;
 		}
