@@ -35,8 +35,8 @@ spl_autoload_register(function($className) {
 #===============================================================================
 # Exception handler for non-caught exceptions
 #===============================================================================
-set_exception_handler(function(Throwable $Exception) {
-	Application::exit($Exception->getMessage());
+set_exception_handler(function(Throwable $exception) {
+	Application::exit($exception->getMessage());
 });
 
 #===============================================================================
@@ -140,7 +140,7 @@ if(Application::get('MIGRATOR.ENABLED')) {
  * This makes the ETag generation for those pages pointless.
  */
 if(Application::get('CORE.SEND_304')) {
-	$Database = Application::getDatabase();
+	$database = Application::getDatabase();
 
 	#===========================================================================
 	# Fetch timestamps of the last modified entities
@@ -156,12 +156,12 @@ if(Application::get('CORE.SEND_304')) {
 		$parts[] = sprintf($query, $table, $table);
 	}
 
-	$Statement = $Database->query('SELECT '.implode(',', $parts));
+	$statement = $database->query('SELECT '.implode(',', $parts));
 
 	#===========================================================================
 	# Define HTTP ETag header identifier
 	#===========================================================================
-	$etag = md5(implode($Statement->fetch()));
+	$etag = md5(implode($statement->fetch()));
 
 	#===========================================================================
 	# Send ETag header within the HTTP response

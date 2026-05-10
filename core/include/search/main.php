@@ -2,12 +2,12 @@
 #===============================================================================
 # Get instances
 #===============================================================================
-$Language = Application::getLanguage();
+$language = Application::getLanguage();
 
 #===============================================================================
 # Get repositories
 #===============================================================================
-$PostRepository = Application::getRepository('Post');
+$postRepository = Application::getRepository('Post');
 
 #===============================================================================
 # Pagination
@@ -27,11 +27,11 @@ if($search = HTTP::GET('q')) {
 	];
 
 	try {
-		if (!$posts = $PostRepository->search($search, $filter, $site_size, $offset)) {
-			$message = $Language->text('search_no_results', htmlspecialchars($search));
+		if (!$posts = $postRepository->search($search, $filter, $site_size, $offset)) {
+			$message = $language->text('search_no_results', htmlspecialchars($search));
 		}
-	} catch(PDOException $Exception) {
-		$message = $Exception->getMessage();
+	} catch(PDOException $exception) {
+		$message = $exception->getMessage();
 	}
 }
 
@@ -42,9 +42,9 @@ $form_data = [
 		'Y' => HTTP::GET('y'),
 	],
 	'OPTIONS' => [
-		'D' => $PostRepository->getDistinctDays(),
-		'M' => $PostRepository->getDistinctMonths(),
-		'Y' => $PostRepository->getDistinctYears(),
+		'D' => $postRepository->getDistinctDays(),
+		'M' => $postRepository->getDistinctMonths(),
+		'Y' => $postRepository->getDistinctYears(),
 	]
 ];
 
@@ -57,21 +57,21 @@ $search_data = [
 # Build document
 #===============================================================================
 if(!empty($posts)) {
-	foreach($posts as $Post) {
-		$templates[] = createEntityItemTemplate($Post);
+	foreach($posts as $post) {
+		$templates[] = createEntityItemTemplate($post);
 	}
 
-	$count = $PostRepository->getLastSearchOverallCount();
+	$count = $postRepository->getLastSearchOverallCount();
 	$last = ceil($count / $site_size);
 
-	$ResultTemplate = Template\Factory::build('search/result');
-	$ResultTemplate->set('FORM', $form_data);
-	$ResultTemplate->set('SEARCH', $search_data);
-	$ResultTemplate->set('RESULT', [
+	$resultTemplate = Template\Factory::build('search/result');
+	$resultTemplate->set('FORM', $form_data);
+	$resultTemplate->set('SEARCH', $search_data);
+	$resultTemplate->set('RESULT', [
 		'LIST' => $templates ?? []
 	]);
 
-	$ResultTemplate->set('PAGINATION', [
+	$resultTemplate->set('PAGINATION', [
 		'THIS' => $currentSite,
 		'LAST' => $last,
 		'HTML' => createPaginationTemplate(
@@ -79,25 +79,25 @@ if(!empty($posts)) {
 		)
 	]);
 
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('HTML', $ResultTemplate);
-	$MainTemplate->set('HEAD', [
-		'NAME' => $Language->text('title_search_results', htmlspecialchars($search)),
+	$mainTemplate = Template\Factory::build('main');
+	$mainTemplate->set('HTML', $resultTemplate);
+	$mainTemplate->set('HEAD', [
+		'NAME' => $language->text('title_search_results', htmlspecialchars($search)),
 		'PERM' => Application::getURL('search/')
 	]);
 }
 
 else {
-	$SearchTemplate = Template\Factory::build('search/main');
-	$SearchTemplate->set('FORM', $form_data);
-	$SearchTemplate->set('SEARCH', $search_data);
+	$searchTemplate = Template\Factory::build('search/main');
+	$searchTemplate->set('FORM', $form_data);
+	$searchTemplate->set('SEARCH', $search_data);
 
-	$MainTemplate = Template\Factory::build('main');
-	$MainTemplate->set('HTML', $SearchTemplate);
-	$MainTemplate->set('HEAD', [
-		'NAME' => $Language->text('title_search_request'),
+	$mainTemplate = Template\Factory::build('main');
+	$mainTemplate->set('HTML', $searchTemplate);
+	$mainTemplate->set('HEAD', [
+		'NAME' => $language->text('title_search_request'),
 		'PERM' => Application::getURL('search/')
 	]);
 }
 
-echo $MainTemplate;
+echo $mainTemplate;

@@ -21,87 +21,87 @@ function createPaginationTemplate($current, $last, string $location): Template {
 	$params = str_replace('%', '%%', $params);
 	$params = str_replace('__SITE__', '%d', $params);
 
-	$Pagination = TemplateFactory::build('pagination');
-	$Pagination->set('THIS', $current);
-	$Pagination->set('LAST', $last);
-	$Pagination->set('HREF', "{$location}?{$params}");
+	$pagination = TemplateFactory::build('pagination');
+	$pagination->set('THIS', $current);
+	$pagination->set('LAST', $last);
+	$pagination->set('HREF', "{$location}?{$params}");
 
-	return $Pagination;
+	return $pagination;
 }
 
-function createEntityItemTemplate(EntityInterface $Entity, array $params = []): Template {
-	$entity_ns = explode('\\', get_class($Entity));
+function createEntityItemTemplate(EntityInterface $entity, array $params = []): Template {
+	$entity_ns = explode('\\', get_class($entity));
 	$entity_ns = end($entity_ns);
 	$entity_str = strtolower($entity_ns);
 
-	$Template = TemplateFactory::build(sprintf('%s/item', $entity_str));
+	$template = TemplateFactory::build(sprintf('%s/item', $entity_str));
 
 	if(in_array($entity_ns, ['Category', 'Post'])) {
-		$CategoryRepository = Application::getRepository('Category');
+		$categoryRepository = Application::getRepository('Category');
 	}
 
 	if($entity_ns === 'Category') {
-		foreach($CategoryRepository->findWithParents($Entity->getID()) as $Category) {
-			$category_data = generateItemTemplateData($Category);
+		foreach($categoryRepository->findWithParents($entity->getID()) as $category) {
+			$category_data = generateItemTemplateData($category);
 			$category_list[] = $category_data;
 		}
 
-		$Template->set('IS_ROOT', $params['is_root'] ?? false);
-		$Template->set('CATEGORY', $category_data ?? []);
-		$Template->set('CATEGORIES', $categories ?? []);
-		$Template->set('COUNT', [
-			'POST' => $CategoryRepository->getNumberOfPosts($Entity),
-			'CHILDREN' => $CategoryRepository->getNumberOfChildren($Entity)
+		$template->set('IS_ROOT', $params['is_root'] ?? false);
+		$template->set('CATEGORY', $category_data ?? []);
+		$template->set('CATEGORIES', $categories ?? []);
+		$template->set('COUNT', [
+			'POST' => $categoryRepository->getNumberOfPosts($entity),
+			'CHILDREN' => $categoryRepository->getNumberOfChildren($entity)
 		]);
 	}
 
 	else if($entity_ns === 'Post') {
-		foreach($CategoryRepository->findWithParents($Entity->get('category')) as $Category) {
-			$category_data = generateItemTemplateData($Category);
+		foreach($categoryRepository->findWithParents($entity->get('category')) as $category) {
+			$category_data = generateItemTemplateData($category);
 			$categories[] = $category_data;
 		}
 
-		$Template->set('CATEGORY', $category_data ?? []);
-		$Template->set('CATEGORIES', $categories ?? []);
+		$template->set('CATEGORY', $category_data ?? []);
+		$template->set('CATEGORIES', $categories ?? []);
 	}
 
 	// For pages and posts we have a user relation
 	if(in_array($entity_ns, ['Page', 'Post'])) {
-		$UserRepository = Application::getRepository('User');
-		$User = $UserRepository->find($Entity->get('user'));
-		$Template->set('USER', generateItemTemplateData($User));
+		$userRepository = Application::getRepository('User');
+		$user = $userRepository->find($entity->get('user'));
+		$template->set('USER', generateItemTemplateData($user));
 	}
 
-	$Template->set(strtoupper($entity_ns), generateItemTemplateData($Entity));
+	$template->set(strtoupper($entity_ns), generateItemTemplateData($entity));
 
-	return $Template;
+	return $template;
 }
 
 #===============================================================================
 # Helper function to reduce duplicate code
 #===============================================================================
-function generateItemTemplateData(EntityInterface $Entity): array {
-	$ArgumentParser = new ArgumentParser;
-	$FunctionParser = new FunctionParser;
-	$MarkdownParser = new MarkdownParser;
+function generateItemTemplateData(EntityInterface $entity): array {
+	$argumentParser = new ArgumentParser;
+	$functionParser = new FunctionParser;
+	$markdownParser = new MarkdownParser;
 
-	$FunctionParser->registerFromArray(
+	$functionParser->registerFromArray(
 		Application::getContentFunctions()
 	);
 
-	$attribute = $Entity->getAll(['password']);
+	$attribute = $entity->getAll(['password']);
 	$attribute = array_change_key_case($attribute, CASE_UPPER);
 
-	$text = $Entity->get('body');
-	$text = $FunctionParser->transform($text);
+	$text = $entity->get('body');
+	$text = $functionParser->transform($text);
 
-	$arguments = $ArgumentParser->parse($Entity->get('argv') ?? '');
+	$arguments = $argumentParser->parse($entity->get('argv') ?? '');
 
-	$images = $MarkdownParser->parse($text)['img']['src'] ?? [];
+	$images = $markdownParser->parse($text)['img']['src'] ?? [];
 	$images = array_map('htmlentities', $images);
 
 	return [
-		'URL' => Application::getEntityURL($Entity),
+		'URL' => Application::getEntityURL($entity),
 		'ARGV' => $arguments,
 		'ATTR' => $attribute,
 
@@ -116,8 +116,8 @@ function generateItemTemplateData(EntityInterface $Entity): array {
 			'TEXT' => function() use($text) {
 				return $text;
 			},
-			'HTML' => function() use($Entity) {
-				return parseEntityContent($Entity);
+			'HTML' => function() use($entity) {
+				return parseEntityContent($entity);
 			}
 		]
 	];
@@ -144,23 +144,23 @@ function generateCategoryDataTree(array $category_data, $root = 0): array {
 #===============================================================================
 # Parse entity content
 #===============================================================================
-function parseEntityContent(EntityInterface $Entity): string {
-	$text = $Entity->get('body');
+function parseEntityContent(EntityInterface $entity): string {
+	$text = $entity->get('body');
 
-	$FunctionParser = new FunctionParser;
-	$FunctionParser->registerFromArray(
+	$functionParser = new FunctionParser;
+	$functionParser->registerFromArray(
 		Application::getContentFunctions()
 	);
 
-	$text = $FunctionParser->transform($text);
+	$text = $functionParser->transform($text);
 
 	if(Application::get('WRAP_EMOTICONS')) {
-		$EmoticonParser = new EmoticonParser;
-		$text = $EmoticonParser->transform($text);
+		$emoticonParser = new EmoticonParser;
+		$text = $emoticonParser->transform($text);
 	}
 
-	$MarkdownParser = new MarkdownParser;
-	return $MarkdownParser->transform($text);
+	$markdownParser = new MarkdownParser;
+	return $markdownParser->transform($text);
 }
 
 #===============================================================================
@@ -277,12 +277,12 @@ function generateSlug($string, $separator = '-') {
 # Callback for (CATEGORY|PAGE|POST|USER) content function
 #===========================================================================
 function getEntityMarkdownLink($ns, $id, $text = null, $info = null): string {
-	if(!$Entity = Application::getRepository($ns)->find($id)) {
+	if(!$entity = Application::getRepository($ns)->find($id)) {
 		return sprintf('`{%s: *Reference error*}`', strtoupper($ns));
 	}
 
-	$title = $Entity->get('name') ?? $Entity->get('fullname');
-	$href = Application::getEntityURL($Entity);
+	$title = $entity->get('name') ?? $entity->get('fullname');
+	$href = Application::getEntityURL($entity);
 	$text = $text ?: "»{$title}«";
 
 	if($info === null) {
@@ -303,21 +303,21 @@ function getEntityMarkdownLink($ns, $id, $text = null, $info = null): string {
 # Callback for (CATEGORY|PAGE|POST|USER)_URL content function
 #===========================================================================
 function getEntityURL($ns, $id): string {
-	if(!$Entity = Application::getRepository($ns)->find($id)) {
+	if(!$entity = Application::getRepository($ns)->find($id)) {
 		return sprintf('`{%s_URL: *Reference error*}`', strtoupper($ns));
 	}
 
-	return Application::getEntityURL($Entity);
+	return Application::getEntityURL($entity);
 }
 
 #===============================================================================
 # Function for use in templates to get data of a category
 #===============================================================================
 function CATEGORY(int $id): array {
-	$Repository = Application::getRepository('Category');
+	$repository = Application::getRepository('Category');
 
-	if($Category = $Repository->find($id)) {
-		return generateItemTemplateData($Category);
+	if($category = $repository->find($id)) {
+		return generateItemTemplateData($category);
 	}
 
 	return [];
@@ -327,10 +327,10 @@ function CATEGORY(int $id): array {
 # Function for use in templates to get data of a page
 #===============================================================================
 function PAGE(int $id): array {
-	$Repository = Application::getRepository('Page');
+	$repository = Application::getRepository('Page');
 
-	if($Page = $Repository->find($id)) {
-		return generateItemTemplateData($Page);
+	if($page = $repository->find($id)) {
+		return generateItemTemplateData($page);
 	}
 
 	return [];
@@ -340,10 +340,10 @@ function PAGE(int $id): array {
 # Function for use in templates to get data of a post
 #===============================================================================
 function POST(int $id): array {
-	$Repository = Application::getRepository('Post');
+	$repository = Application::getRepository('Post');
 
-	if($Post = $Repository->find($id)) {
-		return generateItemTemplateData($Post);
+	if($post = $repository->find($id)) {
+		return generateItemTemplateData($post);
 	}
 
 	return [];
@@ -353,10 +353,10 @@ function POST(int $id): array {
 # Function for use in templates to get data of a user
 #===============================================================================
 function USER(int $id): array {
-	$Repository = Application::getRepository('User');
+	$repository = Application::getRepository('User');
 
-	if($User = $Repository->find($id)) {
-		return generateItemTemplateData($User);
+	if($user = $repository->find($id)) {
+		return generateItemTemplateData($user);
 	}
 
 	return [];

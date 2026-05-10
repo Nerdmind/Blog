@@ -7,14 +7,14 @@ HTTP::responseHeader(HTTP::HEADER_CONTENT_TYPE, HTTP::CONTENT_TYPE_XML);
 #===============================================================================
 # Get repositories
 #===============================================================================
-$CategoryRepository = Application::getRepository('Category');
-$PostRepository = Application::getRepository('Post');
-$UserRepository = Application::getRepository('User');
+$categoryRepository = Application::getRepository('Category');
+$postRepository = Application::getRepository('Post');
+$userRepository = Application::getRepository('User');
 
 #===============================================================================
 # Get list of posts to show in the feed
 #===============================================================================
-$posts = $PostRepository->getPaginated(
+$posts = $postRepository->getPaginated(
 	Application::get('POST.FEED_SORT'),
 	Application::get('POST.FEED_SIZE')
 );
@@ -22,24 +22,24 @@ $posts = $PostRepository->getPaginated(
 #===============================================================================
 # Build item templates
 #===============================================================================
-foreach($posts as $Post) {
-	$User = $UserRepository->find($Post->get('user'));
+foreach($posts as $post) {
+	$user = $userRepository->find($post->get('user'));
 
 	try {
-		$ItemTemplate = Template\Factory::build('feed/item');
-	} catch(Template\Exception $Exception) {
+		$itemTemplate = Template\Factory::build('feed/item');
+	} catch(Template\Exception $exception) {
 		# Backward compatibility if feed/item.php does not exist.
-		$ItemTemplate = Template\Factory::build('feed/item_post');
+		$itemTemplate = Template\Factory::build('feed/item_post');
 	}
 
-	$post_data = generateItemTemplateData($Post);
-	$post_data['GUID'] = sha1($Post->getID().$Post->get('time_insert'));
+	$post_data = generateItemTemplateData($post);
+	$post_data['GUID'] = sha1($post->getID().$post->get('time_insert'));
 
 	#===============================================================================
 	# Generate category template data (including parents)
 	#===============================================================================
-	foreach($CategoryRepository->findWithParents($Post->get('category')) as $Category) {
-		$category_list[] = generateItemTemplateData($Category);
+	foreach($categoryRepository->findWithParents($post->get('category')) as $category) {
+		$category_list[] = generateItemTemplateData($category);
 	}
 
 	#===============================================================================
@@ -49,19 +49,19 @@ foreach($posts as $Post) {
 		$category_data = $category_list[array_key_last($category_list)];
 	}
 
-	$ItemTemplate->set('POST', $post_data);
-	$ItemTemplate->set('USER', generateItemTemplateData($User));
-	$ItemTemplate->set('CATEGORY', $category_data ?? []);
-	$ItemTemplate->set('CATEGORIES', $category_list ?? []);
+	$itemTemplate->set('POST', $post_data);
+	$itemTemplate->set('USER', generateItemTemplateData($user));
+	$itemTemplate->set('CATEGORY', $category_data ?? []);
+	$itemTemplate->set('CATEGORIES', $category_list ?? []);
 
-	$templates[] = $ItemTemplate;
+	$templates[] = $itemTemplate;
 }
 
 #===============================================================================
 # Build document
 #===============================================================================
-$FeedTemplate = Template\Factory::build('feed/main');
-$FeedTemplate->set('FEED', [
+$feedTemplate = Template\Factory::build('feed/main');
+$feedTemplate->set('FEED', [
 	'TYPE' => 'post',
 	'LIST' => [
 		'POSTS' => $templates ?? [],
@@ -69,4 +69,4 @@ $FeedTemplate->set('FEED', [
 	]
 ]);
 
-echo $FeedTemplate;
+echo $feedTemplate;

@@ -1,58 +1,58 @@
 <?php
 
-$Language = Application::getLanguage();
+$language = Application::getLanguage();
 
-$Entity = new (sprintf('ORM\\Entity\\%s', $entity_ns));
+$entity = new (sprintf('ORM\\Entity\\%s', $entity_ns));
 
 if(HTTP::issetPOST('insert')) {
 	$slug_from = 'name';
 
 	if($entity_ns === 'Category') {
-		$Entity->set('parent', HTTP::POST('parent') ?: null);
+		$entity->set('parent', HTTP::POST('parent') ?: null);
 	}
 
 	else if($entity_ns === 'Post') {
-		$Entity->set('category', HTTP::POST('category') ?: null);
+		$entity->set('category', HTTP::POST('category') ?: null);
 	}
 
 	else if($entity_ns === 'User') {
 		$slug_from = 'username';
 
-		$Entity->set('fullname', HTTP::POST('fullname') ?: null);
-		$Entity->set('username', HTTP::POST('username') ?: null);
-		$Entity->set('mailaddr', HTTP::POST('mailaddr') ?: null);
-		$Entity->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : false);
+		$entity->set('fullname', HTTP::POST('fullname') ?: null);
+		$entity->set('username', HTTP::POST('username') ?: null);
+		$entity->set('mailaddr', HTTP::POST('mailaddr') ?: null);
+		$entity->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : false);
 	}
 
 	if(in_array($entity_ns, ['Category', 'Page', 'Post'])) {
-		$Entity->set('name', HTTP::POST('name') ?: null);
+		$entity->set('name', HTTP::POST('name') ?: null);
 	}
 
 	if(in_array($entity_ns, ['Page', 'Post'])) {
-		$Entity->set('user', HTTP::POST('user'));
+		$entity->set('user', HTTP::POST('user'));
 	}
 
 	// Common for all entity types
-	$Entity->set('body', HTTP::POST('body') ?: null);
-	$Entity->set('argv', HTTP::POST('argv') ?: null);
-	$Entity->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST($slug_from)));
-	$Entity->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
-	$Entity->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
+	$entity->set('body', HTTP::POST('body') ?: null);
+	$entity->set('argv', HTTP::POST('argv') ?: null);
+	$entity->set('slug', HTTP::POST('slug') ?: generateSlug(HTTP::POST($slug_from)));
+	$entity->set('time_insert', HTTP::POST('time_insert') ?: date('Y-m-d H:i:s'));
+	$entity->set('time_update', HTTP::POST('time_update') ?: date('Y-m-d H:i:s'));
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			$Repository = Application::getRepository($entity_ns);
-			$Repository->insert($Entity);
+			$repository = Application::getRepository($entity_ns);
+			$repository->insert($entity);
 
 			HTTP::redirect(
 				Application::getAdminURL(sprintf('%s/', $entity_str)));
-		} catch(PDOException $Exception) {
-			$messages[] = $Exception->getMessage();
+		} catch(PDOException $exception) {
+			$messages[] = $exception->getMessage();
 		}
 	}
 
 	else {
-		$messages[] = $Language->text('error_security_csrf');
+		$messages[] = $language->text('error_security_csrf');
 	}
 }
 
@@ -63,19 +63,19 @@ if($entity_ns === 'User') {
 $form_data = [
 	'TYPE' => 'INSERT',
 	'INFO' => $messages ?? [],
-	'DATA' => array_change_key_case($Entity->getAll($exclude_list ?? []), CASE_UPPER),
+	'DATA' => array_change_key_case($entity->getAll($exclude_list ?? []), CASE_UPPER),
 	'TOKEN' => Application::getSecurityToken()
 ];
 
 // For pages and posts we have a user
 if(in_array($entity_ns, ['Page', 'Post'])) {
-	$UserRepository = Application::getRepository('User');
+	$userRepository = Application::getRepository('User');
 
-	foreach($UserRepository->getAll([], 'fullname ASC') as $User) {
+	foreach($userRepository->getAll([], 'fullname ASC') as $user) {
 		$userList[] = [
-			'ID' => $User->getID(),
-			'FULLNAME' => $User->get('fullname'),
-			'USERNAME' => $User->get('username'),
+			'ID' => $user->getID(),
+			'FULLNAME' => $user->get('fullname'),
+			'USERNAME' => $user->get('username'),
 		];
 	}
 
@@ -84,13 +84,13 @@ if(in_array($entity_ns, ['Page', 'Post'])) {
 
 // For posts and categories, we also have a category list
 if(in_array($entity_ns, ['Category', 'Post'])) {
-	$CategoryRepository = Application::getRepository('Category');
+	$categoryRepository = Application::getRepository('Category');
 
-	foreach($CategoryRepository->getAll([], 'name ASC') as $Category) {
+	foreach($categoryRepository->getAll([], 'name ASC') as $category) {
 		$categoryList[] = [
-			'ID' => $Category->getID(),
-			'NAME' => $Category->get('name'),
-			'PARENT' => $Category->get('parent'),
+			'ID' => $category->getID(),
+			'NAME' => $category->get('name'),
+			'PARENT' => $category->get('parent'),
 		];
 	}
 
@@ -98,14 +98,14 @@ if(in_array($entity_ns, ['Category', 'Post'])) {
 	$form_data['CATEGORY_TREE'] = generateCategoryDataTree($categoryList ?? []);
 }
 
-$FormTemplate = Template\Factory::build(sprintf('%s/form', $entity_str));
-$FormTemplate->set('FORM', $form_data);
+$formTemplate = Template\Factory::build(sprintf('%s/form', $entity_str));
+$formTemplate->set('FORM', $form_data);
 
-$InsertTemplate = Template\Factory::build(sprintf('%s/insert', $entity_str));
-$InsertTemplate->set('HTML', $FormTemplate);
+$insertTemplate = Template\Factory::build(sprintf('%s/insert', $entity_str));
+$insertTemplate->set('HTML', $formTemplate);
 
-$Template = Template\Factory::build('main');
-$Template->set('NAME', $Language->text(sprintf('title_%s_insert', $entity_str)));
-$Template->set('HTML', $InsertTemplate);
+$template = Template\Factory::build('main');
+$template->set('NAME', $language->text(sprintf('title_%s_insert', $entity_str)));
+$template->set('HTML', $insertTemplate);
 
-echo $Template;
+echo $template;

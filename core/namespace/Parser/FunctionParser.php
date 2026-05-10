@@ -40,10 +40,10 @@ class FunctionParser implements ParserInterface {
 	# Register function
 	#===============================================================================
 	public function register(string $name, callable $callback): void {
-		$Function = new ReflectionFunction($callback);
+		$function = new ReflectionFunction($callback);
 		$this->functions[$name] = [
 			'callback' => $callback,
-			'required' => $Function->getNumberOfRequiredParameters()
+			'required' => $function->getNumberOfRequiredParameters()
 		];
 	}
 

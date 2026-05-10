@@ -3,14 +3,14 @@ namespace Parser;
 use Parsedown;
 
 class MarkdownParser implements ParserInterface {
-	private $Parsedown;
+	private $parsedown;
 
 	#===========================================================================
 	# Initialize
 	#===========================================================================
 	public function __construct() {
-		$this->Parsedown = new Parsedown();
-		$this->Parsedown->setUrlsLinked(false);
+		$this->parsedown = new Parsedown();
+		$this->parsedown->setUrlsLinked(false);
 	}
 
 	#===========================================================================
@@ -32,6 +32,6 @@ class MarkdownParser implements ParserInterface {
 	# Transform Markdown to HTML
 	#===========================================================================
 	public function transform(string $text): string {
-		return $this->Parsedown->text($text);
+		return $this->parsedown->text($text);
 	}
 }

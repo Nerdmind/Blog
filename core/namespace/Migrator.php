@@ -1,6 +1,6 @@
 <?php
 class Migrator {
-	private $Database;
+	private $database;
 	private $version;
 	private $directory;
 	private $migrations = [];
@@ -10,23 +10,23 @@ class Migrator {
 	#===============================================================================
 	# Fetch on-disk schema version from migration table
 	#===============================================================================
-	public function __construct(Database $Database) {
-		$this->Database = $Database;
+	public function __construct(Database $database) {
+		$this->database = $database;
 
 		try {
-			$Statement = $Database->query('SELECT schema_version FROM migration');
+			$statement = $database->query('SELECT schema_version FROM migration');
 
 			# Explicitly check for FALSE, because result can be "0"
-			if(($this->version = $Statement->fetchColumn()) === false) {
+			if(($this->version = $statement->fetchColumn()) === false) {
 				throw new Exception('The migration table does exist, but there is
 					no row containing the currently used on-disk schema version!');
 			}
-		} catch(PDOException $Exception) {
-			if($Exception->getCode() === '42S02') /* Table not found */ {
+		} catch(PDOException $exception) {
+			if($exception->getCode() === '42S02') /* Table not found */ {
 				$this->version = $this->determineFallbackSchemaVersion();
 				$this->createMigrationTable($this->version);
 			} else {
-				throw $Exception;
+				throw $exception;
 			}
 		}
 	}
@@ -108,15 +108,15 @@ class Migrator {
 	public function runMigrations(): array {
 		foreach($this->getMigrations() as $sequence => $migration) {
 			try {
-				if($this->Database->query($migration)) {
+				if($this->database->query($migration)) {
 					$this->dequeue($sequence);
 					$this->updateMigrationTable($sequence);
 					$migrated[] = $sequence;
 				}
-			} catch(PDOException $Exception) {
+			} catch(PDOException $exception) {
 				$error = 'Migration from %d to %d failed with PDO error:<br>';
 				$error .= sprintf($error, $sequence-1, $sequence);
-				$error .= sprintf('<code>%s</code>', $Exception->getMessage());
+				$error .= sprintf('<code>%s</code>', $exception->getMessage());
 
 				if(!empty($migrated ?? [])) {
 					$error .= '<br>The following migrations were successful: ';
@@ -135,9 +135,9 @@ class Migrator {
 	#===============================================================================
 	private function updateMigrationTable(int $version): int {
 		$query = 'UPDATE migration SET schema_version = ?';
-		$Statement = $this->Database->prepare($query);
+		$statement = $this->database->prepare($query);
 
-		if($Statement->execute([$version])) {
+		if($statement->execute([$version])) {
 			return $this->version = $version;
 		}
 	}
@@ -150,10 +150,10 @@ class Migrator {
 			ENGINE=InnoDB DEFAULT CHARSET=utf8mb4';
 		$insert = 'INSERT INTO migration (schema_version) VALUES (?)';
 
-		$this->Database->query($create);
-		$Statement = $this->Database->prepare($insert);
+		$this->database->query($create);
+		$statement = $this->database->prepare($insert);
 
-		return $Statement->execute([$version]);
+		return $statement->execute([$version]);
 	}
 
 	#===============================================================================
@@ -170,12 +170,12 @@ class Migrator {
 
 		foreach($test as $version => $query) {
 			try {
-				$Statement = $this->Database->query($query);
+				$statement = $this->database->query($query);
 
-				if ($Statement && $Statement->fetch()) {
+				if ($statement && $statement->fetch()) {
 					return $version;
 				}
-			} catch(PDOException $Exception) {}
+			} catch(PDOException $exception) {}
 		}
 
 		return 0;

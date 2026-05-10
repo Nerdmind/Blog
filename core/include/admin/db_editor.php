@@ -1,35 +1,34 @@
 <?php
 
-$Language = Application::getLanguage();
-
-$Database = Application::getDatabase();
+$language = Application::getLanguage();
+$database = Application::getDatabase();
 
 if(HTTP::issetPOST('command')) {
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			$Statement = $Database->query(HTTP::POST('command'));
+			$statement = $database->query(HTTP::POST('command'));
 
 			do {
-				$result[] = print_r($Statement->fetchAll(), true);
-			} while($Statement->nextRowset());
-		} catch(PDOException $Exception) {
-			$messages[] = $Exception->getMessage();
+				$result[] = print_r($statement->fetchAll(), true);
+			} while($statement->nextRowset());
+		} catch(PDOException $exception) {
+			$messages[] = $exception->getMessage();
 		}
 	} else {
-		$messages[] = $Language->text('error_security_csrf');
+		$messages[] = $language->text('error_security_csrf');
 	}
 }
 
-$DbEditorTemplate = Template\Factory::build('database');
-$DbEditorTemplate->set('FORM', [
+$dbEditorTemplate = Template\Factory::build('database');
+$dbEditorTemplate->set('FORM', [
 	'INFO' => $messages ?? [],
 	'TOKEN' => Application::getSecurityToken(),
 	'RESULT' => implode(null, $result ?? []),
 	'COMMAND' => HTTP::POST('command'),
 ]);
 
-$Template = Template\Factory::build('main');
-$Template->set('NAME', 'SQL');
-$Template->set('HTML', $DbEditorTemplate);
+$template = Template\Factory::build('main');
+$template->set('NAME', 'SQL');
+$template->set('HTML', $dbEditorTemplate);
 
-echo $Template;
+echo $template;

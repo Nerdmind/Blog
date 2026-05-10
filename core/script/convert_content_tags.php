@@ -74,10 +74,10 @@ function convertContentTags(string $text, &$globalMatches): string {
 #===========================================================================
 # Print matches for a specific entity
 #===========================================================================
-function printMatches(EntityInterface $Entity, array &$matches): void {
+function printMatches(EntityInterface $entity, array &$matches): void {
 	printf("%s\n", str_repeat('-', 100));
-	printf("%s (#%d):\n", get_class($Entity), $Entity->getID());
-	printf("»%s«\n", $Entity->get('name') ?? $Entity->get('fullname'));
+	printf("%s (#%d):\n", get_class($entity), $entity->getID());
+	printf("»%s«\n", $entity->get('name') ?? $entity->get('fullname'));
 	printf("%s\n", str_repeat('-', 100));
 
 	foreach($matches as $match) {
@@ -112,22 +112,22 @@ if(!$commit) {
 }
 
 foreach(['Category', 'Page', 'Post', 'User'] as $entityName) {
-	$Repository = Application::getRepository($entityName);
+	$repository = Application::getRepository($entityName);
 
-	foreach($Repository->getAll() as $Entity) {
+	foreach($repository->getAll() as $entity) {
 		unset($matches);
 
-		$content = $Entity->get('body');
+		$content = $entity->get('body');
 		$content = convertContentTags($content, $matches);
 
 		if($matches) {
 			$foundMatches = true;
 
 			if($commit) {
-				$Entity->set('body', $content);
-				$Repository->update($Entity);
+				$entity->set('body', $content);
+				$repository->update($entity);
 			} else {
-				printMatches($Entity, $matches);
+				printMatches($entity, $matches);
 			}
 		}
 	}

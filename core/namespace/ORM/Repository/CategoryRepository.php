@@ -8,16 +8,16 @@ class CategoryRepository extends Repository {
 	public static function getClassName(): string { return 'ORM\Entity\Category'; }
 
 	#===============================================================================
-	# Get number of *posts* assigned to $Category
+	# Get number of *posts* assigned to $category
 	#===============================================================================
-	public function getNumberOfPosts(Category $Category): int {
+	public function getNumberOfPosts(Category $category): int {
 		$query = 'SELECT COUNT(id) FROM %s WHERE category = ?';
 		$query = sprintf($query, PostRepository::getTableName());
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute([$Category->getID()]);
+		$statement = $this->database->prepare($query);
+		$statement->execute([$category->getID()]);
 
-		return $Statement->fetchColumn();
+		return $statement->fetchColumn();
 	}
 
 	#===============================================================================
@@ -40,8 +40,8 @@ class CategoryRepository extends Repository {
 		$check = is_null($value) ? 'IS NULL': '= ?';
 		$query = sprintf($query, $table, $field, $check, $table);
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute(
+		$statement = $this->database->prepare($query);
+		$statement->execute(
 			# If $value is NULL, pass NULL instead of an array with one NULL
 			# element. PHP >= 8 will throw a PDOException when the number of
 			# bound variables doesn't matches the number of tokens ("?") in
@@ -50,7 +50,7 @@ class CategoryRepository extends Repository {
 		);
 
 		# TODO: Virtual column _depth shall not be fetched into the entity class
-		return $this->fetchEntities($Statement);
+		return $this->fetchEntities($statement);
 	}
 
 	#===============================================================================
@@ -71,16 +71,16 @@ class CategoryRepository extends Repository {
 		$table = static::getTableName();
 		$query = sprintf($query, $table, $table, $_limit);
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute();
+		$statement = $this->database->prepare($query);
+		$statement->execute();
 
-		return $this->fetchEntities($Statement);
+		return $this->fetchEntities($statement);
 	}
 
 	#===============================================================================
-	# Get number of children categories assigned to $Category
+	# Get number of children categories assigned to $category
 	#===============================================================================
-	public function getNumberOfChildren(Category $Category): int {
+	public function getNumberOfChildren(Category $category): int {
 		$query = 'WITH RECURSIVE tree AS (
 			SELECT * FROM %s WHERE id = ? UNION
 			SELECT c.* FROM %s c, tree WHERE tree.id = c.parent
@@ -91,47 +91,47 @@ class CategoryRepository extends Repository {
 			static::getTableName()
 		);
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute([$Category->getID(), $Category->getID()]);
+		$statement = $this->database->prepare($query);
+		$statement->execute([$category->getID(), $category->getID()]);
 
-		return $Statement->fetchColumn();
+		return $statement->fetchColumn();
 	}
 
 	#===============================================================================
 	# Update category (and check for parent/child circular loops)
 	#===============================================================================
-	public function update(EntityInterface $Entity): bool {
+	public function update(EntityInterface $entity): bool {
 		# Skip circular loop check if parent is unchanged
-		if(!in_array('parent', $Entity->getModifiedKeys())) {
-			return parent::update($Entity);
+		if(!in_array('parent', $entity->getModifiedKeys())) {
+			return parent::update($entity);
 		}
 
 		$query = 'SELECT parent FROM %s WHERE id = ?';
 		$query = sprintf($query, static::getTableName());
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute([$Entity->getID()]);
+		$statement = $this->database->prepare($query);
+		$statement->execute([$entity->getID()]);
 
-		$_parent = $Entity->get('parent');
+		$_parent = $entity->get('parent');
 
 		# Fetch the parent of the *new* parent category and let the while loop run through
 		# the tree until either a parent of "NULL" was found or if the new parent category
 		# is a *child* of the *current* category which would cause a circular loop.
-		while($Statement->execute([$_parent]) && $_parent = $Statement->fetchColumn()) {
-			if($_parent == $Entity->getID()) {
+		while($statement->execute([$_parent]) && $_parent = $statement->fetchColumn()) {
+			if($_parent == $entity->getID()) {
 				# Set parent of the *new* parent category to the *original* parent category
 				# of the *current* category (one level up) to prevent a circular loop.
 				$query = 'UPDATE %s SET parent = (SELECT parent FROM %s WHERE id = ?) WHERE id = ?';
 				$query = sprintf($query, static::getTableName(), static::getTableName());
 
-				$UpdateStatement = $this->Database->prepare($query);
-				$UpdateStatement->execute([$_parent, $Entity->get('parent')]);
+				$updateStatement = $this->database->prepare($query);
+				$updateStatement->execute([$_parent, $entity->get('parent')]);
 				break;
 			} else if($_parent === null) {
 				break;
 			}
 		}
 
-		return parent::update($Entity);
+		return parent::update($entity);
 	}
 }

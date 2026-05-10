@@ -2,23 +2,23 @@
 #===============================================================================
 # Get repositories
 #===============================================================================
-$CategoryRepository = Application::getRepository('Category');
-$PostRepository = Application::getRepository('Post');
+$categoryRepository = Application::getRepository('Category');
+$postRepository = Application::getRepository('Post');
 
 #===============================================================================
 # Try to find category (with parents) by slug URL or unique ID
 #===============================================================================
 if(Application::get('CATEGORY.SLUG_URLS')) {
-	if(!$categories = $CategoryRepository->findWithParentsBy('slug', $param)) {
-		if($categories = $CategoryRepository->findWithParents($param)) {
+	if(!$categories = $categoryRepository->findWithParentsBy('slug', $param)) {
+		if($categories = $categoryRepository->findWithParents($param)) {
 			$redirect_scheduled = true;
 		}
 	}
 }
 
 else {
-	if(!$categories = $CategoryRepository->findWithParents($param)) {
-		if($categories = $CategoryRepository->findWithParentsBy('slug', $param)) {
+	if(!$categories = $categoryRepository->findWithParents($param)) {
+		if($categories = $categoryRepository->findWithParentsBy('slug', $param)) {
 			$redirect_scheduled = true;
 		}
 	}
@@ -34,13 +34,13 @@ if(empty($categories)) {
 #===============================================================================
 # The last element represents the current category
 #===============================================================================
-$Category = $categories[array_key_last($categories)];
+$category = $categories[array_key_last($categories)];
 
 #===============================================================================
 # If category with parents was found by alternative, redirect to correct URL
 #===============================================================================
 if(isset($redirect_scheduled)) {
-	HTTP::redirect(Application::getEntityURL($Category));
+	HTTP::redirect(Application::getEntityURL($category));
 }
 
 #===============================================================================
@@ -58,13 +58,13 @@ $category_data = $category_list[array_key_last($category_list)];
 #===============================================================================
 # Generate category children list
 #===============================================================================
-$child_categories = $CategoryRepository->getAll(
-	['parent' => $Category->getID()],
+$child_categories = $categoryRepository->getAll(
+	['parent' => $category->getID()],
 	Application::get('CATEGORY.LIST_SORT')
 );
 
-foreach($child_categories as $ChildCategory) {
-	$child_templates[] = createEntityItemTemplate($ChildCategory);
+foreach($child_categories as $childCategory) {
+	$child_templates[] = createEntityItemTemplate($childCategory);
 }
 
 #===============================================================================
@@ -73,7 +73,7 @@ foreach($child_categories as $ChildCategory) {
 $site_size = Application::get('POST.LIST_SIZE');
 $site_sort = Application::get('POST.LIST_SORT');
 
-$count = $CategoryRepository->getNumberOfPosts($Category);
+$count = $categoryRepository->getNumberOfPosts($category);
 $lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
@@ -86,44 +86,44 @@ if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 #===============================================================================
 # Get paginated post list for this category
 #===============================================================================
-$posts = $PostRepository->getAll(
-	['category' => $Category->getID()],
+$posts = $postRepository->getAll(
+	['category' => $category->getID()],
 	$site_sort,
 	$site_size,
 	($currentSite-1) * $site_size
 );
 
-foreach($posts as $Post) {
-	$post_templates[] = createEntityItemTemplate($Post);
+foreach($posts as $post) {
+	$post_templates[] = createEntityItemTemplate($post);
 }
 
 #===============================================================================
 # Build document
 #===============================================================================
-$CategoryTemplate = Template\Factory::build('category/main');
-$CategoryTemplate->set('CATEGORY', $category_data);
-$CategoryTemplate->set('CATEGORIES', $category_list ?? []);
-$CategoryTemplate->set('COUNT', [
-	'POST' => $CategoryRepository->getNumberOfPosts($Category),
-	'CHILDREN' => $CategoryRepository->getNumberOfChildren($Category)
+$categoryTemplate = Template\Factory::build('category/main');
+$categoryTemplate->set('CATEGORY', $category_data);
+$categoryTemplate->set('CATEGORIES', $category_list ?? []);
+$categoryTemplate->set('COUNT', [
+	'POST' => $categoryRepository->getNumberOfPosts($category),
+	'CHILDREN' => $categoryRepository->getNumberOfChildren($category)
 ]);
-$CategoryTemplate->set('PAGINATION', [
+$categoryTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
 	'HTML' => createPaginationTemplate(
-		$currentSite, $lastSite, Application::getEntityURL($Category))
+		$currentSite, $lastSite, Application::getEntityURL($category))
 ]);
-$CategoryTemplate->set('LIST', [
+$categoryTemplate->set('LIST', [
 	'POSTS' => $post_templates ?? [],
 	'CATEGORIES' => $child_templates ?? []
 ]);
 
-$MainTemplate = Template\Factory::build('main');
-$MainTemplate->set('TYPE', 'CATEGORY');
-$MainTemplate->set('CATEGORY', $category_data);
-$MainTemplate->set('CATEGORIES', $category_list ?? []);
-$MainTemplate->set('HTML', $CategoryTemplate);
-$MainTemplate->set('HEAD', [
+$mainTemplate = Template\Factory::build('main');
+$mainTemplate->set('TYPE', 'CATEGORY');
+$mainTemplate->set('CATEGORY', $category_data);
+$mainTemplate->set('CATEGORIES', $category_list ?? []);
+$mainTemplate->set('HTML', $categoryTemplate);
+$mainTemplate->set('HEAD', [
 	'NAME' => Application::getLanguage()->text('title_category',
 		[$category_data['ATTR']['NAME'], $currentSite]),
 	'DESC' => description($category_data['BODY']['HTML'](),
@@ -132,4 +132,4 @@ $MainTemplate->set('HEAD', [
 	'OG_IMAGES' => $category_data['FILE']['LIST']
 ]);
 
-echo $MainTemplate;
+echo $mainTemplate;

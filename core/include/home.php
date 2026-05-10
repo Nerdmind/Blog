@@ -2,45 +2,45 @@
 #===============================================================================
 # Get repositories
 #===============================================================================
-$PostRepository = Application::getRepository('Post');
+$postRepository = Application::getRepository('Post');
 
 #===============================================================================
 # Get paginated post list
 #===============================================================================
-$posts = $PostRepository->getPaginated(
+$posts = $postRepository->getPaginated(
 	Application::get('POST.LIST_SORT'),
 	Application::get('POST.LIST_SIZE')
 );
 
-foreach($posts as $Post) {
-	$templates[] = createEntityItemTemplate($Post);
+foreach($posts as $post) {
+	$templates[] = createEntityItemTemplate($post);
 }
 
 #===============================================================================
 # Pagination
 #===============================================================================
-$count = $PostRepository->getCount();
+$count = $postRepository->getCount();
 $lastSite = ceil($count / Application::get('POST.LIST_SIZE'));
 
 #===============================================================================
 # Build document
 #===============================================================================
-$HomeTemplate = Template\Factory::build('home');
-$HomeTemplate->set('PAGINATION', [
+$homeTemplate = Template\Factory::build('home');
+$homeTemplate->set('PAGINATION', [
 	'HTML' => createPaginationTemplate(
 		1, $lastSite, Application::getPostURL())
 ]);
-$HomeTemplate->set('LIST', [
+$homeTemplate->set('LIST', [
 	'POSTS' => $templates ?? []
 ]);
 
-$MainTemplate = Template\Factory::build('main');
-$MainTemplate->set('HTML', $HomeTemplate);
-$MainTemplate->set('HEAD', [
+$mainTemplate = Template\Factory::build('main');
+$mainTemplate->set('HTML', $homeTemplate);
+$mainTemplate->set('HEAD', [
 	'NAME' => Application::get('BLOGMETA.HOME'),
 	'DESC' => Application::get('BLOGMETA.NAME').' – '
 		.Application::get('BLOGMETA.DESC'),
 	'PERM' => Application::getURL()
 ]);
 
-echo $MainTemplate;
+echo $mainTemplate;

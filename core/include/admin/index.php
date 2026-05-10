@@ -1,36 +1,36 @@
 <?php
 
-$PageRepository = Application::getRepository('Page');
-$PostRepository = Application::getRepository('Post');
-$UserRepository = Application::getRepository('User');
+$pageRepository = Application::getRepository('Page');
+$postRepository = Application::getRepository('Post');
+$userRepository = Application::getRepository('User');
 
-if($Page = $PageRepository->getLast()) {
-	$PageItemTemplate = createEntityItemTemplate($Page);
+if($page = $pageRepository->getLast()) {
+	$pageItemTemplate = createEntityItemTemplate($page);
 }
 
-if($Post = $PostRepository->getLast()) {
-	$PostItemTemplate = createEntityItemTemplate($Post);
+if($post = $postRepository->getLast()) {
+	$postItemTemplate = createEntityItemTemplate($post);
 }
 
-if($User = $UserRepository->getLast()) {
-	$UserItemTemplate = createEntityItemTemplate($User);
+if($user = $userRepository->getLast()) {
+	$userItemTemplate = createEntityItemTemplate($user);
 }
 
-$AdminIndexTemplate = Template\Factory::build('home');
-$AdminIndexTemplate->set('LAST', [
-	'PAGE' => $PageItemTemplate ?? false,
-	'POST' => $PostItemTemplate ?? false,
-	'USER' => $UserItemTemplate ?? false
+$adminIndexTemplate = Template\Factory::build('home');
+$adminIndexTemplate->set('LAST', [
+	'PAGE' => $pageItemTemplate ?? false,
+	'POST' => $postItemTemplate ?? false,
+	'USER' => $userItemTemplate ?? false
 ]);
 
-$AdminIndexTemplate->set('COUNT', [
-	'PAGE' => $PageRepository->getCount(),
-	'POST' => $PostRepository->getCount(),
-	'USER' => $UserRepository->getCount()
+$adminIndexTemplate->set('COUNT', [
+	'PAGE' => $pageRepository->getCount(),
+	'POST' => $postRepository->getCount(),
+	'USER' => $userRepository->getCount()
 ]);
 
-$Template = Template\Factory::build('main');
-$Template->set('NAME', 'Dashboard');
-$Template->set('HTML', $AdminIndexTemplate);
+$template = Template\Factory::build('main');
+$template->set('NAME', 'Dashboard');
+$template->set('HTML', $adminIndexTemplate);
 
-echo $Template;
+echo $template;

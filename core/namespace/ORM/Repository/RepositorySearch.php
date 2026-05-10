@@ -44,10 +44,10 @@ trait RepositorySearch {
 			AGAINST(? IN BOOLEAN MODE) %s';
 		$query = sprintf($query, static::getTableName(), $dateparts, $limit ?? 'LIMIT 20');
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute(array_merge($params ?? [], [$search]));
+		$statement = $this->database->prepare($query);
+		$statement->execute(array_merge($params ?? [], [$search]));
 
-		if($entities = $this->fetchEntities($Statement)) {
+		if($entities = $this->fetchEntities($statement)) {
 			# Temporary (maybe crappy) solution to prevent a second count query.
 			# Virtual column "_count" does not belong into the entities.
 			$this->lastSearchOverallCount = $entities[0]->get('_count');
@@ -70,9 +70,9 @@ trait RepositorySearch {
 		$query = 'SELECT DISTINCT DAY(time_insert) AS d FROM %s ORDER BY d';
 		$query = sprintf($query, static::getTableName());
 
-		$Statement = $this->Database->query($query);
+		$statement = $this->database->query($query);
 
-		if($result = $Statement->fetchAll($this->Database::FETCH_COLUMN)) {
+		if($result = $statement->fetchAll($this->database::FETCH_COLUMN)) {
 			return $result;
 		}
 
@@ -86,9 +86,9 @@ trait RepositorySearch {
 		$query = 'SELECT DISTINCT MONTH(time_insert) AS m FROM %s ORDER BY m';
 		$query = sprintf($query, static::getTableName());
 
-		$Statement = $this->Database->query($query);
+		$statement = $this->database->query($query);
 
-		if($result = $Statement->fetchAll($this->Database::FETCH_COLUMN)) {
+		if($result = $statement->fetchAll($this->database::FETCH_COLUMN)) {
 			return $result;
 		}
 
@@ -102,9 +102,9 @@ trait RepositorySearch {
 		$query = 'SELECT DISTINCT YEAR(time_insert) AS y FROM %s ORDER BY y';
 		$query = sprintf($query, static::getTableName());
 
-		$Statement = $this->Database->query($query);
+		$statement = $this->database->query($query);
 
-		if($result = $Statement->fetchAll($this->Database::FETCH_COLUMN)) {
+		if($result = $statement->fetchAll($this->database::FETCH_COLUMN)) {
 			return $result;
 		}
 

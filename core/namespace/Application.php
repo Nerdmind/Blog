@@ -7,9 +7,9 @@ class Application {
 	#===============================================================================
 	# Singleton instances
 	#===============================================================================
-	private static $Database;
-	private static $Language;
-	private static $Migrator;
+	private static $database;
+	private static $language;
+	private static $migrator;
 	private static $repositories = [];
 	private static $contentFunctions = [];
 
@@ -43,59 +43,59 @@ class Application {
 	# Return singleton Database instance
 	#===============================================================================
 	public static function getDatabase($force = false): Database {
-		if(!self::$Database instanceof Database or $force === true) {
+		if(!self::$database instanceof Database or $force === true) {
 			$hostname = self::get('DATABASE.HOSTNAME');
 			$basename = self::get('DATABASE.BASENAME');
 			$username = self::get('DATABASE.USERNAME');
 			$password = self::get('DATABASE.PASSWORD');
 
-			$Database = new Database($hostname, $basename, $username, $password);
+			$database = new Database($hostname, $basename, $username, $password);
 
-			$Database->setAttribute(
-				$Database::ATTR_DEFAULT_FETCH_MODE,
-				$Database::FETCH_ASSOC
+			$database->setAttribute(
+				$database::ATTR_DEFAULT_FETCH_MODE,
+				$database::FETCH_ASSOC
 			);
 
-			$Database->setAttribute(
-				$Database::ATTR_ERRMODE,
-				$Database::ERRMODE_EXCEPTION
+			$database->setAttribute(
+				$database::ATTR_ERRMODE,
+				$database::ERRMODE_EXCEPTION
 			);
 
-			self::$Database = $Database;
+			self::$database = $database;
 		}
 
-		return self::$Database;
+		return self::$database;
 	}
 
 	#===============================================================================
 	# Return singleton Language instance
 	#===============================================================================
 	public static function getLanguage($force = false): Language {
-		if(!self::$Language instanceof Language or $force === true) {
+		if(!self::$language instanceof Language or $force === true) {
 			$template_name = self::get('TEMPLATE.NAME');
 			$template_lang = self::get('TEMPLATE.LANG');
 
-			$Language = new Language(self::get('CORE.LANGUAGE'));
-			$Language->load(sprintf(ROOT.'core/language/%s.php', Application::get('CORE.LANGUAGE')));
-			$Language->load(sprintf(ROOT.'theme/%s/lang/%s.php', $template_name, $template_lang));
+			$language = new Language(self::get('CORE.LANGUAGE'));
+			$language->load(sprintf(ROOT.'core/language/%s.php', Application::get('CORE.LANGUAGE')));
+			$language->load(sprintf(ROOT.'theme/%s/lang/%s.php', $template_name, $template_lang));
 
-			self::$Language = $Language;
+			self::$language = $language;
 		}
 
-		return self::$Language;
+		return self::$language;
 	}
 
 	#===============================================================================
 	# Return singleton Migrator instance
 	#===============================================================================
 	public static function getMigrator(): Migrator {
-		if(!self::$Migrator instanceof Migrator) {
-			$Migrator = new Migrator(self::getDatabase());
-			$Migrator->setMigrationsDir(ROOT.'core/db/migrations/');
-			self::$Migrator = $Migrator;
+		if(!self::$migrator instanceof Migrator) {
+			$migrator = new Migrator(self::getDatabase());
+			$migrator->setMigrationsDir(ROOT.'core/db/migrations/');
+			self::$migrator = $migrator;
 		}
 
-		return self::$Migrator;
+		return self::$migrator;
 	}
 
 	#===============================================================================
@@ -106,8 +106,8 @@ class Application {
 
 		if(!isset(self::$repositories[$identifier])) {
 			$className = sprintf('ORM\Repository\%sRepository', $entity);
-			$Repository = new $className(self::getDatabase());
-			self::$repositories[$identifier] = $Repository;
+			$repository = new $className(self::getDatabase());
+			self::$repositories[$identifier] = $repository;
 		}
 
 		return self::$repositories[$identifier];
@@ -195,20 +195,20 @@ class Application {
 	#===============================================================================
 	# Return absolute URL of a specific entity
 	#===============================================================================
-	public static function getEntityURL(EntityInterface $Entity) {
-		switch($class = get_class($Entity)) {
+	public static function getEntityURL(EntityInterface $entity) {
+		switch($class = get_class($entity)) {
 			case 'ORM\Entity\Category':
 				$attr = self::get('CATEGORY.SLUG_URLS') ? 'slug' : 'id';
-				return self::getCategoryURL($Entity->get($attr).'/');
+				return self::getCategoryURL($entity->get($attr).'/');
 			case 'ORM\Entity\Page':
 				$attr = self::get('PAGE.SLUG_URLS') ? 'slug' : 'id';
-				return self::getPageURL($Entity->get($attr).'/');
+				return self::getPageURL($entity->get($attr).'/');
 			case 'ORM\Entity\Post':
 				$attr = self::get('POST.SLUG_URLS') ? 'slug' : 'id';
-				return self::getPostURL($Entity->get($attr).'/');
+				return self::getPostURL($entity->get($attr).'/');
 			case 'ORM\Entity\User':
 				$attr = self::get('USER.SLUG_URLS') ? 'slug' : 'id';
-				return self::getUserURL($Entity->get($attr).'/');
+				return self::getUserURL($entity->get($attr).'/');
 			default:
 				$error = 'Unknown URL handler for <code>%s</code> entities.';
 				throw new Exception(sprintf($error, $class));
@@ -246,21 +246,21 @@ class Application {
 	# Exit application with the 403 error page
 	#===============================================================================
 	public static function error403(): void {
-		$Template = Template\Factory::build('main');
-		$Template->set('NAME', '403 Forbidden');
-		$Template->set('HEAD', ['NAME' => $Template->get('NAME')]);
-		$Template->set('HTML', Template\Factory::build('403'));
-		self::exit($Template, 403);
+		$template = Template\Factory::build('main');
+		$template->set('NAME', '403 Forbidden');
+		$template->set('HEAD', ['NAME' => $template->get('NAME')]);
+		$template->set('HTML', Template\Factory::build('403'));
+		self::exit($template, 403);
 	}
 
 	#===============================================================================
 	# Exit application with the 404 error page
 	#===============================================================================
 	public static function error404(): void {
-		$Template = Template\Factory::build('main');
-		$Template->set('NAME', '404 Not Found');
-		$Template->set('HEAD', ['NAME' => $Template->get('NAME')]);
-		$Template->set('HTML', Template\Factory::build('404'));
-		self::exit($Template, 404);
+		$template = Template\Factory::build('main');
+		$template->set('NAME', '404 Not Found');
+		$template->set('HEAD', ['NAME' => $template->get('NAME')]);
+		$template->set('HTML', Template\Factory::build('404'));
+		self::exit($template, 404);
 	}
 }

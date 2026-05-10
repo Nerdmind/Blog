@@ -1,6 +1,6 @@
 <?php
 
-$Language = Application::getLanguage();
+$language = Application::getLanguage();
 
 if(Application::isAuthenticated()) {
 	if(HTTP::issetGET(['token' => Application::getSecurityToken()], ['action' => 'logout'])) {
@@ -13,14 +13,14 @@ if(Application::isAuthenticated()) {
 
 if(HTTP::issetPOST('username', 'password')) {
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
-		$UserRepository = Application::getRepository('User');
+		$userRepository = Application::getRepository('User');
 
-		if($User = $UserRepository->findBy('username', HTTP::POST('username'))) {
-			if(password_verify(HTTP::POST('password'), $User->get('password'))) {
-				$_SESSION['USER_ID'] = $User->getID();
+		if($user = $userRepository->findBy('username', HTTP::POST('username'))) {
+			if(password_verify(HTTP::POST('password'), $user->get('password'))) {
+				$_SESSION['USER_ID'] = $user->getID();
 				HTTP::redirect(Application::getAdminURL());
 			} else {
-				$messages[] = $Language->text('authentication_failure');
+				$messages[] = $language->text('authentication_failure');
 			}
 		} else {
 			$fake_hash = '$2y$10$xpnwDU2HumOgGQhVpMOP9uataEF82YXizniFhSUhYjUiXF8aoDk0C';
@@ -28,15 +28,15 @@ if(HTTP::issetPOST('username', 'password')) {
 
 			password_verify($fake_pass, $fake_hash);
 
-			$messages[] = $Language->text('authentication_failure');
+			$messages[] = $language->text('authentication_failure');
 		}
 	} else {
-		$messages[] = $Language->text('error_security_csrf');
+		$messages[] = $language->text('error_security_csrf');
 	}
 }
 
-$LoginTemplate = Template\Factory::build('auth');
-$LoginTemplate->set('FORM', [
+$loginTemplate = Template\Factory::build('auth');
+$loginTemplate->set('FORM', [
 	'INFO' => $messages ?? [],
 	'DATA' => [
 		'USERNAME' => HTTP::POST('username'),
@@ -45,8 +45,8 @@ $LoginTemplate->set('FORM', [
 	'TOKEN' => Application::getSecurityToken()
 ]);
 
-$Template = Template\Factory::build('main');
-$Template->set('NAME', 'Login');
-$Template->set('HTML', $LoginTemplate);
+$template = Template\Factory::build('main');
+$template->set('NAME', 'Login');
+$template->set('HTML', $loginTemplate);
 
-echo $Template;
+echo $template;

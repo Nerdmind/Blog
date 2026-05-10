@@ -1,8 +1,8 @@
 <?php
 
-$Language = Application::getLanguage();
+$language = Application::getLanguage();
 
-$Repository = Application::getRepository($entity_ns);
+$repository = Application::getRepository($entity_ns);
 
 $site_size = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entity_ns)));
 $site_sort = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entity_ns)));
@@ -20,21 +20,21 @@ if($search = HTTP::GET('q')) {
 			];
 		}
 
-		if(!$entities = $Repository->search($search, $filter ?? [], $site_size, $offset)) {
+		if(!$entities = $repository->search($search, $filter ?? [], $site_size, $offset)) {
 			$messages[] = Application::getLanguage()->text(
 				'search_no_results', htmlspecialchars($search));
 		}
 
-		foreach($entities as $Entity) {
-			$templates[] = createEntityItemTemplate($Entity);
+		foreach($entities as $entity) {
+			$templates[] = createEntityItemTemplate($entity);
 		}
-	} catch(PDOException $Exception) {
-		$messages[] = $Exception->getMessage();
+	} catch(PDOException $exception) {
+		$messages[] = $exception->getMessage();
 	}
 }
 
 // Create pagination only if there are search results
-if($count = $Repository->getLastSearchOverallCount()) {
+if($count = $repository->getLastSearchOverallCount()) {
 	$last = ceil($count / $site_size);
 
 	$pagination_data = [
@@ -53,13 +53,13 @@ $form_data = [
 
 // For pages and posts we have a user
 if(in_array($entity_ns, ['Page', 'Post'])) {
-	$UserRepository = Application::getRepository('User');
+	$userRepository = Application::getRepository('User');
 
-	foreach($UserRepository->getAll([], 'fullname ASC') as $User) {
+	foreach($userRepository->getAll([], 'fullname ASC') as $user) {
 		$userList[] = [
-			'ID' => $User->getID(),
-			'FULLNAME' => $User->get('fullname'),
-			'USERNAME' => $User->get('username'),
+			'ID' => $user->getID(),
+			'FULLNAME' => $user->get('fullname'),
+			'USERNAME' => $user->get('username'),
 		];
 
 		$form_data['USER_LIST'] = $userList ?? [];
@@ -70,13 +70,13 @@ if($entity_ns === 'Post') {
 	$form_data['DATA']['USER'] = HTTP::GET('user');
 	$form_data['DATA']['CATEGORY'] = HTTP::GET('category');
 
-	$CategoryRepository = Application::getRepository('Category');
+	$categoryRepository = Application::getRepository('Category');
 
-	foreach($CategoryRepository->getAll([], 'name ASC') as $Category) {
+	foreach($categoryRepository->getAll([], 'name ASC') as $category) {
 		$categoryList[] = [
-			'ID' => $Category->getID(),
-			'NAME' => $Category->get('name'),
-			'PARENT' => $Category->get('parent'),
+			'ID' => $category->getID(),
+			'NAME' => $category->get('name'),
+			'PARENT' => $category->get('parent'),
 		];
 	}
 
@@ -84,14 +84,14 @@ if($entity_ns === 'Post') {
 	$form_data['CATEGORY_TREE'] = generateCategoryDataTree($categoryList ?? []);
 }
 
-$SearchTemplate = Template\Factory::build(sprintf('%s/search', $entity_str));
-$SearchTemplate->set('QUERY', $search);
-$SearchTemplate->set($list_key_plural, $templates ?? []);
-$SearchTemplate->set('FORM', $form_data);
-$SearchTemplate->set('PAGINATION', $pagination_data ?? []);
+$searchTemplate = Template\Factory::build(sprintf('%s/search', $entity_str));
+$searchTemplate->set('QUERY', $search);
+$searchTemplate->set($list_key_plural, $templates ?? []);
+$searchTemplate->set('FORM', $form_data);
+$searchTemplate->set('PAGINATION', $pagination_data ?? []);
 
-$Template = Template\Factory::build('main');
-$Template->set('NAME', $Language->text(sprintf('title_%s_search', $entity_str)));
-$Template->set('HTML', $SearchTemplate);
+$template = Template\Factory::build('main');
+$template->set('NAME', $language->text(sprintf('title_%s_search', $entity_str)));
+$template->set('HTML', $searchTemplate);
 
-echo $Template;
+echo $template;

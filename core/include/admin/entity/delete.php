@@ -1,25 +1,25 @@
 <?php
 
-$Language = Application::getLanguage();
+$language = Application::getLanguage();
 
-$Repository = Application::getRepository($entity_ns);
+$repository = Application::getRepository($entity_ns);
 
-if(!$Entity = $Repository->find(HTTP::GET('id'))) {
+if(!$entity = $repository->find(HTTP::GET('id'))) {
 	Application::error404();
 }
 
 if(HTTP::issetPOST('delete')) {
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			$Repository->delete($Entity);
+			$repository->delete($entity);
 
 			HTTP::redirect(
 				Application::getAdminURL(sprintf('%s/', $entity_str)));
-		} catch(PDOException $Exception) {
-			$messages[] = $Exception->getMessage();
+		} catch(PDOException $exception) {
+			$messages[] = $exception->getMessage();
 		}
 	} else {
-		$messages[] = $Language->text('error_security_csrf');
+		$messages[] = $language->text('error_security_csrf');
 	}
 }
 
@@ -27,20 +27,20 @@ if($entity_ns === 'User') {
 	$exclude_list = ['password'];
 }
 
-$FormTemplate = Template\Factory::build(sprintf('%s/form', $entity_str));
-$FormTemplate->set('HTML', parseEntityContent($Entity));
-$FormTemplate->set('FORM', [
+$formTemplate = Template\Factory::build(sprintf('%s/form', $entity_str));
+$formTemplate->set('HTML', parseEntityContent($entity));
+$formTemplate->set('FORM', [
 	'TYPE' => 'DELETE',
 	'INFO' => $messages ?? [],
-	'DATA' => array_change_key_case($Entity->getAll($exclude_list ?? []), CASE_UPPER),
+	'DATA' => array_change_key_case($entity->getAll($exclude_list ?? []), CASE_UPPER),
 	'TOKEN' => Application::getSecurityToken()
 ]);
 
-$DeleteTemplate = Template\Factory::build(sprintf('%s/delete', $entity_str));
-$DeleteTemplate->set('HTML', $FormTemplate);
+$deleteTemplate = Template\Factory::build(sprintf('%s/delete', $entity_str));
+$deleteTemplate->set('HTML', $formTemplate);
 
-$Template = Template\Factory::build('main');
-$Template->set('NAME', $Language->text(sprintf('title_%s_delete', $entity_str)));
-$Template->set('HTML', $DeleteTemplate);
+$template = Template\Factory::build('main');
+$template->set('NAME', $language->text(sprintf('title_%s_delete', $entity_str)));
+$template->set('HTML', $deleteTemplate);
 
-echo $Template;
+echo $template;

@@ -5,23 +5,23 @@ use PDOStatement;
 use ORM\Entity\EntityInterface;
 
 abstract class Repository implements RepositoryInterface {
-	protected $Database;
+	protected $database;
 	protected $entities = [];
 
 	abstract public static function getTableName(): string;
 	abstract public static function getClassName(): string;
 
-	public function __construct(Database $Database) {
-		$this->Database = $Database;
+	public function __construct(Database $database) {
+		$this->database = $database;
 	}
 
 	#===============================================================================
 	# Fetch entity from a PDOStatement result
 	#===============================================================================
-	protected function fetchEntity(PDOStatement $Statement): ?EntityInterface {
-		if($Entity = $Statement->fetchObject(static::getClassName())) {
-			$this->storeInstance($Entity->getID(), $Entity);
-			return $Entity;
+	protected function fetchEntity(PDOStatement $statement): ?EntityInterface {
+		if($entity = $statement->fetchObject(static::getClassName())) {
+			$this->storeInstance($entity->getID(), $entity);
+			return $entity;
 		}
 
 		return null;
@@ -30,8 +30,8 @@ abstract class Repository implements RepositoryInterface {
 	#===============================================================================
 	# Fetch multiple entities from a PDOStatement result
 	#===============================================================================
-	protected function fetchEntities(PDOStatement $Statement): array {
-		if($entities = $Statement->fetchAll($this->Database::FETCH_CLASS, static::getClassName())) {
+	protected function fetchEntities(PDOStatement $statement): array {
+		if($entities = $statement->fetchAll($this->database::FETCH_CLASS, static::getClassName())) {
 			$this->storeMultipleInstances($entities);
 			return $entities;
 		}
@@ -42,16 +42,16 @@ abstract class Repository implements RepositoryInterface {
 	#===============================================================================
 	# Adds an entity to the runtime cache
 	#===============================================================================
-	protected function storeInstance(int $identifier, EntityInterface $Entity) {
-		return $this->entities[$identifier] = $Entity;
+	protected function storeInstance(int $identifier, EntityInterface $entity) {
+		return $this->entities[$identifier] = $entity;
 	}
 
 	#===============================================================================
 	# Adds an array of entities to the runtime cache
 	#===============================================================================
 	protected function storeMultipleInstances(array $entities) {
-		foreach($entities as $Entity) {
-			$this->storeInstance($Entity->getID(), $Entity);
+		foreach($entities as $entity) {
+			$this->storeInstance($entity->getID(), $entity);
 		}
 
 		return $entities;
@@ -76,9 +76,9 @@ abstract class Repository implements RepositoryInterface {
 	#===========================================================================
 	# Insert entity
 	#===========================================================================
-	public function insert(EntityInterface $Entity): bool {
-		foreach($Entity->getModifiedKeys() as $attribute) {
-			$params[] = $Entity->get($attribute);
+	public function insert(EntityInterface $entity): bool {
+		foreach($entity->getModifiedKeys() as $attribute) {
+			$params[] = $entity->get($attribute);
 			$fields[] = $attribute;
 			$values[] = '?';
 		}
@@ -90,8 +90,8 @@ abstract class Repository implements RepositoryInterface {
 			$query = sprintf('INSERT INTO %s (%s) VALUES(%s)',
 				static::getTableName(), $fields, $values);
 
-			$Statement = $this->Database->prepare($query);
-			return $Statement->execute($params);
+			$statement = $this->database->prepare($query);
+			return $statement->execute($params);
 		}
 
 		return false;
@@ -100,9 +100,9 @@ abstract class Repository implements RepositoryInterface {
 	#===========================================================================
 	# Update entity
 	#===========================================================================
-	public function update(EntityInterface $Entity): bool {
-		foreach($Entity->getModifiedKeys() as $attribute) {
-			$params[] = $Entity->get($attribute);
+	public function update(EntityInterface $entity): bool {
+		foreach($entity->getModifiedKeys() as $attribute) {
+			$params[] = $entity->get($attribute);
 			$fields[] = "$attribute = ?";
 		}
 
@@ -110,10 +110,10 @@ abstract class Repository implements RepositoryInterface {
 			$fields = implode(', ', $fields);
 
 			$query = sprintf('UPDATE %s SET %s WHERE id = %d',
-				static::getTableName(), $fields, $Entity->getID());
+				static::getTableName(), $fields, $entity->getID());
 
-			$Statement = $this->Database->prepare($query);
-			return $Statement->execute($params);
+			$statement = $this->database->prepare($query);
+			return $statement->execute($params);
 		}
 
 		return false;
@@ -122,20 +122,20 @@ abstract class Repository implements RepositoryInterface {
 	#===========================================================================
 	# Delete entity
 	#===========================================================================
-	public function delete(EntityInterface $Entity): bool {
+	public function delete(EntityInterface $entity): bool {
 		$query = 'DELETE FROM %s WHERE id = ?';
 		$query = sprintf($query, static::getTableName());
 
-		$Statement = $this->Database->prepare($query);
-		return $Statement->execute([$Entity->getID()]);
+		$statement = $this->database->prepare($query);
+		return $statement->execute([$entity->getID()]);
 	}
 
 	#===========================================================================
 	# Find entity based on primary key
 	#===========================================================================
 	public function find($id): ?EntityInterface {
-		if($Entity = $this->fetchInstance($id)) {
-			return $Entity;
+		if($entity = $this->fetchInstance($id)) {
+			return $entity;
 		}
 
 		return $this->findBy('id', $id);
@@ -148,36 +148,36 @@ abstract class Repository implements RepositoryInterface {
 		$query = 'SELECT * FROM %s WHERE %s = ?';
 		$query = sprintf($query, static::getTableName(), $field);
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute([$value]);
+		$statement = $this->database->prepare($query);
+		$statement->execute([$value]);
 
-		return $this->fetchEntity($Statement);
+		return $this->fetchEntity($statement);
 	}
 
 	#===============================================================================
 	# Find previous entity
 	#===============================================================================
-	public function findPrev(EntityInterface $Entity): ?EntityInterface {
+	public function findPrev(EntityInterface $entity): ?EntityInterface {
 		$query = 'SELECT * FROM %s WHERE time_insert < ? ORDER BY time_insert DESC LIMIT 1';
 		$query = sprintf($query, static::getTableName());
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute([$Entity->get('time_insert')]);
+		$statement = $this->database->prepare($query);
+		$statement->execute([$entity->get('time_insert')]);
 
-		return $this->fetchEntity($Statement);
+		return $this->fetchEntity($statement);
 	}
 
 	#===============================================================================
 	# Find next entity
 	#===============================================================================
-	public function findNext(EntityInterface $Entity): ?EntityInterface {
+	public function findNext(EntityInterface $entity): ?EntityInterface {
 		$query = 'SELECT * FROM %s WHERE time_insert > ? ORDER BY time_insert ASC LIMIT 1';
 		$query = sprintf($query, static::getTableName());
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute([$Entity->get('time_insert')]);
+		$statement = $this->database->prepare($query);
+		$statement->execute([$entity->get('time_insert')]);
 
-		return $this->fetchEntity($Statement);
+		return $this->fetchEntity($statement);
 	}
 
 	#===========================================================================
@@ -187,8 +187,8 @@ abstract class Repository implements RepositoryInterface {
 		$query = 'SELECT * FROM %s ORDER BY time_insert DESC LIMIT 1';
 		$query = sprintf($query, static::getTableName());
 
-		$Statement = $this->Database->query($query);
-		return $this->fetchEntity($Statement);
+		$statement = $this->database->query($query);
+		return $this->fetchEntity($statement);
 	}
 
 	#===========================================================================
@@ -214,10 +214,10 @@ abstract class Repository implements RepositoryInterface {
 		$query = 'SELECT COUNT(id) FROM %s %s';
 		$query = sprintf($query, static::getTableName(), $where ?? '');
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute($params);
+		$statement = $this->database->prepare($query);
+		$statement->execute($params);
 
-		return $Statement->fetchColumn();
+		return $statement->fetchColumn();
 	}
 
 	#===========================================================================
@@ -259,9 +259,9 @@ abstract class Repository implements RepositoryInterface {
 		$query = "$select %s %s %s";
 		$query = sprintf($query, $where ?? '', $order ?? '', $limit ?? '');
 
-		$Statement = $this->Database->prepare($query);
-		$Statement->execute($params);
+		$statement = $this->database->prepare($query);
+		$statement->execute($params);
 
-		return $this->fetchEntities($Statement);
+		return $this->fetchEntities($statement);
 	}
 }

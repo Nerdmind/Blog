@@ -2,12 +2,12 @@
 #===============================================================================
 # Get instances
 #===============================================================================
-$Language = Application::getLanguage();
+$language = Application::getLanguage();
 
 #===============================================================================
 # Get repositories
 #===============================================================================
-$PostRepository = Application::getRepository('Post');
+$postRepository = Application::getRepository('Post');
 
 #===============================================================================
 # Pagination
@@ -15,7 +15,7 @@ $PostRepository = Application::getRepository('Post');
 $site_size = Application::get('POST.LIST_SIZE');
 $site_sort = Application::get('POST.LIST_SORT');
 
-$count = $PostRepository->getCount();
+$count = $postRepository->getCount();
 $lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
@@ -29,41 +29,41 @@ if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 # Single redirect
 #===============================================================================
 if(Application::get('POST.REDIRECT_SINGLE') === true and $count === 1) {
-	$Post = $PostRepository->getLast();
-	HTTP::redirect(Application::getEntityURL($Post));
+	$post = $postRepository->getLast();
+	HTTP::redirect(Application::getEntityURL($post));
 }
 
 #===============================================================================
 # Get paginated post list
 #===============================================================================
-$posts = $PostRepository->getPaginated(
+$posts = $postRepository->getPaginated(
 	$site_sort,
 	$site_size,
 	($currentSite-1) * $site_size
 );
 
-foreach($posts as $Post) {
-	$templates[] = createEntityItemTemplate($Post);
+foreach($posts as $post) {
+	$templates[] = createEntityItemTemplate($post);
 }
 
 #===============================================================================
 # Build document
 #===============================================================================
-$ListTemplate = Template\Factory::build('post/list');
-$ListTemplate->set('PAGINATION', [
+$listTemplate = Template\Factory::build('post/list');
+$listTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
 	'HTML' => createPaginationTemplate(
 		$currentSite, $lastSite, Application::getPostURL())
 ]);
-$ListTemplate->set('LIST', [
+$listTemplate->set('LIST', [
 	'POSTS' => $templates ?? []
 ]);
 
-$MainTemplate = Template\Factory::build('main');
-$MainTemplate->set('HTML', $ListTemplate);
-$MainTemplate->set('HEAD', [
-	'NAME' => $Language->text('title_post_overview', $currentSite)
+$mainTemplate = Template\Factory::build('main');
+$mainTemplate->set('HTML', $listTemplate);
+$mainTemplate->set('HEAD', [
+	'NAME' => $language->text('title_post_overview', $currentSite)
 ]);
 
-echo $MainTemplate;
+echo $mainTemplate;

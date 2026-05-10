@@ -2,20 +2,20 @@
 #===============================================================================
 # Get instances
 #===============================================================================
-$Language = Application::getLanguage();
+$language = Application::getLanguage();
 
 #===============================================================================
 # Get repositories
 #===============================================================================
-$CategoryRepository = Application::getRepository('Category');
-$PostRepository = Application::getRepository('Post');
+$categoryRepository = Application::getRepository('Category');
+$postRepository = Application::getRepository('Post');
 
 #===============================================================================
 # Pagination
 #===============================================================================
 $site_size = Application::get('CATEGORY.LIST_SIZE');
 
-$count = $CategoryRepository->getCount();
+$count = $categoryRepository->getCount();
 $lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
@@ -29,40 +29,40 @@ if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 # Single redirect
 #===============================================================================
 if(Application::get('CATEGORY.REDIRECT_SINGLE') === true and $count === 1) {
-	$Category = $CategoryRepository->getLast();
-	HTTP::redirect(Application::getEntityURL($Category));
+	$category = $categoryRepository->getLast();
+	HTTP::redirect(Application::getEntityURL($category));
 }
 
 #===============================================================================
 # Get paginated category list
 #===============================================================================
-$categories = $CategoryRepository->getPaginatedTree(
+$categories = $categoryRepository->getPaginatedTree(
 	$site_size,
 	($currentSite-1) * $site_size
 );
 
-foreach($categories as $Category) {
-	$templates[] = createEntityItemTemplate($Category, ['is_root' => true]);
+foreach($categories as $category) {
+	$templates[] = createEntityItemTemplate($category, ['is_root' => true]);
 }
 
 #===============================================================================
 # Build document
 #===============================================================================
-$ListTemplate = Template\Factory::build('category/list');
-$ListTemplate->set('PAGINATION', [
+$listTemplate = Template\Factory::build('category/list');
+$listTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
 	'HTML' => createPaginationTemplate(
 		$currentSite, $lastSite, Application::getCategoryURL())
 ]);
-$ListTemplate->set('LIST', [
+$listTemplate->set('LIST', [
 	'CATEGORIES' => $templates ?? []
 ]);
 
-$MainTemplate = Template\Factory::build('main');
-$MainTemplate->set('HTML', $ListTemplate);
-$MainTemplate->set('HEAD', [
-	'NAME' => $Language->text('title_category_overview', $currentSite)
+$mainTemplate = Template\Factory::build('main');
+$mainTemplate->set('HTML', $listTemplate);
+$mainTemplate->set('HEAD', [
+	'NAME' => $language->text('title_category_overview', $currentSite)
 ]);
 
-echo $MainTemplate;
+echo $mainTemplate;

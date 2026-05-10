@@ -1,13 +1,13 @@
 <?php
 
-$Language = Application::getLanguage();
+$language = Application::getLanguage();
 
-$Repository = Application::getRepository($entity_ns);
+$repository = Application::getRepository($entity_ns);
 
 $site_size = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entity_ns)));
 $site_sort = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entity_ns)));
 
-$count = $Repository->getCount();
+$count = $repository->getCount();
 $lastSite = ceil($count / $site_size);
 
 $currentSite = HTTP::GET('site') ?? 1;
@@ -23,27 +23,27 @@ if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 
 // For categories we want a paginated tree
 if($entity_ns === 'Category') {
-	$entities = $Repository->getPaginatedTree(
+	$entities = $repository->getPaginatedTree(
 		$site_size, ($currentSite-1) * $site_size);
 } else { // ... all other entity types
-	$entities = $Repository->getPaginated(
+	$entities = $repository->getPaginated(
 		$site_sort,	$site_size,	($currentSite-1) * $site_size);
 }
 
-foreach($entities as $Entity) {
+foreach($entities as $entity) {
 	if($entity_ns === 'Category') {
-		$templates[] = createEntityItemTemplate($Entity, ['is_root' => true]);
+		$templates[] = createEntityItemTemplate($entity, ['is_root' => true]);
 	} else {
-		$templates[] = createEntityItemTemplate($Entity);
+		$templates[] = createEntityItemTemplate($entity);
 	}
 }
 
-$ListTemplate = Template\Factory::build(sprintf('%s/index', $entity_str));
-$ListTemplate->set('LIST', [
+$listTemplate = Template\Factory::build(sprintf('%s/index', $entity_str));
+$listTemplate->set('LIST', [
 	$list_key_plural => $templates ?? []
 ]);
 
-$ListTemplate->set('PAGINATION', [
+$listTemplate->set('PAGINATION', [
 	'THIS' => $currentSite,
 	'LAST' => $lastSite,
 	'HTML' => createPaginationTemplate(
@@ -51,8 +51,8 @@ $ListTemplate->set('PAGINATION', [
 	)
 ]);
 
-$Template = Template\Factory::build('main');
-$Template->set('NAME', $Language->text(sprintf('title_%s_overview', $entity_str), $currentSite));
-$Template->set('HTML', $ListTemplate);
+$template = Template\Factory::build('main');
+$template->set('NAME', $language->text(sprintf('title_%s_overview', $entity_str), $currentSite));
+$template->set('HTML', $listTemplate);
 
-echo $Template;
+echo $template;
