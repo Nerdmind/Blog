@@ -70,16 +70,16 @@ foreach($childCategories as $childCategory) {
 #===============================================================================
 # Pagination (for posts in this category)
 #===============================================================================
-$siteSize = Application::get('POST.LIST_SIZE');
-$siteSort = Application::get('POST.LIST_SORT');
+$pageSize = Application::get('POST.LIST_SIZE');
+$sortOrder = Application::get('POST.LIST_SORT');
 
 $count = $categoryRepository->getNumberOfPosts($category);
-$lastSite = ceil($count / $siteSize);
+$pageCount = ceil($count / $pageSize);
 
-$currentSite = HTTP::GET('site') ?? 1;
-$currentSite = intval($currentSite);
+$pageNumber = HTTP::GET('site') ?? 1;
+$pageNumber = intval($pageNumber);
 
-if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
+if($pageNumber < 1 or ($pageNumber > $pageCount and $pageCount > 0)) {
 	Application::error404();
 }
 
@@ -88,9 +88,9 @@ if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
 #===============================================================================
 $posts = $postRepository->getAll(
 	['category' => $category->getID()],
-	$siteSort,
-	$siteSize,
-	($currentSite-1) * $siteSize
+	$sortOrder,
+	$pageSize,
+	($pageNumber-1) * $pageSize
 );
 
 foreach($posts as $post) {
@@ -108,10 +108,10 @@ $categoryTemplate->set('COUNT', [
 	'CHILDREN' => $categoryRepository->getNumberOfChildren($category)
 ]);
 $categoryTemplate->set('PAGINATION', [
-	'THIS' => $currentSite,
-	'LAST' => $lastSite,
+	'THIS' => $pageNumber,
+	'LAST' => $pageCount,
 	'HTML' => createPaginationTemplate(
-		$currentSite, $lastSite, Application::getEntityURL($category))
+		$pageNumber, $pageCount, Application::getEntityURL($category))
 ]);
 $categoryTemplate->set('LIST', [
 	'POSTS' => $postTemplates ?? [],
@@ -125,7 +125,7 @@ $mainTemplate->set('CATEGORIES', $categoryList ?? []);
 $mainTemplate->set('HTML', $categoryTemplate);
 $mainTemplate->set('HEAD', [
 	'NAME' => Application::getLanguage()->text('title_category',
-		[$categoryData['ATTR']['NAME'], $currentSite]),
+		[$categoryData['ATTR']['NAME'], $pageNumber]),
 	'DESC' => description($categoryData['BODY']['HTML'](),
 		Application::get('CATEGORY.DESCRIPTION_SIZE')),
 	'PERM' => $categoryData['URL'],

@@ -4,30 +4,30 @@ $language = Application::getLanguage();
 
 $repository = Application::getRepository($entityClassName);
 
-$siteSize = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entityClassName)));
-$siteSort = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entityClassName)));
+$pageSize = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entityClassName)));
+$sortOrder = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entityClassName)));
 
 $count = $repository->getCount();
-$lastSite = ceil($count / $siteSize);
+$pageCount = ceil($count / $pageSize);
 
-$currentSite = HTTP::GET('site') ?? 1;
-$currentSite = intval($currentSite);
+$pageNumber = HTTP::GET('site') ?? 1;
+$pageNumber = intval($pageNumber);
 
 if(!$count) {
 	HTTP::redirect(Application::getAdminURL(sprintf('%s/insert.php', $entityType)));
 }
 
-if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
+if($pageNumber < 1 or ($pageNumber > $pageCount and $pageCount > 0)) {
 	Application::error404();
 }
 
 // For categories we want a paginated tree
 if($entityClassName === 'Category') {
 	$entities = $repository->getPaginatedTree(
-		$siteSize, ($currentSite-1) * $siteSize);
+		$pageSize, ($pageNumber-1) * $pageSize);
 } else { // ... all other entity types
 	$entities = $repository->getPaginated(
-		$siteSort, $siteSize, ($currentSite-1) * $siteSize);
+		$sortOrder, $pageSize, ($pageNumber-1) * $pageSize);
 }
 
 foreach($entities as $entity) {
@@ -44,15 +44,15 @@ $listTemplate->set('LIST', [
 ]);
 
 $listTemplate->set('PAGINATION', [
-	'THIS' => $currentSite,
-	'LAST' => $lastSite,
+	'THIS' => $pageNumber,
+	'LAST' => $pageCount,
 	'HTML' => createPaginationTemplate(
-		$currentSite, $lastSite, Application::getAdminURL(sprintf('%s/', $entityType))
+		$pageNumber, $pageCount, Application::getAdminURL(sprintf('%s/', $entityType))
 	)
 ]);
 
 $template = Template\Factory::build('main');
-$template->set('NAME', $language->text(sprintf('title_%s_overview', $entityType), $currentSite));
+$template->set('NAME', $language->text(sprintf('title_%s_overview', $entityType), $pageNumber));
 $template->set('HTML', $listTemplate);
 
 echo $template;

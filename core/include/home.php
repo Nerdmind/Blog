@@ -20,7 +20,7 @@ foreach($posts as $post) {
 # Pagination
 #===============================================================================
 $count = $postRepository->getCount();
-$lastSite = ceil($count / Application::get('POST.LIST_SIZE'));
+$pageCount = ceil($count / Application::get('POST.LIST_SIZE'));
 
 #===============================================================================
 # Build document
@@ -28,7 +28,7 @@ $lastSite = ceil($count / Application::get('POST.LIST_SIZE'));
 $homeTemplate = Template\Factory::build('home');
 $homeTemplate->set('PAGINATION', [
 	'HTML' => createPaginationTemplate(
-		1, $lastSite, Application::getPostURL())
+		1, $pageCount, Application::getPostURL())
 ]);
 $homeTemplate->set('LIST', [
 	'POSTS' => $templates ?? []

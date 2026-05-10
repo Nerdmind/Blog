@@ -13,15 +13,15 @@ $postRepository = Application::getRepository('Post');
 #===============================================================================
 # Pagination
 #===============================================================================
-$siteSize = Application::get('CATEGORY.LIST_SIZE');
+$pageSize = Application::get('CATEGORY.LIST_SIZE');
 
 $count = $categoryRepository->getCount();
-$lastSite = ceil($count / $siteSize);
+$pageCount = ceil($count / $pageSize);
 
-$currentSite = HTTP::GET('site') ?? 1;
-$currentSite = intval($currentSite);
+$pageNumber = HTTP::GET('site') ?? 1;
+$pageNumber = intval($pageNumber);
 
-if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
+if($pageNumber < 1 or ($pageNumber > $pageCount and $pageCount > 0)) {
 	Application::error404();
 }
 
@@ -37,8 +37,8 @@ if(Application::get('CATEGORY.REDIRECT_SINGLE') === true and $count === 1) {
 # Get paginated category list
 #===============================================================================
 $categories = $categoryRepository->getPaginatedTree(
-	$siteSize,
-	($currentSite-1) * $siteSize
+	$pageSize,
+	($pageNumber-1) * $pageSize
 );
 
 foreach($categories as $category) {
@@ -50,10 +50,10 @@ foreach($categories as $category) {
 #===============================================================================
 $listTemplate = Template\Factory::build('category/list');
 $listTemplate->set('PAGINATION', [
-	'THIS' => $currentSite,
-	'LAST' => $lastSite,
+	'THIS' => $pageNumber,
+	'LAST' => $pageCount,
 	'HTML' => createPaginationTemplate(
-		$currentSite, $lastSite, Application::getCategoryURL())
+		$pageNumber, $pageCount, Application::getCategoryURL())
 ]);
 $listTemplate->set('LIST', [
 	'CATEGORIES' => $templates ?? []
@@ -62,7 +62,7 @@ $listTemplate->set('LIST', [
 $mainTemplate = Template\Factory::build('main');
 $mainTemplate->set('HTML', $listTemplate);
 $mainTemplate->set('HEAD', [
-	'NAME' => $language->text('title_category_overview', $currentSite)
+	'NAME' => $language->text('title_category_overview', $pageNumber)
 ]);
 
 echo $mainTemplate;

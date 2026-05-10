@@ -12,16 +12,16 @@ $postRepository = Application::getRepository('Post');
 #===============================================================================
 # Pagination
 #===============================================================================
-$siteSize = Application::get('POST.LIST_SIZE');
-$siteSort = Application::get('POST.LIST_SORT');
+$pageSize = Application::get('POST.LIST_SIZE');
+$sortOrder = Application::get('POST.LIST_SORT');
 
 $count = $postRepository->getCount();
-$lastSite = ceil($count / $siteSize);
+$pageCount = ceil($count / $pageSize);
 
-$currentSite = HTTP::GET('site') ?? 1;
-$currentSite = intval($currentSite);
+$pageNumber = HTTP::GET('site') ?? 1;
+$pageNumber = intval($pageNumber);
 
-if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
+if($pageNumber < 1 or ($pageNumber > $pageCount and $pageCount > 0)) {
 	Application::error404();
 }
 
@@ -37,9 +37,9 @@ if(Application::get('POST.REDIRECT_SINGLE') === true and $count === 1) {
 # Get paginated post list
 #===============================================================================
 $posts = $postRepository->getPaginated(
-	$siteSort,
-	$siteSize,
-	($currentSite-1) * $siteSize
+	$sortOrder,
+	$pageSize,
+	($pageNumber-1) * $pageSize
 );
 
 foreach($posts as $post) {
@@ -51,10 +51,10 @@ foreach($posts as $post) {
 #===============================================================================
 $listTemplate = Template\Factory::build('post/list');
 $listTemplate->set('PAGINATION', [
-	'THIS' => $currentSite,
-	'LAST' => $lastSite,
+	'THIS' => $pageNumber,
+	'LAST' => $pageCount,
 	'HTML' => createPaginationTemplate(
-		$currentSite, $lastSite, Application::getPostURL())
+		$pageNumber, $pageCount, Application::getPostURL())
 ]);
 $listTemplate->set('LIST', [
 	'POSTS' => $templates ?? []
@@ -63,7 +63,7 @@ $listTemplate->set('LIST', [
 $mainTemplate = Template\Factory::build('main');
 $mainTemplate->set('HTML', $listTemplate);
 $mainTemplate->set('HEAD', [
-	'NAME' => $language->text('title_post_overview', $currentSite)
+	'NAME' => $language->text('title_post_overview', $pageNumber)
 ]);
 
 echo $mainTemplate;

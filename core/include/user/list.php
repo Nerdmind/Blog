@@ -12,16 +12,16 @@ $userRepository = Application::getRepository('User');
 #===============================================================================
 # Pagination
 #===============================================================================
-$siteSize = Application::get('USER.LIST_SIZE');
-$siteSort = Application::get('USER.LIST_SORT');
+$pageSize = Application::get('USER.LIST_SIZE');
+$sortOrder = Application::get('USER.LIST_SORT');
 
 $count = $userRepository->getCount();
-$lastSite = ceil($count / $siteSize);
+$pageCount = ceil($count / $pageSize);
 
-$currentSite = HTTP::GET('site') ?? 1;
-$currentSite = intval($currentSite);
+$pageNumber = HTTP::GET('site') ?? 1;
+$pageNumber = intval($pageNumber);
 
-if($currentSite < 1 or ($currentSite > $lastSite and $lastSite > 0)) {
+if($pageNumber < 1 or ($pageNumber > $pageCount and $pageCount > 0)) {
 	Application::error404();
 }
 
@@ -37,9 +37,9 @@ if(Application::get('USER.REDIRECT_SINGLE') === true and $count === 1) {
 # Get paginated user list
 #===============================================================================
 $users = $userRepository->getPaginated(
-	$siteSort,
-	$siteSize,
-	($currentSite-1) * $siteSize
+	$sortOrder,
+	$pageSize,
+	($pageNumber-1) * $pageSize
 );
 
 foreach($users as $user) {
@@ -51,10 +51,10 @@ foreach($users as $user) {
 #===============================================================================
 $listTemplate = Template\Factory::build('user/list');
 $listTemplate->set('PAGINATION', [
-	'THIS' => $currentSite,
-	'LAST' => $lastSite,
+	'THIS' => $pageNumber,
+	'LAST' => $pageCount,
 	'HTML' => createPaginationTemplate(
-		$currentSite, $lastSite, Application::getUserURL()
+		$pageNumber, $pageCount, Application::getUserURL()
 	)
 ]);
 $listTemplate->set('LIST', [
@@ -64,7 +64,7 @@ $listTemplate->set('LIST', [
 $mainTemplate = Template\Factory::build('main');
 $mainTemplate->set('HTML', $listTemplate);
 $mainTemplate->set('HEAD', [
-	'NAME' => $language->text('title_user_overview', $currentSite)
+	'NAME' => $language->text('title_user_overview', $pageNumber)
 ]);
 
 echo $mainTemplate;

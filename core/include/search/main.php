@@ -12,12 +12,12 @@ $postRepository = Application::getRepository('Post');
 #===============================================================================
 # Pagination
 #===============================================================================
-$siteSize = Application::get('POST.LIST_SIZE');
-$siteSort = Application::get('POST.LIST_SORT');
+$pageSize = Application::get('POST.LIST_SIZE');
+$sortOrder = Application::get('POST.LIST_SORT');
 
-$currentSite = HTTP::GET('site') ?? 1;
-$currentSite = intval($currentSite);
-$offset = ($currentSite-1) * $siteSize;
+$pageNumber = HTTP::GET('site') ?? 1;
+$pageNumber = intval($pageNumber);
+$offset = ($pageNumber-1) * $pageSize;
 
 if($search = HTTP::GET('q')) {
 	$filter = [
@@ -27,7 +27,7 @@ if($search = HTTP::GET('q')) {
 	];
 
 	try {
-		if (!$posts = $postRepository->search($search, $filter, $siteSize, $offset)) {
+		if (!$posts = $postRepository->search($search, $filter, $pageSize, $offset)) {
 			$message = $language->text('search_no_results', htmlspecialchars($search));
 		}
 	} catch(PDOException $exception) {
@@ -62,7 +62,7 @@ if(!empty($posts)) {
 	}
 
 	$count = $postRepository->getLastSearchOverallCount();
-	$last = ceil($count / $siteSize);
+	$pageCount = ceil($count / $pageSize);
 
 	$resultTemplate = Template\Factory::build('search/result');
 	$resultTemplate->set('FORM', $formData);
@@ -72,10 +72,10 @@ if(!empty($posts)) {
 	]);
 
 	$resultTemplate->set('PAGINATION', [
-		'THIS' => $currentSite,
-		'LAST' => $last,
+		'THIS' => $pageNumber,
+		'LAST' => $pageCount,
 		'HTML' => createPaginationTemplate(
-			$currentSite, $last, Application::getURL('search/')
+			$pageNumber, $pageCount, Application::getURL('search/')
 		)
 	]);
 

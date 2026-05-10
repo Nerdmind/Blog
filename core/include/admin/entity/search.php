@@ -4,12 +4,12 @@ $language = Application::getLanguage();
 
 $repository = Application::getRepository($entityClassName);
 
-$siteSize = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entityClassName)));
-$siteSort = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entityClassName)));
+$pageSize = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entityClassName)));
+$sortOrder = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entityClassName)));
 
-$currentSite = HTTP::GET('site') ?? 1;
-$currentSite = intval($currentSite);
-$offset = ($currentSite-1) * $siteSize;
+$pageNumber = HTTP::GET('site') ?? 1;
+$pageNumber = intval($pageNumber);
+$offset = ($pageNumber-1) * $pageSize;
 
 if($search = HTTP::GET('q')) {
 	try {
@@ -20,7 +20,7 @@ if($search = HTTP::GET('q')) {
 			];
 		}
 
-		if(!$entities = $repository->search($search, $filter ?? [], $siteSize, $offset)) {
+		if(!$entities = $repository->search($search, $filter ?? [], $pageSize, $offset)) {
 			$messages[] = Application::getLanguage()->text(
 				'search_no_results', htmlspecialchars($search));
 		}
@@ -35,13 +35,13 @@ if($search = HTTP::GET('q')) {
 
 // Create pagination only if there are search results
 if($count = $repository->getLastSearchOverallCount()) {
-	$last = ceil($count / $siteSize);
+	$pageCount = ceil($count / $pageSize);
 
 	$paginationData = [
-		'THIS' => $currentSite,
-		'LAST' => $last,
+		'THIS' => $pageNumber,
+		'LAST' => $pageCount,
 		'HTML' => createPaginationTemplate(
-			$currentSite, $last, Application::getAdminURL(sprintf('%s/search.php', $entityType))
+			$pageNumber, $pageCount, Application::getAdminURL(sprintf('%s/search.php', $entityType))
 		)
 	];
 }
