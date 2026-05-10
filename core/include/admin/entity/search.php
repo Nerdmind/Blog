@@ -2,10 +2,10 @@
 
 $language = Application::getLanguage();
 
-$repository = Application::getRepository($entityNs);
+$repository = Application::getRepository($entityClassName);
 
-$siteSize = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entityNs)));
-$siteSort = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entityNs)));
+$siteSize = Application::get(sprintf('ADMIN.%s.LIST_SIZE', strtoupper($entityClassName)));
+$siteSort = Application::get(sprintf('ADMIN.%s.LIST_SORT', strtoupper($entityClassName)));
 
 $currentSite = HTTP::GET('site') ?? 1;
 $currentSite = intval($currentSite);
@@ -13,7 +13,7 @@ $offset = ($currentSite-1) * $siteSize;
 
 if($search = HTTP::GET('q')) {
 	try {
-		if($entityNs === 'Post') {
+		if($entityClassName === 'Post') {
 			$filter = [
 				'user' => HTTP::GET('user'),
 				'category' => HTTP::GET('category')
@@ -41,7 +41,7 @@ if($count = $repository->getLastSearchOverallCount()) {
 		'THIS' => $currentSite,
 		'LAST' => $last,
 		'HTML' => createPaginationTemplate(
-			$currentSite, $last, Application::getAdminURL(sprintf('%s/search.php', $entityStr))
+			$currentSite, $last, Application::getAdminURL(sprintf('%s/search.php', $entityType))
 		)
 	];
 }
@@ -52,7 +52,7 @@ $formData = [
 ];
 
 // For pages and posts we have a user
-if(in_array($entityNs, ['Page', 'Post'])) {
+if(in_array($entityClassName, ['Page', 'Post'])) {
 	$userRepository = Application::getRepository('User');
 
 	foreach($userRepository->getAll([], 'fullname ASC') as $user) {
@@ -66,7 +66,7 @@ if(in_array($entityNs, ['Page', 'Post'])) {
 	}
 }
 
-if($entityNs === 'Post') {
+if($entityClassName === 'Post') {
 	$formData['DATA']['USER'] = HTTP::GET('user');
 	$formData['DATA']['CATEGORY'] = HTTP::GET('category');
 
@@ -84,14 +84,14 @@ if($entityNs === 'Post') {
 	$formData['CATEGORY_TREE'] = generateCategoryDataTree($categoryList ?? []);
 }
 
-$searchTemplate = Template\Factory::build(sprintf('%s/search', $entityStr));
+$searchTemplate = Template\Factory::build(sprintf('%s/search', $entityType));
 $searchTemplate->set('QUERY', $search);
 $searchTemplate->set($listKeyPlural, $templates ?? []);
 $searchTemplate->set('FORM', $formData);
 $searchTemplate->set('PAGINATION', $paginationData ?? []);
 
 $template = Template\Factory::build('main');
-$template->set('NAME', $language->text(sprintf('title_%s_search', $entityStr)));
+$template->set('NAME', $language->text(sprintf('title_%s_search', $entityType)));
 $template->set('HTML', $searchTemplate);
 
 echo $template;

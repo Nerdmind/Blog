@@ -30,17 +30,17 @@ function createPaginationTemplate($current, $last, string $location): Template {
 }
 
 function createEntityItemTemplate(EntityInterface $entity, array $params = []): Template {
-	$entityNs = explode('\\', get_class($entity));
-	$entityNs = end($entityNs);
-	$entityStr = strtolower($entityNs);
+	$entityClassName = explode('\\', get_class($entity));
+	$entityClassName = end($entityClassName);
+	$entityType = strtolower($entityClassName);
 
-	$template = TemplateFactory::build(sprintf('%s/item', $entityStr));
+	$template = TemplateFactory::build(sprintf('%s/item', $entityType));
 
-	if(in_array($entityNs, ['Category', 'Post'])) {
+	if(in_array($entityClassName, ['Category', 'Post'])) {
 		$categoryRepository = Application::getRepository('Category');
 	}
 
-	if($entityNs === 'Category') {
+	if($entityClassName === 'Category') {
 		foreach($categoryRepository->findWithParents($entity->getID()) as $category) {
 			$categoryData = generateItemTemplateData($category);
 			$categoryList[] = $categoryData;
@@ -55,7 +55,7 @@ function createEntityItemTemplate(EntityInterface $entity, array $params = []): 
 		]);
 	}
 
-	else if($entityNs === 'Post') {
+	else if($entityClassName === 'Post') {
 		foreach($categoryRepository->findWithParents($entity->get('category')) as $category) {
 			$categoryData = generateItemTemplateData($category);
 			$categories[] = $categoryData;
@@ -66,13 +66,13 @@ function createEntityItemTemplate(EntityInterface $entity, array $params = []): 
 	}
 
 	// For pages and posts we have a user relation
-	if(in_array($entityNs, ['Page', 'Post'])) {
+	if(in_array($entityClassName, ['Page', 'Post'])) {
 		$userRepository = Application::getRepository('User');
 		$user = $userRepository->find($entity->get('user'));
 		$template->set('USER', generateItemTemplateData($user));
 	}
 
-	$template->set(strtoupper($entityNs), generateItemTemplateData($entity));
+	$template->set(strtoupper($entityClassName), generateItemTemplateData($entity));
 
 	return $template;
 }

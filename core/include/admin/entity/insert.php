@@ -2,20 +2,20 @@
 
 $language = Application::getLanguage();
 
-$entity = new (sprintf('ORM\\Entity\\%s', $entityNs));
+$entity = new (sprintf('ORM\\Entity\\%s', $entityClassName));
 
 if(HTTP::issetPOST('insert')) {
 	$slugFrom = 'name';
 
-	if($entityNs === 'Category') {
+	if($entityClassName === 'Category') {
 		$entity->set('parent', HTTP::POST('parent') ?: null);
 	}
 
-	else if($entityNs === 'Post') {
+	else if($entityClassName === 'Post') {
 		$entity->set('category', HTTP::POST('category') ?: null);
 	}
 
-	else if($entityNs === 'User') {
+	else if($entityClassName === 'User') {
 		$slugFrom = 'username';
 
 		$entity->set('fullname', HTTP::POST('fullname') ?: null);
@@ -24,11 +24,11 @@ if(HTTP::issetPOST('insert')) {
 		$entity->set('password', HTTP::POST('password') ? password_hash(HTTP::POST('password'), PASSWORD_BCRYPT, ['cost' => 10]) : false);
 	}
 
-	if(in_array($entityNs, ['Category', 'Page', 'Post'])) {
+	if(in_array($entityClassName, ['Category', 'Page', 'Post'])) {
 		$entity->set('name', HTTP::POST('name') ?: null);
 	}
 
-	if(in_array($entityNs, ['Page', 'Post'])) {
+	if(in_array($entityClassName, ['Page', 'Post'])) {
 		$entity->set('user', HTTP::POST('user'));
 	}
 
@@ -41,11 +41,11 @@ if(HTTP::issetPOST('insert')) {
 
 	if(HTTP::issetPOST(['token' => Application::getSecurityToken()])) {
 		try {
-			$repository = Application::getRepository($entityNs);
+			$repository = Application::getRepository($entityClassName);
 			$repository->insert($entity);
 
 			HTTP::redirect(
-				Application::getAdminURL(sprintf('%s/', $entityStr)));
+				Application::getAdminURL(sprintf('%s/', $entityType)));
 		} catch(PDOException $exception) {
 			$messages[] = $exception->getMessage();
 		}
@@ -56,7 +56,7 @@ if(HTTP::issetPOST('insert')) {
 	}
 }
 
-if($entityNs === 'User') {
+if($entityClassName === 'User') {
 	$excludeList = ['password'];
 }
 
@@ -68,7 +68,7 @@ $formData = [
 ];
 
 // For pages and posts we have a user
-if(in_array($entityNs, ['Page', 'Post'])) {
+if(in_array($entityClassName, ['Page', 'Post'])) {
 	$userRepository = Application::getRepository('User');
 
 	foreach($userRepository->getAll([], 'fullname ASC') as $user) {
@@ -83,7 +83,7 @@ if(in_array($entityNs, ['Page', 'Post'])) {
 }
 
 // For posts and categories, we also have a category list
-if(in_array($entityNs, ['Category', 'Post'])) {
+if(in_array($entityClassName, ['Category', 'Post'])) {
 	$categoryRepository = Application::getRepository('Category');
 
 	foreach($categoryRepository->getAll([], 'name ASC') as $category) {
@@ -98,14 +98,14 @@ if(in_array($entityNs, ['Category', 'Post'])) {
 	$formData['CATEGORY_TREE'] = generateCategoryDataTree($categoryList ?? []);
 }
 
-$formTemplate = Template\Factory::build(sprintf('%s/form', $entityStr));
+$formTemplate = Template\Factory::build(sprintf('%s/form', $entityType));
 $formTemplate->set('FORM', $formData);
 
-$insertTemplate = Template\Factory::build(sprintf('%s/insert', $entityStr));
+$insertTemplate = Template\Factory::build(sprintf('%s/insert', $entityType));
 $insertTemplate->set('HTML', $formTemplate);
 
 $template = Template\Factory::build('main');
-$template->set('NAME', $language->text(sprintf('title_%s_insert', $entityStr)));
+$template->set('NAME', $language->text(sprintf('title_%s_insert', $entityType)));
 $template->set('HTML', $insertTemplate);
 
 echo $template;

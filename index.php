@@ -31,8 +31,8 @@ Router::add('admin/auth.php', function() {
 	require 'core/include/admin/login.php';
 });
 
-foreach(['Category', 'Page', 'Post', 'User'] as $entityNs) {
-	$entityStr = strtolower($entityNs);
+foreach(['Category', 'Page', 'Post', 'User'] as $entityClassName) {
+	$entityType = strtolower($entityClassName);
 	$pluralMap = [
 		'category' => 'categories',
 		'page' => 'pages',
@@ -40,25 +40,25 @@ foreach(['Category', 'Page', 'Post', 'User'] as $entityNs) {
 		'user' => 'users'
 	];
 
-	$listKeyPlural = strtoupper($pluralMap[$entityStr]);
+	$listKeyPlural = strtoupper($pluralMap[$entityType]);
 
-	Router::add(sprintf('admin/%s/', $entityStr),
-		function() use($entityNs, $entityStr, $listKeyPlural) {
+	Router::add(sprintf('admin/%s/', $entityType),
+		function() use($entityClassName, $entityType, $listKeyPlural) {
 			setupAdminEnv();
 			require 'core/include/admin/entity/list.php';
 		}
 	);
 
 	// Ensure trailing slash for list controllers
-	Router::addRedirect(sprintf('admin/%s', $entityStr),
-		Application::getURL(sprintf('admin/%s/', $entityStr)));
+	Router::addRedirect(sprintf('admin/%s', $entityType),
+		Application::getURL(sprintf('admin/%s/', $entityType)));
 
-	$routeTemplate = sprintf('admin/%s/%%s.php', $entityStr);
+	$routeTemplate = sprintf('admin/%s/%%s.php', $entityType);
 
 	// Routes for create/update/delete
 	foreach(['insert', 'update', 'delete'] as $action) {
 		Router::add(sprintf($routeTemplate, $action),
-			function() use($entityNs, $entityStr, $listKeyPlural, $action) {
+			function() use($entityClassName, $entityType, $listKeyPlural, $action) {
 				setupAdminEnv();
 				require sprintf('core/include/admin/entity/%s.php', $action);
 			}
@@ -66,9 +66,9 @@ foreach(['Category', 'Page', 'Post', 'User'] as $entityNs) {
 	}
 
 	// Routes for post and page search
-	if(in_array($entityNs, ['Page', 'Post'])) {
+	if(in_array($entityClassName, ['Page', 'Post'])) {
 		Router::add(sprintf($routeTemplate, 'search'),
-			function() use($entityNs, $entityStr, $listKeyPlural) {
+			function() use($entityClassName, $entityType, $listKeyPlural) {
 				setupAdminEnv();
 				require 'core/include/admin/entity/search.php';
 			}

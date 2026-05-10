@@ -2,7 +2,7 @@
 
 $language = Application::getLanguage();
 
-$repository = Application::getRepository($entityNs);
+$repository = Application::getRepository($entityClassName);
 
 if(!$entity = $repository->find(HTTP::GET('id'))) {
 	Application::error404();
@@ -14,7 +14,7 @@ if(HTTP::issetPOST('delete')) {
 			$repository->delete($entity);
 
 			HTTP::redirect(
-				Application::getAdminURL(sprintf('%s/', $entityStr)));
+				Application::getAdminURL(sprintf('%s/', $entityType)));
 		} catch(PDOException $exception) {
 			$messages[] = $exception->getMessage();
 		}
@@ -23,11 +23,11 @@ if(HTTP::issetPOST('delete')) {
 	}
 }
 
-if($entityNs === 'User') {
+if($entityClassName === 'User') {
 	$excludeList = ['password'];
 }
 
-$formTemplate = Template\Factory::build(sprintf('%s/form', $entityStr));
+$formTemplate = Template\Factory::build(sprintf('%s/form', $entityType));
 $formTemplate->set('HTML', parseEntityContent($entity));
 $formTemplate->set('FORM', [
 	'TYPE' => 'DELETE',
@@ -36,11 +36,11 @@ $formTemplate->set('FORM', [
 	'TOKEN' => Application::getSecurityToken()
 ]);
 
-$deleteTemplate = Template\Factory::build(sprintf('%s/delete', $entityStr));
+$deleteTemplate = Template\Factory::build(sprintf('%s/delete', $entityType));
 $deleteTemplate->set('HTML', $formTemplate);
 
 $template = Template\Factory::build('main');
-$template->set('NAME', $language->text(sprintf('title_%s_delete', $entityStr)));
+$template->set('NAME', $language->text(sprintf('title_%s_delete', $entityType)));
 $template->set('HTML', $deleteTemplate);
 
 echo $template;
