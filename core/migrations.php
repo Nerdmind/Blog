@@ -5,6 +5,15 @@
 $migrator = Application::getMigrator();
 
 #===============================================================================
+# Check for an unsupported downgrade attempt
+#===============================================================================
+if($migrator->isDowngradeAttempt()) {
+	throw new Exception('MIGRATOR: The schema version used by *your* database is
+		higher than the schema version defined in the codebase. It is officially
+		not supported to automatically downgrade the database schema version!');
+}
+
+#===============================================================================
 # Check for outstanding database schema migrations
 #===============================================================================
 if($migrator->isMigrationNeeded()) {
@@ -32,13 +41,4 @@ if($migrator->isMigrationNeeded()) {
 	]);
 
 	Application::exit($template);
-}
-
-#===============================================================================
-# Check for an unsupported downgrade attempt
-#===============================================================================
-elseif($migrator->isDowngradeAttempt()) {
-	throw new Exception('MIGRATOR: The schema version used by *your* database is
-		higher than the schema version defined in the codebase. It is officially
-		not supported to automatically downgrade the database schema version!');
 }
