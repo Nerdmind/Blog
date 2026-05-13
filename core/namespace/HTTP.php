@@ -121,7 +121,7 @@ class HTTP {
 				}
 			}
 
-			else if(!isset($data[$key]) or !is_string($data[$key])) {
+			elseif(!isset($data[$key]) or !is_string($data[$key])) {
 				return false;
 			}
 		}

@@ -37,7 +37,7 @@ if($migrator->isMigrationNeeded()) {
 #===============================================================================
 # Check for an unsupported downgrade attempt
 #===============================================================================
-else if($migrator->isDowngradeAttempt()) {
+elseif($migrator->isDowngradeAttempt()) {
 	throw new Exception('MIGRATOR: The schema version used by *your* database is
 		higher than the schema version defined in the codebase. It is officially
 		not supported to automatically downgrade the database schema version!');

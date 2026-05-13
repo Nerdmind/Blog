@@ -11,11 +11,11 @@ if(HTTP::issetPOST('insert')) {
 		$entity->set('parent', HTTP::POST('parent') ?: null);
 	}
 
-	else if($entityClassName === 'Post') {
+	elseif($entityClassName === 'Post') {
 		$entity->set('category', HTTP::POST('category') ?: null);
 	}
 
-	else if($entityClassName === 'User') {
+	elseif($entityClassName === 'User') {
 		$slugFrom = 'username';
 
 		$entity->set('fullname', HTTP::POST('fullname') ?: null);

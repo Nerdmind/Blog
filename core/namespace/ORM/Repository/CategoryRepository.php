@@ -127,7 +127,7 @@ class CategoryRepository extends Repository {
 				$updateStatement = $this->database->prepare($query);
 				$updateStatement->execute([$_parent, $entity->get('parent')]);
 				break;
-			} else if($_parent === null) {
+			} elseif($_parent === null) {
 				break;
 			}
 		}

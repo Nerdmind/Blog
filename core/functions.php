@@ -55,7 +55,7 @@ function createEntityItemTemplate(EntityInterface $entity, array $params = []): 
 		]);
 	}
 
-	else if($entityClassName === 'Post') {
+	elseif($entityClassName === 'Post') {
 		foreach($categoryRepository->findWithParents($entity->get('category')) as $category) {
 			$categoryData = generateItemTemplateData($category);
 			$categories[] = $categoryData;
