@@ -33,31 +33,29 @@ Router::add('admin/auth.php', function() {
 
 foreach(['Category', 'Page', 'Post', 'User'] as $entityClassName) {
 	$entityType = strtolower($entityClassName);
-	$pluralMap = [
+	$listKeyPlural = strtoupper([
 		'category' => 'categories',
 		'page' => 'pages',
 		'post' => 'posts',
 		'user' => 'users'
-	];
+	][$entityType]);
 
-	$listKeyPlural = strtoupper($pluralMap[$entityType]);
+	$entityBasePath = Application::get(strtoupper($entityType).'.DIRECTORY');
+	$adminRouteTemplate = sprintf('admin/%s/%%s.php', $entityType);
 
-	Router::add(sprintf('admin/%s/', $entityType),
-		function() use($entityClassName, $entityType, $listKeyPlural) {
-			setupAdminEnv();
-			require 'core/include/admin/entity/list.php';
-		}
-	);
+	// Entity list routes (frontend)
+	Router::add("{$entityBasePath}/", function() use($entityType) {
+		require "core/include/{$entityType}/list.php";
+	});
 
-	// Ensure trailing slash for list controllers
-	Router::addRedirect(sprintf('admin/%s', $entityType),
-		Application::getURL(sprintf('admin/%s/', $entityType)));
+	// Entity show routes (frontend)
+	Router::add("{$entityBasePath}/([^/]+)/", function($param) use($entityType) {
+		require "core/include/{$entityType}/main.php";
+	});
 
-	$routeTemplate = sprintf('admin/%s/%%s.php', $entityType);
-
-	// Routes for create/update/delete
+	// Entity insert/update/delete routes (backend)
 	foreach(['insert', 'update', 'delete'] as $action) {
-		Router::add(sprintf($routeTemplate, $action),
+		Router::add(sprintf($adminRouteTemplate, $action),
 			function() use($entityClassName, $entityType, $listKeyPlural, $action) {
 				setupAdminEnv();
 				require sprintf('core/include/admin/entity/%s.php', $action);
@@ -65,39 +63,36 @@ foreach(['Category', 'Page', 'Post', 'User'] as $entityClassName) {
 		);
 	}
 
-	// Routes for post and page search
+	// Entity list routes (backend)
+	Router::add(sprintf('admin/%s/', $entityType),
+		function() use($entityClassName, $entityType, $listKeyPlural) {
+			setupAdminEnv();
+			require 'core/include/admin/entity/list.php';
+		}
+	);
+
+	// Entity search routes for pages and posts (backend)
 	if(in_array($entityClassName, ['Page', 'Post'])) {
-		Router::add(sprintf($routeTemplate, 'search'),
+		Router::add(sprintf($adminRouteTemplate, 'search'),
 			function() use($entityClassName, $entityType, $listKeyPlural) {
 				setupAdminEnv();
 				require 'core/include/admin/entity/search.php';
 			}
 		);
 	}
-}
 
-// Ensure trailing slash for admin index controller
-Router::addRedirect('admin', 'admin/');
+	// Enforce trailing slashes
+	Router::addRedirect($entityBasePath,
+		Application::getURL("{$entityBasePath}/"));
 
-#===============================================================================
-# ROUTE: Item controllers
-#===============================================================================
-foreach(['category', 'page', 'post', 'user'] as $item) {
-	$slug = Application::get(strtoupper($item).'.DIRECTORY');
+	Router::addRedirect("{$entityBasePath}/([^/]+)",
+		Application::getURL("{$entityBasePath}/$1/"));
 
-	# Item list controller
-	Router::add("{$slug}/", function() use($item) {
-		require "core/include/{$item}/list.php";
-	});
+	Router::addRedirect(sprintf('admin/%s', $entityType),
+		Application::getURL(sprintf('admin/%s/', $entityType)));
 
-	# Item show controller
-	Router::add("{$slug}/([^/]+)/", function($param) use($item) {
-		require "core/include/{$item}/main.php";
-	});
-
-	# Item controllers (ensure trailing slashes)
-	Router::addRedirect($slug, Application::getURL("{$slug}/"));
-	Router::addRedirect("{$slug}/([^/]+)", Application::getURL("{$slug}/$1/"));
+	Router::addRedirect(sprintf('admin/%s', $entityType),
+		Application::getURL(sprintf('admin/%s/', $entityType)));
 }
 
 #===============================================================================
@@ -110,26 +105,29 @@ Router::add('', function() {
 #===============================================================================
 # ROUTE: Feed and Search
 #===============================================================================
-Router::add('(feed|search)/', function($slug) {
-	require "core/include/{$slug}/main.php";
+Router::add('(feed|search)/', function($param) {
+	require "core/include/{$param}/main.php";
 });
-
-#===============================================================================
-# REDIRECT: Feed and Search (trailing slash)
-#===============================================================================
-Router::addRedirect('(feed|search)', Application::getURL('$1/'));
 
 #===============================================================================
 # REDIRECT: Favicon
 #===============================================================================
-Router::addRedirect('favicon.ico', Application::getTemplateURL('static/favicon.ico'));
+Router::addRedirect('favicon.ico',
+	Application::getTemplateURL('static/favicon.ico'));
+
+#===============================================================================
+# REDIRECT: Enforce trailing slashes
+#===============================================================================
+Router::addRedirect('(admin|feed|search)',
+	Application::getURL('$1/'));
 
 #===============================================================================
 # BACKWARD COMPATIBILITY: Redirect to the new post feed URL
 #===============================================================================
-Router::addRedirect('feed/post/', Application::getURL('feed/'), 301);
+Router::addRedirect('feed/post/',
+	Application::getURL('feed/'), 301);
 
 #===============================================================================
-# Execute router and route requests
+# Route request
 #===============================================================================
 Router::execute(parse_url(HTTP::requestURI(), PHP_URL_PATH));
