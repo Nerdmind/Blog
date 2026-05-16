@@ -8,40 +8,21 @@ $postRepository = Application::getRepository('Post');
 #===============================================================================
 # Try to find category (with parents) by slug URL or unique ID
 #===============================================================================
-if(Application::get('CATEGORY.SLUG_URLS')) {
-	if(!$categories = $categoryRepository->findWithParentsBy('slug', $param)) {
-		if($categories = $categoryRepository->findWithParents($param)) {
-			$redirectScheduled = true;
-		}
-	}
-}
+$findBy = Application::get('CATEGORY.SLUG_URLS') ? 'slug' : 'id';
+$findByAlternative = $findBy === 'slug' ? 'id' : 'slug';
 
-else {
-	if(!$categories = $categoryRepository->findWithParents($param)) {
-		if($categories = $categoryRepository->findWithParentsBy('slug', $param)) {
-			$redirectScheduled = true;
-		}
+if(!$categories = $categoryRepository->findWithParentsBy($findBy, $param)) {
+	if($category = $categoryRepository->findBy($findByAlternative, $param)) {
+		HTTP::redirect(Application::getEntityURL($category));
+	} else {
+		Application::error404();
 	}
-}
-
-#===============================================================================
-# Throw 404 error if category (with parents) could not be found
-#===============================================================================
-if(empty($categories)) {
-	Application::error404();
 }
 
 #===============================================================================
 # The last element represents the current category
 #===============================================================================
 $category = $categories[array_key_last($categories)];
-
-#===============================================================================
-# If category with parents was found by alternative, redirect to correct URL
-#===============================================================================
-if(isset($redirectScheduled)) {
-	HTTP::redirect(Application::getEntityURL($category));
-}
 
 #===============================================================================
 # Generate category template data (including parents)

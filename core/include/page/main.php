@@ -8,27 +8,15 @@ $userRepository = Application::getRepository('User');
 #===============================================================================
 # Try to find page by slug URL or unique ID
 #===============================================================================
-if(Application::get('PAGE.SLUG_URLS')) {
-	if(!$page = $pageRepository->findBy('slug', $param)) {
-		if($page = $pageRepository->find($param)) {
-			HTTP::redirect(Application::getEntityURL($page));
-		}
-	}
-}
+$findBy = Application::get('PAGE.SLUG_URLS') ? 'slug' : 'id';
+$findByAlternative = $findBy === 'slug' ? 'id' : 'slug';
 
-else {
-	if(!$page = $pageRepository->find($param)) {
-		if($page = $pageRepository->findBy('slug', $param)) {
-			HTTP::redirect(Application::getEntityURL($page));
-		}
+if(!$page = $pageRepository->findBy($findBy, $param)) {
+	if($page = $pageRepository->findBy($findByAlternative, $param)) {
+		HTTP::redirect(Application::getEntityURL($page));
+	} else {
+		Application::error404();
 	}
-}
-
-#===============================================================================
-# Throw 404 error if page could not be found
-#===============================================================================
-if(!isset($page)) {
-	Application::error404();
 }
 
 #===============================================================================

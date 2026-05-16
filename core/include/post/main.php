@@ -9,27 +9,15 @@ $userRepository = Application::getRepository('User');
 #===============================================================================
 # Try to find post by slug URL or unique ID
 #===============================================================================
-if(Application::get('POST.SLUG_URLS')) {
-	if(!$post = $postRepository->findBy('slug', $param)) {
-		if($post = $postRepository->find($param)) {
-			HTTP::redirect(Application::getEntityURL($post));
-		}
-	}
-}
+$findBy = Application::get('POST.SLUG_URLS') ? 'slug' : 'id';
+$findByAlternative = $findBy === 'slug' ? 'id' : 'slug';
 
-else {
-	if(!$post = $postRepository->find($param)) {
-		if($post = $postRepository->findBy('slug', $param)) {
-			HTTP::redirect(Application::getEntityURL($post));
-		}
+if(!$post = $postRepository->findBy($findBy, $param)) {
+	if($post = $postRepository->findBy($findByAlternative, $param)) {
+		HTTP::redirect(Application::getEntityURL($post));
+	} else {
+		Application::error404();
 	}
-}
-
-#===============================================================================
-# Throw 404 error if post could not be found
-#===============================================================================
-if(!isset($post)) {
-	Application::error404();
 }
 
 #===============================================================================

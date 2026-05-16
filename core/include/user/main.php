@@ -7,27 +7,15 @@ $userRepository = Application::getRepository('User');
 #===============================================================================
 # Try to find user by slug URL or unique ID
 #===============================================================================
-if(Application::get('USER.SLUG_URLS')) {
-	if(!$user = $userRepository->findBy('slug', $param)) {
-		if($user = $userRepository->find($param)) {
-			HTTP::redirect(Application::getEntityURL($user));
-		}
-	}
-}
+$findBy = Application::get('USER.SLUG_URLS') ? 'slug' : 'id';
+$findByAlternative = $findBy === 'slug' ? 'id' : 'slug';
 
-else {
-	if(!$user = $userRepository->find($param)) {
-		if($user = $userRepository->findBy('slug', $param)) {
-			HTTP::redirect(Application::getEntityURL($user));
-		}
+if(!$user = $userRepository->findBy($findBy, $param)) {
+	if($user = $userRepository->findBy($findByAlternative, $param)) {
+		HTTP::redirect(Application::getEntityURL($user));
+	} else {
+		Application::error404();
 	}
-}
-
-#===============================================================================
-# Throw 404 error if user could not be found
-#===============================================================================
-if(!isset($user)) {
-	Application::error404();
 }
 
 #===============================================================================
